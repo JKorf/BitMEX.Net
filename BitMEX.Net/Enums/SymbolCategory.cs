@@ -6,30 +6,29 @@ using System.Text;
 namespace BitMEX.Net.Enums
 {
     /// <summary>
-    /// Order status
+    /// Category
     /// </summary>
-    public enum OrderStatus
+    public enum SymbolCategory
     {
         /// <summary>
-        /// New order
+        /// Contracts
         /// </summary>
-        [Map("new")]
-        New,
+        [Map("CONTRACTS")]
+        Contracts,
         /// <summary>
-        /// Filled
+        /// Indices
         /// </summary>
-#warning check, is there also a partial fill?
-        [Map("filled")]
-        Filled,
+        [Map("INDICES")]
+        Indices,
         /// <summary>
-        /// Canceled
+        /// Derivatives
         /// </summary>
-        [Map("Canceled")]
-        Canceled,
+        [Map("DERIVATIVES")]
+        Derivatives,
         /// <summary>
-        /// Rejected
+        /// Spot
         /// </summary>
-        [Map("Rejected")]
-        Rejected
+        [Map("SPOT")]
+        Spot
     }
 }

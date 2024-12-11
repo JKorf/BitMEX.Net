@@ -6,19 +6,14 @@ using System.Text;
 namespace BitMEX.Net.Enums
 {
     /// <summary>
-    /// Trade role
+    /// Transaction status
     /// </summary>
-    public enum TradeRole
+    public enum TransactionStatus
     {
         /// <summary>
-        /// Maker
+        /// Completed
         /// </summary>
-        [Map("maker", "Maker")]
-        Maker,
-        /// <summary>
-        /// Taker
-        /// </summary>
-        [Map("taker", "Taker")]
-        Taker
+        [Map("Completed")]
+        Completed
     }
 }

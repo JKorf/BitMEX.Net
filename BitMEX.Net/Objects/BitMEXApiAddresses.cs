@@ -19,8 +19,8 @@ namespace BitMEX.Net.Objects
         /// </summary>
         public static BitMEXApiAddresses Default = new BitMEXApiAddresses
         {
-            RestClientAddress = "https://www.bitmex.com/api/v1",
-            SocketClientAddress = "XXX"
+            RestClientAddress = "https://www.bitmex.com/",
+            SocketClientAddress = "wss://ws.bitmex.com/"
         };
     }
 }

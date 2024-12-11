@@ -111,6 +111,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -122,11 +123,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
         /// <summary>
-        /// Get aggregated trades
+        /// Get klines
         /// <para><a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_getBucketed" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
@@ -138,10 +140,11 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXAggTrade>>> GetAggregatedTradesAsync(
+        Task<WebCallResult<IEnumerable<BitMEXAggTrade>>> GetKlinesAsync(
             string symbol,
             BinPeriod period,
             SymbolFilter? symbolFilter = null,
@@ -151,6 +154,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -261,11 +265,11 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// Get order book
         /// <para><a href="https://www.bitmex.com/api/explorer/#!/OrderBook/OrderBook_getL2" /></para>
         /// </summary>
-        /// <param name="symbol"></param>
-        /// <param name="depth"></param>
-        /// <param name="ct"></param>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="limit">Number of rows</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXOrderBook>> GetOrderBookAsync(string symbol, int depth, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXOrderBook>> GetOrderBookAsync(string symbol, int limit, CancellationToken ct = default);
 
         /// <summary>
         /// Get insurance history
@@ -303,6 +307,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -314,6 +319,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 

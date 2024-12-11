@@ -21,7 +21,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="day">Day</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXExecutionHistory>>> GetExecutionHistoryByDayAsync(string symbol, DateTime day, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetExecutionHistoryByDayAsync(string symbol, DateTime day, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new order
@@ -82,6 +82,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -184,7 +185,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXExecutionHistory>>> GetUserExecutionsAsync(
+        Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetUserExecutionsAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -210,7 +211,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXExecutionHistory>>> GetUserTradesAsync(
+        Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetUserTradesAsync(
             IEnumerable<long>? targetAccountIds = null,
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
@@ -219,6 +220,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 

@@ -44,7 +44,7 @@ namespace BitMEX.Net.Objects.Models
         /// Deposit confirmations
         /// </summary>
         [JsonPropertyName("depositConfirmations")]
-        public decimal DepositConfirmations { get; set; }
+        public int? DepositConfirmations { get; set; }
         /// <summary>
         /// Enabled
         /// </summary>

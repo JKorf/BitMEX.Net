@@ -20,12 +20,12 @@ namespace BitMEX.Net.Objects.Models
         /// Client order id
         /// </summary>
         [JsonPropertyName("clOrdID")]
-        public string ClientOrderId { get; set; } = string.Empty;
+        public string? ClientOrderId { get; set; }
         /// <summary>
         /// Client order link id
         /// </summary>
         [JsonPropertyName("clOrdLinkID")]
-        public string ClientOrderLinkId { get; set; } = string.Empty;
+        public string? ClientOrderLinkId { get; set; }
         /// <summary>
         /// Account id
         /// </summary>
@@ -55,7 +55,7 @@ namespace BitMEX.Net.Objects.Models
         /// Display quantity
         /// </summary>
         [JsonPropertyName("displayQty")]
-        public decimal DisplayQuantity { get; set; }
+        public decimal? DisplayQuantity { get; set; }
         /// <summary>
         /// Stop price
         /// </summary>
@@ -65,7 +65,7 @@ namespace BitMEX.Net.Objects.Models
         /// Pegged order price type
         /// </summary>
         [JsonPropertyName("pegPriceType")]
-        public PeggedPriceType PeggedPriceType { get; set; }
+        public PeggedPriceType? PeggedPriceType { get; set; }
         /// <summary>
         /// Currency
         /// </summary>
@@ -75,7 +75,7 @@ namespace BitMEX.Net.Objects.Models
         /// Settlement asset
         /// </summary>
         [JsonPropertyName("settlCurrency")]
-        public string SettlementAsset { get; set; } = string.Empty;
+        public string? SettlementAsset { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
@@ -90,7 +90,7 @@ namespace BitMEX.Net.Objects.Models
         /// Execution instructions
         /// </summary>
         [JsonPropertyName("execInst")]
-        public ExecutionInstruction ExecutionInstruction { get; set; }
+        public ExecutionInstruction? ExecutionInstruction { get; set; }
         /// <summary>
         /// Contingency type
         /// </summary>
@@ -100,12 +100,12 @@ namespace BitMEX.Net.Objects.Models
         /// Order status
         /// </summary>
         [JsonPropertyName("ordStatus")]
-        public OrderStatus? OrderStatus { get; set; }
+        public OrderStatus Status { get; set; }
         /// <summary>
         /// Triggered
         /// </summary>
         [JsonPropertyName("triggered")]
-        public string Triggered { get; set; } = string.Empty;
+        public string? Triggered { get; set; }
         /// <summary>
         /// Working indicator
         /// </summary>
@@ -131,11 +131,6 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("avgPx")]
         public decimal? AveragePrice { get; set; }
-        /// <summary>
-        /// Text
-        /// </summary>
-        [JsonPropertyName("text")]
-        public string Text { get; set; } = string.Empty;
         /// <summary>
         /// Transact time
         /// </summary>

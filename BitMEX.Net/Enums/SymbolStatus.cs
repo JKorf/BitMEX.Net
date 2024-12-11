@@ -21,6 +21,11 @@ namespace BitMEX.Net.Enums
         [Map("Open")]
         Open,
         /// <summary>
+        /// Closed
+        /// </summary>
+        [Map("Closed")]
+        Closed,
+        /// <summary>
         /// Settled
         /// </summary>
         [Map("Settled")]

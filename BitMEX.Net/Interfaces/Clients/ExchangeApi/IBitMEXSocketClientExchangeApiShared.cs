@@ -9,7 +9,15 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
     /// Shared interface for Exchange socket API usage
     /// </summary>
     public interface IBitMEXSocketClientExchangeApiShared :
-        ISharedClient
+        ISpotOrderSocketClient,
+        IUserTradeSocketClient,
+        IBalanceSocketClient,
+        IBookTickerSocketClient,
+        IOrderBookSocketClient,
+        ITickerSocketClient,
+        ITradeSocketClient,
+        IFuturesOrderSocketClient,
+        IPositionSocketClient
     {
     }
 }

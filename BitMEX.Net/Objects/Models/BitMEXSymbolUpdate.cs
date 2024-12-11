@@ -1,4 +1,5 @@
 ﻿using BitMEX.Net.Enums;
+using BitMEX.Net.Objects.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,9 +8,9 @@ using System.Text.Json.Serialization;
 namespace BitMEX.Net.Objects.Models
 {
     /// <summary>
-    /// Symbol info
+    /// Symbol update
     /// </summary>
-    public record BitMEXSymbol
+    public record BitMEXSymbolUpdate : ISymbolModel
     {
         /// <summary>
         /// Symbol
@@ -20,22 +21,22 @@ namespace BitMEX.Net.Objects.Models
         /// Base asset
         /// </summary>
         [JsonPropertyName("rootSymbol")]
-        public string BaseAsset { get; set; } = string.Empty;
+        public string? BaseAsset { get; set; } = string.Empty;
         /// <summary>
         /// Status
         /// </summary>
         [JsonPropertyName("state")]
-        public SymbolStatus Status { get; set; }
+        public SymbolStatus? Status { get; set; }
         /// <summary>
         /// Symbol type
         /// </summary>
         [JsonPropertyName("typ")]
-        public SymbolType SymbolType { get; set; }
+        public SymbolType? SymbolType { get; set; }
         /// <summary>
         /// Listing time
         /// </summary>
         [JsonPropertyName("listing")]
-        public DateTime ListingTime { get; set; }
+        public DateTime? ListingTime { get; set; }
         /// <summary>
         /// Front time
         /// </summary>
@@ -60,17 +61,17 @@ namespace BitMEX.Net.Objects.Models
         /// Position asset
         /// </summary>
         [JsonPropertyName("positionCurrency")]
-        public string? PositionAsset { get; set; }
+        public string? PositionAsset { get; set; } = string.Empty;
         /// <summary>
         /// Underlying asset
         /// </summary>
         [JsonPropertyName("underlying")]
-        public string Underlying { get; set; } = string.Empty;
+        public string? Underlying { get; set; } = string.Empty;
         /// <summary>
         /// Quote asset
         /// </summary>
         [JsonPropertyName("quoteCurrency")]
-        public string QuoteAsset { get; set; } = string.Empty;
+        public string? QuoteAsset { get; set; } = string.Empty;
         /// <summary>
         /// Underlying symbol
         /// </summary>
@@ -80,7 +81,7 @@ namespace BitMEX.Net.Objects.Models
         /// Reference
         /// </summary>
         [JsonPropertyName("reference")]
-        public string Reference { get; set; } = string.Empty;
+        public string? Reference { get; set; } = string.Empty;
         /// <summary>
         /// Reference symbol
         /// </summary>
@@ -105,27 +106,27 @@ namespace BitMEX.Net.Objects.Models
         /// Max order quantity
         /// </summary>
         [JsonPropertyName("maxOrderQty")]
-        public decimal MaxOrderQuantity { get; set; }
+        public decimal? MaxOrderQuantity { get; set; }
         /// <summary>
         /// Max price
         /// </summary>
         [JsonPropertyName("maxPrice")]
-        public decimal MaxPrice { get; set; }
+        public decimal? MaxPrice { get; set; }
         /// <summary>
         /// Lot size
         /// </summary>
         [JsonPropertyName("lotSize")]
-        public decimal LotSize { get; set; }
+        public decimal? LotSize { get; set; }
         /// <summary>
         /// Price step
         /// </summary>
         [JsonPropertyName("tickSize")]
-        public decimal PriceStep { get; set; }
+        public decimal? PriceStep { get; set; }
         /// <summary>
         /// Multiplier
         /// </summary>
         [JsonPropertyName("multiplier")]
-        public decimal Multiplier { get; set; }
+        public decimal? Multiplier { get; set; }
         /// <summary>
         /// Settlement asset
         /// </summary>
@@ -150,22 +151,22 @@ namespace BitMEX.Net.Objects.Models
         /// Is quanto
         /// </summary>
         [JsonPropertyName("isQuanto")]
-        public bool IsQuanto { get; set; }
+        public bool? IsQuanto { get; set; }
         /// <summary>
         /// Is inverse
         /// </summary>
         [JsonPropertyName("isInverse")]
-        public bool IsInverse { get; set; }
+        public bool? IsInverse { get; set; }
         /// <summary>
         /// Initial margin
         /// </summary>
         [JsonPropertyName("initMargin")]
-        public decimal InitialMargin { get; set; }
+        public decimal? InitialMargin { get; set; }
         /// <summary>
         /// Maintenance margin
         /// </summary>
         [JsonPropertyName("maintMargin")]
-        public decimal MaintenanceMargin { get; set; }
+        public decimal? MaintenanceMargin { get; set; }
         /// <summary>
         /// Risk limit
         /// </summary>
@@ -185,22 +186,22 @@ namespace BitMEX.Net.Objects.Models
         /// Taxed
         /// </summary>
         [JsonPropertyName("taxed")]
-        public bool Taxed { get; set; }
+        public bool? Taxed { get; set; }
         /// <summary>
         /// Deleverage
         /// </summary>
         [JsonPropertyName("deleverage")]
-        public bool Deleverage { get; set; }
+        public bool? Deleverage { get; set; }
         /// <summary>
         /// Maker fee
         /// </summary>
         [JsonPropertyName("makerFee")]
-        public decimal MakerFee { get; set; }
+        public decimal? MakerFee { get; set; }
         /// <summary>
         /// Taker fee
         /// </summary>
         [JsonPropertyName("takerFee")]
-        public decimal TakerFee { get; set; }
+        public decimal? TakerFee { get; set; }
         /// <summary>
         /// Settlement fee
         /// </summary>
@@ -255,7 +256,7 @@ namespace BitMEX.Net.Objects.Models
         /// Prev close price
         /// </summary>
         [JsonPropertyName("prevClosePrice")]
-        public decimal PrevClosePrice { get; set; }
+        public decimal? PrevClosePrice { get; set; }
         /// <summary>
         /// Limit down price
         /// </summary>
@@ -270,77 +271,77 @@ namespace BitMEX.Net.Objects.Models
         /// Total volume
         /// </summary>
         [JsonPropertyName("totalVolume")]
-        public decimal TotalVolume { get; set; }
+        public decimal? TotalVolume { get; set; }
         /// <summary>
         /// Volume
         /// </summary>
         [JsonPropertyName("volume")]
-        public decimal Volume { get; set; }
+        public decimal? Volume { get; set; }
         /// <summary>
         /// Volume 24 hours
         /// </summary>
         [JsonPropertyName("volume24h")]
-        public decimal Volume24h { get; set; }
+        public decimal? Volume24h { get; set; }
         /// <summary>
         /// Previous total turnover
         /// </summary>
         [JsonPropertyName("prevTotalTurnover")]
-        public decimal PrevTotalTurnover { get; set; }
+        public decimal? PrevTotalTurnover { get; set; }
         /// <summary>
         /// Total turnover
         /// </summary>
         [JsonPropertyName("totalTurnover")]
-        public decimal TotalTurnover { get; set; }
+        public decimal? TotalTurnover { get; set; }
         /// <summary>
         /// Turnover
         /// </summary>
         [JsonPropertyName("turnover")]
-        public decimal Turnover { get; set; }
+        public decimal? Turnover { get; set; }
         /// <summary>
         /// Turnover24h
         /// </summary>
         [JsonPropertyName("turnover24h")]
-        public decimal Turnover24h { get; set; }
+        public decimal? Turnover24h { get; set; }
         /// <summary>
         /// Home notional24h
         /// </summary>
         [JsonPropertyName("homeNotional24h")]
-        public decimal HomeNotional24h { get; set; }
+        public decimal? HomeNotional24h { get; set; }
         /// <summary>
         /// Foreign notional24h
         /// </summary>
         [JsonPropertyName("foreignNotional24h")]
-        public decimal ForeignNotional24h { get; set; }
+        public decimal? ForeignNotional24h { get; set; }
         /// <summary>
         /// Previous price24h
         /// </summary>
         [JsonPropertyName("prevPrice24h")]
-        public decimal PrevPrice24h { get; set; }
+        public decimal? PrevPrice24h { get; set; }
         /// <summary>
         /// Volume weighted average price
         /// </summary>
         [JsonPropertyName("vwap")]
-        public decimal VolumeWeightedAveragePrice { get; set; }
+        public decimal? VolumeWeightedAveragePrice { get; set; }
         /// <summary>
         /// High price
         /// </summary>
         [JsonPropertyName("highPrice")]
-        public decimal HighPrice { get; set; }
+        public decimal? HighPrice { get; set; }
         /// <summary>
         /// Low price
         /// </summary>
         [JsonPropertyName("lowPrice")]
-        public decimal LowPrice { get; set; }
+        public decimal? LowPrice { get; set; }
         /// <summary>
         /// Last price
         /// </summary>
         [JsonPropertyName("lastPrice")]
-        public decimal LastPrice { get; set; }
+        public decimal? LastPrice { get; set; }
         /// <summary>
         /// Last price protected
         /// </summary>
         [JsonPropertyName("lastPriceProtected")]
-        public decimal LastPriceProtected { get; set; }
+        public decimal? LastPriceProtected { get; set; }
         /// <summary>
         /// Last tick direction
         /// </summary>
@@ -350,7 +351,7 @@ namespace BitMEX.Net.Objects.Models
         /// Last change percentage
         /// </summary>
         [JsonPropertyName("lastChangePcnt")]
-        public decimal? LastChangePercentage { get; set; }
+        public decimal? LastChangePcnt { get; set; }
         /// <summary>
         /// Best bid price
         /// </summary>
@@ -385,7 +386,7 @@ namespace BitMEX.Net.Objects.Models
         /// Has liquidity
         /// </summary>
         [JsonPropertyName("hasLiquidity")]
-        public bool HasLiquidity { get; set; }
+        public bool? HasLiquidity { get; set; }
         /// <summary>
         /// Open interest
         /// </summary>
@@ -420,12 +421,12 @@ namespace BitMEX.Net.Objects.Models
         /// Mark method
         /// </summary>
         [JsonPropertyName("markMethod")]
-        public MarkMethod MarkMethod { get; set; }
+        public MarkMethod? MarkMethod { get; set; }
         /// <summary>
         /// Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
-        public decimal MarkPrice { get; set; }
+        public decimal? MarkPrice { get; set; }
         /// <summary>
         /// Indicative settle price
         /// </summary>
@@ -445,7 +446,7 @@ namespace BitMEX.Net.Objects.Models
         /// Instant pnl
         /// </summary>
         [JsonPropertyName("instantPnl")]
-        public bool InstantPnl { get; set; }
+        public bool? InstantPnl { get; set; }
         /// <summary>
         /// Min tick
         /// </summary>

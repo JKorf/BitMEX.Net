@@ -11,21 +11,21 @@ namespace BitMEX.Net.Enums
         /// One minute
         /// </summary>
         [Map("1m")]
-        OneMinute,
+        OneMinute = 60,
         /// <summary>
         /// Five minutes
         /// </summary>
         [Map("5m")]
-        FiveMinutes,
+        FiveMinutes = 60 * 5,
         /// <summary>
         /// One hour
         /// </summary>
         [Map("1h")]
-        OneHour,
+        OneHour = 60 * 60,
         /// <summary>
         /// One day
         /// </summary>
         [Map("1d")]
-        OneDay
+        OneDay = 60 * 60 * 24
     }
 }

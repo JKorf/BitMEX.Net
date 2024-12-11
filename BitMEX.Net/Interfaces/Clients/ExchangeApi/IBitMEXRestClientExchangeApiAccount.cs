@@ -46,7 +46,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="network">Network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<Dictionary<string, BitMEXTradeFee>>> GetDepositAddressAsync(string asset, string network, CancellationToken ct = default);
+        Task<WebCallResult<string>> GetDepositAddressAsync(string asset, string network, CancellationToken ct = default);
 
         /// <summary>
         /// Get transfer accounts
@@ -54,7 +54,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<Dictionary<string, BitMEXTradeFee>>> GetTransferAccountsAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<BitMEXTransaction>>> GetTransferAccountsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get user margin status
@@ -105,9 +105,18 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletHistory" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
+        /// <param name="targetAccountId">Filter by account id</param>
+        /// <param name="reverse">Reverse result order</param>
+        /// <param name="offset">Result offset</param>
+        /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXTransaction>>> GetBalanceHistoryAsync(string? asset = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<BitMEXTransaction>>> GetBalanceHistoryAsync(string? asset = null,
+            long? targetAccountId = null,
+            bool? reverse = null,
+            int? offset = null,
+            int? limit = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Get wallet summary

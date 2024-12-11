@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitMEX.Net.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -14,12 +15,12 @@ namespace BitMEX.Net.Objects.Models
         /// Transaction id
         /// </summary>
         [JsonPropertyName("transactID")]
-        public string TransactId { get; set; } = string.Empty;
+        public string TransactionId { get; set; } = string.Empty;
         /// <summary>
         /// Account id
         /// </summary>
         [JsonPropertyName("account")]
-        public decimal AccountId { get; set; }
+        public long AccountId { get; set; }
         /// <summary>
         /// Asset
         /// </summary>
@@ -31,10 +32,10 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Transact type
+        /// Transaction type
         /// </summary>
-        [JsonPropertyName("transactType")]
-        public string TransactType { get; set; } = string.Empty;
+        [JsonPropertyName("transactionType")]
+        public TransactionType TransactionType { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
@@ -54,7 +55,7 @@ namespace BitMEX.Net.Objects.Models
         /// Transaction status
         /// </summary>
         [JsonPropertyName("transactStatus")]
-        public string TransactStatus { get; set; } = string.Empty;
+        public TransactionStatus TransactionStatus { get; set; }
         /// <summary>
         /// Address
         /// </summary>
@@ -76,10 +77,10 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("text")]
         public string Text { get; set; } = string.Empty;
         /// <summary>
-        /// Transact time
+        /// Transaction time
         /// </summary>
-        [JsonPropertyName("transactTime")]
-        public DateTime TransactTime { get; set; }
+        [JsonPropertyName("transactionTime")]
+        public DateTime TransactionTime { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>

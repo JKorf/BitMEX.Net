@@ -3,6 +3,7 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
 using BitMEX.Net.Objects.Models;
+using BitMEX.Net.Objects.Internal;
 
 namespace BitMEX.Net.Objects.Sockets
 {
@@ -10,9 +11,10 @@ namespace BitMEX.Net.Objects.Sockets
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        public BitMEXQuery(BitMEXModel request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
+        public BitMEXQuery(SocketCommand request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
         {
-            ListenerIdentifiers = new HashSet<string> { };
+            ListenerIdentifiers = new HashSet<string>(request.Parameters);
+            RequiredResponses = request.Parameters.Length;
         }
 
         public override CallResult<T> HandleMessage(SocketConnection connection, DataEvent<T> message)

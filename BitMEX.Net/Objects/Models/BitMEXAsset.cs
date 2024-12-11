@@ -40,7 +40,7 @@ namespace BitMEX.Net.Objects.Models
         /// Scale
         /// </summary>
         [JsonPropertyName("scale")]
-        public decimal Scale { get; set; }
+        public int Scale { get; set; }
         /// <summary>
         /// Enabled
         /// </summary>
@@ -56,6 +56,21 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("memoRequired")]
         public bool MemoRequired { get; set; }
+        /// <summary>
+        /// Min deposit quantity
+        /// </summary>
+        [JsonPropertyName("minDepositAmount")]
+        public decimal? MinDepositQuantity { get; set; }
+        /// <summary>
+        /// Min withdrawal quantity
+        /// </summary>
+        [JsonPropertyName("minWithdrawalAmount")]
+        public decimal? MinWithdrawalQuantity { get; set; }
+        /// <summary>
+        /// Max withdrawal quantity
+        /// </summary>
+        [JsonPropertyName("maxWithdrawalAmount")]
+        public decimal? MaxWithdrawalQuantity { get; set; }
         /// <summary>
         /// Networks
         /// </summary>

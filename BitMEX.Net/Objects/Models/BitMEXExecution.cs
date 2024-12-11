@@ -9,7 +9,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Execution history
     /// </summary>
-    public record BitMEXExecutionHistory : BitMEXOrder
+    public record BitMEXExecution : BitMEXOrder
     {
         /// <summary>
         /// Trade id
@@ -30,34 +30,33 @@ namespace BitMEX.Net.Objects.Models
         /// Last trade role
         /// </summary>
         [JsonPropertyName("lastLiquidityInd")]
-        public TradeRole LastTradeRole { get; set; }
+        public string? LastTradeLiquidityIndicator { get; set; }
         /// <summary>
         /// Pegged order offset value
         /// </summary>
         [JsonPropertyName("pegOffsetValue")]
-        public decimal PeggedOffsetValue { get; set; }
+        public decimal? PeggedOffsetValue { get; set; }
         /// <summary>
         /// Execution type
         /// </summary>
         [JsonPropertyName("execType")]
-        public string ExecType { get; set; } = string.Empty;
-#warning ExecType?
+        public ExecutionType ExecutionType { get; set; }
         /// <summary>
         /// Fee
         /// </summary>
         [JsonPropertyName("commission")]
-        public decimal Fee { get; set; }
+        public decimal FeePercentage { get; set; }
         /// <summary>
         /// Broker fee
         /// </summary>
         [JsonPropertyName("brokerCommission")]
         public decimal BrokerFee { get; set; }
         /// <summary>
-        /// Fee type
+        /// Rolee
         /// </summary>
         [JsonPropertyName("feeType")]
-        public string FeeType { get; set; } = string.Empty;
-#warning Fee type?
+        public TradeRole? Role { get; set; }
+
         /// <summary>
         /// Trade publish indicator
         /// </summary>
@@ -69,15 +68,15 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("trdMatchID")]
         public string TradeMatchId { get; set; } = string.Empty;
         /// <summary>
-        /// Execution cost
+        /// Value filled
         /// </summary>
         [JsonPropertyName("execCost")]
-        public decimal ExecutionCost { get; set; }
+        public decimal ValueFilled { get; set; }
         /// <summary>
-        /// Exec comm
+        /// Fee
         /// </summary>
         [JsonPropertyName("execComm")]
-        public decimal ExecComm { get; set; }
+        public decimal Fee { get; set; }
         /// <summary>
         /// Broker exec comm
         /// </summary>
@@ -103,7 +102,6 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("trdType")]
         public string? TradeType { get; set; }
-#warning trade type?
     }
 
 

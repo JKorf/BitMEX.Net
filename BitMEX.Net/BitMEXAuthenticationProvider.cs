@@ -38,13 +38,19 @@ namespace BitMEX.Net
 
             var timestamp = GetTimestamp(apiClient);
             // Receive window option
-            var expires = DateTimeConverter.ConvertToSeconds(timestamp.AddSeconds(5)).ToString()!;
-            headers.Add("api-expires", expires);
+            var expires = DateTimeConverter.ConvertToSeconds(timestamp.AddSeconds(5))!;
+            headers.Add("api-expires", expires.Value.ToString());
             headers.Add("api-key", ApiKey);
             var body = bodyParameters == null ? "" : GetSerializedBody(_serializer, bodyParameters);
-            var query = uriParameters?.Any() != true ? "" : ("?" + uriParameters.CreateParamString(false, arraySerialization));
-            var signStr = $"{method.ToString().ToUpperInvariant()}{uri.AbsolutePath}{query}{expires}{body}";
-            headers.Add("api-signature", SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant());
+            var query = uriParameters?.Any() != true ? uri.AbsolutePath : uri.SetParameters(uriParameters, arraySerialization).PathAndQuery;
+            var signStr = GetSignature(method.ToString().ToUpperInvariant(), query, expires.Value, body);
+            headers.Add("api-signature", signStr);
+        }
+
+        public string GetSignature(string method, string pathAndQuery, long expires, string body)
+        {
+            var signStr = $"{method}{pathAndQuery}{expires}{body}";
+            return SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant();
         }
     }
 }

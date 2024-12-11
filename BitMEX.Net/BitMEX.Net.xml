@@ -240,7 +240,7 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetBalancesAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetBalanceHistoryAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetBalanceHistoryAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetBalanceSummaryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
@@ -288,10 +288,10 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetSymbolVolumesAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetTradesAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetTradesAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetAggregatedTradesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetKlinesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetExchangeStatsAsync(System.Threading.CancellationToken)">
@@ -318,7 +318,7 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetInsuranceAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetFundingHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetFundingHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetAnnouncementsAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
@@ -342,7 +342,7 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.EditOrderAsync(System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetOrdersAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetOrdersAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetExecutionHistoryByDayAsync(System.String,System.DateTime,System.Threading.CancellationToken)">
@@ -366,7 +366,7 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetUserExecutionsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetPositionsAsync(System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -397,13 +397,91 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXModel}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTradeUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTradeUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToAggregatedBookTickerUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToAggregatedBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSettlementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSettlementHistory}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.String,BitMEX.Net.Enums.IncrementalBookLimit,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.IncrementalBookLimit,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXLiquidation}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToInsuranceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXInsurance}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Nullable{BitMEX.Net.Enums.SymbolCategory},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToFundingUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXFundingRate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToFundingUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXFundingRate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToAnnouncementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAnnouncement}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToNotificationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXNotification}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXBalance}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTransactionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTransaction}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXPosition}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToMarginUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXMarginStatus}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXOrder}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXExecution}}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="P:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SharedClient">
@@ -450,6 +528,31 @@
         <member name="F:BitMEX.Net.Enums.BinPeriod.OneDay">
             <summary>
             One day
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Enums.BookUpdateType">
+            <summary>
+            Book type
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.BookUpdateType.Snapshot">
+            <summary>
+            Snapshot
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.BookUpdateType.Insert">
+            <summary>
+            Insert
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.BookUpdateType.Update">
+            <summary>
+            Update
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.BookUpdateType.Delete">
+            <summary>
+            Delete
             </summary>
         </member>
         <member name="T:BitMEX.Net.Enums.ContingencyType">
@@ -747,6 +850,26 @@
             Last within mark
             </summary>
         </member>
+        <member name="T:BitMEX.Net.Enums.ExecutionType">
+            <summary>
+            Execution type
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.ExecutionType.New">
+            <summary>
+            New
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.ExecutionType.Trade">
+            <summary>
+            Trade
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.ExecutionType.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Enums.FairMethod">
             <summary>
             Fair method
@@ -760,6 +883,21 @@
         <member name="F:BitMEX.Net.Enums.FairMethod.ImpactMidPrice">
             <summary>
             Impact mid price
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Enums.IncrementalBookLimit">
+            <summary>
+            Book limit
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.IncrementalBookLimit.Top25">
+            <summary>
+            Top 25 order book
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.IncrementalBookLimit.Full">
+            <summary>
+             Full order book
             </summary>
         </member>
         <member name="T:BitMEX.Net.Enums.TickDirection">
@@ -832,6 +970,26 @@
             Order status
             </summary>
         </member>
+        <member name="F:BitMEX.Net.Enums.OrderStatus.New">
+            <summary>
+            New order
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.OrderStatus.Filled">
+            <summary>
+            Filled
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.OrderStatus.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.OrderStatus.Rejected">
+            <summary>
+            Rejected
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Enums.OrderType">
             <summary>
             Order type
@@ -902,6 +1060,31 @@
             Settlement
             </summary>
         </member>
+        <member name="T:BitMEX.Net.Enums.SymbolCategory">
+            <summary>
+            Category
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.SymbolCategory.Contracts">
+            <summary>
+            Contracts
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.SymbolCategory.Indices">
+            <summary>
+            Indices
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.SymbolCategory.Derivatives">
+            <summary>
+            Derivatives
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.SymbolCategory.Spot">
+            <summary>
+            Spot
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Enums.SymbolFilter">
             <summary>
             Symbol filter
@@ -955,6 +1138,11 @@
         <member name="F:BitMEX.Net.Enums.SymbolStatus.Open">
             <summary>
             Open
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.SymbolStatus.Closed">
+            <summary>
+            Closed
             </summary>
         </member>
         <member name="F:BitMEX.Net.Enums.SymbolStatus.Settled">
@@ -1062,10 +1250,67 @@
             Taker
             </summary>
         </member>
+        <member name="T:BitMEX.Net.Enums.TransactionStatus">
+            <summary>
+            Transaction status
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.TransactionStatus.Completed">
+            <summary>
+            Completed
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Enums.TransactionType">
+            <summary>
+            Transaction type
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.TransactionType.Deposit">
+            <summary>
+            Deposit
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.TransactionType.Withdrawal">
+            <summary>
+            Withdrawal
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods">
             <summary>
             Extension methods specific to using the BitMEX API
             </summary>
+        </member>
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedQuantity(System.Decimal,System.Int32)">
+            <summary>
+            Convert a BitMEX quantity to a normalized quantity
+            </summary>
+            <param name="value">Value</param>
+            <param name="scale">Scale</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedQuantity(System.Nullable{System.Decimal},System.Int32)">
+            <summary>
+            Convert a BitMEX quantity to a normalized quantity
+            </summary>
+            <param name="value">Value</param>
+            <param name="scale">Scale</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToBitMEXQuantity(System.Decimal,System.Int32)">
+            <summary>
+            Convert a normalized quantity to a BitMEX quantity
+            </summary>
+            <param name="value">Value</param>
+            <param name="scale">Scale</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToBitMEXQuantity(System.Nullable{System.Decimal},System.Int32)">
+            <summary>
+            Convert a normalized quantity to a BitMEX quantity
+            </summary>
+            <param name="value">Value</param>
+            <param name="scale">Scale</param>
+            <returns></returns>
         </member>
         <member name="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApi">
             <summary>
@@ -1185,12 +1430,16 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetBalanceHistoryAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetBalanceHistoryAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get balance history
             <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletHistory" /></para>
             </summary>
             <param name="asset">Filter by asset</param>
+            <param name="targetAccountId">Filter by account id</param>
+            <param name="reverse">Reverse result order</param>
+            <param name="offset">Result offset</param>
+            <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1349,7 +1598,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetTradesAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetTradesAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get public trades
             <para><a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_get" /></para>
@@ -1361,13 +1610,14 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetAggregatedTradesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetKlinesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Get aggregated trades
+            Get klines
             <para><a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_getBucketed" /></para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
@@ -1379,6 +1629,7 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1462,9 +1713,9 @@
             Get order book
             <para><a href="https://www.bitmex.com/api/explorer/#!/OrderBook/OrderBook_getL2" /></para>
             </summary>
-            <param name="symbol"></param>
-            <param name="depth"></param>
-            <param name="ct"></param>
+            <param name="symbol">Symbol</param>
+            <param name="limit">Number of rows</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetInsuranceAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -1483,7 +1734,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetFundingHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetFundingHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get funding rate history
             <para><a href="https://www.bitmex.com/api/explorer/#!/Funding/Funding_get" /></para>
@@ -1495,6 +1746,7 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1575,7 +1827,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetOrdersAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetOrdersAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user orders
             <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_getOrders" /></para>
@@ -1673,7 +1925,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user trade history
             <para><a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_getTradeHistory" /></para>
@@ -1728,10 +1980,276 @@
             BitMEX Exchange streams
             </summary>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXModel}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTradeUpdate}}},System.Threading.CancellationToken)">
             <summary>
-            
-            <para><a href="XXX" /></para>
+            Subscribe to trade updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbol">Symbol name</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTradeUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to trade updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="period">Period</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="period">Period</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to book ticker updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to book ticker updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToAggregatedBookTickerUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to aggregated book ticker updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="period">Period</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToAggregatedBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to aggregated book ticker updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="period">Period</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSettlementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSettlementHistory}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to settlement updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updated for the first 10 levels on each update
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updated for the first 10 levels on each update
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.String,BitMEX.Net.Enums.IncrementalBookLimit,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to incremental order book updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="limit">Limit</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.IncrementalBookLimit,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to incremental order book updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="limit">Limit</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXLiquidation}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to liquidation updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToInsuranceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXInsurance}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to insurance updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Nullable{BitMEX.Net.Enums.SymbolCategory},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to symbol updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="category">Optional category</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to symbol updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to symbol updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToFundingUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXFundingRate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to funding rate updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToFundingUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXFundingRate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to funding rate updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="symbols">Symbols to subscribe</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToAnnouncementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAnnouncement}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to platform announcement updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToNotificationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXNotification}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to public short lived notifications
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXBalance}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user balance updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTransactionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTransaction}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user transaction (deposit/withdrawal) updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXPosition}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user position updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToMarginUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXMarginStatus}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user margin updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXOrder}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user order updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXExecution}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user trade updates
+            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2381,6 +2899,21 @@
             Memo required
             </summary>
         </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAsset.MinDepositQuantity">
+            <summary>
+            Min deposit quantity
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAsset.MinWithdrawalQuantity">
+            <summary>
+            Min withdrawal quantity
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAsset.MaxWithdrawalQuantity">
+            <summary>
+            Max withdrawal quantity
+            </summary>
+        </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXAsset.Networks">
             <summary>
             Networks
@@ -2736,97 +3269,97 @@
             Turnover
             </summary>
         </member>
-        <member name="T:BitMEX.Net.Objects.Models.BitMEXExecutionHistory">
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXExecution">
             <summary>
             Execution history
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.TradeId">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.TradeId">
             <summary>
             Trade id
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.LastTradeQuantity">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.LastTradeQuantity">
             <summary>
             Last trade quantity
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.LastTradePrice">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.LastTradePrice">
             <summary>
             Last trade price
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.LastTradeRole">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.LastTradeLiquidityIndicator">
             <summary>
             Last trade role
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.PeggedOffsetValue">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.PeggedOffsetValue">
             <summary>
             Pegged order offset value
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.ExecType">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.ExecutionType">
             <summary>
             Execution type
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.Fee">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.FeePercentage">
             <summary>
             Fee
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.BrokerFee">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.BrokerFee">
             <summary>
             Broker fee
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.FeeType">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.Role">
             <summary>
-            Fee type
+            Rolee
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.TradePublishIndicator">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.TradePublishIndicator">
             <summary>
             Trade publish indicator
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.TradeMatchId">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.TradeMatchId">
             <summary>
             Matching trade id
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.ExecutionCost">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.ValueFilled">
             <summary>
-            Execution cost
+            Value filled
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.ExecComm">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.Fee">
             <summary>
-            Exec comm
+            Fee
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.BrokerExecComm">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.BrokerExecComm">
             <summary>
             Broker exec comm
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.HomeNotional">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.HomeNotional">
             <summary>
             Home notional
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.ForeignNotional">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.ForeignNotional">
             <summary>
             Foreign notional
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.RealisedPnl">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.RealisedPnl">
             <summary>
             Realised profit and loss
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecutionHistory.TradeType">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.TradeType">
             <summary>
             Trade type
             </summary>
@@ -3061,6 +3594,36 @@
             Symbols
             </summary>
         </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXLiquidation">
+            <summary>
+            Liquidation
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXLiquidation.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXLiquidation.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXLiquidation.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXLiquidation.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXLiquidation.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXMarginStatus">
             <summary>
             Margin status
@@ -3256,6 +3819,41 @@
             Enabled
             </summary>
         </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXNotification">
+            <summary>
+            Notification
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXNotification.Title">
+            <summary>
+            Title
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXNotification.Body">
+            <summary>
+            Body
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXNotification.TimeToLive">
+            <summary>
+            Time to live
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXNotification.Closable">
+            <summary>
+            Closable
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXNotification.Persist">
+            <summary>
+            Persist
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXNotification.Sound">
+            <summary>
+            Sound
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXOrder">
             <summary>
             Order info
@@ -3346,7 +3944,7 @@
             Contingency type
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.OrderStatus">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.Status">
             <summary>
             Order status
             </summary>
@@ -3379,11 +3977,6 @@
         <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.AveragePrice">
             <summary>
             Average price
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.Text">
-            <summary>
-            Text
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.TransactTime">
@@ -3449,6 +4042,61 @@
         <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookEntry.TransactTime">
             <summary>
             TransactTime
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate">
+            <summary>
+            Incremental order book update
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate.Action">
+            <summary>
+            Action
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate.Entries">
+            <summary>
+            Entries
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate">
+            <summary>
+            Order book update
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate.Bids">
+            <summary>
+            Bids
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate.Asks">
+            <summary>
+            Asks
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXOrderBookUpdateEntry">
+            <summary>
+            Order book entry
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookUpdateEntry.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrderBookUpdateEntry.Quantity">
+            <summary>
+            Quantity
             </summary>
         </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXPosition">
@@ -3753,7 +4401,7 @@
         </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXSymbol">
             <summary>
-            
+            Symbol info
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbol.Symbol">
@@ -4091,7 +4739,7 @@
             Last tick direction
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbol.LastChangePcnt">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbol.LastChangePercentage">
             <summary>
             Last change percentage
             </summary>
@@ -4207,6 +4855,466 @@
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbol.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate">
+            <summary>
+            Symbol update
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.BaseAsset">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.SymbolType">
+            <summary>
+            Symbol type
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.ListingTime">
+            <summary>
+            Listing time
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FrontTime">
+            <summary>
+            Front time
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.ExpiryTime">
+            <summary>
+            Expiry time
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.SettleTime">
+            <summary>
+            Settle time
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.ListedSettle">
+            <summary>
+            Listed settle
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.PositionAsset">
+            <summary>
+            Position asset
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Underlying">
+            <summary>
+            Underlying asset
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.QuoteAsset">
+            <summary>
+            Quote asset
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.UnderlyingSymbol">
+            <summary>
+            Underlying symbol
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Reference">
+            <summary>
+            Reference
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.ReferenceSymbol">
+            <summary>
+            Reference symbol
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.CalcInterval">
+            <summary>
+            Calc interval
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.PublishInterval">
+            <summary>
+            Publish interval
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.PublishTime">
+            <summary>
+            Publish time
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.MaxOrderQuantity">
+            <summary>
+            Max order quantity
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.MaxPrice">
+            <summary>
+            Max price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.LotSize">
+            <summary>
+            Lot size
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.PriceStep">
+            <summary>
+            Price step
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Multiplier">
+            <summary>
+            Multiplier
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.SettlementAsset">
+            <summary>
+            Settlement asset
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.UnderlyingToPositionMultiplier">
+            <summary>
+            Underlying to position multiplier
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.UnderlyingToSettleMultiplier">
+            <summary>
+            Underlying to settle multiplier
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.QuoteToSettleMultiplier">
+            <summary>
+            Quote to settle multiplier
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.IsQuanto">
+            <summary>
+            Is quanto
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.IsInverse">
+            <summary>
+            Is inverse
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.InitialMargin">
+            <summary>
+            Initial margin
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.MaintenanceMargin">
+            <summary>
+            Maintenance margin
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.RiskLimit">
+            <summary>
+            Risk limit
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.RiskStep">
+            <summary>
+            Risk step
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Limit">
+            <summary>
+            Limit
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Taxed">
+            <summary>
+            Taxed
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Deleverage">
+            <summary>
+            Deleverage
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.MakerFee">
+            <summary>
+            Maker fee
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.TakerFee">
+            <summary>
+            Taker fee
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.SettlementFee">
+            <summary>
+            Settlement fee
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FundingBaseSymbol">
+            <summary>
+            Funding base symbol
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FundingQuoteSymbol">
+            <summary>
+            Funding quote symbol
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FundingPremiumSymbol">
+            <summary>
+            Funding premium symbol
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FundingTimestamp">
+            <summary>
+            Funding timestamp
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FundingInterval">
+            <summary>
+            Funding interval
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FundingRate">
+            <summary>
+            Funding rate
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.IndicativeFundingRate">
+            <summary>
+            Indicative funding rate
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.RebalanceTimestamp">
+            <summary>
+            Rebalance timestamp
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.RebalanceInterval">
+            <summary>
+            Rebalance interval
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.PrevClosePrice">
+            <summary>
+            Prev close price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.LimitDownPrice">
+            <summary>
+            Limit down price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.LimitUpPrice">
+            <summary>
+            Limit up price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.TotalVolume">
+            <summary>
+            Total volume
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Volume24h">
+            <summary>
+            Volume 24 hours
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.PrevTotalTurnover">
+            <summary>
+            Previous total turnover
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.TotalTurnover">
+            <summary>
+            Total turnover
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Turnover">
+            <summary>
+            Turnover
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Turnover24h">
+            <summary>
+            Turnover24h
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.HomeNotional24h">
+            <summary>
+            Home notional24h
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.ForeignNotional24h">
+            <summary>
+            Foreign notional24h
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.PrevPrice24h">
+            <summary>
+            Previous price24h
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.VolumeWeightedAveragePrice">
+            <summary>
+            Volume weighted average price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.HighPrice">
+            <summary>
+            High price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.LowPrice">
+            <summary>
+            Low price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.LastPrice">
+            <summary>
+            Last price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.LastPriceProtected">
+            <summary>
+            Last price protected
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.LastTickDirection">
+            <summary>
+            Last tick direction
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.LastChangePcnt">
+            <summary>
+            Last change percentage
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.BestBidPrice">
+            <summary>
+            Best bid price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.MidPrice">
+            <summary>
+            Mid price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.BestAskPrice">
+            <summary>
+            Best ask price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.ImpactBidPrice">
+            <summary>
+            Impact bid price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.ImpactMidPrice">
+            <summary>
+            Impact mid price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.ImpactAskPrice">
+            <summary>
+            Impact ask price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.HasLiquidity">
+            <summary>
+            Has liquidity
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.OpenInterest">
+            <summary>
+            Open interest
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.OpenValue">
+            <summary>
+            Open value
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FairMethod">
+            <summary>
+            Fair method
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FairBasisRate">
+            <summary>
+            Fair basis rate
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FairBasis">
+            <summary>
+            Fair basis
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FairPrice">
+            <summary>
+            Fair price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.MarkMethod">
+            <summary>
+            Mark method
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.MarkPrice">
+            <summary>
+            Mark price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.IndicativeSettlePrice">
+            <summary>
+            Indicative settle price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.SettledPriceAdjustmentRate">
+            <summary>
+            Settled price adjustment rate
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.SettledPrice">
+            <summary>
+            Settled price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.InstantPnl">
+            <summary>
+            Instant pnl
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.MinTick">
+            <summary>
+            Min tick
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FundingBaseRate">
+            <summary>
+            Funding base rate
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.FundingQuoteRate">
+            <summary>
+            Funding quote rate
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXSymbolUpdate.Timestamp">
             <summary>
             Timestamp
             </summary>
@@ -4346,12 +5454,62 @@
             Settlement fee
             </summary>
         </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXTradeUpdate">
+            <summary>
+            Trade info
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.Quantity">
+            <summary>
+            Trade quantity
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.Price">
+            <summary>
+            Trade price
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.TickDirection">
+            <summary>
+            Tick direction
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.GrossValue">
+            <summary>
+            Gross value
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.HomeNotional">
+            <summary>
+            Home notional
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.ForeignNotional">
+            <summary>
+            Foreign notional
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXTransaction">
             <summary>
             Transaction
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.TransactId">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.TransactionId">
             <summary>
             Transaction id
             </summary>
@@ -4371,9 +5529,9 @@
             Network
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.TransactType">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.TransactionType">
             <summary>
-            Transact type
+            Transaction type
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.Quantity">
@@ -4391,7 +5549,7 @@
             Fee
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.TransactStatus">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.TransactionStatus">
             <summary>
             Transaction status
             </summary>
@@ -4416,9 +5574,9 @@
             Text
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.TransactTime">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.TransactionTime">
             <summary>
-            Transact time
+            Transaction time
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.Timestamp">
@@ -4615,6 +5773,56 @@
             <summary>
             Exchange API options
             </summary>
+        </member>
+        <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.ListenerIdentifiers">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String[],System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{`0}}},System.Boolean)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetUnsubQuery">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.ListenerIdentifiers">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+            <summary>
+            ctor
+            </summary>
+            <param name="logger"></param>
+            <param name="topics"></param>
+            <param name="handler"></param>
+            <param name="auth"></param>
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetUnsubQuery">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+            <inheritdoc />
         </member>
         <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1">
             <inheritdoc />

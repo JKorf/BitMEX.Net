@@ -1,3 +1,4 @@
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using BitMEX.Net.Interfaces.Clients.ExchangeApi;
@@ -64,7 +65,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptionalEnum("contingencyType", contingencyType);
 
             parameters.Add("text", "Sent from Copytrader.pw"); // Client reference
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -88,13 +89,13 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("orderID", orderId);
             parameters.AddOptional("origClOrdID", origClientOrderId);
             parameters.AddOptional("clOrdID", newClientOrderId);
-            parameters.AddOptionalString("orderQty", quantity);
-            parameters.AddOptionalString("leavesQty", quantityRemaining);
-            parameters.AddOptionalString("price", price);
-            parameters.AddOptionalString("stopPx", stopPrice);
-            parameters.AddOptionalString("pegOffsetValue", pegOffsetValue);
+            parameters.AddOptional("orderQty", quantity);
+            parameters.AddOptional("leavesQty", quantityRemaining);
+            parameters.AddOptional("price", price);
+            parameters.AddOptional("stopPx", stopPrice);
+            parameters.AddOptional("pegOffsetValue", pegOffsetValue);
             parameters.Add("text", "Sent from Copytrader.pw"); // Client reference
-            var request = _definitions.GetOrCreate(HttpMethod.Put, "/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Put, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -111,6 +112,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default)
         {
@@ -119,11 +121,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
             parameters.AddOptional("filter", filter);
             parameters.AddOptional("columns", columns);
+            parameters.AddOptional("start", offset);
             parameters.AddOptional("count", limit);
-            parameters.AddOptional("reverse", reverse);
-            parameters.AddOptionalMilliseconds("startTime", startTime);
-            parameters.AddOptionalMilliseconds("endTime", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
+            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<IEnumerable<BitMEXOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -132,13 +135,13 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Order History By Day
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMEXExecutionHistory>>> GetExecutionHistoryByDayAsync(string symbol, DateTime day, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetExecutionHistoryByDayAsync(string symbol, DateTime day, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol ?? "all");
-            parameters.Add("timestamp", day.ToString("yyyy-MM-dd"));
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/user/executionHistory", BitMEXExchange.RateLimiter.BitMEX, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<BitMEXExecutionHistory>>(request, parameters, ct).ConfigureAwait(false);
+            parameters.Add("timestamp", day.ToString("yyyy-MM-ddT00:00:00.000Z"));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/user/executionHistory", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            return await _baseClient.SendAsync<IEnumerable<BitMEXExecution>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -155,7 +158,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("orderID", orderId);
             parameters.AddOptional("clOrdID", clientOrderId);
             parameters.Add("text", "Sent from Copytrader.pw"); // Client reference
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             var result = await _baseClient.SendAsync<IEnumerable<BitMEXOrder>>(request, parameters, ct).ConfigureAwait(false);
             return result.As<BitMEXOrder>(result.Data?.Single());
         }
@@ -174,7 +177,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("orderID", orderIds == null ? null : string.Join(",", orderIds));
             parameters.AddOptional("clOrdID", clientOrderIds == null ? null : string.Join(",", clientOrderIds));
             parameters.Add("text", "Sent from Copytrader.pw"); // Client reference
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<IEnumerable<BitMEXOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -194,7 +197,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("symbol", symbol);
             parameters.AddOptional("filter", filter);
             parameters.Add("text", "Sent from Copytrader.pw"); // Client reference
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/order/all", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "api/v1/order/all", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<IEnumerable<BitMEXOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -207,7 +210,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("timeout", (int)timeout.TotalMilliseconds);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/order/cancelAllAfter", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/order/cancelAllAfter", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -221,7 +224,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
             parameters.AddOptional("price", price);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/order/closePosition", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/order/closePosition", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -230,7 +233,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get User Executions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMEXExecutionHistory>>> GetUserExecutionsAsync(
+        public async Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetUserExecutionsAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -248,10 +251,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("columns", columns);
             parameters.AddOptional("count", limit);
             parameters.AddOptional("reverse", reverse);
-            parameters.AddOptionalMilliseconds("startTime", startTime);
-            parameters.AddOptionalMilliseconds("endTime", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/execution", BitMEXExchange.RateLimiter.BitMEX, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<BitMEXExecutionHistory>>(request, parameters, ct).ConfigureAwait(false);
+            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
+            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/execution", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            return await _baseClient.SendAsync<IEnumerable<BitMEXExecution>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -259,7 +262,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMEXExecutionHistory>>> GetUserTradesAsync(
+        public async Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetUserTradesAsync(
             IEnumerable<long>? targetAccountIds = null,
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
@@ -268,6 +271,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default)
         {
@@ -277,12 +281,13 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
             parameters.AddOptional("filter", filter);
             parameters.AddOptional("columns", columns);
+            parameters.AddOptional("start", offset);
             parameters.AddOptional("count", limit);
             parameters.AddOptional("reverse", reverse);
-            parameters.AddOptionalMilliseconds("startTime", startTime);
-            parameters.AddOptionalMilliseconds("endTime", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/execution/tradeHistory", BitMEXExchange.RateLimiter.BitMEX, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<BitMEXExecutionHistory>>(request, parameters, ct).ConfigureAwait(false);
+            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
+            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/execution/tradeHistory", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            return await _baseClient.SendAsync<IEnumerable<BitMEXExecution>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -300,7 +305,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("filter", filter);
             parameters.AddOptional("columns", columns);
             parameters.AddOptional("count", limit);            
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/position", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/position", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<IEnumerable<BitMEXPosition>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -317,9 +322,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            parameters.AddString("leverage", leverage);
+            parameters.Add("leverage", leverage);
             parameters.AddOptional("targetAccountId", targetAccountId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/position/crossLeverage", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/position/crossLeverage", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXPosition>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -336,9 +341,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            parameters.AddString("leverage", leverage);
+            parameters.Add("leverage", leverage);
             parameters.AddOptional("targetAccountId", targetAccountId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/position/leverage", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/position/leverage", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXPosition>(request, parameters, ct).ConfigureAwait(false);
         }
 

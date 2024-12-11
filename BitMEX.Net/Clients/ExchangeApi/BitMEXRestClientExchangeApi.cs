@@ -73,6 +73,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
+            if (parameters?.TryGetValue("filter", out var filter) == true)
+                parameters["filter"] = CreateSerializer().Serialize(filter);
+
             var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
 
             // Optional response checking
