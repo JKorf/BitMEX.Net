@@ -1,0 +1,27 @@
+GET
+/api/v1/wallet/assets
+false
+[
+  {
+    "asset": "XBT",
+    "currency": "XBt",
+    "majorCurrency": "XBT",
+    "name": "Bitcoin",
+    "currencyType": "Crypto",
+    "scale": 8,
+    "enabled": true,
+    "isMarginCurrency": true,
+    "memoRequired": false,
+    "networks": [
+      {
+        "asset": "BTC",
+        "tokenAddress": "",
+        "depositEnabled": true,
+        "withdrawalEnabled": true,
+        "withdrawalFee": 0,
+        "minFee": 0,
+        "maxFee": 0
+      }
+    ]
+  }
+]

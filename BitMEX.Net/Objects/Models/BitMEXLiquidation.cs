@@ -35,6 +35,6 @@ namespace BitMEX.Net.Objects.Models
         /// Quantity
         /// </summary>
         [JsonPropertyName("leavesQty")]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
     }
 }

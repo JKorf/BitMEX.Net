@@ -18,9 +18,13 @@ namespace BitMEX.Net.Enums
         /// <summary>
         /// Filled
         /// </summary>
-#warning check, is there also a partial fill?
         [Map("filled")]
         Filled,
+        /// <summary>
+        /// Partially filled
+        /// </summary>
+        [Map("PartiallyFilled")]
+        PartiallyFilled,
         /// <summary>
         /// Canceled
         /// </summary>

@@ -24,6 +24,6 @@ namespace BitMEX.Net.Objects.Models
         /// Wallet balance
         /// </summary>
         [JsonPropertyName("walletBalance")]
-        public decimal WalletBalance { get; set; }
+        public long WalletBalance { get; set; }
     }
 }

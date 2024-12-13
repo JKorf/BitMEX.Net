@@ -31,7 +31,7 @@ namespace BitMEX.Net.Objects.Models
         /// Trade quantity
         /// </summary>
         [JsonPropertyName("size")]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
         /// <summary>
         /// Trade price
         /// </summary>
@@ -46,7 +46,7 @@ namespace BitMEX.Net.Objects.Models
         /// Gross value
         /// </summary>
         [JsonPropertyName("grossValue")]
-        public decimal? GrossValue { get; set; }
+        public long? GrossValue { get; set; }
         /// <summary>
         /// Home notional
         /// </summary>

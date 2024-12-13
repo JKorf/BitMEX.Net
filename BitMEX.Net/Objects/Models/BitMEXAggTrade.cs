@@ -49,12 +49,17 @@ namespace BitMEX.Net.Objects.Models
         /// Volume
         /// </summary>
         [JsonPropertyName("volume")]
-        public decimal Volume { get; set; }
+        public long Volume { get; set; }
         /// <summary>
         /// Last quantity
         /// </summary>
         [JsonPropertyName("lastSize")]
-        public decimal LastQuantity { get; set; }
+        public long LastQuantity { get; set; }
+        /// <summary>
+        /// Volume weighted average price
+        /// </summary>
+        [JsonPropertyName("vwap")]
+        public decimal? VolumeWeightedAveragePrice { get; set; }
         /// <summary>
         /// Turnover
         /// </summary>

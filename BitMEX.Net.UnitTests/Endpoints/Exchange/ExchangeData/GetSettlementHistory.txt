@@ -1,0 +1,11 @@
+GET
+/api/v1/settlement
+false
+[
+  {
+    "timestamp": "2024-12-13T09:39:10.208Z",
+    "symbol": "string",
+    "settlementType": "Settlement",
+    "settledPrice": 0
+  }
+]

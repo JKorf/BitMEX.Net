@@ -75,8 +75,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
-#warning check partially filled
-            if (status == OrderStatus.New) return SharedOrderStatus.Open;
+            if (status == OrderStatus.New || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
             if (status == OrderStatus.Rejected || status == OrderStatus.Canceled) return SharedOrderStatus.Canceled;
             return SharedOrderStatus.Filled;
         }
@@ -104,9 +103,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
 #warning check total
                 update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Select(x => 
                 new SharedBalance(
-                    x.Asset, 
-                    x.Quantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)),
-                    (x.Quantity + x.PendingCredit).ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)))).ToArray())),
+                    BitMEXExchange.GetAssetFromCurrency(x.Currency), 
+                    x.Quantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)),
+                    (x.Quantity + x.PendingCredit).ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)))).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -199,9 +198,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 if (request.Symbol.TradingMode == TradingMode.Spot)
                 {
                     foreach (var item in book.Asks)
-                        item.Quantity = item.Quantity.ToSharedQuantity(BitMEXExchange.GetSymbolQuantityScale(symbol));
+                        item.Quantity = ((long)item.Quantity).ToSharedQuantity(BitMEXExchange.GetSymbolQuantityScale(symbol));
                     foreach (var item in book.Bids)
-                        item.Quantity = item.Quantity.ToSharedQuantity(BitMEXExchange.GetSymbolQuantityScale(symbol));
+                        item.Quantity = ((long)item.Quantity).ToSharedQuantity(BitMEXExchange.GetSymbolQuantityScale(symbol));
                 }
 
                 handler(update.AsExchangeEvent(Exchange, book));
@@ -346,7 +345,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     AverageOpenPrice = x.AverageEntryPrice,
 #warning check if correct
                     PositionSide = x.CurrentQuantity > 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    UnrealizedPnl = x.UnrealisedPnl,
+                    UnrealizedPnl = x.UnrealizedPnl,
                     Leverage = x.Leverage,
                     LiquidationPrice = x.LiquidationPrice
                 }).ToArray())),

@@ -179,7 +179,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(SymbolCategory? category, Action<DataEvent<IEnumerable<BitMEXSymbolUpdate>>> onMessage, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to symbol updates
+        /// Subscribe to symbol updates. Note that only changed properties will be filled; unchanged properties will be null.
         /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>

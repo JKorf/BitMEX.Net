@@ -1,0 +1,20 @@
+GET
+/api/v1/trade/bucketed
+false
+[
+  {
+    "timestamp": "2024-12-13T09:39:10.233Z",
+    "symbol": "string",
+    "open": 0,
+    "high": 0,
+    "low": 0,
+    "close": 0,
+    "trades": 0,
+    "volume": 0,
+    "vwap": 0,
+    "lastSize": 0,
+    "turnover": 0,
+    "homeNotional": 0,
+    "foreignNotional": 0
+  }
+]

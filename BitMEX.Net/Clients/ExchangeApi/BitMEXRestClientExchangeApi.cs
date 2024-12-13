@@ -75,6 +75,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             if (parameters?.TryGetValue("filter", out var filter) == true)
                 parameters["filter"] = CreateSerializer().Serialize(filter);
+            if (parameters?.TryGetValue("columns", out var columns) == true)
+                parameters["columns"] = CreateSerializer().Serialize(columns);
 
             var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
 

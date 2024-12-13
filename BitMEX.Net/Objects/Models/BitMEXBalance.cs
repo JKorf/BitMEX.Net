@@ -16,50 +16,50 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("account")]
         public decimal AccountId { get; set; }
         /// <summary>
-        /// Asset
+        /// Currency
         /// </summary>
         [JsonPropertyName("currency")]
-        public string Asset { get; set; } = string.Empty;
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// Deposited
         /// </summary>
         [JsonPropertyName("deposited")]
-        public decimal Deposited { get; set; }
+        public long Deposited { get; set; }
         /// <summary>
         /// Withdrawn
         /// </summary>
         [JsonPropertyName("withdrawn")]
-        public decimal Withdrawn { get; set; }
+        public long Withdrawn { get; set; }
         /// <summary>
         /// Transfer in
         /// </summary>
         [JsonPropertyName("transferIn")]
-        public decimal TransferIn { get; set; }
+        public long TransferIn { get; set; }
         /// <summary>
         /// Transfer out
         /// </summary>
         [JsonPropertyName("transferOut")]
-        public decimal TransferOut { get; set; }
+        public long TransferOut { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
         [JsonPropertyName("amount")]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
         /// <summary>
         /// Pending credit
         /// </summary>
         [JsonPropertyName("pendingCredit")]
-        public decimal PendingCredit { get; set; }
+        public long PendingCredit { get; set; }
         /// <summary>
         /// Pending debit
         /// </summary>
         [JsonPropertyName("pendingDebit")]
-        public decimal PendingDebit { get; set; }
+        public long PendingDebit { get; set; }
         /// <summary>
         /// Confirmed debit
         /// </summary>
         [JsonPropertyName("confirmedDebit")]
-        public decimal ConfirmedDebit { get; set; }
+        public long ConfirmedDebit { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>

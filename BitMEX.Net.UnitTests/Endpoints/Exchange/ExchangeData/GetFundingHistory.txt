@@ -1,0 +1,12 @@
+GET
+/api/v1/funding
+false
+[
+  {
+    "timestamp": "2024-12-13T09:39:09.928Z",
+    "symbol": "string",
+    "fundingInterval": "2024-12-13T09:39:09.928Z",
+    "fundingRate": 0,
+    "fundingRateDaily": 0
+  }
+]

@@ -20,7 +20,7 @@ namespace BitMEX.Net.Objects.Models
         /// Last trade quantity
         /// </summary>
         [JsonPropertyName("lastQty")]
-        public decimal? LastTradeQuantity { get; set; }
+        public long? LastTradeQuantity { get; set; }
         /// <summary>
         /// Last trade price
         /// </summary>
@@ -50,7 +50,7 @@ namespace BitMEX.Net.Objects.Models
         /// Broker fee
         /// </summary>
         [JsonPropertyName("brokerCommission")]
-        public decimal BrokerFee { get; set; }
+        public long? BrokerFee { get; set; }
         /// <summary>
         /// Rolee
         /// </summary>
@@ -71,12 +71,12 @@ namespace BitMEX.Net.Objects.Models
         /// Value filled
         /// </summary>
         [JsonPropertyName("execCost")]
-        public decimal ValueFilled { get; set; }
+        public long ValueFilled { get; set; }
         /// <summary>
         /// Fee
         /// </summary>
         [JsonPropertyName("execComm")]
-        public decimal Fee { get; set; }
+        public long Fee { get; set; }
         /// <summary>
         /// Broker exec comm
         /// </summary>
@@ -96,7 +96,7 @@ namespace BitMEX.Net.Objects.Models
         /// Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
-        public decimal RealisedPnl { get; set; }
+        public long RealisedPnl { get; set; }
         /// <summary>
         /// Trade type
         /// </summary>

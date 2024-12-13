@@ -39,10 +39,11 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXSymbol>>> GetAllSymbolsAsync(
+        Task<WebCallResult<IEnumerable<BitMEXSymbol>>> GetSymbolsAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -50,6 +51,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -71,6 +73,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -81,6 +84,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -193,6 +197,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -204,6 +209,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -218,6 +224,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -229,6 +236,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -245,6 +253,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -258,6 +267,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -282,6 +292,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -293,6 +304,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -360,5 +372,30 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<BitMEXNetwork>>> GetAssetNetworksAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get liquidations
+        /// </summary>
+        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
+        /// <param name="filter">Filter on fields</param>
+        /// <param name="columns">Filter columns</param>
+        /// <param name="reverse">Reverse direction</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
+        /// <param name="limit">Max number of results</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<BitMEXLiquidation>>> GetLiquidationsAsync(string? symbol = null,
+            SymbolFilter? symbolFilter = null,
+            Dictionary<string, object>? filter = null,
+            IEnumerable<string>? columns = null,
+            bool? reverse = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? offset = null,
+            int? limit = null,
+            CancellationToken ct = default);
     }
 }

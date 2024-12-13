@@ -1,0 +1,13 @@
+GET
+/api/v1/instrument/usdVolume
+false
+[
+  {
+    "symbol": "string",
+    "currency": "string",
+    "turnover24h": 0,
+    "turnover30d": 0,
+    "turnover365d": 0,
+    "turnover": 0
+  }
+]

@@ -47,12 +47,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             string symbol,
             OrderSide orderSide,
             OrderType orderType,
-            decimal? quantity = null,
+            long? quantity = null,
             decimal? price = null,
             TimeInForce? timeInForce = null,
             ExecutionInstruction? executionInstruction = null,
             ContingencyType? contingencyType = null,
-            decimal? displayQuantity = null,
+            long? displayQuantity = null,
             decimal? stopPrice = null,
             decimal? pegOffsetValue = null,
             PeggedPriceType? pegPriceType = null,
@@ -71,6 +71,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -104,8 +105,8 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             string? orderId = null,
             string? origClientOrderId = null,
             string? newClientOrderId = null,
-            decimal? quantity = null,
-            decimal? quantityRemaining = null,
+            long? quantity = null,
+            long? quantityRemaining = null,
             decimal? price = null,
             decimal? stopPrice = null,
             decimal? pegOffsetValue = null,
@@ -182,6 +183,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -193,6 +195,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default);
 
@@ -208,6 +211,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="reverse">Reverse direction</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="offset">Result offset</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

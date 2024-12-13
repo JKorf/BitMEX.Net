@@ -1,0 +1,10 @@
+GET
+/api/v1/insurance
+false
+[
+  {
+    "currency": "string",
+    "timestamp": "2024-12-13T09:39:10.027Z",
+    "walletBalance": 0
+  }
+]

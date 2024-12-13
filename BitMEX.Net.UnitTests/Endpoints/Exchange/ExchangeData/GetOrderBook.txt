@@ -1,0 +1,14 @@
+GET
+/api/v1/orderBook/L2
+false
+[
+  {
+    "symbol": "string",
+    "id": 0,
+    "side": "Buy",
+    "size": 0,
+    "price": 0,
+    "timestamp": "2024-12-13T09:39:10.110Z",
+    "transactTime": "2024-12-13T09:39:10.110Z"
+  }
+]

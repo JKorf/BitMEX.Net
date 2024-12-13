@@ -34,12 +34,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
             string symbol, 
             OrderSide orderSide,
             OrderType orderType,
-            decimal? quantity = null,
+            long? quantity = null,
             decimal? price = null,
             TimeInForce? timeInForce = null,
             ExecutionInstruction? executionInstruction = null,
             ContingencyType? contingencyType = null,
-            decimal? displayQuantity = null,
+            long? displayQuantity = null,
             decimal? stopPrice = null,
             decimal? pegOffsetValue = null,
             PeggedPriceType? pegPriceType = null,
@@ -78,8 +78,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
             string? orderId = null,
             string? origClientOrderId = null,
             string? newClientOrderId = null,
-            decimal? quantity = null,
-            decimal? quantityRemaining = null,
+            long? quantity = null,
+            long? quantityRemaining = null,
             decimal? price = null,
             decimal? stopPrice = null,
             decimal? pegOffsetValue = null,
@@ -241,6 +241,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             bool? reverse = null,
             DateTime? startTime = null,
             DateTime? endTime = null,
+            int? offset = null,
             int? limit = null,
             CancellationToken ct = default)
         {
@@ -250,6 +251,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("filter", filter);
             parameters.AddOptional("columns", columns);
             parameters.AddOptional("count", limit);
+            parameters.AddOptional("start", offset);
             parameters.AddOptional("reverse", reverse);
             parameters.AddOptional("startTime", startTime?.ToRfc3339String());
             parameters.AddOptional("endTime", endTime?.ToRfc3339String());

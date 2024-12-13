@@ -52,6 +52,11 @@ namespace BitMEX.Net.Objects.Models
         /// Quantity
         /// </summary>
         [ArrayProperty(1)]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
+        decimal ISymbolOrderBookEntry.Quantity
+        {
+            get => Quantity;
+            set => Quantity = (long)value;
+        }
     }
 }

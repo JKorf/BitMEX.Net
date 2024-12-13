@@ -1,0 +1,17 @@
+GET
+/api/v1/trade
+false
+[
+  {
+    "timestamp": "2024-12-13T09:39:10.225Z",
+    "symbol": "string",
+    "side": "Buy",
+    "size": 0,
+    "price": 0,
+    "tickDirection": "PlusTick",
+    "trdMatchID": "string",
+    "grossValue": 0,
+    "homeNotional": 0,
+    "foreignNotional": 0
+  }
+]

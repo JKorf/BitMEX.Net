@@ -1,0 +1,13 @@
+GET
+/api/v1/quote
+false
+[
+  {
+    "timestamp": "2024-12-13T09:39:10.161Z",
+    "symbol": "string",
+    "bidSize": 0,
+    "bidPrice": 0,
+    "askPrice": 0,
+    "askSize": 0
+  }
+]

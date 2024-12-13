@@ -1,0 +1,11 @@
+GET
+/api/v1/instrument/activeIntervals
+false
+{
+  "intervals": [
+    "string"
+  ],
+  "symbols": [
+    "string"
+  ]
+}

@@ -23,7 +23,11 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         ISpotTickerRestClient,
         ISpotOrderRestClient,
         IFundingRateRestClient,
-        IFuturesSymbolRestClient
+        IFuturesSymbolRestClient,
+        IFuturesTickerRestClient,
+        ILeverageRestClient,
+        IOpenInterestRestClient,
+        IFuturesOrderRestClient
     {
     }
 }

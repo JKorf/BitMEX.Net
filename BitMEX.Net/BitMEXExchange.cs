@@ -23,11 +23,11 @@ namespace BitMEX.Net
     public static class BitMEXExchange
     {
         private static DateTime _lastUpdateTime;
-#warning if we change balance from gwei to eth then we also not to update from currency to asset (in balances request/updates)
         private static ConcurrentDictionary<string, int> _scalesByCurrency = new ConcurrentDictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         private static ConcurrentDictionary<string, int> _scalesByAsset = new ConcurrentDictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         private static ConcurrentDictionary<string, int> _scalesBySymbol = new ConcurrentDictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         private static ConcurrentDictionary<string, SymbolType> _symbolTypes = new ConcurrentDictionary<string, SymbolType>(StringComparer.OrdinalIgnoreCase);
+        private static ConcurrentDictionary<string, string> _currencyToAsset = new ConcurrentDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         internal static async Task UpdateScalesAsync(CancellationToken ct)
         {
@@ -40,6 +40,7 @@ namespace BitMEX.Net
             {
                 _scalesByCurrency.TryAdd(asset.Currency, asset.Scale);
                 _scalesByAsset.TryAdd(asset.Asset, asset.Scale);
+                _currencyToAsset.TryAdd(asset.Currency, asset.Asset);
             }
 
             foreach(var symbol in symbols.Data)
@@ -55,6 +56,7 @@ namespace BitMEX.Net
         internal static int GetCurrencyScale(string currency) => _scalesByCurrency[currency];
         internal static int GetSymbolQuantityScale(string symbol) => _scalesBySymbol[symbol];
         internal static SymbolType GetSymbolType(string symbol) => _symbolTypes[symbol];
+        internal static string GetAssetFromCurrency(string currency) => _currencyToAsset[currency];
 
         /// <summary>
         /// Exchange name
@@ -83,6 +85,12 @@ namespace BitMEX.Net
         /// <returns></returns>
         public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
+            if (baseAsset == "BTC")
+                baseAsset = "XBT";
+
+            if (quoteAsset == "BTC")
+                quoteAsset = "XBT";
+
             if (tradingMode == TradingMode.Spot)
                 return $"{baseAsset}_{quoteAsset}";
 

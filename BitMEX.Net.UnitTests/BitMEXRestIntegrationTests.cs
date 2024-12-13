@@ -12,7 +12,7 @@ namespace BitMEX.Net.UnitTests
     [NonParallelizable]
     public class BitMEXRestIntegrationTests : RestIntergrationTest<BitMEXRestClient>
     {
-        public override bool Run { get; set; } = false;
+        public override bool Run { get; set; } = true;
 
         public override BitMEXRestClient GetClient(ILoggerFactory loggerFactory)
         {
@@ -34,11 +34,11 @@ namespace BitMEX.Net.UnitTests
             if (!ShouldRun())
                 return;
 
-#warning Implement error response
-            //var result = await CreateClient().SpotApi.ExchangeData.GetTickerAsync("TSTTST", default);
+            var result = await CreateClient().ExchangeApi.ExchangeData.GetTradesAsync("ETHUSDT", limit: 100000);
 
-            //Assert.That(result.Success, Is.False);
-            //Assert.That(result.Error.Code, Is.EqualTo(-1121));
+            Assert.That(result.Success, Is.False);
+            Assert.That(result.Error.Code, Is.EqualTo(400));
+            Assert.That(result.Error.Message.StartsWith("ValidationError"), Is.True);
         }
 
         [Test]

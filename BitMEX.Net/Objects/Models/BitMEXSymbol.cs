@@ -105,7 +105,7 @@ namespace BitMEX.Net.Objects.Models
         /// Max order quantity
         /// </summary>
         [JsonPropertyName("maxOrderQty")]
-        public decimal MaxOrderQuantity { get; set; }
+        public long MaxOrderQuantity { get; set; }
         /// <summary>
         /// Max price
         /// </summary>
@@ -115,7 +115,7 @@ namespace BitMEX.Net.Objects.Models
         /// Lot size
         /// </summary>
         [JsonPropertyName("lotSize")]
-        public decimal LotSize { get; set; }
+        public long LotSize { get; set; }
         /// <summary>
         /// Price step
         /// </summary>
@@ -270,37 +270,37 @@ namespace BitMEX.Net.Objects.Models
         /// Total volume
         /// </summary>
         [JsonPropertyName("totalVolume")]
-        public decimal TotalVolume { get; set; }
+        public long TotalVolume { get; set; }
         /// <summary>
         /// Volume
         /// </summary>
         [JsonPropertyName("volume")]
-        public decimal Volume { get; set; }
+        public long Volume { get; set; }
         /// <summary>
         /// Volume 24 hours
         /// </summary>
         [JsonPropertyName("volume24h")]
-        public decimal Volume24h { get; set; }
+        public long Volume24h { get; set; }
         /// <summary>
         /// Previous total turnover
         /// </summary>
         [JsonPropertyName("prevTotalTurnover")]
-        public decimal PrevTotalTurnover { get; set; }
+        public long PrevTotalTurnover { get; set; }
         /// <summary>
         /// Total turnover
         /// </summary>
         [JsonPropertyName("totalTurnover")]
-        public decimal TotalTurnover { get; set; }
+        public long TotalTurnover { get; set; }
         /// <summary>
         /// Turnover
         /// </summary>
         [JsonPropertyName("turnover")]
-        public decimal Turnover { get; set; }
+        public long Turnover { get; set; }
         /// <summary>
         /// Turnover24h
         /// </summary>
         [JsonPropertyName("turnover24h")]
-        public decimal Turnover24h { get; set; }
+        public long Turnover24h { get; set; }
         /// <summary>
         /// Home notional24h
         /// </summary>
@@ -390,12 +390,12 @@ namespace BitMEX.Net.Objects.Models
         /// Open interest
         /// </summary>
         [JsonPropertyName("openInterest")]
-        public decimal? OpenInterest { get; set; }
+        public long? OpenInterest { get; set; }
         /// <summary>
         /// Open value
         /// </summary>
         [JsonPropertyName("openValue")]
-        public decimal? OpenValue { get; set; }
+        public long? OpenValue { get; set; }
         /// <summary>
         /// Fair method
         /// </summary>

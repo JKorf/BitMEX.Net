@@ -137,7 +137,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="toAccountId">To account id</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMEXTransaction>> TransferAsync(string asset, long fromAccountId, long toAccountId, decimal quantity, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXTransaction>> TransferAsync(string asset, long fromAccountId, long toAccountId, long quantity, CancellationToken ct = default);
 
         /// <summary>
         /// Create a new withdrawal request
@@ -158,12 +158,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         Task<WebCallResult<BitMEXTransaction>> WithdrawAsync(
             string asset,
             string network,
-            decimal quantity,
+            long quantity,
             string? address = null,
             string? memo = null,
             string? addressId = null,
             long? targetUserId = null,
-            decimal? fee = null,
+            long? fee = null,
             string? text = null,
             string? otpToken = null,
             CancellationToken ct = default);
@@ -207,6 +207,57 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="targetAccountId">Target account id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXPosition>> TransferMarginAsync(string symbol, decimal quantity, long? targetAccountId = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXPosition>> TransferMarginAsync(string symbol, long quantity, long? targetAccountId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get saved addresses
+        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Address/Address_get" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<BitMEXAddress>>> GetSavedAddressesAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Add a saved address
+        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Address/Address_new" /></para>
+        /// </summary>
+        /// <param name="currency">Currency which the asset is for</param>
+        /// <param name="network">Network of the address</param>
+        /// <param name="address">Address</param>
+        /// <param name="name">Address name</param>
+        /// <param name="note">Address note</param>
+        /// <param name="skipConfirm">Skip confirm</param>
+        /// <param name="skip2FA">Skip 2FA</param>
+        /// <param name="memo">Memo</param>
+        /// <param name="otpToken">OTP token</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<BitMEXAddress>> AddSavedAddressAsync(
+            string currency,
+            string network,
+            string address,
+            string name,
+            string? note = null,
+            bool? skipConfirm = null,
+            bool? skip2FA = null,
+            string? memo = null,
+            string? otpToken = null,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Get address book config
+        /// <para><a href="https://www.bitmex.com/api/explorer/#/AddressConfig" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<BitMEXAddressBookConfig>> GetAddressBookSettingsAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get API key info
+        /// <para><a href="https://www.bitmex.com/api/explorer/#/APIKey" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<BitMEXApiKey>>> GetApiKeyInfoAsync(CancellationToken ct = default);
     }
 }

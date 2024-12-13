@@ -1,0 +1,15 @@
+GET
+/api/v1/wallet/networks
+false
+[
+  {
+    "network": "eth",
+    "name": "Ethereum",
+    "currency": "Gwei",
+    "networkSymbol": "ETH",
+    "transactionExplorer": "https://etherscan.io/tx/",
+    "tokenExplorer": "https://etherscan.io/token/",
+    "depositConfirmations": 0,
+    "enabled": true
+  }
+]

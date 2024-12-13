@@ -19,32 +19,32 @@ namespace BitMEX.Net.Objects.Models
         /// Account id
         /// </summary>
         [JsonPropertyName("account")]
-        public decimal AccountId { get; set; }
+        public long AccountId { get; set; }
         /// <summary>
         /// Quote count
         /// </summary>
         [JsonPropertyName("quoteCount")]
-        public decimal QuoteCount { get; set; }
+        public long QuoteCount { get; set; }
         /// <summary>
         /// Dealt count
         /// </summary>
         [JsonPropertyName("dealtCount")]
-        public decimal DealtCount { get; set; }
+        public long DealtCount { get; set; }
         /// <summary>
         /// Quotes moving average 7 days
         /// </summary>
         [JsonPropertyName("quotesMavg7")]
-        public decimal QuotesMavg7d { get; set; }
+        public long QuotesMavg7d { get; set; }
         /// <summary>
         /// Dealt moving average 7 days
         /// </summary>
         [JsonPropertyName("dealtMavg7")]
-        public decimal DealtMavg7d { get; set; }
+        public long DealtMavg7d { get; set; }
         /// <summary>
         /// Quote fill ratio moving average 7 days 
         /// </summary>
         [JsonPropertyName("quoteFillRatioMavg7")]
-        public decimal QuoteFillRatioMavg7d { get; set; }
+        public long QuoteFillRatioMavg7d { get; set; }
     }
 
 

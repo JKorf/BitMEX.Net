@@ -29,12 +29,12 @@ namespace BitMEX.Net.Objects.Models
         /// Quote count
         /// </summary>
         [JsonPropertyName("quoteCount")]
-        public decimal QuoteCount { get; set; }
+        public int QuoteCount { get; set; }
         /// <summary>
         /// Volume XBT
         /// </summary>
         [JsonPropertyName("volumeXBT")]
-        public decimal VolumeXBT { get; set; }
+        public long VolumeXBT { get; set; }
         /// <summary>
         /// Quote value ratio
         /// </summary>

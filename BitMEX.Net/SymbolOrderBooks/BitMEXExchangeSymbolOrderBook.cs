@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using BitMEX.Net.Clients;
 using BitMEX.Net.Interfaces.Clients;
 using BitMEX.Net.Objects.Options;
+using BitMEX.Net.Objects.Models;
+using System.Linq;
 
 namespace BitMEX.Net.SymbolOrderBooks
 {
@@ -18,7 +20,6 @@ namespace BitMEX.Net.SymbolOrderBooks
     public class BitMEXExchangeSymbolOrderBook : SymbolOrderBook
     {
         private readonly bool _clientOwner;
-        private readonly IBitMEXRestClient _restClient;
         private readonly IBitMEXSocketClient _socketClient;
         private readonly TimeSpan _initialDataTimeout;
 
@@ -28,7 +29,7 @@ namespace BitMEX.Net.SymbolOrderBooks
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public BitMEXExchangeSymbolOrderBook(string symbol, Action<BitMEXOrderBookOptions>? optionsDelegate = null)
-            : this(symbol, optionsDelegate, null, null, null)
+            : this(symbol, optionsDelegate, null, null)
         {
             _clientOwner = true;
         }
@@ -39,13 +40,11 @@ namespace BitMEX.Net.SymbolOrderBooks
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="optionsDelegate">Option configuration delegate</param>
         /// <param name="logger">Logger</param>
-        /// <param name="restClient">Rest client instance</param>
         /// <param name="socketClient">Socket client instance</param>
         public BitMEXExchangeSymbolOrderBook(
             string symbol,
             Action<BitMEXOrderBookOptions>? optionsDelegate,
             ILoggerFactory? logger,
-            IBitMEXRestClient? restClient,
             IBitMEXSocketClient? socketClient) : base(logger, "BitMEX", "Exchange", symbol)
         {
             var options = BitMEXOrderBookOptions.Default.Copy();
@@ -57,39 +56,48 @@ namespace BitMEX.Net.SymbolOrderBooks
             _sequencesAreConsecutive = options?.Limit == null;
 
             Levels = options?.Limit;
-            _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
+            _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(10);
             _clientOwner = socketClient == null;
             _socketClient = socketClient ?? new BitMEXSocketClient();
-            _restClient = restClient ?? new BitMEXRestClient();
         }
 
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            // XXX
-            throw new NotImplementedException();
+            var result = await _socketClient.ExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(Symbol, Levels == 25 ? Enums.IncrementalBookLimit.Top25 : Enums.IncrementalBookLimit.Full, DataHandler, ct).ConfigureAwait(false);
+            if (!result)
+                return result;
+
+            if (ct.IsCancellationRequested)
+            {
+                await result.Data.CloseAsync().ConfigureAwait(false);
+                return result.AsError<UpdateSubscription>(new CancellationRequestedError());
+            }
+            Status = OrderBookStatus.Syncing;
+
+            var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+            return setResult ? result : new CallResult<UpdateSubscription>(setResult.Error!);
         }
 
-        /// <inheritdoc />
-        protected override void DoReset()
+        private void DataHandler(DataEvent<BitMEXOrderBookIncrementalUpdate> @event)
         {
+            if (@event.UpdateType == SocketUpdateType.Snapshot)
+                SetInitialOrderBook(DateTime.UtcNow.Ticks, @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Buy), @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Sell));
+            else
+                UpdateOrderBook(DateTime.UtcNow.Ticks, @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Buy), @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Sell));
         }
 
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
-            // XXX
-            throw new NotImplementedException();
+            return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         protected override void Dispose(bool disposing)
         {
             if (_clientOwner)
-            {
-                _restClient?.Dispose();
                 _socketClient?.Dispose();
-            }
 
             base.Dispose(disposing);
         }

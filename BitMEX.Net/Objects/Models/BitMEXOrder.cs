@@ -30,7 +30,7 @@ namespace BitMEX.Net.Objects.Models
         /// Account id
         /// </summary>
         [JsonPropertyName("account")]
-        public decimal AccountId { get; set; }
+        public long AccountId { get; set; }
         /// <summary>
         /// Symbol
         /// </summary>
@@ -45,7 +45,7 @@ namespace BitMEX.Net.Objects.Models
         /// Order quantity
         /// </summary>
         [JsonPropertyName("orderQty")]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
         /// <summary>
         /// Price
         /// </summary>
@@ -72,10 +72,10 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("currency")]
         public string Currency { get; set; } = string.Empty;
         /// <summary>
-        /// Settlement asset
+        /// Settlement currency
         /// </summary>
         [JsonPropertyName("settlCurrency")]
-        public string? SettlementAsset { get; set; }
+        public string? SettlementCurrency { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
@@ -120,12 +120,12 @@ namespace BitMEX.Net.Objects.Models
         /// Quantity remaining
         /// </summary>
         [JsonPropertyName("leavesQty")]
-        public decimal QuantityRemaining { get; set; }
+        public long QuantityRemaining { get; set; }
         /// <summary>
         /// Quantity filled
         /// </summary>
         [JsonPropertyName("cumQty")]
-        public decimal QuantityFilled { get; set; }
+        public long QuantityFilled { get; set; }
         /// <summary>
         /// Average price
         /// </summary>

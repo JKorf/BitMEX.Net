@@ -60,17 +60,17 @@ namespace BitMEX.Net.Objects.Models
         /// Min deposit quantity
         /// </summary>
         [JsonPropertyName("minDepositAmount")]
-        public decimal? MinDepositQuantity { get; set; }
+        public long? MinDepositQuantity { get; set; }
         /// <summary>
         /// Min withdrawal quantity
         /// </summary>
         [JsonPropertyName("minWithdrawalAmount")]
-        public decimal? MinWithdrawalQuantity { get; set; }
+        public long? MinWithdrawalQuantity { get; set; }
         /// <summary>
         /// Max withdrawal quantity
         /// </summary>
         [JsonPropertyName("maxWithdrawalAmount")]
-        public decimal? MaxWithdrawalQuantity { get; set; }
+        public long? MaxWithdrawalQuantity { get; set; }
         /// <summary>
         /// Networks
         /// </summary>
@@ -107,17 +107,17 @@ namespace BitMEX.Net.Objects.Models
         /// Withdrawal fee
         /// </summary>
         [JsonPropertyName("withdrawalFee")]
-        public decimal? WithdrawalFee { get; set; }
+        public long? WithdrawalFee { get; set; }
         /// <summary>
         /// Min fee
         /// </summary>
         [JsonPropertyName("minFee")]
-        public decimal? MinFee { get; set; }
+        public long? MinFee { get; set; }
         /// <summary>
         /// Max fee
         /// </summary>
         [JsonPropertyName("maxFee")]
-        public decimal? MaxFee { get; set; }
+        public long? MaxFee { get; set; }
     }
 
 

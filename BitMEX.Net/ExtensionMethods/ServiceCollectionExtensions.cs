@@ -98,14 +98,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 client.Timeout = options.RequestTimeout;
                 return new BitMEXRestClient(client, serviceProvider.GetRequiredService<ILoggerFactory>(), serviceProvider.GetRequiredService<IOptions<BitMEXRestOptions>>());
             }).ConfigurePrimaryHttpMessageHandler((serviceProvider) => {
-//#if NETSTANDARD
                 var handler = new HttpClientHandler();
-//#endif
-//#if NET5_0_OR_GREATER
-                //var handler = new SocketsHttpHandler();
-                //handler.
-//                handler.ConnectCallback = (context, token) => ConfigureSocketTcpKeepAlive(context, token);
-//#endif
                 try
                 {
                     handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
@@ -131,34 +124,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IBitMEXOrderBookFactory, BitMEXOrderBookFactory>();
             services.AddTransient<IBitMEXTrackerFactory, BitMEXTrackerFactory>();
 
-#warning Update
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMEXRestClient>().ExchangeApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMEXSocketClient>().ExchangeApi.SharedClient);
 
             return services;
         }
-
-#if NET5_0_OR_GREATER
-        private static async ValueTask<Stream> ConfigureSocketTcpKeepAlive(SocketsHttpConnectionContext context, CancellationToken token)
-        {
-            var socket = new Socket(SocketType.Stream, ProtocolType.Tcp) { NoDelay = true };
-            try
-            {                
-                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                socket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveTime, 120);
-                socket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveInterval, 10);
-                socket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveRetryCount, 10);
-                await socket.ConnectAsync(context.DnsEndPoint, token).ConfigureAwait(false);
-
-                return new NetworkStream(socket, ownsSocket: true);
-            }
-            catch
-            {
-                socket.Dispose();
-                throw;
-            }
-        }
-#endif
-
     }
 }

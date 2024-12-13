@@ -29,12 +29,12 @@ namespace BitMEX.Net.Objects.Models
         /// Volume
         /// </summary>
         [JsonPropertyName("volume")]
-        public decimal Volume { get; set; }
+        public long Volume { get; set; }
         /// <summary>
         /// Turnover
         /// </summary>
         [JsonPropertyName("turnover")]
-        public decimal Turnover { get; set; }
+        public long Turnover { get; set; }
     }
 
 

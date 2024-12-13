@@ -24,7 +24,7 @@ namespace BitMEX.Net.Objects.Models
         /// Best bid quantity
         /// </summary>
         [JsonPropertyName("bidSize")]
-        public decimal BestBidQuantity { get; set; }
+        public long BestBidQuantity { get; set; }
         /// <summary>
         /// Best bid price
         /// </summary>
@@ -39,7 +39,7 @@ namespace BitMEX.Net.Objects.Models
         /// Best ask quantity
         /// </summary>
         [JsonPropertyName("askSize")]
-        public decimal BestAskQuantity { get; set; }
+        public long BestAskQuantity { get; set; }
     }
 
 

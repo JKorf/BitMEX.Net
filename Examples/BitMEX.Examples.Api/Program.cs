@@ -26,15 +26,15 @@ app.UseHttpsRedirection();
 // Map the endpoint and inject the rest client
 app.MapGet("/{Symbol}", async ([FromServices] IBitMEXRestClient client, string symbol) =>
 {
-    var result = await client.SpotApi.ExchangeData.GetTickerAsync(symbol);
-    return result.Data.LastPrice;
+    var result = await client.ExchangeApi.ExchangeData.GetSymbolsAsync(symbol);
+    return result.Data.Single().LastPrice;
 })
 .WithOpenApi();
 
 
 app.MapGet("/Balances", async ([FromServices] IBitMEXRestClient client) =>
 {
-    var result = await client.SpotApi.Account.GetBalancesAsync();
+    var result = await client.ExchangeApi.Account.GetBalancesAsync();
     return (object)(result.Success ? result.Data : result.Error!);
 })
 .WithOpenApi();

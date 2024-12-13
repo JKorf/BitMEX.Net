@@ -15,7 +15,7 @@ namespace BitMEX.Net.UnitTests
         public void CheckSignatureExample1()
         {
             var authProvider = new BitMEXAuthenticationProvider(new ApiCredentials("XXX", "XXX"));
-            var client = (RestApiClient)new BitMEXRestClient().SpotApi;
+            var client = (RestApiClient)new BitMEXRestClient().ExchangeApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
                 client,
@@ -24,9 +24,9 @@ namespace BitMEX.Net.UnitTests
                 "/api/v3/order",
                 (uriParams, bodyParams, headers) =>
                 {
-                    return bodyParams["signature"].ToString();
+                    return headers["api-signature"].ToString();
                 },
-                "c8db56825ae71d6d79447849e617115f4a920fa2acdcab2b053c4b2838bd6b71",
+                "f03398fcf2c6e91f48d6b7f5e22de2d4996071613f0e76e130d5a381d5c894c5",
                 new Dictionary<string, object>
                 {
                     { "symbol", "LTCBTC" },

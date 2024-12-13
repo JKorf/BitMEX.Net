@@ -24,7 +24,7 @@ namespace BitMEX.Net.Objects.Models
         /// Time to live
         /// </summary>
         [JsonPropertyName("ttl")]
-        public decimal TimeToLive { get; set; }
+        public int? TimeToLive { get; set; }
         /// <summary>
         /// Closable
         /// </summary>

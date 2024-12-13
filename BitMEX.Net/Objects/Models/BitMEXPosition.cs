@@ -39,17 +39,17 @@ namespace BitMEX.Net.Objects.Models
         /// Fee
         /// </summary>
         [JsonPropertyName("commission")]
-        public decimal Fee { get; set; }
+        public long Fee { get; set; }
         /// <summary>
         /// Initial margin requirement
         /// </summary>
         [JsonPropertyName("initMarginReq")]
-        public decimal InitialMarginRequirement { get; set; }
+        public long InitialMarginRequirement { get; set; }
         /// <summary>
         /// Maintenance margin requirement
         /// </summary>
         [JsonPropertyName("maintMarginReq")]
-        public decimal MaintenanceMarginRequirement { get; set; }
+        public long MaintenanceMarginRequirement { get; set; }
         /// <summary>
         /// Risk limit
         /// </summary>
@@ -74,27 +74,27 @@ namespace BitMEX.Net.Objects.Models
         /// Rebalanced profit and loss
         /// </summary>
         [JsonPropertyName("rebalancedPnl")]
-        public decimal RebalancedPnl { get; set; }
+        public long RebalancedPnl { get; set; }
         /// <summary>
         /// Previous realised profit and loss
         /// </summary>
         [JsonPropertyName("prevRealisedPnl")]
-        public decimal PreviousRealisedPnl { get; set; }
+        public long PreviousRealisedPnl { get; set; }
         /// <summary>
         /// Previous unrealised profit and loss
         /// </summary>
         [JsonPropertyName("prevUnrealisedPnl")]
-        public decimal PreviousUnrealisedPnl { get; set; }
+        public long PreviousUnrealisedPnl { get; set; }
         /// <summary>
         /// Opening quantity
         /// </summary>
         [JsonPropertyName("openingQty")]
-        public decimal OpeningQuantity { get; set; }
+        public long OpeningQuantity { get; set; }
         /// <summary>
         /// Open order buy quantity
         /// </summary>
         [JsonPropertyName("openOrderBuyQty")]
-        public decimal OpenOrderBuyQuantity { get; set; }
+        public long OpenOrderBuyQuantity { get; set; }
         /// <summary>
         /// Open order buy cost
         /// </summary>
@@ -109,7 +109,7 @@ namespace BitMEX.Net.Objects.Models
         /// Open order sell quantity
         /// </summary>
         [JsonPropertyName("openOrderSellQty")]
-        public decimal OpenOrderSellQuantity { get; set; }
+        public long OpenOrderSellQuantity { get; set; }
         /// <summary>
         /// Open order sell cost
         /// </summary>
@@ -124,7 +124,7 @@ namespace BitMEX.Net.Objects.Models
         /// Current quantity
         /// </summary>
         [JsonPropertyName("currentQty")]
-        public decimal CurrentQuantity { get; set; }
+        public long CurrentQuantity { get; set; }
         /// <summary>
         /// Current cost
         /// </summary>
@@ -134,7 +134,7 @@ namespace BitMEX.Net.Objects.Models
         /// Current commissions
         /// </summary>
         [JsonPropertyName("currentComm")]
-        public decimal CurrentCommissions { get; set; }
+        public long CurrentCommissions { get; set; }
         /// <summary>
         /// Realised cost
         /// </summary>
@@ -199,7 +199,7 @@ namespace BitMEX.Net.Objects.Models
         /// Position commissions
         /// </summary>
         [JsonPropertyName("posComm")]
-        public decimal PositionCommissions { get; set; }
+        public long PositionCommissions { get; set; }
         /// <summary>
         /// Position loss
         /// </summary>
@@ -209,12 +209,12 @@ namespace BitMEX.Net.Objects.Models
         /// Position margin
         /// </summary>
         [JsonPropertyName("posMargin")]
-        public decimal PositionMargin { get; set; }
+        public long PositionMargin { get; set; }
         /// <summary>
         /// Position maintenance
         /// </summary>
         [JsonPropertyName("posMaint")]
-        public decimal PositionMaintenance { get; set; }
+        public long PositionMaintenance { get; set; }
         /// <summary>
         /// Initial margin
         /// </summary>
@@ -229,12 +229,12 @@ namespace BitMEX.Net.Objects.Models
         /// Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
-        public decimal RealisedPnl { get; set; }
+        public long RealisedPnl { get; set; }
         /// <summary>
         /// Unrealised profit and loss
         /// </summary>
         [JsonPropertyName("unrealisedPnl")]
-        public decimal UnrealisedPnl { get; set; }
+        public long UnrealizedPnl { get; set; }
         /// <summary>
         /// Unrealised profit and loss percentage
         /// </summary>

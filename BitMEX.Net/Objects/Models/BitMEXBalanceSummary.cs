@@ -34,32 +34,32 @@ namespace BitMEX.Net.Objects.Models
         /// Quantity
         /// </summary>
         [JsonPropertyName("amount")]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
         /// <summary>
         /// Pending debit
         /// </summary>
         [JsonPropertyName("pendingDebit")]
-        public decimal PendingDebit { get; set; }
+        public long PendingDebit { get; set; }
         /// <summary>
         /// Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
-        public decimal RealisedPnl { get; set; }
+        public long RealisedPnl { get; set; }
         /// <summary>
         /// Wallet balance
         /// </summary>
         [JsonPropertyName("walletBalance")]
-        public decimal WalletBalance { get; set; }
+        public long WalletBalance { get; set; }
         /// <summary>
         /// Unrealised profit and loss
         /// </summary>
         [JsonPropertyName("unrealisedPnl")]
-        public decimal UnrealisedPnl { get; set; }
+        public long UnrealisedPnl { get; set; }
         /// <summary>
         /// Margin balance
         /// </summary>
         [JsonPropertyName("marginBalance")]
-        public decimal MarginBalance { get; set; }
+        public long MarginBalance { get; set; }
     }
 
 

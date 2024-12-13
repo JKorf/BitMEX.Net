@@ -24,22 +24,22 @@ namespace BitMEX.Net.Objects.Models
         /// Volume 24 hours
         /// </summary>
         [JsonPropertyName("volume24h")]
-        public decimal Volume24h { get; set; }
+        public long Volume24h { get; set; }
         /// <summary>
         /// Turnover 24 hours
         /// </summary>
         [JsonPropertyName("turnover24h")]
-        public decimal Turnover24h { get; set; }
+        public long Turnover24h { get; set; }
         /// <summary>
         /// Open interest
         /// </summary>
         [JsonPropertyName("openInterest")]
-        public decimal OpenInterest { get; set; }
+        public long OpenInterest { get; set; }
         /// <summary>
         /// Open value
         /// </summary>
         [JsonPropertyName("openValue")]
-        public decimal OpenValue { get; set; }
+        public long OpenValue { get; set; }
     }
 
 

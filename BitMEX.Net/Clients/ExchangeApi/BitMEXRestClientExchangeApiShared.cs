@@ -47,10 +47,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     Networks = x.Networks.Select(n => new SharedAssetNetwork(n.Asset)
                         {
                             DepositEnabled = n.DepositEnabled,
-                            MinWithdrawQuantity = x.MinWithdrawalQuantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)),
-                            MaxWithdrawQuantity = x.MaxWithdrawalQuantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)),
+                            MinWithdrawQuantity = x.MinWithdrawalQuantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)),
+                            MaxWithdrawQuantity = x.MaxWithdrawalQuantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)),
                             WithdrawEnabled = n.WithdrawalEnabled,
-                            WithdrawFee = n.WithdrawalFee.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)) ?? n.MinFee.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)),
+                            WithdrawFee = n.WithdrawalFee.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)) ?? n.MinFee.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)),
                         }
                     ).ToArray()
                 };
@@ -70,7 +70,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!assets)
                 return assets.AsExchangeResult<SharedAsset>(Exchange, null, default);
 
-            var asset = assets.Data.SingleOrDefault(x => x.Name == request.Asset);
+            var asset = assets.Data.SingleOrDefault(x => x.Asset == request.Asset);
             if (asset == null)
                 return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError("Not found"));
 
@@ -81,10 +81,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     Networks = asset.Networks.Select(n => new SharedAssetNetwork(n.Asset)
                     {
                         DepositEnabled = n.DepositEnabled,
-                        MinWithdrawQuantity = asset.MinWithdrawalQuantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(n.Asset)),
-                        MaxWithdrawQuantity = asset.MaxWithdrawalQuantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(n.Asset)),
+                        MinWithdrawQuantity = asset.MinWithdrawalQuantity.ToSharedQuantity(BitMEXExchange.GetAssetScale(n.Asset)),
+                        MaxWithdrawQuantity = asset.MaxWithdrawalQuantity.ToSharedQuantity(BitMEXExchange.GetAssetScale(n.Asset)),
                         WithdrawEnabled = n.WithdrawalEnabled,
-                        WithdrawFee = n.WithdrawalFee.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(n.Asset)) ?? n.MinFee.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(n.Asset)),
+                        WithdrawFee = n.WithdrawalFee.ToSharedQuantity(BitMEXExchange.GetAssetScale(n.Asset)) ?? n.MinFee.ToSharedQuantity(BitMEXExchange.GetAssetScale(n.Asset)),
                     }
                     ).ToArray()
                 }
@@ -110,7 +110,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
 #warning total balance correct?
             return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, TradingMode.Spot, result.Data.Select(x => 
-            new SharedBalance(x.Asset, x.Quantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)), (x.Quantity + x.PendingCredit).ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)))).ToArray());
+            new SharedBalance(BitMEXExchange.GetAssetFromCurrency(x.Currency), x.Quantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)), (x.Quantity + x.PendingCredit).ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)))).ToArray());
         }
 
         #endregion
@@ -169,7 +169,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 nextToken = new OffsetToken((offset ?? 0) + deposits.Data.Count());
 
             return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, TradingMode.Spot, 
-                deposits.Data.Where(x => x.TransactionType == TransactionType.Deposit).Select(x => new SharedDeposit(x.Asset, x.Quantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)), x.TransactionStatus == TransactionStatus.Completed, x.TransactionTime)
+                deposits.Data.Where(x => x.TransactionType == TransactionType.Deposit).Select(x => new SharedDeposit(BitMEXExchange.GetAssetFromCurrency(x.Currency), x.Quantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)), x.TransactionStatus == TransactionStatus.Completed, x.TransactionTime)
             {
                 Network = x.Network,
                 TransactionId = x.Transaction,
@@ -273,9 +273,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (request.Symbol.TradingMode == TradingMode.Spot)
             {
                 foreach (var item in book.Asks)
-                    item.Quantity = item.Quantity.ToSharedQuantity(BitMEXExchange.GetAssetScale(request.Symbol.BaseAsset));
+                    item.Quantity = ((long)item.Quantity).ToSharedQuantity(BitMEXExchange.GetAssetScale(request.Symbol.BaseAsset));
                 foreach (var item in book.Bids)
-                    item.Quantity = item.Quantity.ToSharedQuantity(BitMEXExchange.GetAssetScale(request.Symbol.BaseAsset));
+                    item.Quantity = ((long)item.Quantity).ToSharedQuantity(BitMEXExchange.GetAssetScale(request.Symbol.BaseAsset));
             }
 
             return result.AsExchangeResult(Exchange, TradingMode.Spot, book);
@@ -387,7 +387,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 nextToken = new OffsetToken((offset ?? 0) + withdrawals.Data.Count());
 
             return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, TradingMode.Spot, withdrawals.Data.Where(x => x.TransactionType == TransactionType.Withdrawal).Select(x => 
-            new SharedWithdrawal(x.Asset, x.Address, x.Quantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Asset)), x.TransactionStatus == TransactionStatus.Completed, x.Timestamp)
+            new SharedWithdrawal(BitMEXExchange.GetAssetFromCurrency(x.Currency), x.Address, x.Quantity.ToSharedQuantity(BitMEXExchange.GetCurrencyScale(x.Currency)), x.TransactionStatus == TransactionStatus.Completed, x.Timestamp)
             {
                 Network = x.Network,
                 Tag = x.Memo,
@@ -514,8 +514,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Spot Order Client
-#warning check
-        SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
+        SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.AddToCost;
         SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.QuoteAsset;
         IEnumerable<SharedOrderType> ISpotOrderRestClient.SpotSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market, SharedOrderType.LimitMaker };
         IEnumerable<SharedTimeInForce> ISpotOrderRestClient.SpotSupportedTimeInForce { get; } = new[] { SharedTimeInForce.GoodTillCanceled, SharedTimeInForce.ImmediateOrCancel, SharedTimeInForce.FillOrKill };
@@ -612,14 +611,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var orders = await Trading.GetOrdersAsync(symbol,
                 filter: new Dictionary<string, object>
                 {
-#warning also partially filled or something?
-                    { "ordStatus", "New" }
+                    { "open", true }
                 },
                 ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
 
-            return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, orders.Data.Select(x => new SharedSpotOrder(
+            var data = orders.Data.Where(x => BitMEXExchange.GetSymbolType(x.Symbol) == SymbolType.Spot);
+            return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, data.Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.OrderId,
                 ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -658,7 +657,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var orders = await Trading.GetOrdersAsync(request.Symbol.GetSymbol(FormatSymbol),
                 filter: new Dictionary<string, object>
                 {
-#warning check if works?
                     { "ordStatus", new string[] {"Canceled", "Filled" } }
                 },
                 startTime: request.StartTime,
@@ -870,7 +868,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, null, default);
 
-            var data = result.Data.Where(x => x.SymbolType != SymbolType.Spot);
+            // Quanto not supported as it doesn't currently fit in the response models
+            var data = result.Data.Where(x => x.SymbolType != SymbolType.Spot && !x.IsQuanto);
             if (request.TradingMode != null) 
             {
                 data = data.Where(x => request.TradingMode.Value.IsPerpetual() ? x.SymbolType == SymbolType.PerpetualContract : x.SymbolType == SymbolType.Futures);
@@ -887,13 +886,474 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     s.Symbol,
                     s.Status == SymbolStatus.Open)
             {
-                MinTradeQuantity = s.LotSize.ToSharedQuantity(BitMEXExchange.GetSymbolQuantityScale(s.Symbol)),
-                MaxTradeQuantity = s.MaxOrderQuantity.ToSharedQuantity(BitMEXExchange.GetSymbolQuantityScale(s.Symbol)),
-                QuantityStep = s.LotSize.ToSharedQuantity(BitMEXExchange.GetSymbolQuantityScale(s.Symbol)),
+                MinTradeQuantity = s.LotSize,
+                MaxTradeQuantity = s.MaxOrderQuantity,
+                QuantityStep = s.LotSize,
                 PriceStep = s.PriceStep,
-                ContractSize = s.LotSize.ToSharedQuantity(BitMEXExchange.GetSymbolQuantityScale(s.Symbol)),
+                ContractSize = s.IsInverse ? (s.Multiplier / s.UnderlyingToSettleMultiplier) : (1 / s.UnderlyingToPositionMultiplier),
                 DeliveryTime = s.SettleTime
             }).ToArray());
+        }
+
+        #endregion
+
+        #region Futures Ticker client
+
+        EndpointOptions<GetTickerRequest> IFuturesTickerRestClient.GetFuturesTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
+        async Task<ExchangeWebResult<SharedFuturesTicker>> IFuturesTickerRestClient.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesTicker>(Exchange, validationError);
+
+            var resultTicker = await ExchangeData.GetSymbolsAsync(request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedFuturesTicker>(Exchange, null, default);
+
+            var symbol = resultTicker.Data.SingleOrDefault();
+            if (symbol == null)
+                return resultTicker.AsExchangeError<SharedFuturesTicker>(Exchange, new ServerError("Not found"));
+
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, 
+                new SharedFuturesTicker(symbol.Symbol, symbol.LastPrice, symbol.HighPrice, symbol.LowPrice, symbol.Volume, symbol.LastChangePercentage)
+            {
+                MarkPrice = symbol.MarkPrice,
+                FundingRate = symbol.FundingRate,
+                NextFundingTime = symbol.FundingTimestamp
+            });
+        }
+
+        EndpointOptions<GetTickersRequest> IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
+        async Task<ExchangeWebResult<IEnumerable<SharedFuturesTicker>>> IFuturesTickerRestClient.GetFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickersOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedFuturesTicker>>(Exchange, validationError);
+
+            var resultTickers = await ExchangeData.GetActiveSymbolsAsync(ct: ct).ConfigureAwait(false);
+            if (!resultTickers)
+                return resultTickers.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, null, default);
+
+            var data = resultTickers.Data.Where(x => x.SymbolType != SymbolType.Spot);
+            if (request.TradingMode != null)
+            {
+                data = data.Where(x => request.TradingMode.Value.IsPerpetual() ? x.SymbolType == SymbolType.PerpetualContract : x.SymbolType == SymbolType.Futures);
+                data = data.Where(x => request.TradingMode.Value.IsInverse() ? x.IsInverse : !x.IsInverse);
+            }
+
+            return resultTickers.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, request.TradingMode == null ? SupportedTradingModes : new[] { request.TradingMode.Value }, data.Select(x =>
+            {
+                var markPrice = resultTickers.Data.Single(p => p.Symbol == x.Symbol);
+                return new SharedFuturesTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.LastChangePercentage)
+                {
+                    MarkPrice = markPrice.MarkPrice,
+                    FundingRate = markPrice.FundingRate,
+                    NextFundingTime = markPrice.FundingTimestamp
+                };
+            }).ToArray());
+        }
+
+        #endregion
+
+        #region Leverage client
+        SharedLeverageSettingMode ILeverageRestClient.LeverageSettingType => SharedLeverageSettingMode.PerSymbol;
+
+        EndpointOptions<GetLeverageRequest> ILeverageRestClient.GetLeverageOptions { get; } = new EndpointOptions<GetLeverageRequest>(true);
+        async Task<ExchangeWebResult<SharedLeverage>> ILeverageRestClient.GetLeverageAsync(GetLeverageRequest request, CancellationToken ct)
+        {
+            var validationError = ((ILeverageRestClient)this).GetLeverageOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedLeverage>(Exchange, validationError);
+
+            var result = await Trading.GetPositionsAsync(filter: new Dictionary<string, object>{
+                { "symbol", request.Symbol.GetSymbol(FormatSymbol) }
+            },
+            columns: new[] { "leverage" },
+            ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
+
+            if (!result.Data.Any())
+                return result.AsExchangeError<SharedLeverage>(Exchange, new ServerError("Position not found"));
+
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedLeverage(result.Data.First().Leverage)
+            {
+                Side = request.PositionSide
+            });
+        }
+
+        SetLeverageOptions ILeverageRestClient.SetLeverageOptions { get; } = new SetLeverageOptions()
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(SetLeverageRequest.MarginMode), typeof(SharedMarginMode), "Margin mode to change leverage for", SharedMarginMode.Isolated)
+            }
+        };
+        async Task<ExchangeWebResult<SharedLeverage>> ILeverageRestClient.SetLeverageAsync(SetLeverageRequest request, CancellationToken ct)
+        {
+            var validationError = ((ILeverageRestClient)this).SetLeverageOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedLeverage>(Exchange, validationError);
+
+            if (request.MarginMode == SharedMarginMode.Isolated)
+            {
+                var result = await Trading.SetIsolatedMarginLeverageAsync(symbol: request.Symbol.GetSymbol(FormatSymbol), request.Leverage, ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
+
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedLeverage(result.Data.Leverage) { MarginMode = request.MarginMode });
+            }
+            else
+            {
+                var result = await Trading.SetCrossMarginLeverageAsync(symbol: request.Symbol.GetSymbol(FormatSymbol), request.Leverage, ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
+
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedLeverage(result.Data.Leverage) { MarginMode = request.MarginMode });
+            }
+
+        }
+        #endregion
+
+        #region Open Interest client
+
+        EndpointOptions<GetOpenInterestRequest> IOpenInterestRestClient.GetOpenInterestOptions { get; } = new EndpointOptions<GetOpenInterestRequest>(true);
+        async Task<ExchangeWebResult<SharedOpenInterest>> IOpenInterestRestClient.GetOpenInterestAsync(GetOpenInterestRequest request, CancellationToken ct)
+        {
+            var validationError = ((IOpenInterestRestClient)this).GetOpenInterestOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedOpenInterest>(Exchange, validationError);
+
+            var result = await ExchangeData.GetSymbolsAsync(filter: new Dictionary<string, object>{
+                { "symbol", request.Symbol.GetSymbol(FormatSymbol) }
+            }, columns: ["openInterest"], ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedOpenInterest>(Exchange, null, default);
+
+            var symbol = result.Data.SingleOrDefault();
+            if (symbol == null)
+                return result.AsExchangeError<SharedOpenInterest>(Exchange, new ServerError("Symbol not found"));
+
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedOpenInterest(symbol.OpenInterest ?? 0));
+        }
+
+        #endregion
+
+        #region Futures Order Client
+
+        SharedFeeDeductionType IFuturesOrderRestClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
+        SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.QuoteAsset;
+
+        IEnumerable<SharedOrderType> IFuturesOrderRestClient.FuturesSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market };
+        IEnumerable<SharedTimeInForce> IFuturesOrderRestClient.FuturesSupportedTimeInForce { get; } = new[] { SharedTimeInForce.GoodTillCanceled, SharedTimeInForce.ImmediateOrCancel, SharedTimeInForce.FillOrKill };
+        SharedQuantitySupport IFuturesOrderRestClient.FuturesSupportedOrderQuantity { get; } = new SharedQuantitySupport(
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts);
+
+        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions();
+        async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).PlaceFuturesOrderOptions.ValidateRequest(
+                Exchange,
+                request,
+                request.Symbol.TradingMode,
+                SupportedTradingModes,
+                ((IFuturesOrderRestClient)this).FuturesSupportedOrderTypes,
+                ((IFuturesOrderRestClient)this).FuturesSupportedTimeInForce,
+                ((IFuturesOrderRestClient)this).FuturesSupportedOrderQuantity);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var result = await Trading.PlaceOrderAsync(
+                request.Symbol.GetSymbol(FormatSymbol),
+                request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
+                request.OrderType == SharedOrderType.Limit ? Enums.OrderType.Limit : Enums.OrderType.Market,
+                quantity: request.Quantity.ToBitMEXQuantity(BitMEXExchange.GetAssetScale(request.Symbol.BaseAsset)),
+                price: request.Price,
+                timeInForce: GetTimeInForce(request.TimeInForce, request.OrderType),
+                executionInstruction: request.OrderType == SharedOrderType.LimitMaker ? ExecutionInstruction.PostOnly : request.ReduceOnly == true ? ExecutionInstruction.ReduceOnly: null,
+                clientOrderId: request.ClientOrderId,
+                ct: ct).ConfigureAwait(false);
+
+            if (!result)
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId));
+        }
+
+        EndpointOptions<GetOrderRequest> IFuturesOrderRestClient.GetFuturesOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderRestClient.GetFuturesOrderAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
+
+            var orders = await Trading.GetOrdersAsync(request.Symbol.GetSymbol(FormatSymbol),
+                filter: new Dictionary<string, object>
+                {
+                    { "orderID", request.OrderId }
+                },
+                ct: ct).ConfigureAwait(false);
+            if (!orders)
+                return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
+
+            var order = orders.Data.SingleOrDefault();
+            if (order == null)
+                return orders.AsExchangeError<SharedFuturesOrder>(Exchange, new ServerError("Not found"));
+
+            return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFuturesOrder(
+                order.Symbol,
+                order.OrderId,
+                ParseOrderType(order.OrderType, order.ExecutionInstruction),
+                order.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(order.Status),
+                order.Timestamp)
+            {
+                ClientOrderId = order.ClientOrderId,
+                AveragePrice = order.AveragePrice,
+                OrderPrice = order.Price,
+                Quantity = order.Quantity,
+                QuantityFilled = order.QuantityFilled,
+                TimeInForce = ParseTimeInForce(order.TimeInForce),
+                UpdateTime = order.TransactTime,
+                ReduceOnly = order.ExecutionInstruction == ExecutionInstruction.ReduceOnly
+            });
+        }
+
+        EndpointOptions<GetOpenOrdersRequest> IFuturesOrderRestClient.GetOpenFuturesOrdersOptions { get; } = new EndpointOptions<GetOpenOrdersRequest>(true);
+        async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetOpenFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
+
+            var symbol = request.Symbol?.GetSymbol(FormatSymbol);
+            var orders = await Trading.GetOrdersAsync(symbol,
+                filter: new Dictionary<string, object>
+                {
+                    { "ordStatus", new [] { "New", "PartiallyFilled" } }
+                },
+                ct: ct).ConfigureAwait(false);
+            if (!orders)
+                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
+
+            var data = orders.Data.Where(x => BitMEXExchange.GetSymbolType(x.Symbol) != SymbolType.Spot);
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, TradingMode.Spot, data.Select(x => new SharedFuturesOrder(
+                x.Symbol,
+                x.OrderId,
+                ParseOrderType(x.OrderType, x.ExecutionInstruction),
+                x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(x.Status),
+                x.Timestamp)
+            {
+                ClientOrderId = x.ClientOrderId,
+                AveragePrice = x.AveragePrice,
+                OrderPrice = x.Price,
+                Quantity = x.Quantity,
+                QuantityFilled = x.QuantityFilled,
+                TimeInForce = ParseTimeInForce(x.TimeInForce),
+                UpdateTime = x.TransactTime,
+                ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly
+            }).ToArray());
+        }
+
+        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationSupport.Descending, true, 1000, true);
+        async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
+
+            // Determine page token
+            int offset = 0;
+            if (pageToken is OffsetToken offsetToken)
+                offset = offsetToken.Offset;
+
+            var limit = request.Limit ?? 500;
+
+            // Get data
+            var orders = await Trading.GetOrdersAsync(request.Symbol.GetSymbol(FormatSymbol),
+                filter: new Dictionary<string, object>
+                {
+                    { "ordStatus", new string[] {"Canceled", "Filled" } }
+                },
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                limit: limit,
+                offset: offset,
+                ct: ct).ConfigureAwait(false);
+            if (!orders)
+                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
+
+            // Get next token
+            OffsetToken? nextToken = null;
+            if (orders.Data.Any())
+                nextToken = new OffsetToken(offset + limit);
+
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, TradingMode.Spot, orders.Data.Select(x => new SharedFuturesOrder(
+                x.Symbol,
+                x.OrderId,
+                ParseOrderType(x.OrderType, x.ExecutionInstruction),
+                x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(x.Status),
+                x.Timestamp)
+            {
+                ClientOrderId = x.ClientOrderId,
+                AveragePrice = x.AveragePrice,
+                OrderPrice = x.Price,
+                Quantity = x.Quantity,
+                QuantityFilled = x.QuantityFilled,
+                TimeInForce = ParseTimeInForce(x.TimeInForce),
+                UpdateTime = x.TransactTime,
+                ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly
+            }).ToArray(), nextToken);
+        }
+
+        EndpointOptions<GetOrderTradesRequest> IFuturesOrderRestClient.GetFuturesOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
+
+            var trades = await Trading.GetUserTradesAsync(symbol: request.Symbol.GetSymbol(FormatSymbol),
+                filter: new Dictionary<string, object>
+                {
+                    { "orderID", request.OrderId }
+                },
+                ct: ct).ConfigureAwait(false);
+            if (!trades)
+                return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
+
+            return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, trades.Data.Select(x => new SharedUserTrade(
+                x.Symbol,
+                x.OrderId,
+                x.TradeId,
+                x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                x.Quantity,
+                x.LastTradePrice!.Value,
+                x.Timestamp)
+            {
+                Fee = x.Fee,
+                Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
+            }).ToArray());
+        }
+
+        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationSupport.Descending, true, 1000, true);
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
+
+            // Determine page token
+            long? fromId = null;
+            if (pageToken is FromIdToken fromIdToken)
+                fromId = long.Parse(fromIdToken.FromToken);
+
+            // Determine page token
+            int offset = 0;
+            if (pageToken is OffsetToken offsetToken)
+                offset = offsetToken.Offset;
+
+            var limit = request.Limit ?? 500;
+
+            // Get data
+            var trades = await Trading.GetUserTradesAsync(symbol: request.Symbol.GetSymbol(FormatSymbol),
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                limit: limit,
+                offset: offset,
+                ct: ct
+                ).ConfigureAwait(false);
+            if (!trades)
+                return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
+
+            // Get next token
+            OffsetToken? nextToken = null;
+            if (trades.Data.Count() == limit)
+                nextToken = new OffsetToken(offset + limit);
+
+            return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, trades.Data.Select(x => new SharedUserTrade(
+                x.Symbol,
+                x.OrderId,
+                x.TradeId,
+                x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                x.Quantity,
+                x.LastTradePrice!.Value,
+                x.Timestamp)
+            {
+                Fee = x.Fee,
+                Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
+            }).ToArray(), nextToken);
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesOrderRestClient.CancelFuturesOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+        }
+
+        EndpointOptions<GetPositionsRequest> IFuturesOrderRestClient.GetPositionsOptions { get; } = new EndpointOptions<GetPositionsRequest>(true);
+        async Task<ExchangeWebResult<IEnumerable<SharedPosition>>> IFuturesOrderRestClient.GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedPosition>>(Exchange, validationError);
+
+            var result = await Trading.GetPositionsAsync(filter: request.Symbol == null ? null : new Dictionary<string, object>{
+                { "symbol", request.Symbol.GetSymbol(FormatSymbol) }
+            }, ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, null, default);
+
+            var data = result.Data;
+            if (request.TradingMode != null)
+                data = data.Where(x => request.TradingMode.Value.IsPerpetual() ? BitMEXExchange.GetSymbolType(x.Symbol) == SymbolType.PerpetualContract : BitMEXExchange.GetSymbolType(x.Symbol) == SymbolType.Futures);
+            
+            var resultTypes = request.Symbol == null && request.TradingMode == null ? SupportedTradingModes : request.Symbol != null ? new[] { request.Symbol.TradingMode } : new[] { request.TradingMode!.Value };
+            return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, resultTypes, data.Select(x => new SharedPosition(x.Symbol, Math.Abs(x.CurrentQuantity), x.Timestamp)
+            {
+                UnrealizedPnl = x.UnrealizedPnl,
+                LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
+                Leverage = x.Leverage,
+                AverageOpenPrice = x.AverageEntryPrice,
+                PositionSide = x.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long
+            }).ToArray());
+        }
+
+        EndpointOptions<ClosePositionRequest> IFuturesOrderRestClient.ClosePositionOptions { get; } = new EndpointOptions<ClosePositionRequest>(true)
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(ClosePositionRequest.PositionSide), typeof(SharedPositionSide), "The position side to close", SharedPositionSide.Long),
+                new ParameterDescription(nameof(ClosePositionRequest.Quantity), typeof(decimal), "Quantity of the position is required", 0.1m)
+            }
+        };
+        async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).ClosePositionOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var result = await Trading.ClosePositionAsync(
+                symbol,
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId));
         }
 
         #endregion

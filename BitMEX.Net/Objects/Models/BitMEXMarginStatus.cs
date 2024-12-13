@@ -34,42 +34,42 @@ namespace BitMEX.Net.Objects.Models
         /// Quantity
         /// </summary>
         [JsonPropertyName("amount")]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
         /// <summary>
         /// Previous realised profit and loss
         /// </summary>
         [JsonPropertyName("prevRealisedPnl")]
-        public decimal? PrevRealisedPnl { get; set; }
+        public long? PrevRealisedPnl { get; set; }
         /// <summary>
         /// Gross comm
         /// </summary>
         [JsonPropertyName("grossComm")]
-        public decimal GrossComm { get; set; }
+        public long GrossComm { get; set; }
         /// <summary>
         /// Gross open cost
         /// </summary>
         [JsonPropertyName("grossOpenCost")]
-        public decimal GrossOpenCost { get; set; }
+        public long GrossOpenCost { get; set; }
         /// <summary>
         /// Gross open premium
         /// </summary>
         [JsonPropertyName("grossOpenPremium")]
-        public decimal GrossOpenPremium { get; set; }
+        public long GrossOpenPremium { get; set; }
         /// <summary>
         /// Gross execution cost
         /// </summary>
         [JsonPropertyName("grossExecCost")]
-        public decimal? GrossExecCost { get; set; }
+        public long? GrossExecCost { get; set; }
         /// <summary>
         /// Gross mark value
         /// </summary>
         [JsonPropertyName("grossMarkValue")]
-        public decimal GrossMarkValue { get; set; }
+        public long GrossMarkValue { get; set; }
         /// <summary>
         /// Risk value
         /// </summary>
         [JsonPropertyName("riskValue")]
-        public decimal RiskValue { get; set; }
+        public long RiskValue { get; set; }
         /// <summary>
         /// Initial margin
         /// </summary>
@@ -84,27 +84,27 @@ namespace BitMEX.Net.Objects.Models
         /// Target excess margin
         /// </summary>
         [JsonPropertyName("targetExcessMargin")]
-        public decimal TargetExcessMargin { get; set; }
+        public long TargetExcessMargin { get; set; }
         /// <summary>
         /// Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
-        public decimal RealisedPnl { get; set; }
+        public long RealisedPnl { get; set; }
         /// <summary>
         /// Unrealised profit and loss
         /// </summary>
         [JsonPropertyName("unrealisedPnl")]
-        public decimal UnrealisedPnl { get; set; }
+        public long UnrealisedPnl { get; set; }
         /// <summary>
         /// Wallet balance
         /// </summary>
         [JsonPropertyName("walletBalance")]
-        public decimal WalletBalance { get; set; }
+        public long WalletBalance { get; set; }
         /// <summary>
         /// Margin balance
         /// </summary>
         [JsonPropertyName("marginBalance")]
-        public decimal MarginBalance { get; set; }
+        public long MarginBalance { get; set; }
         /// <summary>
         /// Margin leverage
         /// </summary>
@@ -124,12 +124,12 @@ namespace BitMEX.Net.Objects.Models
         /// Available margin
         /// </summary>
         [JsonPropertyName("availableMargin")]
-        public decimal AvailableMargin { get; set; }
+        public long AvailableMargin { get; set; }
         /// <summary>
         /// Withdrawable margin
         /// </summary>
         [JsonPropertyName("withdrawableMargin")]
-        public decimal WithdrawableMargin { get; set; }
+        public long WithdrawableMargin { get; set; }
         /// <summary>
         /// Maker fee discount
         /// </summary>
@@ -149,12 +149,12 @@ namespace BitMEX.Net.Objects.Models
         /// Foreign margin balance
         /// </summary>
         [JsonPropertyName("foreignMarginBalance")]
-        public decimal ForeignMarginBalance { get; set; }
+        public long ForeignMarginBalance { get; set; }
         /// <summary>
         /// Foreign requirement
         /// </summary>
         [JsonPropertyName("foreignRequirement")]
-        public decimal ForeignRequirement { get; set; }
+        public long ForeignRequirement { get; set; }
     }
 
 

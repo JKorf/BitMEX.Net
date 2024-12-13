@@ -2,7 +2,7 @@
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/BitMEX.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/BitMEX.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/BitMEX.Net?style=for-the-badge)
 
-BitMEX.Net is a client library for accessing the [BitMEX REST and Websocket API](BitMEX). 
+BitMEX.Net is a client library for accessing the [BitMEX REST and Websocket API](https://www.bitmex.com/app/apiOverview). 
 
 ## Features
 * Response data is mapped to descriptive models
@@ -30,9 +30,9 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 ## Install the library
 
 ### NuGet 
-[![NuGet version](https://img.shields.io/nuget/v/BitMEX.net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMEX.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/BitMEX.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMEX.Net)
+[![NuGet version](https://img.shields.io/nuget/v/JKorf.BitMEX.net.svg?style=for-the-badge)](https://www.nuget.org/packages/JKorf.BitMEX.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/JKorf.BitMEX.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/JKorf.BitMEX.Net)
 
-	dotnet add package BitMEX.Net
+	dotnet add package JKorf.BitMEX.Net
 	
 ### GitHub packages
 BitMEX.Net is available on [GitHub packages](https://github.com/JKorf/BitMEX.Net/pkgs/nuget/BitMEX.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
@@ -47,16 +47,20 @@ The NuGet package files are added along side the source with the latest GitHub r
 	```csharp
 	// Get the ETH/USDT ticker via rest request
 	var restClient = new BitMEXRestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
-	var lastPrice = tickerResult.Data.LastPrice;
+	var tickerResult = await restClient.ExchangeApi.ExchangeData.GetSymbolsAsync("ETHUSDT");
+	var lastPrice = tickerResult.Data.Single().LastPrice;
 	```
 * Websocket streams
 	```csharp
 	// Subscribe to ETH/USDT ticker updates via the websocket API
 	var socketClient = new BitMEXSocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", (update) => 
+	var tickerSubscriptionResult = socketClient.ExchangeApi.SubscribeToSymbolUpdatesAsync("ETHUSDT", (update) =>
 	{
-	  var lastPrice = update.Data.LastPrice;
+		// If update.Data.LastPrice == null the price hasn't changed since last update
+		if (update.Data.LastPrice != null)
+		{ 
+			var lastPrice = update.Data.LastPrice;
+		}
 	});
 	```
 
@@ -97,14 +101,41 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discuss
 
 ## Supported functionality
 
-### Spot
+### Rest API
 |API|Supported|Location|
 |--|--:|--|
-|TODO|✓|`restClient.SpotApi.Account`|
-### Futures
+|Address|✓|`restClient.ExchangeApi.Account`|
+|AddressConfig|✓|`restClient.ExchangeApi.Account`|
+|Announcement|✓|`restClient.ExchangeApi.ExchangeData`|
+|ApiKey|✓|`restClient.ExchangeApi.Account`|
+|Chat|X||
+|Execution|✓|`restClient.ExchangeApi.Trading`|
+|Funding|✓|`restClient.ExchangeApi.ExchangeData`|
+|Guild|X||
+|Instrument|✓|`restClient.ExchangeApi.ExchangeData`|
+|Insurance|✓|`restClient.ExchangeApi.ExchangeData`|
+|Leaderboard|X||
+|Liquidation|✓|`restClient.ExchangeApi.ExchangeData`|
+|Order|✓|`restClient.ExchangeApi.Trading`|
+|OrderBook|✓|`restClient.ExchangeApi.ExchangeData`|
+|Porl|X||
+|Position|✓|`restClient.ExchangeApi.Trading`|
+|Quote|✓|`restClient.ExchangeApi.ExchangeData`|
+|ReferralCode|X||
+|Schema|X||
+|Settlement|✓|`restClient.ExchangeApi.ExchangeData`|
+|Stats|✓|`restClient.ExchangeApi.ExchangeData`|
+|Trade|✓|`restClient.ExchangeApi.ExchangeData`|
+|User|✓|`restClient.ExchangeApi.Account`|
+|UserAffiliates|X||
+|UserEvent|✓|`restClient.ExchangeApi.Account`|
+|Wallet|✓|`restClient.ExchangeApi.ExchangeData`|
+
+### WebSocket API
 |API|Supported|Location|
 |--|--:|--|
-|TODO|✓|`restClient.FuturesApi.ExchangeData`|
+|Public|✓|`restClient.ExchangeApi`|
+|Private|✓|`restClient.ExchangeApi`|
 
 ## Support the project
 Any support is greatly appreciated.

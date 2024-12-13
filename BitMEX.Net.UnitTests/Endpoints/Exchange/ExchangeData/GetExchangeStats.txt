@@ -1,0 +1,13 @@
+GET
+/api/v1/stats
+false
+[
+  {
+    "rootSymbol": "string",
+    "currency": "string",
+    "volume24h": 0,
+    "turnover24h": 0,
+    "openInterest": 0,
+    "openValue": 0
+  }
+]

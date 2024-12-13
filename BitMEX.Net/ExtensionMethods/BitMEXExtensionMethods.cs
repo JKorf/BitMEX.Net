@@ -13,7 +13,7 @@ namespace BitMEX.Net.ExtensionMethods
         /// <param name="value">Value</param>
         /// <param name="scale">Scale</param>
         /// <returns></returns>
-        public static decimal ToSharedQuantity(this decimal value, int scale)
+        public static decimal ToSharedQuantity(this long value, int scale)
         {
             if (scale == 1)
                 return value;
@@ -27,7 +27,7 @@ namespace BitMEX.Net.ExtensionMethods
         /// <param name="value">Value</param>
         /// <param name="scale">Scale</param>
         /// <returns></returns>
-        public static decimal? ToSharedQuantity(this decimal? value, int scale)
+        public static decimal? ToSharedQuantity(this long? value, int scale)
         {
             if (value == null)
                 return null;
@@ -44,12 +44,12 @@ namespace BitMEX.Net.ExtensionMethods
         /// <param name="value">Value</param>
         /// <param name="scale">Scale</param>
         /// <returns></returns>
-        public static decimal ToBitMEXQuantity(this decimal value, int scale)
+        public static long ToBitMEXQuantity(this decimal value, int scale)
         {
             if (scale == 1)
-                return value;
+                return (long)value;
 
-            return value * (decimal)Math.Pow(10, scale);
+            return (long)(value * (decimal)Math.Pow(10, scale));
         }
 
         /// <summary>
@@ -58,15 +58,15 @@ namespace BitMEX.Net.ExtensionMethods
         /// <param name="value">Value</param>
         /// <param name="scale">Scale</param>
         /// <returns></returns>
-        public static decimal? ToBitMEXQuantity(this decimal? value, int scale)
+        public static long? ToBitMEXQuantity(this decimal? value, int scale)
         {
             if (value == null)
                 return null;
 
             if (scale == 1)
-                return value;
+                return (long)value;
 
-            return value * (decimal)Math.Pow(10, scale);
+            return (long)(value * (decimal)Math.Pow(10, scale));
         }
     }
 }

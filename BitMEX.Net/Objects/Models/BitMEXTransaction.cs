@@ -25,7 +25,7 @@ namespace BitMEX.Net.Objects.Models
         /// Asset
         /// </summary>
         [JsonPropertyName("currency")]
-        public string Asset { get; set; } = string.Empty;
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// Network
         /// </summary>
@@ -40,17 +40,17 @@ namespace BitMEX.Net.Objects.Models
         /// Quantity
         /// </summary>
         [JsonPropertyName("amount")]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
         /// <summary>
         /// Wallet balance
         /// </summary>
         [JsonPropertyName("walletBalance")]
-        public decimal WalletBalance { get; set; }
+        public long WalletBalance { get; set; }
         /// <summary>
         /// Fee
         /// </summary>
         [JsonPropertyName("fee")]
-        public decimal Fee { get; set; }
+        public long Fee { get; set; }
         /// <summary>
         /// Transaction status
         /// </summary>

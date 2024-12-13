@@ -31,7 +31,7 @@ namespace BitMEX.Net.Objects.Models
         /// Trade quantity
         /// </summary>
         [JsonPropertyName("size")]
-        public decimal Quantity { get; set; }
+        public long Quantity { get; set; }
         /// <summary>
         /// Trade price
         /// </summary>
@@ -42,5 +42,25 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("tickDirection")]
         public TickDirection TickDirection { get; set; }
+        /// <summary>
+        /// Trade match id
+        /// </summary>
+        [JsonPropertyName("trdMatchID")]
+        public string? TradeMatchId { get; set; }
+        /// <summary>
+        /// Trade value
+        /// </summary>
+        [JsonPropertyName("grossValue")]
+        public long? Value { get; set; }
+        /// <summary>
+        /// Home notional
+        /// </summary>
+        [JsonPropertyName("homeNotional")]
+        public decimal? HomeNotional { get; set; }
+        /// <summary>
+        /// Foreign notional
+        /// </summary>
+        [JsonPropertyName("foreignNotional")]
+        public decimal? ForeignNotional { get; set; }
     }
 }

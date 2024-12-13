@@ -102,9 +102,6 @@
             </summary>
             <param name="serviceProvider">Service provider for resolving logging and clients</param>
         </member>
-        <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
-            <inheritdoc />
-        </member>
         <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
         </member>
@@ -246,10 +243,10 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetBalanceSummaryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.TransferAsync(System.String,System.Int64,System.Int64,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.TransferAsync(System.String,System.Int64,System.Int64,System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Decimal},System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.WithdrawAsync(System.String,System.String,System.Int64,System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
@@ -261,7 +258,19 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.SetRiskLimitAsync(System.String,System.Int32,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.TransferMarginAsync(System.String,System.Decimal,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.TransferMarginAsync(System.String,System.Int64,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetSavedAddressesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.AddSavedAddressAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetAddressBookSettingsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData">
@@ -273,13 +282,13 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetActiveSymbolsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetAllSymbolsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetSymbolsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetActiveIntervalsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetCompositeIndexesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetCompositeIndexesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetIndicesAsync(System.Threading.CancellationToken)">
@@ -303,19 +312,19 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetExchangeStatHistoryUSDAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetSettlementHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetSettlementHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetBookTickerHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetBookTickerHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetAggregatedBookTickerHistoryAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetAggregatedBookTickerHistoryAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetOrderBookAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetInsuranceAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetInsuranceAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetFundingHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -333,13 +342,16 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetAssetNetworksAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiExchangeData.GetLiquidationsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.PlaceOrderAsync(System.String,BitMEX.Net.Enums.OrderSide,BitMEX.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.TimeInForce},System.Nullable{BitMEX.Net.Enums.ExecutionInstruction},System.Nullable{BitMEX.Net.Enums.ContingencyType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.PeggedPriceType},System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.PlaceOrderAsync(System.String,BitMEX.Net.Enums.OrderSide,BitMEX.Net.Enums.OrderType,System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.TimeInForce},System.Nullable{BitMEX.Net.Enums.ExecutionInstruction},System.Nullable{BitMEX.Net.Enums.ContingencyType},System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.PeggedPriceType},System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.EditOrderAsync(System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.EditOrderAsync(System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetOrdersAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -363,7 +375,7 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.ClosePositionAsync(System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetUserExecutionsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetUserExecutionsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -980,6 +992,11 @@
             Filled
             </summary>
         </member>
+        <member name="F:BitMEX.Net.Enums.OrderStatus.PartiallyFilled">
+            <summary>
+            Partially filled
+            </summary>
+        </member>
         <member name="F:BitMEX.Net.Enums.OrderStatus.Canceled">
             <summary>
             Canceled
@@ -1280,7 +1297,7 @@
             Extension methods specific to using the BitMEX API
             </summary>
         </member>
-        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedQuantity(System.Decimal,System.Int32)">
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedQuantity(System.Int64,System.Int32)">
             <summary>
             Convert a BitMEX quantity to a normalized quantity
             </summary>
@@ -1288,7 +1305,7 @@
             <param name="scale">Scale</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedQuantity(System.Nullable{System.Decimal},System.Int32)">
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedQuantity(System.Nullable{System.Int64},System.Int32)">
             <summary>
             Convert a BitMEX quantity to a normalized quantity
             </summary>
@@ -1453,7 +1470,7 @@
             <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.TransferAsync(System.String,System.Int64,System.Int64,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.TransferAsync(System.String,System.Int64,System.Int64,System.Int64,System.Threading.CancellationToken)">
             <summary>
             Transfer funds between accounts
             <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_walletTransfer" /></para>
@@ -1464,7 +1481,7 @@
             <param name="quantity">Quantity</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Decimal},System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.WithdrawAsync(System.String,System.String,System.Int64,System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Create a new withdrawal request
             <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_requestWithdrawal" /></para>
@@ -1512,7 +1529,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.TransferMarginAsync(System.String,System.Decimal,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.TransferMarginAsync(System.String,System.Int64,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Add or remove margin to an isolated margin position
             <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_transferIsolatedMargin" /></para>
@@ -1520,6 +1537,47 @@
             <param name="symbol">Symbol</param>
             <param name="quantity">Quantity to add or remove</param>
             <param name="targetAccountId">Target account id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetSavedAddressesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get saved addresses
+            <para><a href="https://www.bitmex.com/api/explorer/#!/Address/Address_get" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.AddSavedAddressAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Add a saved address
+            <para><a href="https://www.bitmex.com/api/explorer/#!/Address/Address_new" /></para>
+            </summary>
+            <param name="currency">Currency which the asset is for</param>
+            <param name="network">Network of the address</param>
+            <param name="address">Address</param>
+            <param name="name">Address name</param>
+            <param name="note">Address note</param>
+            <param name="skipConfirm">Skip confirm</param>
+            <param name="skip2FA">Skip 2FA</param>
+            <param name="memo">Memo</param>
+            <param name="otpToken">OTP token</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetAddressBookSettingsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get address book config
+            <para><a href="https://www.bitmex.com/api/explorer/#/AddressConfig" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get API key info
+            <para><a href="https://www.bitmex.com/api/explorer/#/APIKey" /></para>
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1543,7 +1601,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetAllSymbolsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetSymbolsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get all symbols matching the filters
             <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_get" /></para>
@@ -1555,6 +1613,7 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1567,7 +1626,7 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetCompositeIndexesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetCompositeIndexesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get composite indexes
             <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getCompositeIndex" /></para>
@@ -1578,6 +1637,7 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1658,7 +1718,7 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetSettlementHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetSettlementHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get settlement history
             <para><a href="https://www.bitmex.com/api/explorer/#!/Settlement/Settlement_get" /></para>
@@ -1670,11 +1730,12 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetBookTickerHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetBookTickerHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get book ticker history
             <para><a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_get" /></para>
@@ -1686,11 +1747,12 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetAggregatedBookTickerHistoryAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetAggregatedBookTickerHistoryAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get aggregated book ticker history
             <para><a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_getBucketed" /></para>
@@ -1704,6 +1766,7 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1718,7 +1781,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetInsuranceAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetInsuranceAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get insurance history
             <para><a href="https://www.bitmex.com/api/explorer/#!/Insurance/Insurance_get" /></para>
@@ -1730,6 +1793,7 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1785,6 +1849,22 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetLiquidationsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get liquidations
+            </summary>
+            <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+            <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
+            <param name="filter">Filter on fields</param>
+            <param name="columns">Filter columns</param>
+            <param name="reverse">Reverse direction</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiShared">
             <summary>
             Shared interface for Exchange rest API usage
@@ -1805,7 +1885,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.PlaceOrderAsync(System.String,BitMEX.Net.Enums.OrderSide,BitMEX.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.TimeInForce},System.Nullable{BitMEX.Net.Enums.ExecutionInstruction},System.Nullable{BitMEX.Net.Enums.ContingencyType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.PeggedPriceType},System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.PlaceOrderAsync(System.String,BitMEX.Net.Enums.OrderSide,BitMEX.Net.Enums.OrderType,System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.TimeInForce},System.Nullable{BitMEX.Net.Enums.ExecutionInstruction},System.Nullable{BitMEX.Net.Enums.ContingencyType},System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.PeggedPriceType},System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_new" /></para>
@@ -1839,11 +1919,12 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.EditOrderAsync(System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.EditOrderAsync(System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Edit an active order
             <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_amend" /></para>
@@ -1909,7 +1990,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetUserExecutionsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetUserExecutionsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get raw user execution history
             <para><a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_get" /></para>
@@ -1921,6 +2002,7 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1938,6 +2020,7 @@
             <param name="reverse">Reverse direction</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="offset">Result offset</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2145,7 +2228,7 @@
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to symbol updates
+            Subscribe to symbol updates. Note that only changed properties will be filled; unchanged properties will be null.
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
@@ -2324,16 +2407,6 @@
             <summary>
             Tracker factory
             </summary>
-        </member>
-        <member name="M:BitMEX.Net.Interfaces.IBitMEXTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
-            <summary>
-            Create a new kline tracker
-            </summary>
-            <param name="symbol">The symbol</param>
-            <param name="interval">Kline interval</param>
-            <param name="limit">The max amount of klines to retain</param>
-            <param name="period">The max period the data should be retained</param>
-            <returns></returns>
         </member>
         <member name="M:BitMEX.Net.Interfaces.IBitMEXTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <summary>
@@ -2754,6 +2827,126 @@
             Videos seen
             </summary>
         </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXAddress">
+            <summary>
+            Saved address
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.CreateTime">
+            <summary>
+            Created time
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.SkipConfirm">
+            <summary>
+            Skip confirm
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.SkipConfirmVerified">
+            <summary>
+            Skip confirm verified
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Skip2FA">
+            <summary>
+            Skip 2FA
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Skip2FAVerified">
+            <summary>
+            Skip 2FA verified
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Memo">
+            <summary>
+            Memo
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.CooldownExpires">
+            <summary>
+            Cooldown expires
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddress.Verified">
+            <summary>
+            Verified
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXAddressBookConfig">
+            <summary>
+            Address book config
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddressBookConfig.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddressBookConfig.Whitelist">
+            <summary>
+            Whitelist
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddressBookConfig.CreateTime">
+            <summary>
+            Created time
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddressBookConfig.DisableTime">
+            <summary>
+            Disabled time
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddressBookConfig.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddressBookConfig.DefaultCooldown">
+            <summary>
+            Default cooldown
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAddressBookConfig.Frozen">
+            <summary>
+            Frozen
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXAggTrade">
             <summary>
             Aggregated trade info
@@ -2804,6 +2997,11 @@
             Last quantity
             </summary>
         </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXAggTrade.VolumeWeightedAveragePrice">
+            <summary>
+            Volume weighted average price
+            </summary>
+        </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXAggTrade.Turnover">
             <summary>
             Turnover
@@ -2847,6 +3045,61 @@
         <member name="P:BitMEX.Net.Objects.Models.BitMEXAnnouncement.Timestamp">
             <summary>
             Timestamp
+            </summary>
+        </member>
+        <member name="T:BitMEX.Net.Objects.Models.BitMEXApiKey">
+            <summary>
+            API key info
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.Nonce">
+            <summary>
+            Nonce
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.Cidr">
+            <summary>
+            Cidr
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.Cidrs">
+            <summary>
+            Cidr
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.Permissions">
+            <summary>
+            Permissions
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.TargetAccountId">
+            <summary>
+            Target account id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.Enabled">
+            <summary>
+            Enabled
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXApiKey.CreateTime">
+            <summary>
+            Create time
             </summary>
         </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXAsset">
@@ -2969,9 +3222,9 @@
             Account id
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXBalance.Asset">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXBalance.Currency">
             <summary>
-            Asset
+            Currency
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXBalance.Deposited">
@@ -3919,9 +4172,9 @@
             Currency
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.SettlementAsset">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.SettlementCurrency">
             <summary>
-            Settlement asset
+            Settlement currency
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.OrderType">
@@ -4324,7 +4577,7 @@
             Realised profit and loss
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXPosition.UnrealisedPnl">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXPosition.UnrealizedPnl">
             <summary>
             Unrealised profit and loss
             </summary>
@@ -5429,6 +5682,26 @@
             Tick direction
             </summary>
         </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTrade.TradeMatchId">
+            <summary>
+            Trade match id
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTrade.Value">
+            <summary>
+            Trade value
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTrade.HomeNotional">
+            <summary>
+            Home notional
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTrade.ForeignNotional">
+            <summary>
+            Foreign notional
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXTradeFee">
             <summary>
             Trading fee
@@ -5519,7 +5792,7 @@
             Account id
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.Asset">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTransaction.Currency">
             <summary>
             Asset
             </summary>
@@ -5864,20 +6137,16 @@
             <param name="symbol">The symbol the order book is for</param>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.#ctor(System.String,System.Action{BitMEX.Net.Objects.Options.BitMEXOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BitMEX.Net.Interfaces.Clients.IBitMEXRestClient,BitMEX.Net.Interfaces.Clients.IBitMEXSocketClient)">
+        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.#ctor(System.String,System.Action{BitMEX.Net.Objects.Options.BitMEXOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BitMEX.Net.Interfaces.Clients.IBitMEXSocketClient)">
             <summary>
             Create a new order book instance
             </summary>
             <param name="symbol">The symbol the order book is for</param>
             <param name="optionsDelegate">Option configuration delegate</param>
             <param name="logger">Logger</param>
-            <param name="restClient">Rest client instance</param>
             <param name="socketClient">Socket client instance</param>
         </member>
         <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.DoReset">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">

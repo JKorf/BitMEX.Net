@@ -189,7 +189,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Transfer
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXTransaction>> TransferAsync(string asset, long fromAccountId, long toAccountId, decimal quantity, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMEXTransaction>> TransferAsync(string asset, long fromAccountId, long toAccountId, long quantity, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset ?? "all");
@@ -208,12 +208,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
         public async Task<WebCallResult<BitMEXTransaction>> WithdrawAsync(
             string asset,
             string network,
-            decimal quantity,
+            long quantity,
             string? address = null,
             string? memo = null,
             string? addressId = null,
             long? targetUserId = null,
-            decimal? fee = null,
+            long? fee = null,
             string? text = null,
             string? otpToken = null,
             CancellationToken ct = default)
@@ -280,7 +280,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Transfer Margin
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXPosition>> TransferMarginAsync(string symbol, decimal quantity, long? targetAccountId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMEXPosition>> TransferMarginAsync(string symbol, long quantity, long? targetAccountId = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -288,6 +288,73 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("targetAccountId", targetAccountId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/position/transferMargin", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXPosition>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Saved Addresses
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMEXAddress>>> GetSavedAddressesAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/address", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            return await _baseClient.SendAsync<IEnumerable<BitMEXAddress>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Add Saved Addresses
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMEXAddress>> AddSavedAddressAsync(
+            string currency,
+            string network,
+            string address,
+            string name,
+            string? note = null,
+            bool? skipConfirm = null,
+            bool? skip2FA = null,
+            string? memo = null,
+            string? otpToken = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("currency", currency);
+            parameters.Add("network", network);
+            parameters.Add("address", address);
+            parameters.Add("name", name);
+            parameters.AddOptional("note", note);
+            parameters.AddOptional("skipConfirm", skipConfirm);
+            parameters.AddOptional("skip2FA", skip2FA);
+            parameters.AddOptional("memo", memo);
+            parameters.AddOptional("otpToken", otpToken);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/address", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            return await _baseClient.SendAsync<BitMEXAddress>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Address Book Settings
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMEXAddressBookConfig>> GetAddressBookSettingsAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/addressConfig", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            return await _baseClient.SendAsync<BitMEXAddressBookConfig>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Api Key Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMEXApiKey>>> GetApiKeyInfoAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/apiKey", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+            return await _baseClient.SendAsync<IEnumerable<BitMEXApiKey>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
