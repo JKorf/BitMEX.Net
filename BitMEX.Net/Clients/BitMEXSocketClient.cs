@@ -7,6 +7,7 @@ using BitMEX.Net.Interfaces.Clients;
 using BitMEX.Net.Objects.Options;
 using BitMEX.Net.Interfaces.Clients.ExchangeApi;
 using BitMEX.Net.Clients.ExchangeApi;
+using CryptoExchange.Net.Objects.Options;
 
 namespace BitMEX.Net.Clients
 {
@@ -50,6 +51,12 @@ namespace BitMEX.Net.Clients
 
         }
         #endregion
+
+        /// <inheritdoc />
+        public void SetOptions(UpdateOptions options)
+        {
+            ExchangeApi.SetOptions(options);
+        }
 
         /// <summary>
         /// Set the default options to be used when creating new clients

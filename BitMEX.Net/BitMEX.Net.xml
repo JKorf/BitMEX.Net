@@ -125,6 +125,9 @@
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
+        <member name="M:BitMEX.Net.Clients.BitMEXRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMEX.Net.Clients.BitMEXRestClient.SetDefaultOptions(System.Action{BitMEX.Net.Objects.Options.BitMEXRestOptions})">
             <summary>
             Set the default options to be used when creating new clients
@@ -152,6 +155,9 @@
             </summary>
             <param name="loggerFactory">The logger factory</param>
             <param name="options">Option configuration</param>
+        </member>
+        <member name="M:BitMEX.Net.Clients.BitMEXSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.BitMEXSocketClient.SetDefaultOptions(System.Action{BitMEX.Net.Objects.Options.BitMEXSocketOptions})">
             <summary>
@@ -2358,6 +2364,12 @@
             Exchange API endpoints
             </summary>
         </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+        </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
@@ -2373,6 +2385,12 @@
             <summary>
             Exchange API endpoints
             </summary>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
