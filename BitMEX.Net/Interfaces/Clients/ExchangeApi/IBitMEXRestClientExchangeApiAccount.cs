@@ -49,14 +49,6 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         Task<WebCallResult<string>> GetDepositAddressAsync(string asset, string network, CancellationToken ct = default);
 
         /// <summary>
-        /// Get transfer accounts
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletTransferAccounts" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXTransaction>>> GetTransferAccountsAsync(CancellationToken ct = default);
-
-        /// <summary>
         /// Get user margin status
         /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getMargin" /></para>
         /// </summary>

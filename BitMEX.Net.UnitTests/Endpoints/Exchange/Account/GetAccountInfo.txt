@@ -1,0 +1,110 @@
+GET
+/api/v1/user
+true
+{
+  "id": 0,
+  "firstname": "string",
+  "lastname": "string",
+  "username": "string",
+  "accountName": "string",
+  "isUser": true,
+  "email": "string",
+  "dateOfBirth": "string",
+  "phone": "string",
+  "created": "2025-01-10T07:51:17.963Z",
+  "lastUpdated": "2025-01-10T07:51:17.963Z",
+  "preferences": {
+    "alertOnLiquidations": true,
+    "animationsEnabled": true,
+    "announcementsLastSeen": "2025-01-10T07:51:17.963Z",
+    "botsAdvancedMode": true,
+    "botVideosHidden": true,
+    "chatChannelID": 0,
+    "colorTheme": "string",
+    "currency": "string",
+    "debug": true,
+    "disableEmails": [
+      "string"
+    ],
+    "disablePush": [
+      "string"
+    ],
+    "displayCorpEnrollUpsell": true,
+    "equivalentCurrency": "string",
+    "features": [
+      "string"
+    ],
+    "favourites": [
+      "string"
+    ],
+    "favouritesAssets": [
+      "string"
+    ],
+    "favouritesOrdered": [
+      "string"
+    ],
+    "favouriteBots": [
+      "string"
+    ],
+    "favouriteContracts": [
+      "string"
+    ],
+    "hasSetTradingCurrencies": true,
+    "hideConfirmDialogs": [
+      "string"
+    ],
+    "hideConnectionModal": true,
+    "hideFromLeaderboard": false,
+    "hideNameFromLeaderboard": false,
+    "hidePnlInGuilds": false,
+    "hideRoiInGuilds": false,
+    "hideNotifications": [
+      "string"
+    ],
+    "hidePhoneConfirm": false,
+    "guidesShownVersion": 0,
+    "isSensitiveInfoVisible": true,
+    "isWalletZeroBalanceHidden": true,
+    "locale": "en-US",
+    "localeSetTime": 0,
+    "marginPnlRow": "string",
+    "marginPnlRowKind": "string",
+    "mobileLocale": "string",
+    "msgsSeen": [
+      "string"
+    ],
+    "notifications": {},
+    "optionsBeta": true,
+    "orderBookBinning": {},
+    "orderBookType": "string",
+    "orderClearImmediate": false,
+    "orderControlsPlusMinus": true,
+    "orderInputType": "string",
+    "platformLayout": "string",
+    "selectedFiatCurrency": "string",
+    "showChartBottomToolbar": true,
+    "showLocaleNumbers": true,
+    "sounds": [
+      "string"
+    ],
+    "spacingPreference": "string",
+    "strictIPCheck": false,
+    "strictTimeout": true,
+    "tickerGroup": "string",
+    "tickerPinned": true,
+    "tradeLayout": "string",
+    "userColor": "string",
+    "videosSeen": [
+      "string"
+    ]
+  },
+  "TFAEnabled": "string",
+  "affiliateID": "string",
+  "country": "string",
+  "geoipCountry": "string",
+  "geoipRegion": "string",
+  "firstTradeTimestamp": "2025-01-10T07:51:17.963Z",
+  "firstDepositTimestamp": "2025-01-10T07:51:17.963Z",
+  "isElite": false,
+  "typ": "string"
+}

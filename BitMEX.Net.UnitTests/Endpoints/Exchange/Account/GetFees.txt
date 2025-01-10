@@ -1,0 +1,4 @@
+GET
+/api/v1/user/commission
+true
+{"1000000MOGUSDT":{"maxFee":0.0005,"makerFee":0.0005,"takerFee":0.0005,"settlementFee":0}}

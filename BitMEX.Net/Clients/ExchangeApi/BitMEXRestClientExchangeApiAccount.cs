@@ -73,17 +73,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         #endregion
 
-        #region Get Transfer Accounts
+        // Doesn't ever seem to return anything
+//        #region Get Transfer Accounts
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMEXTransaction>>> GetTransferAccountsAsync(CancellationToken ct = default)
-        {
-#warning no return?
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/user/getWalletTransferAccounts", BitMEXExchange.RateLimiter.BitMEX, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<BitMEXTransaction>>(request, null, ct).ConfigureAwait(false);
-        }
+//        /// <inheritdoc />
+//        public async Task<WebCallResult<IEnumerable<BitMEXTransaction>>> GetTransferAccountsAsync(CancellationToken ct = default)
+//        {
+//            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/user/getWalletTransferAccounts", BitMEXExchange.RateLimiter.BitMEX, 1, true);
+//            return await _baseClient.SendAsync<IEnumerable<BitMEXTransaction>>(request, null, ct).ConfigureAwait(false);
+//        }
 
-        #endregion
+//        #endregion
 
         #region Get Margin Status
 

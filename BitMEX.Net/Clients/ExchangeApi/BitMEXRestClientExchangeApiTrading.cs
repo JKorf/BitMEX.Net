@@ -216,20 +216,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         #endregion
 
-        #region Close Position
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXOrder>> ClosePositionAsync(string symbol, decimal? price = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.Add("symbol", symbol);
-            parameters.AddOptional("price", price);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/order/closePosition", BitMEXExchange.RateLimiter.BitMEX, 1, true);
-            return await _baseClient.SendAsync<BitMEXOrder>(request, parameters, ct).ConfigureAwait(false);
-        }
-
-        #endregion
-
         #region Get User Executions
 
         /// <inheritdoc />

@@ -14,6 +14,11 @@ namespace BitMEX.Net.Enums
         /// Completed
         /// </summary>
         [Map("Completed")]
-        Completed
+        Completed,
+        /// <summary>
+        /// Canceled
+        /// </summary>
+        [Map("Canceled")]
+        Canceled
     }
 }

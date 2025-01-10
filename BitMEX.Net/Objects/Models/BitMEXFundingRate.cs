@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitMEX.Net.Converter;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -25,8 +26,8 @@ namespace BitMEX.Net.Objects.Models
         /// Funding interval
         /// </summary>
         [JsonPropertyName("fundingInterval")]
-#warning seems like it is actuall a timestamp + 2000 years; custom converter?
-        public DateTime FundingInterval { get; set; }
+        [JsonConverter(typeof(IntervalConverter))]
+        public TimeSpan FundingInterval { get; set; }
 
         /// <summary>
         /// Funding rate

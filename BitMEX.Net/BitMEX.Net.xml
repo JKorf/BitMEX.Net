@@ -63,6 +63,11 @@
             Urls to the API documentation
             </summary>
         </member>
+        <member name="P:BitMEX.Net.BitMEXExchange.Type">
+            <summary>
+            Type of exchange
+            </summary>
+        </member>
         <member name="M:BitMEX.Net.BitMEXExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <summary>
             Format a base and quote asset to an BitMEX recognized symbol 
@@ -104,6 +109,53 @@
         </member>
         <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
+        </member>
+        <member name="T:BitMEX.Net.BitMEXUtils">
+            <summary>
+            Utility methods for BitMEX
+            </summary>
+        </member>
+        <member name="M:BitMEX.Net.BitMEXUtils.UpdateSymbolInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Update the cached symbol and asset info. This should be called before using other methods in this class.
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.BitMEXUtils.GetAssetScale(System.String)">
+            <summary>
+            Get the scale of an asset
+            </summary>
+            <param name="asset">Asset name</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.BitMEXUtils.GetCurrencyScale(System.String)">
+            <summary>
+            Get the scale of a currency
+            </summary>
+            <param name="currency">Currency name</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.BitMEXUtils.GetSymbolQuantityScale(System.String)">
+            <summary>
+            Get the scale of quantity for a symbol
+            </summary>
+            <param name="symbol">Symbol name</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.BitMEXUtils.GetSymbolType(System.String)">
+            <summary>
+            Get the type for a symbol
+            </summary>
+            <param name="symbol">Symbol name</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.BitMEXUtils.GetAssetFromCurrency(System.String)">
+            <summary>
+            Get asset name for a currency
+            </summary>
+            <param name="currency">Currency name</param>
+            <returns></returns>
         </member>
         <member name="T:BitMEX.Net.Clients.BitMEXRestClient">
             <inheritdoc cref="T:BitMEX.Net.Interfaces.Clients.IBitMEXRestClient" />
@@ -223,9 +275,6 @@
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetDepositAddressAsync(System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetTransferAccountsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiAccount.GetMarginStatusAsync(System.String,System.Threading.CancellationToken)">
@@ -376,9 +425,6 @@
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.CancelAllAfterAsync(System.TimeSpan,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.ClosePositionAsync(System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApiTrading.GetUserExecutionsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -700,12 +746,17 @@
         </member>
         <member name="F:BitMEX.Net.Enums.EventType.TwoFactorDisabled">
             <summary>
-            Two factor disabled
+            2FA disabled
             </summary>
         </member>
         <member name="F:BitMEX.Net.Enums.EventType.TwoFactorEnabled">
             <summary>
-            Two factor enabled
+            2FA enabled
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.EventType.TwoFactorResetCodeCreated">
+            <summary>
+            2FA reset codes created
             </summary>
         </member>
         <member name="F:BitMEX.Net.Enums.EventType.WithdrawalCanceled">
@@ -886,6 +937,11 @@
         <member name="F:BitMEX.Net.Enums.ExecutionType.Canceled">
             <summary>
             Canceled
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.ExecutionType.Funding">
+            <summary>
+            Funding
             </summary>
         </member>
         <member name="T:BitMEX.Net.Enums.FairMethod">
@@ -1193,7 +1249,12 @@
             Prediction Market
             </summary>
         </member>
-        <member name="F:BitMEX.Net.Enums.SymbolType.Unknown">
+        <member name="F:BitMEX.Net.Enums.SymbolType.UnknownFXXXS">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.SymbolType.UnknownFMXXS">
             <summary>
             Unknown
             </summary>
@@ -1258,6 +1319,11 @@
             Fill or kill
             </summary>
         </member>
+        <member name="F:BitMEX.Net.Enums.TimeInForce.AtTheClose">
+            <summary>
+            At the close
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Enums.TradeRole">
             <summary>
             Trade role
@@ -1281,6 +1347,11 @@
         <member name="F:BitMEX.Net.Enums.TransactionStatus.Completed">
             <summary>
             Completed
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.TransactionStatus.Canceled">
+            <summary>
+            Canceled
             </summary>
         </member>
         <member name="T:BitMEX.Net.Enums.TransactionType">
@@ -1398,14 +1469,6 @@
             </summary>
             <param name="asset">Asset name</param>
             <param name="network">Network</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetTransferAccountsAsync(System.Threading.CancellationToken)">
-            <summary>
-            Get transfer accounts
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletTransferAccounts" /></para>
-            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1983,16 +2046,6 @@
             <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAllAfter" /></para>
             </summary>
             <param name="timeout">Timeout after which to cancel all orders. Use TimeSpan.Zero to cancel timeout</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.ClosePositionAsync(System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
-            <summary>
-            Close an open position
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_closePosition" /></para>
-            </summary>
-            <param name="symbol">Symbol</param>
-            <param name="price">Order price. Use market order if not provided</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3562,12 +3615,7 @@
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.LastTradeLiquidityIndicator">
             <summary>
-            Last trade role
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.PeggedOffsetValue">
-            <summary>
-            Pegged order offset value
+            Last trade liquidity indicator
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.ExecutionType">
@@ -3587,7 +3635,7 @@
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.Role">
             <summary>
-            Rolee
+            Role
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXExecution.TradePublishIndicator">
@@ -4260,6 +4308,11 @@
             Timestamp
             </summary>
         </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXOrder.PegOffsetValue">
+            <summary>
+            Peg offset value
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Objects.Models.BitMEXOrderBook">
             <summary>
             Order book
@@ -4400,9 +4453,9 @@
             Quote asset
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXPosition.Fee">
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXPosition.FeeRate">
             <summary>
-            Fee
+            The maximum of the maker, taker, and settlement fee.
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXPosition.InitialMarginRequirement">
@@ -6018,6 +6071,11 @@
         <member name="P:BitMEX.Net.Objects.Options.BitMEXOrderBookOptions.Limit">
             <summary>
             The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Options.BitMEXOrderBookOptions.AdjustQuantities">
+            <summary>
+            Whether or not quantities in the order book should be adjusted from the base unit. For example if false then 0.1 ETH would be 100000000
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Options.BitMEXOrderBookOptions.InitialDataTimeout">

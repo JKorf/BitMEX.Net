@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Enums;
+﻿using BitMEX.Net.Converter;
+using BitMEX.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -60,7 +61,8 @@ namespace BitMEX.Net.Objects.Models
         /// Publish interval
         /// </summary>
         [JsonPropertyName("publishInterval")]
-        public DateTime? PublishInterval { get; set; }        
+        [JsonConverter(typeof(IntervalConverter))]
+        public TimeSpan? PublishInterval { get; set; }        
         /// <summary>
         /// Price step
         /// </summary>

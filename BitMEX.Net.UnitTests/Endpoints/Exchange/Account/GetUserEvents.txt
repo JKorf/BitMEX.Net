@@ -1,0 +1,20 @@
+GET
+/api/v1/userEvent
+true
+{"userEvents":
+[
+  {
+    "id": 0,
+    "type": "apiKeyCreated",
+    "status": "success",
+    "userId": 0,
+    "createdById": 0,
+    "ip": "string",
+    "geoipCountry": "string",
+    "geoipRegion": "string",
+    "geoipSubRegion": "string",
+    "eventMeta": {},
+    "created": "2025-01-10T07:51:18.139Z"
+  }
+]
+}

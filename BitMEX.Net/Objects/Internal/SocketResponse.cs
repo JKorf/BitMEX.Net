@@ -9,7 +9,7 @@ namespace BitMEX.Net.Objects.Internal
     internal class SocketResponse
     {
         [JsonPropertyName("subscribe")]
-        public string Subscription { get; set; }
+        public string Subscription { get; set; } = string.Empty;
 
         [JsonPropertyName("success")]
         public bool Success { get; set; }

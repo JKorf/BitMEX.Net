@@ -24,6 +24,11 @@ namespace BitMEX.Net.Enums
         /// Canceled
         /// </summary>
         [Map("Canceled")]
-        Canceled
+        Canceled,
+        /// <summary>
+        /// Funding
+        /// </summary>
+        [Map("Funding")]
+        Funding
     }
 }

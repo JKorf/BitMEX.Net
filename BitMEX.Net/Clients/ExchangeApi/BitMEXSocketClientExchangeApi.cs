@@ -288,6 +288,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     || table.Equals("liquidation")
                     || table.Equals("execution")
                     || table.Equals("order")
+                    || table.Equals("position")
                     || table.Equals("instrument")
                     || table.Equals("announcement")
                     || table.Equals("publicNotifications")

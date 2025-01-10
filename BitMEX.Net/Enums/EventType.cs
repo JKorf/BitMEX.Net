@@ -101,15 +101,20 @@ namespace BitMEX.Net.Enums
         [Map("transferRequested")]
         TransferRequested,
         /// <summary>
-        /// Two factor disabled
+        /// 2FA disabled
         /// </summary>
         [Map("twoFactorDisabled")]
         TwoFactorDisabled,
         /// <summary>
-        /// Two factor enabled
+        /// 2FA enabled
         /// </summary>
         [Map("twoFactorEnabled")]
         TwoFactorEnabled,
+        /// <summary>
+        /// 2FA reset codes created
+        /// </summary>
+        [Map("twoFactorResetCodeCreated")]
+        TwoFactorResetCodeCreated,
         /// <summary>
         /// Withdrawal canceled
         /// </summary>

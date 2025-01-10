@@ -29,7 +29,12 @@ namespace BitMEX.Net.Enums
         /// Unknown
         /// </summary>
         [Map("FXXXS")]
-        Unknown,
+        UnknownFXXXS,
+        /// <summary>
+        /// Unknown
+        /// </summary>
+        [Map("FMXXS")]
+        UnknownFMXXS,
         /// <summary>
         /// Spot
         /// </summary>

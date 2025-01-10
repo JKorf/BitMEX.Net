@@ -46,12 +46,7 @@ namespace BitMEX.Net.Objects.Models
         /// Quantity
         /// </summary>
         [JsonPropertyName("size")]
-        public long Quantity { get; set; }
-        decimal ISymbolOrderBookEntry.Quantity
-        {
-            get => Quantity;
-            set => Quantity = (long)value;
-        }
+        public decimal Quantity { get; set; }
 
         /// <summary>
         /// Price

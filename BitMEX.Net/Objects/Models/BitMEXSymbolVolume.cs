@@ -54,32 +54,32 @@ namespace BitMEX.Net.Objects.Models
         /// Price 24 hours
         /// </summary>
         [JsonPropertyName("price24h")]
-        public long Price24h { get; set; }
+        public decimal Price24h { get; set; }
         /// <summary>
         /// Price 7 days
         /// </summary>
         [JsonPropertyName("price7d")]
-        public long Price7d { get; set; }
+        public decimal Price7d { get; set; }
         /// <summary>
         /// Price 30 days
         /// </summary>
         [JsonPropertyName("price30d")]
-        public long Price30d { get; set; }
+        public decimal Price30d { get; set; }
         /// <summary>
         /// Price year to date
         /// </summary>
         [JsonPropertyName("priceYTD")]
-        public long PriceYTD { get; set; }
+        public decimal PriceYTD { get; set; }
         /// <summary>
         /// Price 1 year
         /// </summary>
         [JsonPropertyName("price365d")]
-        public long Price365d { get; set; }
+        public decimal Price365d { get; set; }
         /// <summary>
         /// Last price
         /// </summary>
         [JsonPropertyName("lastPrice")]
-        public long LastPrice { get; set; }
+        public decimal LastPrice { get; set; }
     }
 
 

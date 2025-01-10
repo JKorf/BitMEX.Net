@@ -1,0 +1,12 @@
+GET
+/api/v1/liquidation
+false
+[
+  {
+    "orderID": "string",
+    "symbol": "string",
+    "side": "Buy",
+    "price": 0,
+    "leavesQty": 0
+  }
+]

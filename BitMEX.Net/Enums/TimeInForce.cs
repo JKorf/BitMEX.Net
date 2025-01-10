@@ -29,6 +29,11 @@ namespace BitMEX.Net.Enums
         /// Fill or kill
         /// </summary>
         [Map("FillOrKill")]
-        FillOrKill
+        FillOrKill,
+        /// <summary>
+        /// At the close
+        /// </summary>
+        [Map("AtTheClose")]
+        AtTheClose
     }
 }

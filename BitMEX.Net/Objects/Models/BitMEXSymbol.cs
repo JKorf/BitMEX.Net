@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Enums;
+﻿using BitMEX.Net.Converter;
+using BitMEX.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -95,7 +96,8 @@ namespace BitMEX.Net.Objects.Models
         /// Publish interval
         /// </summary>
         [JsonPropertyName("publishInterval")]
-        public DateTime? PublishInterval { get; set; }
+        [JsonConverter(typeof(IntervalConverter))]
+        public TimeSpan? PublishInterval { get; set; }
         /// <summary>
         /// Publish time
         /// </summary>
@@ -230,7 +232,8 @@ namespace BitMEX.Net.Objects.Models
         /// Funding interval
         /// </summary>
         [JsonPropertyName("fundingInterval")]
-        public DateTime? FundingInterval { get; set; }
+        [JsonConverter(typeof(IntervalConverter))]
+        public TimeSpan? FundingInterval { get; set; }
         /// <summary>
         /// Funding rate
         /// </summary>
@@ -250,7 +253,8 @@ namespace BitMEX.Net.Objects.Models
         /// Rebalance interval
         /// </summary>
         [JsonPropertyName("rebalanceInterval")]
-        public DateTime? RebalanceInterval { get; set; }
+        [JsonConverter(typeof(IntervalConverter))]
+        public TimeSpan? RebalanceInterval { get; set; }
         /// <summary>
         /// Prev close price
         /// </summary>

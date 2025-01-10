@@ -1,0 +1,33 @@
+DELETE
+/api/v1/order/all
+true
+[{
+  "clOrdLinkID": "string",
+  "pegOffsetValue": 0,
+  "cumQty": 0,
+  "avgPx": 0,
+  "execInst": "",
+  "symbol": "string",
+  "triggered": "string",
+  "timestamp": "2025-01-10T07:51:17.765Z",
+  "settlCurrency": "string",
+  "side": "Buy",
+  "leavesQty": 0,
+  "contingencyType": null,
+  "pegPriceType": null,
+  "orderQty": 0,
+  "account": 0,
+  "orderID": "string",
+  "ordStatus": "new",
+  "timeInForce": "GoodTillCancel",
+  "currency": "string",
+  "text": "string",
+  "displayQty": 0,
+  "ordRejReason": null,
+  "transactTime": "2025-01-10T07:51:17.765Z",
+  "price": 0,
+  "ordType": "Market",
+  "clOrdID": "string",
+  "stopPx": 0,
+  "workingIndicator": true
+}]

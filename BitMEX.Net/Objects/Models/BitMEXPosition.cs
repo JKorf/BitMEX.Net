@@ -24,32 +24,32 @@ namespace BitMEX.Net.Objects.Models
         /// Currency
         /// </summary>
         [JsonPropertyName("currency")]
-        public string Currency { get; set; } = string.Empty;
+        public string? Currency { get; set; }
         /// <summary>
         /// Underlying
         /// </summary>
         [JsonPropertyName("underlying")]
-        public string Underlying { get; set; } = string.Empty;
+        public string? Underlying { get; set; }
         /// <summary>
         /// Quote asset
         /// </summary>
         [JsonPropertyName("quoteCurrency")]
-        public string QuoteAsset { get; set; } = string.Empty;
+        public string? QuoteAsset { get; set; }
         /// <summary>
-        /// Fee
+        /// The maximum of the maker, taker, and settlement fee.
         /// </summary>
         [JsonPropertyName("commission")]
-        public long Fee { get; set; }
+        public decimal FeeRate { get; set; }
         /// <summary>
         /// Initial margin requirement
         /// </summary>
         [JsonPropertyName("initMarginReq")]
-        public long InitialMarginRequirement { get; set; }
+        public decimal InitialMarginRequirement { get; set; }
         /// <summary>
         /// Maintenance margin requirement
         /// </summary>
         [JsonPropertyName("maintMarginReq")]
-        public long MaintenanceMarginRequirement { get; set; }
+        public decimal MaintenanceMarginRequirement { get; set; }
         /// <summary>
         /// Risk limit
         /// </summary>
@@ -124,7 +124,7 @@ namespace BitMEX.Net.Objects.Models
         /// Current quantity
         /// </summary>
         [JsonPropertyName("currentQty")]
-        public long CurrentQuantity { get; set; }
+        public long? CurrentQuantity { get; set; }
         /// <summary>
         /// Current cost
         /// </summary>
@@ -159,7 +159,7 @@ namespace BitMEX.Net.Objects.Models
         /// Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
-        public decimal MarkPrice { get; set; }
+        public decimal? MarkPrice { get; set; }
         /// <summary>
         /// Mark value
         /// </summary>
@@ -249,32 +249,32 @@ namespace BitMEX.Net.Objects.Models
         /// Average cost price
         /// </summary>
         [JsonPropertyName("avgCostPrice")]
-        public decimal AverageCostPrice { get; set; }
+        public decimal? AverageCostPrice { get; set; }
         /// <summary>
         /// Average entry price
         /// </summary>
         [JsonPropertyName("avgEntryPrice")]
-        public decimal AverageEntryPrice { get; set; }
+        public decimal? AverageEntryPrice { get; set; }
         /// <summary>
         /// Break even price
         /// </summary>
         [JsonPropertyName("breakEvenPrice")]
-        public decimal BreakEvenPrice { get; set; }
+        public decimal? BreakEvenPrice { get; set; }
         /// <summary>
         /// Margin call price
         /// </summary>
         [JsonPropertyName("marginCallPrice")]
-        public decimal MarginCallPrice { get; set; }
+        public decimal? MarginCallPrice { get; set; }
         /// <summary>
         /// Liquidation price
         /// </summary>
         [JsonPropertyName("liquidationPrice")]
-        public decimal LiquidationPrice { get; set; }
+        public decimal? LiquidationPrice { get; set; }
         /// <summary>
         /// Bankrupt price
         /// </summary>
         [JsonPropertyName("bankruptPrice")]
-        public decimal BankruptPrice { get; set; }
+        public decimal? BankruptPrice { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>

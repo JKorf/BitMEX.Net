@@ -10,6 +10,8 @@ using BitMEX.Net.Interfaces.Clients;
 using BitMEX.Net.Objects.Options;
 using BitMEX.Net.Objects.Models;
 using System.Linq;
+using BitMEX.Net.ExtensionMethods;
+using CryptoExchange.Net.Interfaces;
 
 namespace BitMEX.Net.SymbolOrderBooks
 {
@@ -19,6 +21,7 @@ namespace BitMEX.Net.SymbolOrderBooks
     /// </summary>
     public class BitMEXExchangeSymbolOrderBook : SymbolOrderBook
     {
+        private readonly bool _adjustQuantities;
         private readonly bool _clientOwner;
         private readonly IBitMEXSocketClient _socketClient;
         private readonly TimeSpan _initialDataTimeout;
@@ -52,6 +55,7 @@ namespace BitMEX.Net.SymbolOrderBooks
                 optionsDelegate(options);
             Initialize(options);
 
+            _adjustQuantities = options.AdjustQuantities;
             _strictLevels = false;
             _sequencesAreConsecutive = options?.Limit == null;
 
@@ -64,6 +68,10 @@ namespace BitMEX.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
+            var symbolResult = await BitMEXUtils.UpdateSymbolInfoAsync(ct).ConfigureAwait(false);
+            if (!symbolResult)
+                return new CallResult<UpdateSubscription>(symbolResult.Error!);
+
             var result = await _socketClient.ExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(Symbol, Levels == 25 ? Enums.IncrementalBookLimit.Top25 : Enums.IncrementalBookLimit.Full, DataHandler, ct).ConfigureAwait(false);
             if (!result)
                 return result;
@@ -81,6 +89,12 @@ namespace BitMEX.Net.SymbolOrderBooks
 
         private void DataHandler(DataEvent<BitMEXOrderBookIncrementalUpdate> @event)
         {
+            if (_adjustQuantities)
+            {
+                foreach (var item in @event.Data.Entries)
+                    item.Quantity = ((long)item.Quantity).ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(Symbol));
+            }
+
             if (@event.UpdateType == SocketUpdateType.Snapshot)
                 SetInitialOrderBook(DateTime.UtcNow.Ticks, @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Buy), @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Sell));
             else

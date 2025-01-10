@@ -22,42 +22,6 @@ namespace BitMEX.Net
     /// </summary>
     public static class BitMEXExchange
     {
-        private static DateTime _lastUpdateTime;
-        private static ConcurrentDictionary<string, int> _scalesByCurrency = new ConcurrentDictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-        private static ConcurrentDictionary<string, int> _scalesByAsset = new ConcurrentDictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-        private static ConcurrentDictionary<string, int> _scalesBySymbol = new ConcurrentDictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-        private static ConcurrentDictionary<string, SymbolType> _symbolTypes = new ConcurrentDictionary<string, SymbolType>(StringComparer.OrdinalIgnoreCase);
-        private static ConcurrentDictionary<string, string> _currencyToAsset = new ConcurrentDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-        internal static async Task UpdateScalesAsync(CancellationToken ct)
-        {
-            if (DateTime.UtcNow - _lastUpdateTime < TimeSpan.FromDays(1))
-                return;
-
-            var assets = await new BitMEXRestClient().ExchangeApi.ExchangeData.GetAssetsAsync(ct: ct).ConfigureAwait(false);
-            var symbols = await new BitMEXRestClient().ExchangeApi.ExchangeData.GetActiveSymbolsAsync(ct: ct).ConfigureAwait(false);
-            foreach (var asset in assets.Data)
-            {
-                _scalesByCurrency.TryAdd(asset.Currency, asset.Scale);
-                _scalesByAsset.TryAdd(asset.Asset, asset.Scale);
-                _currencyToAsset.TryAdd(asset.Currency, asset.Asset);
-            }
-
-            foreach(var symbol in symbols.Data)
-            {
-                _scalesBySymbol.TryAdd(symbol.Symbol, symbol.SymbolType == SymbolType.Spot ? _scalesByAsset[symbol.BaseAsset] : 1);
-                _symbolTypes.TryAdd(symbol.Symbol, symbol.SymbolType);
-            }
-
-            _lastUpdateTime = DateTime.UtcNow;
-        }
-
-        internal static int GetAssetScale(string asset) => _scalesByAsset[asset];
-        internal static int GetCurrencyScale(string currency) => _scalesByCurrency[currency];
-        internal static int GetSymbolQuantityScale(string symbol) => _scalesBySymbol[symbol];
-        internal static SymbolType GetSymbolType(string symbol) => _symbolTypes[symbol];
-        internal static string GetAssetFromCurrency(string currency) => _currencyToAsset[currency];
-
         /// <summary>
         /// Exchange name
         /// </summary>
@@ -74,6 +38,11 @@ namespace BitMEX.Net
         public static string[] ApiDocsUrl { get; } = new[] {
             "https://www.bitmex.com/api/explorer/#/"
             };
+
+        /// <summary>
+        /// Type of exchange
+        /// </summary>
+        public static ExchangeType Type { get; } = ExchangeType.CEX;
 
         /// <summary>
         /// Format a base and quote asset to an BitMEX recognized symbol 

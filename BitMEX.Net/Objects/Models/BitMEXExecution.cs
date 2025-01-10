@@ -27,15 +27,10 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("lastPx")]
         public decimal? LastTradePrice { get; set; }
         /// <summary>
-        /// Last trade role
+        /// Last trade liquidity indicator
         /// </summary>
         [JsonPropertyName("lastLiquidityInd")]
         public string? LastTradeLiquidityIndicator { get; set; }
-        /// <summary>
-        /// Pegged order offset value
-        /// </summary>
-        [JsonPropertyName("pegOffsetValue")]
-        public decimal? PeggedOffsetValue { get; set; }
         /// <summary>
         /// Execution type
         /// </summary>
@@ -50,9 +45,9 @@ namespace BitMEX.Net.Objects.Models
         /// Broker fee
         /// </summary>
         [JsonPropertyName("brokerCommission")]
-        public long? BrokerFee { get; set; }
+        public decimal? BrokerFee { get; set; }
         /// <summary>
-        /// Rolee
+        /// Role
         /// </summary>
         [JsonPropertyName("feeType")]
         public TradeRole? Role { get; set; }

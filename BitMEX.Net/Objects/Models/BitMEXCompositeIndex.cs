@@ -59,7 +59,7 @@ namespace BitMEX.Net.Objects.Models
         /// Weight
         /// </summary>
         [JsonPropertyName("weight")]
-        public int Weight { get; set; }
+        public decimal Weight { get; set; }
         /// <summary>
         /// Log time
         /// </summary>

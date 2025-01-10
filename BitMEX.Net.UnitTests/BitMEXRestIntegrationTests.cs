@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using BitMEX.Net.Clients;
 using BitMEX.Net.Objects.Options;
+using System.Threading;
 
 namespace BitMEX.Net.UnitTests
 {
@@ -42,9 +43,57 @@ namespace BitMEX.Net.UnitTests
         }
 
         [Test]
-        public async Task TestSpotExchangeData()
+        public async Task TestAccount()
         {
-            //await RunAndCheckResult(client => client.SpotApi.ExchangeData.PingAsync(CancellationToken.None), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetUserEventsAsync(default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAccountInfoAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetFeesAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetMarginStatusAsync(default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetQuoteFillRatioAsync(default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetTradingVolumeAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalancesAsync(default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalanceHistoryAsync(default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalanceSummaryAsync(default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetSavedAddressesAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAddressBookSettingsAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetApiKeyInfoAsync(default), false);
+        }
+
+        [Test]
+        public async Task TestExchangeData()
+        {
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetServerTimeAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetActiveSymbolsAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetSymbolsAsync(default, default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetActiveIntervalsAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetCompositeIndexesAsync(".BXBT", default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetIndicesAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetSymbolVolumesAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetTradesAsync("ETHUSDT", default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetKlinesAsync("ETHUSDT", Enums.BinPeriod.OneDay, default, default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetExchangeStatsAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetExchangeStatHistoryAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetExchangeStatHistoryUSDAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetSettlementHistoryAsync("ETH_USDT", default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetBookTickerHistoryAsync("ETH_USDT", default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetAggregatedBookTickerHistoryAsync("ETH_USDT", Enums.BinPeriod.OneDay, default, default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetOrderBookAsync("ETH_USDT", 5, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetInsuranceAsync(default, default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetFundingHistoryAsync(default, default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetAnnouncementsAsync(default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetUrgentAnnouncementsAsync(default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetAssetsAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetAssetNetworksAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.ExchangeData.GetLiquidationsAsync(default, default, default, default, default, default, default, default, default, default), false);
+        }
+
+        [Test]
+        public async Task TestTrading()
+        {
+            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetUserExecutionsAsync(default, default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetOrdersAsync(default, default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetPositionsAsync(default, default, default, default), false);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/instrument/active", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             var result = await _baseClient.SendAsync<BitMEXServerTime>(request, null, ct).ConfigureAwait(false);
             return result.As(result.Data?.Timestamp ?? default);
         }

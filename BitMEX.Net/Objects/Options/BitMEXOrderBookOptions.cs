@@ -19,6 +19,11 @@ namespace BitMEX.Net.Objects.Options
         public int? Limit { get; set; }
 
         /// <summary>
+        /// Whether or not quantities in the order book should be adjusted from the base unit. For example if false then 0.1 ETH would be 100000000
+        /// </summary>
+        public bool AdjustQuantities { get; set; } = true;
+
+        /// <summary>
         /// After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
         /// </summary>
         public TimeSpan? InitialDataTimeout { get; set; }

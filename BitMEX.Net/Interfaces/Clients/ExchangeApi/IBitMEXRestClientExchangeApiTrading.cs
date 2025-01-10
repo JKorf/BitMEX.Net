@@ -163,16 +163,6 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         Task<WebCallResult> CancelAllAfterAsync(TimeSpan timeout, CancellationToken ct = default);
 
         /// <summary>
-        /// Close an open position
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_closePosition" /></para>
-        /// </summary>
-        /// <param name="symbol">Symbol</param>
-        /// <param name="price">Order price. Use market order if not provided</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<BitMEXOrder>> ClosePositionAsync(string symbol, decimal? price = null, CancellationToken ct = default);
-
-        /// <summary>
         /// Get raw user execution history
         /// <para><a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_get" /></para>
         /// </summary>

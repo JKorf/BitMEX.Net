@@ -141,6 +141,12 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
+
+        /// <summary>
+        /// Peg offset value
+        /// </summary>
+        [JsonPropertyName("pegOffsetValue")]
+        public long? PegOffsetValue { get; set; }
     }
 
 

@@ -1,0 +1,16 @@
+GET
+/api/v1/user/wallet
+true
+[{
+  "account": 0,
+  "currency": "string",
+  "deposited": 0,
+  "withdrawn": 0,
+  "transferIn": 0,
+  "transferOut": 0,
+  "amount": 0,
+  "pendingCredit": 0,
+  "pendingDebit": 0,
+  "confirmedDebit": 0,
+  "timestamp": "2025-01-10T07:51:18.106Z"
+}]
