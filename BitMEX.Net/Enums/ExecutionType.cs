@@ -29,6 +29,11 @@ namespace BitMEX.Net.Enums
         /// Funding
         /// </summary>
         [Map("Funding")]
-        Funding
+        Funding,
+        /// <summary>
+        /// Rejected
+        /// </summary>
+        [Map("Rejected")]
+        Rejected
     }
 }

@@ -34,6 +34,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
         private static readonly MessagePath _tablePath = MessagePath.Get().Property("table");
         private static readonly MessagePath _symbolPath = MessagePath.Get().Property("data").Index(0).Property("symbol");
         private static readonly MessagePath _infoPath = MessagePath.Get().Property("info");
+        private static readonly MessagePath _errorPath = MessagePath.Get().Property("error");
+        private static readonly MessagePath _argsPath = MessagePath.Get().Property("request").Property("args");
         #endregion
 
         #region constructor/destructor
@@ -308,6 +310,15 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var info = message.GetValue<string>(_infoPath);
             if (info != null)
                 return "info";
+
+            var error = message.GetValue<string>(_errorPath);
+            if (error != null)
+            {
+                // Check if the request is present in the error
+                var subArgs = message.GetValues<string>(_argsPath);
+                if (subArgs != null && subArgs.Any())
+                    return string.Join("", subArgs);
+            }
 
             return null;
         }

@@ -53,8 +53,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         {
                             ClientOrderId = x.ClientOrderId,
                             OrderPrice = x.Price,
-                            Quantity = x.Quantity.ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(x.Symbol)),
-                            QuantityFilled = x.QuantityFilled.ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(x.Symbol)),
+                            Quantity = x.Quantity.ToSharedSymbolQuantity(x.Symbol),
+                            QuantityFilled = x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol),
                             UpdateTime = x.TransactTime,
                             TimeInForce = ParseTimeInForce(x.TimeInForce),
                             AveragePrice = x.AveragePrice
@@ -107,8 +107,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Select(x => 
                 new SharedBalance(
                     BitMEXUtils.GetAssetFromCurrency(x.Currency), 
-                    x.Quantity.ToSharedQuantity(BitMEXUtils.GetCurrencyScale(x.Currency)),
-                    (x.Quantity + x.PendingCredit).ToSharedQuantity(BitMEXUtils.GetCurrencyScale(x.Currency)))).ToArray())),
+                    x.Quantity.ToSharedAssetQuantity(x.Currency),
+                    (x.Quantity + x.PendingCredit).ToSharedAssetQuantity(x.Currency))).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -133,8 +133,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 update =>
                 {
                     var data = update.Data
-                    .Where(x => BitMEXUtils.GetSymbolType(x.Symbol) == SymbolType.Spot
-                        && x.ExecutionType == ExecutionType.Trade)
+                    .Where(x => x.ExecutionType == ExecutionType.Trade)
                     .ToList();
                     if (!data.Any())
                         return;
@@ -145,11 +144,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             x.OrderId,
                             x.TradeId,
                             x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.Quantity.ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(x.Symbol)),
+                            x.Quantity.ToSharedSymbolQuantity(x.Symbol),
                             x.LastTradePrice!.Value,
                             x.Timestamp)
                         {
-                            Fee = x.Fee.ToSharedQuantity(BitMEXUtils.GetCurrencyScale(x.Currency)),
+                            Fee = x.Fee.ToSharedAssetQuantity(x.Currency),
                             Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
                         }
                     ).ToArray()));
@@ -177,9 +176,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange,
                 new SharedBookTicker(
                     update.Data.BestAskPrice,
-                    request.Symbol.TradingMode != TradingMode.Spot ? update.Data.BestAskQuantity : update.Data.BestAskQuantity.ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(symbol)),
+                    request.Symbol.TradingMode != TradingMode.Spot ? update.Data.BestAskQuantity : update.Data.BestAskQuantity.ToSharedSymbolQuantity(symbol),
                     update.Data.BestBidPrice,
-                    request.Symbol.TradingMode != TradingMode.Spot ? update.Data.BestBidQuantity : update.Data.BestBidQuantity.ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(symbol))
+                    request.Symbol.TradingMode != TradingMode.Spot ? update.Data.BestBidQuantity : update.Data.BestBidQuantity.ToSharedSymbolQuantity(symbol)
                     ))), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -206,9 +205,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 if (request.Symbol.TradingMode == TradingMode.Spot)
                 {
                     foreach (var item in book.Asks)
-                        item.Quantity = ((long)item.Quantity).ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(symbol));
+                        item.Quantity = ((long)item.Quantity).ToSharedSymbolQuantity(symbol);
                     foreach (var item in book.Bids)
-                        item.Quantity = ((long)item.Quantity).ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(symbol));
+                        item.Quantity = ((long)item.Quantity).ToSharedSymbolQuantity(symbol);
                 }
 
                 handler(update.AsExchangeEvent(Exchange, book));
@@ -241,7 +240,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         update.Data.LastPrice,
                         update.Data.HighPrice,
                         update.Data.LowPrice,
-                        request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(symbol)),
+                        request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedSymbolQuantity(symbol),
                         update.Data.LastChangePcnt * 100
                         );
                 }
@@ -250,7 +249,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     ticker.LastPrice = update.Data.LastPrice ?? ticker.LastPrice;
                     ticker.HighPrice = update.Data.HighPrice ?? ticker.HighPrice;
                     ticker.LowPrice = update.Data.LowPrice ?? ticker.LowPrice;
-                    ticker.Volume = update.Data.Volume24h == null ? ticker.Volume : request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(symbol));
+                    ticker.Volume = update.Data.Volume24h == null ? ticker.Volume : request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedSymbolQuantity(symbol);
                     ticker.ChangePercentage = update.Data.LastChangePcnt == null ? ticker.ChangePercentage : update.Data.LastChangePcnt * 100;
                 }
 
@@ -282,7 +281,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
                 handler(update.AsExchangeEvent<IEnumerable<SharedTrade>>(Exchange, update.Data.Select(x =>
                     new SharedTrade(
-                        x.Quantity.ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(x.Symbol)),
+                        x.Quantity.ToSharedSymbolQuantity(x.Symbol),
                         x.Price,
                         x.Timestamp)
                     {
@@ -358,7 +357,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 {
                     AverageOpenPrice = x.AverageEntryPrice,
                     PositionSide = x.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    UnrealizedPnl = x.UnrealizedPnl.ToSharedQuantity(BitMEXUtils.GetCurrencyScale(x.Currency!)),
+                    UnrealizedPnl = x.UnrealizedPnl.ToSharedAssetQuantity(x.Currency!),
                     Leverage = x.Leverage,
                     LiquidationPrice = x.LiquidationPrice
                 }).ToArray())),

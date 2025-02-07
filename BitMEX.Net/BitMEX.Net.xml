@@ -124,16 +124,9 @@
         </member>
         <member name="M:BitMEX.Net.BitMEXUtils.GetAssetScale(System.String)">
             <summary>
-            Get the scale of an asset
+            Get the scale of an asset.
             </summary>
             <param name="asset">Asset name</param>
-            <returns></returns>
-        </member>
-        <member name="M:BitMEX.Net.BitMEXUtils.GetCurrencyScale(System.String)">
-            <summary>
-            Get the scale of a currency
-            </summary>
-            <param name="currency">Currency name</param>
             <returns></returns>
         </member>
         <member name="M:BitMEX.Net.BitMEXUtils.GetSymbolQuantityScale(System.String)">
@@ -944,6 +937,11 @@
             Funding
             </summary>
         </member>
+        <member name="F:BitMEX.Net.Enums.ExecutionType.Rejected">
+            <summary>
+            Rejected
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Enums.FairMethod">
             <summary>
             Fair method
@@ -1374,36 +1372,68 @@
             Extension methods specific to using the BitMEX API
             </summary>
         </member>
-        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedQuantity(System.Int64,System.Int32)">
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedAssetQuantity(System.Int64,System.String)">
             <summary>
             Convert a BitMEX quantity to a normalized quantity
             </summary>
             <param name="value">Value</param>
-            <param name="scale">Scale</param>
+            <param name="asset">The asset in which the quantity is</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedQuantity(System.Nullable{System.Int64},System.Int32)">
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedSymbolQuantity(System.Int64,System.String)">
             <summary>
             Convert a BitMEX quantity to a normalized quantity
             </summary>
             <param name="value">Value</param>
-            <param name="scale">Scale</param>
+            <param name="symbol">The symbol for which the quantity is</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToBitMEXQuantity(System.Decimal,System.Int32)">
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedAssetQuantity(System.Nullable{System.Int64},System.String)">
+            <summary>
+            Convert a BitMEX quantity to a normalized quantity
+            </summary>
+            <param name="value">Value</param>
+            <param name="asset">The asset in which the quantity is</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToSharedSymbolQuantity(System.Nullable{System.Int64},System.String)">
+            <summary>
+            Convert a BitMEX quantity to a normalized quantity
+            </summary>
+            <param name="value">Value</param>
+            <param name="symbol">The symbol for which the quantity is</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToBitMEXAssetQuantity(System.Decimal,System.String)">
             <summary>
             Convert a normalized quantity to a BitMEX quantity
             </summary>
             <param name="value">Value</param>
-            <param name="scale">Scale</param>
+            <param name="asset">The asset which the quantity is in</param>
             <returns></returns>
         </member>
-        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToBitMEXQuantity(System.Nullable{System.Decimal},System.Int32)">
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToBitMEXAssetQuantity(System.Nullable{System.Decimal},System.String)">
             <summary>
             Convert a normalized quantity to a BitMEX quantity
             </summary>
             <param name="value">Value</param>
-            <param name="scale">Scale</param>
+            <param name="asset">The asset which the quantity is in</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToBitMEXSymbolQuantity(System.Decimal,System.String)">
+            <summary>
+            Convert a normalized quantity to a BitMEX quantity
+            </summary>
+            <param name="value">Value</param>
+            <param name="symbol">The symbol for which the quantity is</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMEX.Net.ExtensionMethods.BitMEXExtensionMethods.ToBitMEXSymbolQuantity(System.Nullable{System.Decimal},System.String)">
+            <summary>
+            Convert a normalized quantity to a BitMEX quantity
+            </summary>
+            <param name="value">Value</param>
+            <param name="symbol">The symbol for which the quantity is</param>
             <returns></returns>
         </member>
         <member name="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApi">

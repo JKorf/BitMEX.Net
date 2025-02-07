@@ -9,7 +9,7 @@ BitMEX.Net is a client library for accessing the [BitMEX REST and Websocket API]
 * Input parameters and response values are mapped to discriptive enum values where possible
 * Automatic websocket (re)connection management 
 * Client side rate limiting 
-* Cient side order book implementation
+* Client side order book implementation
 * Extensive logging
 * Support for different environments
 * Easy integration with other exchange client based on the CryptoExchange.Net base library
@@ -65,6 +65,43 @@ The NuGet package files are added along side the source with the latest GitHub r
 	```
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/BitMEX.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+
+### BitMEX Quantities
+BitMEX handles quantities a bit differently than most exchange API's. Asset quantities like account balances are denoted in a base value.  
+For example 9846 XBt instead of 0.00009846 BTC. The same logic is also applied to trading quantities, if you want to place a spot order for 0.1 BTC you'd need to specify a quantity of 10000000 XBt. Note that futures trading works with contracts.  
+How many decimal places are used for each asset and symbol can be requested using the `restClient.ExchangeApi.ExchangeData.GetAssetsAsync` and `restClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync` endpoints.
+
+The library offers an easy way of converting between these quantities with the `ToSharedAssetQuantity`, `ToSharedSymbolQuantity`, `ToBitMEXAssetQuantity` and `ToBitMEXSymbolQuantity` extension methods. For example:  
+*Getting balance info*
+```csharp
+// Make sure to call this at least once at the start of the program to retrieve the conversion data
+await BitMEXUtils.UpdateSymbolInfoAsync();
+
+var balances = await bitMEXRestClient.ExchangeApi.Account.GetBalancesAsync();
+foreach (var balance in balances.Data)
+{
+    var bitMEXQuantity = balance.Quantity; // The quantity as used in the BitMEX API, for example 1000000
+    var bitMEXAssetName = balance.Currency; // The currency name as used in the BitMEX API, for example `gwei`
+    var assetQuantity = balance.Quantity.ToSharedAssetQuantity(balance.Currency); // The quantity in the actual assset, for example 0.01
+    var assetName = BitMEXUtils.GetAssetFromCurrency(balance.Currency); // The asset name, for example `ETH`
+}
+```
+
+*Placing spot order*
+```csharp
+// Make sure to call this at least once at the start of the program to retrieve the conversion data
+await BitMEXUtils.UpdateSymbolInfoAsync();
+
+var symbols = await bitMEXRestClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync();
+var ethUsdtSpotSymbol = symbols.Data.SingleOrDefault(x => x.BaseAsset == "ETH" && x.QuoteAsset == "USDT" && x.SymbolType == SymbolType.Spot);
+var minQuantityInBaseUnit = ethUsdtSpotSymbol.LotSize; // For example 1000
+var minQuantityInETH = ethUsdtSpotSymbol.LotSize.ToSharedSymbolQuantity(ethUsdtSpotSymbol.Symbol); // For example 0.001
+
+var quantityToPlace = 0.1m;
+var quantityBitMEX = quantityToPlace.ToBitMEXSymbolQuantity(ethUsdtSpotSymbol.Symbol); // For example 1000000
+var result = await bitMEXRestClient.ExchangeApi.Trading.PlaceOrderAsync(ethUsdtSpotSymbol.Symbol, OrderSide.Buy, OrderType.Market, quantityBitMEX);
+```
+
 
 ## CryptoExchange.Net
 BitMEX.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.

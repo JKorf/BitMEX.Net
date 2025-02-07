@@ -92,7 +92,7 @@ namespace BitMEX.Net.SymbolOrderBooks
             if (_adjustQuantities)
             {
                 foreach (var item in @event.Data.Entries)
-                    item.Quantity = ((long)item.Quantity).ToSharedQuantity(BitMEXUtils.GetSymbolQuantityScale(Symbol));
+                    item.Quantity = ((long)item.Quantity).ToSharedSymbolQuantity(Symbol);
             }
 
             if (@event.UpdateType == SocketUpdateType.Snapshot)

@@ -4,6 +4,7 @@ using CryptoExchange.Net.Objects;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace BitMEX.Net
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public static async Task<CallResult> UpdateSymbolInfoAsync(CancellationToken ct)
+        public static async Task<CallResult> UpdateSymbolInfoAsync(CancellationToken ct = default)
         {
             await _sem.WaitAsync(ct).ConfigureAwait(false);
             try
@@ -64,18 +65,17 @@ namespace BitMEX.Net
         }
 
         /// <summary>
-        /// Get the scale of an asset
+        /// Get the scale of an asset.
         /// </summary>
         /// <param name="asset">Asset name</param>
         /// <returns></returns>
-        public static int GetAssetScale(string asset) => _scalesByAsset[asset];
+        public static int GetAssetScale(string asset)
+        {
+            if (char.IsUpper(asset.Last()))
+                return _scalesByAsset[asset];
 
-        /// <summary>
-        /// Get the scale of a currency
-        /// </summary>
-        /// <param name="currency">Currency name</param>
-        /// <returns></returns>
-        public static int GetCurrencyScale(string currency) => _scalesByCurrency[currency];
+            return _scalesByCurrency[asset];
+        }
 
         /// <summary>
         /// Get the scale of quantity for a symbol

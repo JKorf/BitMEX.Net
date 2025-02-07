@@ -212,13 +212,125 @@ var socketClient = new BitMEXSocketClient();</code></pre>
         		
 		<hr class="divider">
 		
+		<section id="idocs_quantities">
+          <h2>API Quantities</h2>
+          
+		  <p>BitMEX handles quantities a bit differently than most exchange API's. Asset quantities like account balances are denoted in a base value. For example 9846 XBt instead of 0.00009846 BTC. The same logic is also applied to trading quantities, if you want to place a spot order for 0.1 BTC you'd need to specify a quantity of 10000000 XBt. Note that futures trading works with contracts.</p>
+		  <p>How many decimal places are used for each asset and symbol can be requested using the <code>restClient.ExchangeApi.ExchangeData.GetAssetsAsync</code> and <code>restClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync</code> endpoints.</p>
+
+		  <p>The library offers an easy way of converting between these quantities with the <code>ToSharedAssetQuantity</code>, <code>ToSharedSymbolQuantity</code>, <code>ToBitMEXAssetQuantity</code> and <code>ToBitMEXSymbolQuantity</code> extension methods. For example:  </p>
+		  <i>Getting balance info</i>
+		  <pre><code>// Make sure to call this at least once at the start of the program to retrieve the conversion data
+await BitMEXUtils.UpdateSymbolInfoAsync();
+
+var balances = await bitMEXRestClient.ExchangeApi.Account.GetBalancesAsync();
+foreach (var balance in balances.Data)
+{
+    var bitMEXQuantity = balance.Quantity; // The quantity as used in the BitMEX API, for example 1000000
+    var bitMEXAssetName = balance.Currency; // The currency name as used in the BitMEX API, for example `gwei`
+    var assetQuantity = balance.Quantity.ToSharedAssetQuantity(balance.Currency); // The quantity in the actual assset, for example 0.01
+    var assetName = BitMEXUtils.GetAssetFromCurrency(balance.Currency); // The asset name, for example `ETH`
+}</code></pre>
+
+		  <i>Placing spot order</i>
+<pre><code>// Make sure to call this at least once at the start of the program to retrieve the conversion data
+await BitMEXUtils.UpdateSymbolInfoAsync();
+
+var symbols = await bitMEXRestClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync();
+var ethUsdtSpotSymbol = symbols.Data.SingleOrDefault(x => x.BaseAsset == "ETH" && x.QuoteAsset == "USDT" && x.SymbolType == SymbolType.Spot);
+var minQuantityInBaseUnit = ethUsdtSpotSymbol.LotSize; // For example 1000
+var minQuantityInETH = ethUsdtSpotSymbol.LotSize.ToSharedSymbolQuantity(ethUsdtSpotSymbol.Symbol); // For example 0.001
+
+var quantityToPlace = 0.1m;
+var quantityBitMEX = quantityToPlace.ToBitMEXSymbolQuantity(ethUsdtSpotSymbol.Symbol); // For example 1000000
+var result = await bitMEXRestClient.ExchangeApi.Trading.PlaceOrderAsync(ethUsdtSpotSymbol.Symbol, OrderSide.Buy, OrderType.Market, quantityBitMEX);</code></pre>
+        </section>
+        		
+		<hr class="divider">
+		
 		<section id="idocs_examples">
           <h2>Examples</h2>
           
 		  <b id="idocs_example_symbols">Get Symbols</b><br />
 		  <p>Get a list of supported symbols on BitMEX</p>
-		  <pre><code>await BitMEXClient.SpotApi.ExchangeData.GetSymbolsAsync();</code></pre>
+		  <pre><code>await BitMEXClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync();</code></pre>
 		  
+		  <b id="idocs_example_symbols">Get Tickers</b><br />
+		  <p>Get a ticker data (price statistics)</p>
+		  <pre><code>var tickersResult = await bitMEXRestClient.ExchangeApi.ExchangeData.GetSymbolsAsync();
+if (!tickersResult.Success)
+{
+    Console.WriteLine("Failed to retrieve tickers: " + tickersResult.Error);
+    return;
+}
+
+foreach (var ticker in tickersResult.Data)
+    Console.WriteLine($"{ticker.Symbol}: " + ticker.LastPrice);
+</code></pre>
+
+<b id="idocs_example_symbols">Get Spot Balances</b><br />
+		  <p>Get the balances on the spot account</p>
+		  <pre><code>// Assumes that API credentials are set in the client options / DI configuration
+var balanceResult = await bitMEXRestClient.ExchangeApi.Account.GetBalancesAsync();
+if (!balanceResult.Success)
+{
+    Console.WriteLine("Failed to retrieve balances: " + balanceResult.Error);
+    return;
+}
+
+foreach (var balance in balanceResult.Data)
+    Console.WriteLine($"{balance.Currency}: " + balance.Quantity);
+</code></pre>
+
+<b id="idocs_example_symbols">Place Spot order</b><br />
+		  <p>Place limit order for buying 0.01 eth at a price of 3000 per eth</p>
+		  <pre><code>// Assumes that API credentials are set in the client options / DI configuration
+await BitMEXUtils.UpdateSymbolInfoAsync();
+
+var orderResult = await bitMEXRestClient.ExchangeApi.Trading.PlaceOrderAsync("ETH_USDT", OrderSide.Buy, OrderType.Limit, 0.01m.ToBitMEXSymbolQuantity("ETH_USDT"), 3000);
+if (!orderResult.Success)
+{
+    Console.WriteLine("Failed to place order: " + orderResult.Error);
+    return;
+}
+
+Console.WriteLine($"Order placed, id: {orderResult.Data.OrderId}");
+</code></pre>
+
+<b id="idocs_example_symbols">Place Futures order</b><br />
+		  <p>Place limit order for buying 0.01 eth worth of contracts at a price of 3000 per eth</p>
+		  <pre><code>// Assumes that API credentials are set in the client options / DI configuration
+var symbols = await bitMEXRestClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync();
+var symbolInfo = symbols.Data.Single(x => x.BaseAsset == "ETH" && x.QuoteAsset == "USDT" && x.SymbolType == SymbolType.PerpetualContract);
+// For Linear contracts: 1 / UnderlyingToPositionMultiplier
+// For Inverse contracts: Multiplier / UnderlyingToSettleMultiplier
+var contractSize = 1 / symbolInfo.UnderlyingToPositionMultiplier;
+var contractsToBuy = 0.01m / contractSize;
+
+var orderResult = await bitMEXRestClient.ExchangeApi.Trading.PlaceOrderAsync("ETHUSDT", OrderSide.Buy, OrderType.Limit, (long)contractsToBuy, 3000);
+if (!orderResult.Success)
+{
+    Console.WriteLine("Failed to place order: " + orderResult.Error);
+    return;
+}
+
+Console.WriteLine($"Order placed, id: {orderResult.Data.OrderId}");
+</code></pre>
+
+<b id="idocs_example_symbols">Subscribe to book ticker updates</b><br />
+		  <p>Subscribe to  ticker updates for the ETH_USDT symbol</p>
+		  <pre><code>var subscribeResult = await bitMEXSocketClient.ExchangeApi.SubscribeToBookTickerUpdatesAsync("ETH_USDT", update =>
+{
+    Console.WriteLine($"Best ask: {update.Data.BestAskPrice}, best bid: {update.Data.BestBidPrice}");
+});
+
+if (!subscribeResult.Success)
+{
+    Console.WriteLine($"Failed to subscribe: {subscribeResult.Error}");
+    return;
+}
+Console.WriteLine("Successfully subscribed to book ticker updates");
+</code></pre>
         </section>
         		
       </div>

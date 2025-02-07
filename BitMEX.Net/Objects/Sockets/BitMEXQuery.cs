@@ -19,6 +19,15 @@ namespace BitMEX.Net.Objects.Sockets
 
         public override CallResult<T> HandleMessage(SocketConnection connection, DataEvent<T> message)
         {
+            if (message.Data is SocketResponse resp && !string.IsNullOrEmpty(resp.Error))
+            {
+                if (resp.Error!.StartsWith("You are already subscribed to this topic"))
+                    // Duplicate subscription, this is allowed by design
+                    return message.ToCallResult();
+
+                return message.ToCallResult<T>(new ServerError(resp.Error));
+            }
+
             return message.ToCallResult();
         }
     }
