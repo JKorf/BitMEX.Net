@@ -36,7 +36,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMEXTradeUpdate>>> onMessage, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to kline updates
+        /// Subscribe to kline updates. Note that this subscription only pushes an update when the period is finished. Updates during a kline will not be pushed.
         /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>

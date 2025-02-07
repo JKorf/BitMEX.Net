@@ -2174,7 +2174,7 @@
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to kline updates
+            Subscribe to kline updates. Note that this subscription only pushes an update when the period is finished. Updates during a kline will not be pushed.
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
@@ -5831,6 +5831,11 @@
         <member name="T:BitMEX.Net.Objects.Models.BitMEXTradeUpdate">
             <summary>
             Trade info
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.TradeMatchId">
+            <summary>
+            Trade match id
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXTradeUpdate.Timestamp">

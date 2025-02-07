@@ -1,0 +1,4 @@
+> { "op": "subscribe", "args": ["trade:ETH_USDT"] }
+< {"success":true,"subscribe":"","request":{"op":"subscribe","args":["trade:ETH_USDT"]}}
+= 
+{"table":"trade","action":"insert","data":[{"timestamp":"2025-02-07T10:43:59.245Z","symbol":"ETH_USDT","side":"Sell","size":4800,"price":97343.4,"tickDirection":"MinusTick","trdMatchID":"00000000-006d-1000-0000-0012a5c8049e","grossValue":467248320,"homeNotional":0.0048,"foreignNotional":467.24832,"trdType":"Regular"}]}

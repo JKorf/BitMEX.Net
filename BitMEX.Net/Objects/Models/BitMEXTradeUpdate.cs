@@ -13,6 +13,11 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXTradeUpdate
     {
         /// <summary>
+        /// Trade match id
+        /// </summary>
+        [JsonPropertyName("trdMatchID")]
+        public string TradeMatchId { get; set; } = string.Empty;
+        /// <summary>
         /// Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]

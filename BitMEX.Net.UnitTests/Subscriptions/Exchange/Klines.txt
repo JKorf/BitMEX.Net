@@ -1,0 +1,4 @@
+> { "op": "subscribe", "args": ["tradeBin5m:ETH_USDT"] }
+< {"success":true,"subscribe":"","request":{"op":"subscribe","args":["tradeBin5m:ETH_USDT"]}}
+= 
+{"table":"tradeBin5m","action":"insert","data":[{"timestamp":"2025-02-07T10:55:00.000Z","symbol":"ETH_USDT","open":97255.4,"high":97304.0,"low":97240.0,"close":97250.0,"trades":128,"volume":304800,"vwap":97266.8028,"lastSize":200,"turnover":313366507,"homeNotional":3.1336650700000006,"foreignNotional":304800.0}]}
