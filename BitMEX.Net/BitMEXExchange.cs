@@ -28,6 +28,16 @@ namespace BitMEX.Net
         public static string ExchangeName => "BitMEX";
 
         /// <summary>
+        /// Display exchange name
+        /// </summary>
+        public static string DisplayName => "BitMEX";
+
+        /// <summary>
+        /// Url to exchange image
+        /// </summary>
+        public static string ImageUrl { get; } = "https://raw.githubusercontent.com/JKorf/BitMEX.Net/main/BitMEX.Net/Icon/icon.png";
+
+        /// <summary>
         /// Url to the main website
         /// </summary>
         public static string Url { get; } = "https://www.bitmex.com";

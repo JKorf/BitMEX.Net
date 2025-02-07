@@ -53,6 +53,11 @@
             Exchange name
             </summary>
         </member>
+        <member name="P:BitMEX.Net.BitMEXExchange.DisplayName">
+            <summary>
+            Display exchange name
+            </summary>
+        </member>
         <member name="P:BitMEX.Net.BitMEXExchange.Url">
             <summary>
             Url to the main website
