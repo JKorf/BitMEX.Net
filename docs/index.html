@@ -97,7 +97,7 @@
         <section id="idocs_intro">
 			<h1>BitMEX.Net</h1>
 			
-		<p>BitMEX.Net is a client library for accessing the <a href="BitMEX" target="_blank">BitMEX REST and Websocket API</a>. </p>
+		<p>BitMEX.Net is a client library for accessing the <a href="https://www.bitmex.com/api/explorer" target="_blank">BitMEX REST and Websocket API</a>. </p>
 		<h4>Features</h4>
 		<ul>
 			<li>Response data is mapped to descriptive models</li>
@@ -168,9 +168,9 @@
           <h2>Installation</h2>
           
 		  <h5>Nuget</h5>
-		  <p><a href="https://www.nuget.org/packages/BitMEX.Net"><img src="https://img.shields.io/nuget/v/BitMEX.net.svg?style=for-the-badge" /></a> <a href="https://www.nuget.org/packages/BitMEX.Net"><img src="https://img.shields.io/nuget/dt/BitMEX.Net.svg?style=for-the-badge" /></a></p>
+		  <p><a href="https://www.nuget.org/packages/JKorf.BitMEX.Net"><img src="https://img.shields.io/nuget/v/BitMEX.net.svg?style=for-the-badge" /></a> <a href="https://www.nuget.org/packages/JKorf.BitMEX.Net"><img src="https://img.shields.io/nuget/dt/JKorf.BitMEX.Net.svg?style=for-the-badge" /></a></p>
 
-		  <pre><code>dotnet add package BitMEX.Net</code></pre>
+		  <pre><code>dotnet add package JKorf.BitMEX.Net</code></pre>
 		  
 		  <h5>GitHub packages</h5>
 		  <p>BitMEX.Net is available on <a href="https://github.com/JKorf/BitMEX.Net/pkgs/nuget/BitMEX.Net">GitHub packages</a>. You'll need to add <code>https://nuget.pkg.github.com/JKorf/index.json</code> as a NuGet package source.</p>
@@ -283,7 +283,7 @@ foreach (var balance in balanceResult.Data)
 </code></pre>
 
 <b id="idocs_example_symbols">Place Spot order</b><br />
-		  <p>Place limit order for buying 0.01 eth at a price of 3000 per eth</p>
+		  <p>Place limit order for buying 0.01 ETH at a price of 3000 per ETH</p>
 		  <pre><code>// Assumes that API credentials are set in the client options / DI configuration
 await BitMEXUtils.UpdateSymbolInfoAsync();
 
@@ -298,12 +298,12 @@ Console.WriteLine($"Order placed, id: {orderResult.Data.OrderId}");
 </code></pre>
 
 <b id="idocs_example_symbols">Place Futures order</b><br />
-		  <p>Place limit order for buying 0.01 eth worth of contracts at a price of 3000 per eth</p>
+		  <p>Place limit order for buying 0.01 ETH worth of contracts at a price of 3000 per ETH</p>
 		  <pre><code>// Assumes that API credentials are set in the client options / DI configuration
 var symbols = await bitMEXRestClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync();
 var symbolInfo = symbols.Data.Single(x => x.BaseAsset == "ETH" && x.QuoteAsset == "USDT" && x.SymbolType == SymbolType.PerpetualContract);
-// For Linear contracts: 1 / UnderlyingToPositionMultiplier
-// For Inverse contracts: Multiplier / UnderlyingToSettleMultiplier
+// For Linear contracts: ContractSize = 1 / UnderlyingToPositionMultiplier
+// For Inverse contracts: ContractSize = Multiplier / UnderlyingToSettleMultiplier
 var contractSize = 1 / symbolInfo.UnderlyingToPositionMultiplier;
 var contractsToBuy = 0.01m / contractSize;
 
