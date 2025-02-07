@@ -13,7 +13,7 @@ namespace BitMEX.Net.UnitTests
     [NonParallelizable]
     public class BitMEXRestIntegrationTests : RestIntergrationTest<BitMEXRestClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; }
 
         public override BitMEXRestClient GetClient(ILoggerFactory loggerFactory)
         {
@@ -45,18 +45,18 @@ namespace BitMEX.Net.UnitTests
         [Test]
         public async Task TestAccount()
         {
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetUserEventsAsync(default, default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAccountInfoAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetFeesAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetMarginStatusAsync(default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetQuoteFillRatioAsync(default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetTradingVolumeAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalancesAsync(default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalanceHistoryAsync(default, default, default, default, default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalanceSummaryAsync(default, default, default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetSavedAddressesAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAddressBookSettingsAsync(default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Account.GetApiKeyInfoAsync(default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetUserEventsAsync(default, default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAccountInfoAsync(default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetFeesAsync(default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetMarginStatusAsync(default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetQuoteFillRatioAsync(default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetTradingVolumeAsync(default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalancesAsync(default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalanceHistoryAsync(default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalanceSummaryAsync(default, default, default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetSavedAddressesAsync(default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetAddressBookSettingsAsync(default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetApiKeyInfoAsync(default), true);
         }
 
         [Test]
@@ -90,10 +90,10 @@ namespace BitMEX.Net.UnitTests
         [Test]
         public async Task TestTrading()
         {
-            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetUserExecutionsAsync(default, default, default, default, default, default, default, default, default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetOrdersAsync(default, default, default, default, default, default, default, default, default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, default, default, default, default), false);
-            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetPositionsAsync(default, default, default, default), false);
+            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetUserExecutionsAsync(default, default, default, default, default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetOrdersAsync(default, default, default, default, default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Trading.GetPositionsAsync(default, default, default, default), true);
         }
     }
 }

@@ -34,17 +34,17 @@ namespace BitMEX.Net.Objects.Models
         /// Quotes moving average 7 days
         /// </summary>
         [JsonPropertyName("quotesMavg7")]
-        public long QuotesMavg7d { get; set; }
+        public decimal QuotesMavg7d { get; set; }
         /// <summary>
         /// Dealt moving average 7 days
         /// </summary>
         [JsonPropertyName("dealtMavg7")]
-        public long DealtMavg7d { get; set; }
+        public decimal DealtMavg7d { get; set; }
         /// <summary>
         /// Quote fill ratio moving average 7 days 
         /// </summary>
         [JsonPropertyName("quoteFillRatioMavg7")]
-        public long QuoteFillRatioMavg7d { get; set; }
+        public decimal QuoteFillRatioMavg7d { get; set; }
     }
 
 
