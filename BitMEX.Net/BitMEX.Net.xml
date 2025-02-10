@@ -58,6 +58,11 @@
             Display exchange name
             </summary>
         </member>
+        <member name="P:BitMEX.Net.BitMEXExchange.ImageUrl">
+            <summary>
+            Url to exchange image
+            </summary>
+        </member>
         <member name="P:BitMEX.Net.BitMEXExchange.Url">
             <summary>
             Url to the main website

@@ -11,7 +11,7 @@ using System.Threading;
 namespace BitMEX.Net.UnitTests
 {
     [NonParallelizable]
-    public class BitMEXRestIntegrationTests : RestIntergrationTest<BitMEXRestClient>
+    public class BitMEXRestIntegrationTests : RestIntegrationTest<BitMEXRestClient>
     {
         public override bool Run { get; set; }
 
