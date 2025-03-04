@@ -36,7 +36,7 @@ namespace BitMEX.Net.SymbolOrderBooks
         /// <inheritdoc />
         public ISymbolOrderBook Create(SharedSymbol symbol, Action<BitMEXOrderBookOptions>? options = null)
         {
-            var symbolName = BitMEXExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            var symbolName = symbol.GetSymbol(BitMEXExchange.FormatSymbol);
             return Create(symbolName, options);
         }
 
