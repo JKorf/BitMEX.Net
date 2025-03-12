@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
 namespace BitMEX.Net.Enums
@@ -5,6 +7,7 @@ namespace BitMEX.Net.Enums
     /// <summary>
     /// Bin period
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<BinPeriod>))]
     public enum BinPeriod
     {
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMEX.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Settlement info
     /// </summary>
+    [SerializationModel]
     public record BitMEXSettlementHistory
     {
         /// <summary>

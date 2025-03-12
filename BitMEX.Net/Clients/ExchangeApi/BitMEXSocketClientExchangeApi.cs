@@ -70,26 +70,26 @@ namespace BitMEX.Net.Clients.ExchangeApi
             => new BitMEXAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<BitMEXTradeUpdate>>> onMessage, CancellationToken ct = default)
+        public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BitMEXTradeUpdate[]>> onMessage, CancellationToken ct = default)
             => SubscribeToTradeUpdatesAsync([symbol], onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMEXTradeUpdate>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXTradeUpdate>>(_logger, symbols.Select(x => "trade:" + x).ToArray(), x => onMessage(
+            var subscription = new BitMEXSubscription<BitMEXTradeUpdate[]>(_logger, symbols.Select(x => "trade:" + x).ToArray(), x => onMessage(
                 x.WithSymbol(x.Data.First().Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, BinPeriod period, Action<DataEvent<IEnumerable<BitMEXAggTrade>>> onMessage, CancellationToken ct = default)
+        public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, BinPeriod period, Action<DataEvent<BitMEXAggTrade[]>> onMessage, CancellationToken ct = default)
             => SubscribeToKlineUpdatesAsync([symbol], period, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<IEnumerable<BitMEXAggTrade>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<BitMEXAggTrade[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXAggTrade>>(_logger, symbols.Select(x => "tradeBin" + EnumConverter.GetString(period) + ":" + x).ToArray(), x => onMessage(
+            var subscription = new BitMEXSubscription<BitMEXAggTrade[]>(_logger, symbols.Select(x => "tradeBin" + EnumConverter.GetString(period) + ":" + x).ToArray(), x => onMessage(
                 x.WithSymbol(x.Data.First().Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
@@ -102,7 +102,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXBookTicker>>(_logger, symbols.Select(x => "quote:" + x).ToArray(), x => onMessage(
+            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, symbols.Select(x => "quote:" + x).ToArray(), x => onMessage(
                 x.As(x.Data.First())
                 .WithSymbol(x.Data.First().Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
@@ -116,7 +116,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedBookTickerUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXBookTicker>>(_logger, symbols.Select(x => "quoteBin" + EnumConverter.GetString(period) + ":" + x).ToArray(), x => onMessage(
+            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, symbols.Select(x => "quoteBin" + EnumConverter.GetString(period) + ":" + x).ToArray(), x => onMessage(
                 x.As(x.Data.First())
                 .WithSymbol(x.Data.First().Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
@@ -124,9 +124,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSettlementUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXSettlementHistory>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSettlementUpdatesAsync(Action<DataEvent<BitMEXSettlementHistory[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXSettlementHistory>>(_logger, ["settlement"], x => onMessage(x
+            var subscription = new BitMEXSubscription<BitMEXSettlementHistory[]>(_logger, ["settlement"], x => onMessage(x
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
@@ -138,7 +138,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXOrderBookUpdate>>(_logger, symbols.Select(x => "orderBook10:" + x).ToArray(), x => onMessage(
+            var subscription = new BitMEXSubscription<BitMEXOrderBookUpdate[]>(_logger, symbols.Select(x => "orderBook10:" + x).ToArray(), x => onMessage(
                 x.As(x.Data.First())
                 .WithSymbol(x.Data.First().Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
@@ -152,7 +152,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(IEnumerable<string> symbols, IncrementalBookLimit limit, Action<DataEvent<BitMEXOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXRawSubscription<SocketUpdate<IEnumerable<BitMEXOrderBookEntry>>>(_logger, symbols.Select(x => "orderBookL2" + (limit == IncrementalBookLimit.Top25 ? "_25": "") + ":" + x).ToArray(), x => onMessage(x.As(new BitMEXOrderBookIncrementalUpdate
+            var subscription = new BitMEXRawSubscription<SocketUpdate<BitMEXOrderBookEntry[]>>(_logger, symbols.Select(x => "orderBookL2" + (limit == IncrementalBookLimit.Top25 ? "_25": "") + ":" + x).ToArray(), x => onMessage(x.As(new BitMEXOrderBookIncrementalUpdate
             {
                 Action = EnumConverter.ParseString<BookUpdateType>(x.Data.Action)!.Value,
                 Entries = x.Data.Data
@@ -164,23 +164,23 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXLiquidation>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<BitMEXLiquidation[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXLiquidation>>(_logger, ["liquidation"], x => onMessage(
+            var subscription = new BitMEXSubscription<BitMEXLiquidation[]>(_logger, ["liquidation"], x => onMessage(
                 x.WithSymbol(x.Data.FirstOrDefault()?.Symbol!)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToInsuranceUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXInsurance>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToInsuranceUpdatesAsync(Action<DataEvent<BitMEXInsurance[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXInsurance>>(_logger, ["insurance"], x => onMessage(x
+            var subscription = new BitMEXSubscription<BitMEXInsurance[]>(_logger, ["insurance"], x => onMessage(x
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(SymbolCategory? category, Action<DataEvent<IEnumerable<BitMEXSymbolUpdate>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(SymbolCategory? category, Action<DataEvent<BitMEXSymbolUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var subscription = new BitMEXOptionalSymbolSubscription<BitMEXSymbolUpdate>(_logger, "instrument", category == null ? null :[EnumConverter.GetString(category)], null, x => onMessage(x
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
@@ -197,7 +197,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMEXSymbolUpdate>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXSymbolUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var subscription = new BitMEXOptionalSymbolSubscription<BitMEXSymbolUpdate>(_logger, "instrument", null, symbols.ToArray(), x => onMessage(x
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
@@ -211,7 +211,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToFundingUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXFundingRate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXFundingRate>>(_logger, symbols.Select(x => "funding:" + x).ToArray(), x => onMessage(
+            var subscription = new BitMEXSubscription<BitMEXFundingRate[]>(_logger, symbols.Select(x => "funding:" + x).ToArray(), x => onMessage(
                 x.As(x.Data.First())
                 .WithSymbol(x.Data.First().Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
@@ -219,59 +219,59 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAnnouncementUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXAnnouncement>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAnnouncementUpdatesAsync(Action<DataEvent<BitMEXAnnouncement[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXAnnouncement>>(_logger, ["announcement"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var subscription = new BitMEXSubscription<BitMEXAnnouncement[]>(_logger, ["announcement"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtimePlatform"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToNotificationUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXNotification>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToNotificationUpdatesAsync(Action<DataEvent<BitMEXNotification[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXNotification>>(_logger, ["publicNotifications"], onMessage, false);
+            var subscription = new BitMEXSubscription<BitMEXNotification[]>(_logger, ["publicNotifications"], onMessage, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXBalance>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMEXBalance[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXBalance>>(_logger, ["wallet"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXBalance[]>(_logger, ["wallet"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTransactionUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXTransaction>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTransactionUpdatesAsync(Action<DataEvent<BitMEXTransaction[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXTransaction>>(_logger, ["transact"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXTransaction[]>(_logger, ["transact"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXPosition>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMEXPosition[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXPosition>>(_logger, ["position"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXPosition[]>(_logger, ["position"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarginUpdatesAsync(Action<DataEvent<BitMEXMarginStatus>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXMarginStatus>>(_logger, ["margin"], x => onMessage(x.As(x.Data.First())
+            var subscription = new BitMEXSubscription<BitMEXMarginStatus[]>(_logger, ["margin"], x => onMessage(x.As(x.Data.First())
                 .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXOrder>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMEXOrder[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXOrder>>(_logger, ["order"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXOrder[]>(_logger, ["order"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<IEnumerable<BitMEXExecution>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<BitMEXExecution[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<IEnumerable<BitMEXExecution>>(_logger, ["execution"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXExecution[]>(_logger, ["execution"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 

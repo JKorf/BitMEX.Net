@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -8,6 +9,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// API key info
     /// </summary>
+    [SerializationModel]
     public record BitMEXApiKey
     {
         /// <summary>
@@ -34,12 +36,12 @@ namespace BitMEX.Net.Objects.Models
         /// Cidr
         /// </summary>
         [JsonPropertyName("cidrs")]
-        public IEnumerable<string> Cidrs { get; set; } = [];
+        public string[] Cidrs { get; set; } = [];
         /// <summary>
         /// Permissions
         /// </summary>
         [JsonPropertyName("permissions")]
-        public IEnumerable<string> Permissions { get; set; } = [];
+        public string[] Permissions { get; set; } = [];
         /// <summary>
         /// Target account id
         /// </summary>

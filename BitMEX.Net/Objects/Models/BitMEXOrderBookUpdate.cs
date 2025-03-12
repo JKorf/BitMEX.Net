@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters;
+using BitMEX.Net.Converters;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using System;
@@ -11,6 +12,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Order book update
     /// </summary>
+    [SerializationModel]
     public record BitMEXOrderBookUpdate
     {
         /// <summary>
@@ -23,12 +25,12 @@ namespace BitMEX.Net.Objects.Models
         /// Bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<BitMEXOrderBookUpdateEntry> Bids { get; set; } = [];
+        public BitMEXOrderBookUpdateEntry[] Bids { get; set; } = [];
         /// <summary>
         /// Asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<BitMEXOrderBookUpdateEntry> Asks { get; set; } = [];
+        public BitMEXOrderBookUpdateEntry[] Asks { get; set; } = [];
 
         /// <summary>
         /// Timestamp
@@ -40,7 +42,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<BitMEXOrderBookUpdateEntry, BitMEXSourceGenerationContext>))]
     public class BitMEXOrderBookUpdateEntry : ISymbolOrderBookEntry
     {
         /// <summary>

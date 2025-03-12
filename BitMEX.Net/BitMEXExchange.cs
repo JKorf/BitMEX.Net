@@ -15,6 +15,7 @@ using BitMEX.Net.Clients;
 using BitMEX.Net.Enums;
 using System.Linq;
 using System.Text.Json.Serialization;
+using BitMEX.Net.Converters;
 
 namespace BitMEX.Net
 {
@@ -55,7 +56,7 @@ namespace BitMEX.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = new BinanceSourceGenerationContext();
+        internal static JsonSerializerContext SerializerContext = new BitMEXSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to an BitMEX recognized symbol 

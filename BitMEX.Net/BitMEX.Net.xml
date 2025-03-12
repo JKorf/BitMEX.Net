@@ -247,7 +247,7 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApi.GetServerTimestampAsync">
@@ -464,16 +464,16 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTradeUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTradeUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAggTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAggTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
@@ -488,7 +488,7 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToAggregatedBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSettlementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSettlementHistory}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSettlementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSettlementHistory[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate}},System.Threading.CancellationToken)">
@@ -503,19 +503,19 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.IncrementalBookLimit,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXLiquidation}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXLiquidation[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToInsuranceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXInsurance}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToInsuranceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXInsurance[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Nullable{BitMEX.Net.Enums.SymbolCategory},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Nullable{BitMEX.Net.Enums.SymbolCategory},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToFundingUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXFundingRate}},System.Threading.CancellationToken)">
@@ -524,28 +524,28 @@
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToFundingUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXFundingRate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToAnnouncementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAnnouncement}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToAnnouncementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAnnouncement[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToNotificationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXNotification}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToNotificationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXNotification[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXBalance}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBalance[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTransactionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTransaction}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToTransactionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTransaction[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXPosition}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXPosition[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToMarginUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXMarginStatus}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXOrder}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrder[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXExecution}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXExecution[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -556,6 +556,810 @@
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.Boolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableBoolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.Decimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableDecimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.AssetType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BookUpdateType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.ContingencyType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableContingencyType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.EventStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.EventType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.ExecutionInstruction">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableExecutionInstruction">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.ExecutionType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.FairMethod">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableFairMethod">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.MarkMethod">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableMarkMethod">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.OrderSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.OrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.OrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.PeggedPriceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullablePeggedPriceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SettlementType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SymbolStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableSymbolStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SymbolType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableSymbolType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.TickDirection">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableTickDirection">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.TimeInForce">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.TradeRole">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableTradeRole">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.TransactionStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.TransactionType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketCommand">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXAggTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXAnnouncementArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXBookTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXExecutionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXInsuranceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXLiquidationArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXMarginStatusArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXNotificationArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXOrderBookUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXPositionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXSettlementHistoryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXTradeUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXTransactionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAccountInfo">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAccountInfoArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAccountInfoPreferences">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAccountInfoPreferencesArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAddress">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAddressArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAddressBookConfig">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAddressBookConfigArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAggTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAggTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAnnouncement">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAnnouncementArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXApiKey">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXApiKeyArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAssetNetwork">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXAssetNetworkArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXBalance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXBalanceSummary">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXBalanceSummaryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXBookTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXBookTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXCompositeIndex">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXCompositeIndexArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXExchangeStat">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXExchangeStatArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXExchangeStatHistory">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXExchangeStatHistoryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXExchangeStatHistoryUsd">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXExchangeStatHistoryUsdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXExecution">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXExecutionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXFillRatio">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXFillRatioArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXFundingRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXIndex">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXIndexArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXInsurance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXInsuranceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXIntervals">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXIntervalsArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXLiquidation">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXLiquidationArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXMarginStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXMarginStatusArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXNetwork">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXNetworkArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXNotification">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXNotificationArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookEntry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookIncrementalUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookIncrementalUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookUpdateEntry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXOrderBookUpdateEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXPosition">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXPositionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXSettlementHistory">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXSettlementHistoryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXSymbol">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXSymbolArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXSymbolUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXSymbolUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXSymbolVolume">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXSymbolVolumeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXTradeFee">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXTradeFeeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXTradeUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXTradeUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXTransaction">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXTransactionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXUsdVolume">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXUsdVolumeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXUserEvent">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXUserEventArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXUserEventWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXUserEventWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXValueRatio">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXValueRatioArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.DictionaryStringBitMEXTradeFee">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.DictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.IDictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.DateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableDateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.TimeSpan">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableTimeSpan">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.Int32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableInt32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.Int64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.NullableInt64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.StringArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:BitMEX.Net.Converters.BitMEXSourceGenerationContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:BitMEX.Net.Converters.BitMEXSourceGenerationContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:BitMEX.Net.Converters.BitMEXSourceGenerationContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
         </member>
         <member name="T:BitMEX.Net.Enums.AssetType">
             <summary>
@@ -2162,7 +2966,7 @@
             BitMEX Exchange streams
             </summary>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2172,7 +2976,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2182,7 +2986,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAggTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline updates. Note that this subscription only pushes an update when the period is finished. Updates during a kline will not be pushed.
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2193,7 +2997,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAggTrade}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAggTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2246,7 +3050,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSettlementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSettlementHistory}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSettlementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSettlementHistory[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to settlement updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2297,7 +3101,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXLiquidation}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXLiquidation[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to liquidation updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2306,7 +3110,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToInsuranceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXInsurance}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToInsuranceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXInsurance[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to insurance updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2315,7 +3119,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Nullable{BitMEX.Net.Enums.SymbolCategory},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Nullable{BitMEX.Net.Enums.SymbolCategory},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to symbol updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2335,7 +3139,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to symbol updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2365,7 +3169,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToAnnouncementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXAnnouncement}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToAnnouncementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAnnouncement[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to platform announcement updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2374,7 +3178,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToNotificationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXNotification}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToNotificationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXNotification[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to public short lived notifications
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2383,7 +3187,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXBalance}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBalance[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user balance updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2392,7 +3196,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTransactionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXTransaction}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTransactionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTransaction[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user transaction (deposit/withdrawal) updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2401,7 +3205,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXPosition}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXPosition[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user position updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2419,7 +3223,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXOrder}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrder[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user order updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -2428,7 +3232,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMEX.Net.Objects.Models.BitMEXExecution}}},System.Threading.CancellationToken)">
+        <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXExecution[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user trade updates
             <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
@@ -6177,7 +6981,7 @@
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String[],System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{`0}}},System.Boolean)">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String[],System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0[]}},System.Boolean)">
             <summary>
             ctor
             </summary>

@@ -96,9 +96,9 @@ namespace BitMEX.Net.SymbolOrderBooks
             }
 
             if (@event.UpdateType == SocketUpdateType.Snapshot)
-                SetInitialOrderBook(DateTime.UtcNow.Ticks, @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Buy), @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Sell));
+                SetInitialOrderBook(DateTime.UtcNow.Ticks, @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Buy).ToArray(), @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Sell).ToArray());
             else
-                UpdateOrderBook(DateTime.UtcNow.Ticks, @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Buy), @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Sell));
+                UpdateOrderBook(DateTime.UtcNow.Ticks, @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Buy).ToArray(), @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Sell).ToArray());
         }
 
         /// <inheritdoc />

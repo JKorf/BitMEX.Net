@@ -1,10 +1,10 @@
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.JsonNet;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Net.Http;
 using BitMEX.Net.Clients;
+using CryptoExchange.Net.Converters.SystemTextJson;
 
 namespace BitMEX.Net.UnitTests
 {
@@ -31,7 +31,7 @@ namespace BitMEX.Net.UnitTests
                 {
                     { "symbol", "LTCBTC" },
                 },
-                DateTimeConverter.ParseFromLong(1499827319559),
+                DateTimeConverter.ParseFromDouble(1499827319559),
                 true,
                 false);
         }

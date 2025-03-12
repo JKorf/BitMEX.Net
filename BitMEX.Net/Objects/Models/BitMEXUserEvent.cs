@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMEX.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,15 +7,17 @@ using System.Text.Json.Serialization;
 
 namespace BitMEX.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMEXUserEventWrapper
     {
         [JsonPropertyName("userEvents")]
-        public IEnumerable<BitMEXUserEvent> UserEvents { get; set; } = [];
+        public BitMEXUserEvent[] UserEvents { get; set; } = [];
     }
 
     /// <summary>
     /// User event
     /// </summary>
+    [SerializationModel]
     public record BitMEXUserEvent
     {
         /// <summary>

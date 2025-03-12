@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMEX.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Asset info
     /// </summary>
+    [SerializationModel]
     public record BitMEXAsset
     {
         /// <summary>
@@ -75,12 +77,13 @@ namespace BitMEX.Net.Objects.Models
         /// Networks
         /// </summary>
         [JsonPropertyName("networks")]
-        public IEnumerable<BitMEXAssetNetwork> Networks { get; set; } = Array.Empty<BitMEXAssetNetwork>();
+        public BitMEXAssetNetwork[] Networks { get; set; } = Array.Empty<BitMEXAssetNetwork>();
     }
 
     /// <summary>
     /// Network info
     /// </summary>
+    [SerializationModel]
     public record BitMEXAssetNetwork
     {
         /// <summary>

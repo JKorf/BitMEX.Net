@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMEX.Net.Enums;
 using CryptoExchange.Net.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,21 +11,23 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Order book
     /// </summary>
+    [SerializationModel]
     public record BitMEXOrderBook
     {
         /// <summary>
         /// Asks
         /// </summary>
-        public IEnumerable<BitMEXOrderBookEntry> Asks { get; set; } = [];
+        public BitMEXOrderBookEntry[] Asks { get; set; } = [];
         /// <summary>
         /// Bids
         /// </summary>
-        public IEnumerable<BitMEXOrderBookEntry> Bids { get; set; } = [];
+        public BitMEXOrderBookEntry[] Bids { get; set; } = [];
     }
 
     /// <summary>
     /// Order book entry
     /// </summary>
+    [SerializationModel]
     public record BitMEXOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>

@@ -17,7 +17,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        private readonly Action<DataEvent<IEnumerable<T>>> _handler;
+        private readonly Action<DataEvent<T[]>> _handler;
 
         private readonly string[] _topics;
         private readonly string[]? _symbols;
@@ -26,13 +26,13 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Type? GetMessageType(IMessageAccessor message)
         {
-            return typeof(SocketUpdate<IEnumerable<T>>);
+            return typeof(SocketUpdate<T[]>);
         }
 
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMEXOptionalSymbolSubscription(ILogger logger, string topic, string[]? filters, string[]? symbols, Action<DataEvent<IEnumerable<T>>> handler, bool auth) : base(logger, auth)
+        public BitMEXOptionalSymbolSubscription(ILogger logger, string topic, string[]? filters, string[]? symbols, Action<DataEvent<T[]>> handler, bool auth) : base(logger, auth)
         {
             _handler = handler;
             _symbols = symbols;
@@ -70,7 +70,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
-            var data = (SocketUpdate<IEnumerable<T>>)message.Data;
+            var data = (SocketUpdate<T[]>)message.Data;
             if (_symbols?.Contains(data.Data.First().Symbol) == false)
                 return new CallResult(null);
 

@@ -20,7 +20,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXUserEvent>>> GetUserEventsAsync(long? fromId = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXUserEvent[]>> GetUserEventsAsync(long? fromId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get account info
@@ -64,7 +64,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="accountId">Account id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXFillRatio>>> GetQuoteFillRatioAsync(long? accountId = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXFillRatio[]>> GetQuoteFillRatioAsync(long? accountId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get user order quote value ratio
@@ -73,7 +73,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="accountId">Account id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXValueRatio>>> GetQuoteValueRatioAsync(long accountId, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXValueRatio[]>> GetQuoteValueRatioAsync(long accountId, CancellationToken ct = default);
 
         /// <summary>
         /// Get user 30 days average USD trading volume
@@ -81,7 +81,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXUsdVolume>>> GetTradingVolumeAsync(CancellationToken ct = default);
+        Task<WebCallResult<BitMEXUsdVolume[]>> GetTradingVolumeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get user balances
@@ -90,7 +90,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXBalance>>> GetBalancesAsync(string? asset = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXBalance[]>> GetBalancesAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get balance history
@@ -103,7 +103,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXTransaction>>> GetBalanceHistoryAsync(string? asset = null,
+        Task<WebCallResult<BitMEXTransaction[]>> GetBalanceHistoryAsync(string? asset = null,
             long? targetAccountId = null,
             bool? reverse = null,
             int? offset = null,
@@ -118,7 +118,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMEXBalanceSummary>>> GetBalanceSummaryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXBalanceSummary[]>> GetBalanceSummaryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer funds between accounts
@@ -207,7 +207,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXAddress>>> GetSavedAddressesAsync(CancellationToken ct = default);
+        Task<WebCallResult<BitMEXAddress[]>> GetSavedAddressesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Add a saved address
@@ -250,6 +250,6 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXApiKey>>> GetApiKeyInfoAsync(CancellationToken ct = default);
+        Task<WebCallResult<BitMEXApiKey[]>> GetApiKeyInfoAsync(CancellationToken ct = default);
     }
 }

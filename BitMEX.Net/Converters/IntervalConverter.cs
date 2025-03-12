@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace BitMEX.Net.Converter
+namespace BitMEX.Net.Converters
 {
     internal class IntervalConverter : JsonConverter<TimeSpan>
     {
