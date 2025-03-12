@@ -61,9 +61,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMEXExchange.SerializerContext));
         /// <inheritdoc />
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange.SerializerContext));
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -154,7 +154,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             var subscription = new BitMEXRawSubscription<SocketUpdate<IEnumerable<BitMEXOrderBookEntry>>>(_logger, symbols.Select(x => "orderBookL2" + (limit == IncrementalBookLimit.Top25 ? "_25": "") + ":" + x).ToArray(), x => onMessage(x.As(new BitMEXOrderBookIncrementalUpdate
             {
-                Action = EnumConverter.ParseString<BookUpdateType>(x.Data.Action),
+                Action = EnumConverter.ParseString<BookUpdateType>(x.Data.Action)!.Value,
                 Entries = x.Data.Data
             })
                 .WithSymbol(x.Data.Data.First().Symbol)

@@ -13,7 +13,7 @@ namespace BitMEX.Net
 {
     internal class BitMEXAuthenticationProvider : AuthenticationProvider
     {
-        private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer();
+        private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange.SerializerContext));
 
         public BitMEXAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {

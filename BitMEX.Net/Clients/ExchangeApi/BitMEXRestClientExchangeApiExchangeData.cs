@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
@@ -9,10 +8,10 @@ using Microsoft.Extensions.Logging;
 using BitMEX.Net.Interfaces.Clients.ExchangeApi;
 using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Enums;
-using CryptoExchange.Net.Converters.JsonNet;
 using System.Linq;
 using BitMEX.Net.Objects.Internal;
 using CryptoExchange.Net;
+using CryptoExchange.Net.Converters.SystemTextJson;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -196,7 +195,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             if (symbol != null)
                 parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptionalEnum("binSize", period);
+            parameters.AddEnum("binSize", period);
             parameters.AddOptional("partial", partial);
             parameters.AddOptional("filter", filter);
             parameters.AddOptional("columns", columns);
@@ -330,7 +329,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             if (symbol != null)
                 parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptionalEnum("binSize", period);
+            parameters.AddEnum("binSize", period);
             parameters.AddOptional("partial", partial);
             parameters.AddOptional("filter", filter);
             parameters.AddOptional("columns", columns);
