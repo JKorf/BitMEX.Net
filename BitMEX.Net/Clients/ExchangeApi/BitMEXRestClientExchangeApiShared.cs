@@ -586,7 +586,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 request.OrderType == SharedOrderType.Limit ? Enums.OrderType.Limit : Enums.OrderType.Market,
-                quantity: request.Quantity.ToBitMEXAssetQuantity(request.Symbol.BaseAsset),
+                quantity: request.Quantity?.QuantityInBaseAsset.ToBitMEXAssetQuantity(request.Symbol.BaseAsset),
                 price: request.Price,
                 timeInForce: GetTimeInForce(request.TimeInForce, request.OrderType),
                 executionInstruction: request.OrderType == SharedOrderType.LimitMaker ? ExecutionInstruction.PostOnly : null,
@@ -635,8 +635,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ClientOrderId = order.ClientOrderId,
                 AveragePrice = order.AveragePrice,
                 OrderPrice = order.Price,
-                Quantity = order.Quantity.ToSharedSymbolQuantity(order.Symbol),
-                QuantityFilled = order.QuantityFilled.ToSharedSymbolQuantity(order.Symbol),
+                OrderQuantity = new SharedOrderQuantity(order.Quantity.ToSharedSymbolQuantity(order.Symbol), null, null),
+                QuantityFilled = new SharedOrderQuantity(order.QuantityFilled.ToSharedSymbolQuantity(order.Symbol), null, null),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime
             });
@@ -676,8 +676,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ClientOrderId = x.ClientOrderId,
                 AveragePrice = x.AveragePrice,
                 OrderPrice = x.Price,
-                Quantity = x.Quantity.ToSharedSymbolQuantity(x.Symbol),
-                QuantityFilled = x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol),
+                OrderQuantity = new SharedOrderQuantity(x.Quantity.ToSharedSymbolQuantity(x.Symbol)),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol)),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.TransactTime
             }).ToArray());
@@ -732,8 +732,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ClientOrderId = x.ClientOrderId,
                 AveragePrice = x.AveragePrice,
                 OrderPrice = x.Price,
-                Quantity = x.Quantity.ToSharedSymbolQuantity(x.Symbol),
-                QuantityFilled = x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol),
+                OrderQuantity = new SharedOrderQuantity(x.Quantity.ToSharedSymbolQuantity(x.Symbol)),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol)),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.TransactTime
             }).ToArray(), nextToken);
@@ -911,8 +911,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ClientOrderId = order.ClientOrderId,
                 AveragePrice = order.AveragePrice,
                 OrderPrice = order.Price,
-                Quantity = order.Quantity.ToSharedSymbolQuantity(order.Symbol),
-                QuantityFilled = order.QuantityFilled.ToSharedSymbolQuantity(order.Symbol),
+                OrderQuantity = new SharedOrderQuantity(order.Quantity.ToSharedSymbolQuantity(order.Symbol)),
+                QuantityFilled = new SharedOrderQuantity(order.QuantityFilled.ToSharedSymbolQuantity(order.Symbol)),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime
             });
@@ -1193,7 +1193,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 request.OrderType == SharedOrderType.Limit ? Enums.OrderType.Limit : Enums.OrderType.Market,
-                quantity: (long?)request.Quantity,
+                quantity: (long?)request.Quantity?.QuantityInContracts,
                 price: request.Price,
                 timeInForce: GetTimeInForce(request.TimeInForce, request.OrderType),
                 executionInstruction: request.OrderType == SharedOrderType.LimitMaker ? ExecutionInstruction.PostOnly : request.ReduceOnly == true ? ExecutionInstruction.ReduceOnly: null,
@@ -1238,8 +1238,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ClientOrderId = order.ClientOrderId,
                 AveragePrice = order.AveragePrice,
                 OrderPrice = order.Price,
-                Quantity = order.Quantity,
-                QuantityFilled = order.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Quantity),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime,
                 ReduceOnly = order.ExecutionInstruction == ExecutionInstruction.ReduceOnly
@@ -1276,8 +1276,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ClientOrderId = x.ClientOrderId,
                 AveragePrice = x.AveragePrice,
                 OrderPrice = x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.TransactTime,
                 ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly
@@ -1329,8 +1329,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ClientOrderId = x.ClientOrderId,
                 AveragePrice = x.AveragePrice,
                 OrderPrice = x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.TransactTime,
                 ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly
@@ -1535,8 +1535,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ClientOrderId = order.ClientOrderId,
                 AveragePrice = order.AveragePrice,
                 OrderPrice = order.Price,
-                Quantity = order.Quantity.ToSharedSymbolQuantity(order.Symbol),
-                QuantityFilled = order.QuantityFilled.ToSharedSymbolQuantity(order.Symbol),
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Quantity),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime
             });

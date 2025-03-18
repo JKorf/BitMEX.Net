@@ -58,8 +58,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         {
                             ClientOrderId = x.ClientOrderId,
                             OrderPrice = x.Price,
-                            Quantity = x.Quantity.ToSharedSymbolQuantity(x.Symbol),
-                            QuantityFilled = x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol),
+                            OrderQuantity = new SharedOrderQuantity(x.Quantity.ToSharedSymbolQuantity(x.Symbol)),
+                            QuantityFilled = new SharedOrderQuantity(x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol)),
                             UpdateTime = x.TransactTime,
                             TimeInForce = ParseTimeInForce(x.TimeInForce),
                             AveragePrice = x.AveragePrice
@@ -335,8 +335,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         {
                             ClientOrderId = x.ClientOrderId,
                             OrderPrice = x.Price,
-                            Quantity = x.Quantity,
-                            QuantityFilled = x.QuantityFilled,
+                            OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
+                            QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                             UpdateTime = x.TransactTime,
                             TimeInForce = ParseTimeInForce(x.TimeInForce),
                             AveragePrice = x.AveragePrice,
