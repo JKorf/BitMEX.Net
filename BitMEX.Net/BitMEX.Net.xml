@@ -7049,37 +7049,6 @@
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
             <inheritdoc />
         </member>
-        <member name="T:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook">
-            <summary>
-            Implementation for a synchronized order book. After calling Start the order book will sync itself and keep up to date with new data. It will automatically try to reconnect and resync in case of a lost/interrupted connection.
-            Make sure to check the State property to see if the order book is synced.
-            </summary>
-        </member>
-        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.#ctor(System.String,System.Action{BitMEX.Net.Objects.Options.BitMEXOrderBookOptions})">
-            <summary>
-            Create a new order book instance
-            </summary>
-            <param name="symbol">The symbol the order book is for</param>
-            <param name="optionsDelegate">Option configuration delegate</param>
-        </member>
-        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.#ctor(System.String,System.Action{BitMEX.Net.Objects.Options.BitMEXOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BitMEX.Net.Interfaces.Clients.IBitMEXSocketClient)">
-            <summary>
-            Create a new order book instance
-            </summary>
-            <param name="symbol">The symbol the order book is for</param>
-            <param name="optionsDelegate">Option configuration delegate</param>
-            <param name="logger">Logger</param>
-            <param name="socketClient">Socket client instance</param>
-        </member>
-        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXExchangeSymbolOrderBook.Dispose(System.Boolean)">
-            <inheritdoc />
-        </member>
         <member name="T:BitMEX.Net.SymbolOrderBooks.BitMEXOrderBookFactory">
             <summary>
             BitMEX order book factory
@@ -7098,6 +7067,37 @@
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXOrderBookFactory.Create(System.String,System.Action{BitMEX.Net.Objects.Options.BitMEXOrderBookOptions})">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMEX.Net.SymbolOrderBooks.BitMEXSymbolOrderBook">
+            <summary>
+            Implementation for a synchronized order book. After calling Start the order book will sync itself and keep up to date with new data. It will automatically try to reconnect and resync in case of a lost/interrupted connection.
+            Make sure to check the State property to see if the order book is synced.
+            </summary>
+        </member>
+        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXSymbolOrderBook.#ctor(System.String,System.Action{BitMEX.Net.Objects.Options.BitMEXOrderBookOptions})">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXSymbolOrderBook.#ctor(System.String,System.Action{BitMEX.Net.Objects.Options.BitMEXOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BitMEX.Net.Interfaces.Clients.IBitMEXSocketClient)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="logger">Logger</param>
+            <param name="socketClient">Socket client instance</param>
+        </member>
+        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXSymbolOrderBook.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
         <member name="T:CryptoExchange.Net.Interfaces.CryptoClientExtensions">

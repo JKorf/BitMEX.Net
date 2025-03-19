@@ -43,7 +43,7 @@ namespace BitMEX.Net.SymbolOrderBooks
         
          /// <inheritdoc />
         public ISymbolOrderBook Create(string symbol, Action<BitMEXOrderBookOptions>? options = null)
-            => new BitMEXExchangeSymbolOrderBook(symbol, options, 
+            => new BitMEXSymbolOrderBook(symbol, options, 
                                                           _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                                           _serviceProvider.GetRequiredService<IBitMEXSocketClient>());
 
