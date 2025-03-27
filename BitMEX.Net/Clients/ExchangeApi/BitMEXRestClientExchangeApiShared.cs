@@ -12,6 +12,7 @@ using BitMEX.Net.ExtensionMethods;
 using BitMEX.Net.Enums;
 using CryptoExchange.Net;
 using BitMEX.Net.Objects.Models;
+using System.Drawing;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -1557,24 +1558,27 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Futures Trigger Order Client
-        //EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
-        //{
-        //};
+        PlaceFuturesTriggerOrderOptions IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(false)
+        {
+        };
+
         async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
         {
-            //var validationError = ((IFuturesTriggerOrderRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
-            //if (validationError != null)
-            //    return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+            var side = GetTriggerOrderSide(request);
+            var validationError = ((IFuturesTriggerOrderRestClient)this).PlaceFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, ((IFuturesOrderRestClient)this).FuturesSupportedOrderQuantity);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var result = await Trading.PlaceOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                GetTriggerOrderSide(request),
+                side,
                 GetTriggerOrderType(request),
                 quantity: (int)(request.Quantity?.QuantityInContracts ?? 0),
                 price: request.OrderPrice,
                 stopPrice: request.TriggerPrice,
                 executionInstruction: GetExecutionInstruction(request),
                 timeInForce: GetTimeInForce(request.TimeInForce),
+                clientOrderId: request.ClientOrderId,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
@@ -1612,7 +1616,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 order.OrderId,
                 order.OrderType == OrderType.StopLimit ? SharedOrderType.Limit : SharedOrderType.Market,
                 null,
-                ParseOrderStatus(order.Status),
+                ParseTriggerOrderStatus(order.Status),
                 order.StopPrice ?? 0,
                 null,
                 order.Timestamp)
@@ -1623,6 +1627,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime,
+                ClientOrderId = order.ClientOrderId
             });
         }
 
@@ -1644,7 +1649,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         private OrderType GetTriggerOrderType(PlaceSpotTriggerOrderRequest request)
         {
-            if (request.OrderDirection == SharedTriggerOrderDirection.Enter)
+            if (request.OrderSide == SharedOrderSide.Buy)
             {
                 if (request.PriceDirection == SharedTriggerPriceDirection.PriceAbove)
                     return request.OrderPrice == null ? OrderType.StopMarket : OrderType.StopLimit;
@@ -1717,21 +1722,21 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Spot Trigger Order Client
-        //EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
-        //{
-        //};
+        PlaceSpotTriggerOrderOptions ISpotTriggerOrderRestClient.PlaceSpotTriggerOrderOptions { get; } = new PlaceSpotTriggerOrderOptions(false);
+
         async Task<ExchangeWebResult<SharedId>> ISpotTriggerOrderRestClient.PlaceSpotTriggerOrderAsync(PlaceSpotTriggerOrderRequest request, CancellationToken ct)
         {
-            //var validationError = ((ISpotTriggerOrderRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
-            //if (validationError != null)
-            //    return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+            var validationError = ((ISpotTriggerOrderRestClient)this).PlaceSpotTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, ((ISpotOrderRestClient)this).SpotSupportedOrderQuantity);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var result = await Trading.PlaceOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Buy : OrderSide.Sell,
+                request.OrderSide == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
                 GetTriggerOrderType(request),
                 quantity: (int)(request.Quantity?.QuantityInContracts ?? 0),
                 price: request.OrderPrice,
+                clientOrderId: request.ClientOrderId,
                 stopPrice: request.TriggerPrice,
                 timeInForce: GetTimeInForce(request.TimeInForce),
                 ct: ct).ConfigureAwait(false);
@@ -1771,17 +1776,30 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 order.OrderId,
                 order.OrderType == OrderType.StopLimit ? SharedOrderType.Limit : SharedOrderType.Market,
                 order.OrderSide == OrderSide.Buy ? SharedTriggerOrderDirection.Enter : SharedTriggerOrderDirection.Exit,
-                ParseOrderStatus(order.Status),
+                ParseTriggerOrderStatus(order.Status),
                 order.StopPrice ?? 0,
                 order.Timestamp)
             {
+                PlacedOrderId = order.OrderId,
                 AveragePrice = order.AveragePrice,
                 OrderPrice = order.Price,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime,
+                ClientOrderId = order.ClientOrderId
             });
+        }
+
+        private SharedTriggerOrderStatus ParseTriggerOrderStatus(OrderStatus status)
+        {
+            if (status == OrderStatus.Filled)
+                return SharedTriggerOrderStatus.Filled;
+
+            if (status == OrderStatus.Canceled || status == OrderStatus.Rejected)
+                return SharedTriggerOrderStatus.CanceledOrRejected;
+
+            return SharedTriggerOrderStatus.Active;
         }
 
         EndpointOptions<CancelOrderRequest> ISpotTriggerOrderRestClient.CancelSpotTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
