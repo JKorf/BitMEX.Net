@@ -31,7 +31,8 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         ISpotOrderClientIdClient,
         IFuturesOrderClientIdClient,
         IFuturesTriggerOrderRestClient,
-        ISpotTriggerOrderRestClient
+        ISpotTriggerOrderRestClient,
+        IFuturesTpSlRestClient
     {
     }
 }
