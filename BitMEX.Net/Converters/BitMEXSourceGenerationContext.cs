@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 namespace BitMEX.Net.Converters
 {
     [JsonSerializable(typeof(Dictionary<string, BitMEXTradeFee>))]
+    [JsonSerializable(typeof(InfoUpdate))]
 
     // End manual defined attributes
 

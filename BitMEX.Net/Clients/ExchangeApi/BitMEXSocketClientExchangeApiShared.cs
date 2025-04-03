@@ -62,7 +62,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             QuantityFilled = new SharedOrderQuantity(x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol)),
                             UpdateTime = x.TransactTime,
                             TimeInForce = ParseTimeInForce(x.TimeInForce),
-                            AveragePrice = x.AveragePrice
+                            AveragePrice = x.AveragePrice,
+                            TriggerPrice = x.StopPrice,
+                            IsTriggerOrder = x.StopPrice != null
                         }
                     ).ToArray()));
                 },
@@ -89,9 +91,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         private SharedOrderType ParseOrderType(OrderType orderType, ExecutionInstruction? executionInstruction)
         {
-            if (orderType == OrderType.Market) return SharedOrderType.Market;
+            if (orderType == OrderType.Market || orderType == OrderType.MarketIfTouched || orderType == OrderType.StopMarket) return SharedOrderType.Market;
             if (orderType == OrderType.Limit && executionInstruction == ExecutionInstruction.PostOnly) return SharedOrderType.LimitMaker;
-            if (orderType == OrderType.Limit) return SharedOrderType.Limit;
+            if (orderType == OrderType.Limit || orderType == OrderType.LimitIfTouched || orderType == OrderType.StopLimit) return SharedOrderType.Limit;
             return SharedOrderType.Other;
         }
         #endregion
@@ -340,7 +342,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             UpdateTime = x.TransactTime,
                             TimeInForce = ParseTimeInForce(x.TimeInForce),
                             AveragePrice = x.AveragePrice,
-                            ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly
+                            ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly,
+                            TriggerPrice = x.StopPrice,
+                            IsTriggerOrder = x.StopPrice > 0
                         }
                     ).ToArray()));
                 },

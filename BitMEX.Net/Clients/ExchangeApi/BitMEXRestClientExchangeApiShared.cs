@@ -377,6 +377,37 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false);
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var symbolInfoResult = await BitMEXUtils.UpdateSymbolInfoAsync(ct).ConfigureAwait(false);
+            if (!symbolInfoResult)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, symbolInfoResult.Error!);
+
+            var resultTicker = await ExchangeData.GetBookTickerHistoryAsync(request.Symbol.GetSymbol(FormatSymbol), reverse: true, limit: 1, ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            if (!resultTicker.Data.Any())
+                return resultTicker.AsExchangeError<SharedBookTicker>(Exchange, new ServerError("Symbol not found"));
+
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(request.Symbol.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, resultTicker.Data[0].Symbol),
+                resultTicker.Data[0].Symbol,
+                resultTicker.Data[0].BestAskPrice,
+                resultTicker.Data[0].BestAskQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol),
+                resultTicker.Data[0].BestBidPrice,
+                resultTicker.Data[0].BestBidQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol)));
+        }
+
+        #endregion
+
         #region Withdrawal client
 
         GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(SharedPaginationSupport.Descending, true, 1000)
@@ -639,7 +670,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 OrderQuantity = new SharedOrderQuantity(order.Quantity.ToSharedSymbolQuantity(order.Symbol), null, null),
                 QuantityFilled = new SharedOrderQuantity(order.QuantityFilled.ToSharedSymbolQuantity(order.Symbol), null, null),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
-                UpdateTime = order.TransactTime
+                UpdateTime = order.TransactTime,
+                TriggerPrice = order.StopPrice,
+                IsTriggerOrder = order.StopPrice != null
             });
         }
 
@@ -680,7 +713,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 OrderQuantity = new SharedOrderQuantity(x.Quantity.ToSharedSymbolQuantity(x.Symbol)),
                 QuantityFilled = new SharedOrderQuantity(x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol)),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
-                UpdateTime = x.TransactTime
+                UpdateTime = x.TransactTime,
+                TriggerPrice = x.StopPrice,
+                IsTriggerOrder = x.StopPrice != null
             }).ToArray());
         }
 
@@ -736,7 +771,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 OrderQuantity = new SharedOrderQuantity(x.Quantity.ToSharedSymbolQuantity(x.Symbol)),
                 QuantityFilled = new SharedOrderQuantity(x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol)),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
-                UpdateTime = x.TransactTime
+                UpdateTime = x.TransactTime,
+                TriggerPrice = x.StopPrice,
+                IsTriggerOrder = x.StopPrice != null
             }).ToArray(), nextToken);
         }
 
@@ -915,7 +952,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 OrderQuantity = new SharedOrderQuantity(order.Quantity.ToSharedSymbolQuantity(order.Symbol)),
                 QuantityFilled = new SharedOrderQuantity(order.QuantityFilled.ToSharedSymbolQuantity(order.Symbol)),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
-                UpdateTime = order.TransactTime
+                UpdateTime = order.TransactTime,
+                TriggerPrice = order.StopPrice,
+                IsTriggerOrder = order.StopPrice != null
             });
         }
 
@@ -1243,7 +1282,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime,
-                ReduceOnly = order.ExecutionInstruction == ExecutionInstruction.ReduceOnly
+                ReduceOnly = order.ExecutionInstruction == ExecutionInstruction.ReduceOnly,
+                TriggerPrice = order.StopPrice,
+                IsTriggerOrder = order.StopPrice > 0
             });
         }
 
@@ -1281,7 +1322,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.TransactTime,
-                ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly
+                ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly,
+                TriggerPrice = x.StopPrice,
+                IsTriggerOrder = x.StopPrice > 0
             }).ToArray());
         }
 
@@ -1334,7 +1377,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.TransactTime,
-                ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly
+                ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly,
+                TriggerPrice = x.StopPrice,
+                IsTriggerOrder = x.StopPrice > 0
             }).ToArray(), nextToken);
         }
 
@@ -1538,7 +1583,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
-                UpdateTime = order.TransactTime
+                UpdateTime = order.TransactTime,
+                TriggerPrice = order.StopPrice,
+                IsTriggerOrder = order.StopPrice > 0
             });
         }
 
@@ -1734,7 +1781,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.OrderSide == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
                 GetTriggerOrderType(request),
-                quantity: (int)(request.Quantity?.QuantityInContracts ?? 0),
+                quantity: request.Quantity?.QuantityInBaseAsset.ToBitMEXAssetQuantity(request.Symbol.BaseAsset),
                 price: request.OrderPrice,
                 clientOrderId: request.ClientOrderId,
                 stopPrice: request.TriggerPrice,
