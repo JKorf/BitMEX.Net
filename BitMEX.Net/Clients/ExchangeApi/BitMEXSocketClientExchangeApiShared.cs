@@ -89,10 +89,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return SharedOrderStatus.Filled;
         }
 
-        private SharedOrderType ParseOrderType(OrderType orderType, ExecutionInstruction? executionInstruction)
+        private SharedOrderType ParseOrderType(OrderType orderType, ExecutionInstruction[]? executionInstruction)
         {
             if (orderType == OrderType.Market || orderType == OrderType.MarketIfTouched || orderType == OrderType.StopMarket) return SharedOrderType.Market;
-            if (orderType == OrderType.Limit && executionInstruction == ExecutionInstruction.PostOnly) return SharedOrderType.LimitMaker;
+            if (orderType == OrderType.Limit && executionInstruction?.Contains(ExecutionInstruction.PostOnly) == true) return SharedOrderType.LimitMaker;
             if (orderType == OrderType.Limit || orderType == OrderType.LimitIfTouched || orderType == OrderType.StopLimit) return SharedOrderType.Limit;
             return SharedOrderType.Other;
         }
@@ -152,7 +152,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             x.OrderId,
                             x.TradeId,
                             x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.Quantity.ToSharedSymbolQuantity(x.Symbol),
+                            x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0,
                             x.LastTradePrice!.Value,
                             x.Timestamp)
                         {
@@ -342,9 +342,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             UpdateTime = x.TransactTime,
                             TimeInForce = ParseTimeInForce(x.TimeInForce),
                             AveragePrice = x.AveragePrice,
-                            ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly,
+                            ReduceOnly = x.ExecutionInstruction?.Contains(ExecutionInstruction.ReduceOnly) == true,
                             TriggerPrice = x.StopPrice,
-                            IsTriggerOrder = x.StopPrice > 0
+                            IsTriggerOrder = x.StopPrice > 0,
+                            IsCloseOrder = x.ExecutionInstruction?.Contains(ExecutionInstruction.Close) == true
                         }
                     ).ToArray()));
                 },

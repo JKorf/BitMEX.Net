@@ -47,7 +47,7 @@ namespace BitMEX.Net.Objects.Models
         /// Order quantity
         /// </summary>
         [JsonPropertyName("orderQty")]
-        public long Quantity { get; set; }
+        public long? Quantity { get; set; }
         /// <summary>
         /// Price
         /// </summary>
@@ -92,7 +92,8 @@ namespace BitMEX.Net.Objects.Models
         /// Execution instructions
         /// </summary>
         [JsonPropertyName("execInst")]
-        public ExecutionInstruction? ExecutionInstruction { get; set; }
+        [JsonConverter(typeof(CommaSplitEnumConverter<ExecutionInstruction>))]
+        public ExecutionInstruction[]? ExecutionInstruction { get; set; }
         /// <summary>
         /// Contingency type
         /// </summary>

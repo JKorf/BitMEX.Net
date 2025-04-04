@@ -71,7 +71,7 @@ namespace BitMEX.Net.Objects.Models
         /// Deleverage percentile
         /// </summary>
         [JsonPropertyName("deleveragePercentile")]
-        public decimal DeleveragePercentile { get; set; }
+        public decimal? DeleveragePercentile { get; set; }
         /// <summary>
         /// Rebalanced profit and loss
         /// </summary>

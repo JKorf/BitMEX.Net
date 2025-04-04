@@ -803,7 +803,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.OrderId,
                 x.TradeId,
                 x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity.ToSharedSymbolQuantity(x.Symbol),
+                x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0,
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
@@ -852,7 +852,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.OrderId,
                 x.TradeId,
                 x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity.ToSharedSymbolQuantity(x.Symbol),
+                x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0,
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
@@ -891,10 +891,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return SharedOrderStatus.Filled;
         }
 
-        private SharedOrderType ParseOrderType(OrderType type, ExecutionInstruction? executionInstruction)
+        private SharedOrderType ParseOrderType(OrderType type, ExecutionInstruction[]? executionInstruction)
         {
             if (type == OrderType.Market) return SharedOrderType.Market;
-            if (type == OrderType.Limit && executionInstruction == ExecutionInstruction.PostOnly) return SharedOrderType.LimitMaker;
+            if (type == OrderType.Limit && executionInstruction?.Contains(ExecutionInstruction.PostOnly) == true) return SharedOrderType.LimitMaker;
             if (type == OrderType.Limit) return SharedOrderType.Limit;
 
             return SharedOrderType.Other;
@@ -1282,9 +1282,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime,
-                ReduceOnly = order.ExecutionInstruction == ExecutionInstruction.ReduceOnly,
+                ReduceOnly = order.ExecutionInstruction?.Contains(ExecutionInstruction.ReduceOnly) == true,
                 TriggerPrice = order.StopPrice,
-                IsTriggerOrder = order.StopPrice > 0
+                IsTriggerOrder = order.StopPrice > 0,
+                IsCloseOrder = order.ExecutionInstruction?.Contains(ExecutionInstruction.Close) == true
             });
         }
 
@@ -1322,9 +1323,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.TransactTime,
-                ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly,
+                ReduceOnly = x.ExecutionInstruction?.Contains(ExecutionInstruction.ReduceOnly) == true,
                 TriggerPrice = x.StopPrice,
-                IsTriggerOrder = x.StopPrice > 0
+                IsTriggerOrder = x.StopPrice > 0,
+                IsCloseOrder = x.ExecutionInstruction?.Contains(ExecutionInstruction.Close) == true
             }).ToArray());
         }
 
@@ -1377,9 +1379,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.TimeInForce),
                 UpdateTime = x.TransactTime,
-                ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly,
+                ReduceOnly = x.ExecutionInstruction?.Contains(ExecutionInstruction.ReduceOnly) == true,
                 TriggerPrice = x.StopPrice,
-                IsTriggerOrder = x.StopPrice > 0
+                IsTriggerOrder = x.StopPrice > 0,
+                IsCloseOrder = x.ExecutionInstruction?.Contains(ExecutionInstruction.Close) == true
             }).ToArray(), nextToken);
         }
 
@@ -1409,7 +1412,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.OrderId,
                 x.TradeId,
                 x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                x.Quantity ?? 0,
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
@@ -1463,7 +1466,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.OrderId,
                 x.TradeId,
                 x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                x.Quantity ?? 0,
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
@@ -1584,8 +1587,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
                 TimeInForce = ParseTimeInForce(order.TimeInForce),
                 UpdateTime = order.TransactTime,
+                ReduceOnly = order.ExecutionInstruction?.Contains(ExecutionInstruction.ReduceOnly) == true,
                 TriggerPrice = order.StopPrice,
-                IsTriggerOrder = order.StopPrice > 0
+                IsTriggerOrder = order.StopPrice > 0,
+                IsCloseOrder = order.ExecutionInstruction?.Contains(ExecutionInstruction.Close) == true
             });
         }
 
@@ -1883,7 +1888,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var result = await Trading.PlaceOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                request.PositionSide == SharedPositionSide.Long ? OrderSide.Buy : OrderSide.Sell,
+                request.PositionSide == SharedPositionSide.Long ? OrderSide.Sell : OrderSide.Buy,
                 OrderType.MarketIfTouched,
                 stopPrice: request.TriggerPrice,
                 executionInstruction: ExecutionInstruction.Close,

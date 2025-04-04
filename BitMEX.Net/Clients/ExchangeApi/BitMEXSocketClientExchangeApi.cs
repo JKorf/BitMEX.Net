@@ -264,7 +264,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMEXOrder[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXOrder[]>(_logger, ["order"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXOrder[]>(_logger, ["order"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
