@@ -2264,20 +2264,23 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount"/>
         </member>
         <member name="P:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData"/>
         </member>
         <member name="P:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading"/>
         </member>
         <member name="P:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApi.SharedClient">
             <summary>
-            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount">
@@ -3265,12 +3268,13 @@
             <summary>
             Exchange API endpoints
             </summary>
+            <see cref="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApi"/>
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -3287,12 +3291,13 @@
             <summary>
             Exchange API endpoints
             </summary>
+            <see cref="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi"/>
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
