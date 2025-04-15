@@ -90,10 +90,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     Networks = asset.Networks.Select(n => new SharedAssetNetwork(n.Asset)
                     {
                         DepositEnabled = n.DepositEnabled,
-                        MinWithdrawQuantity = asset.MinWithdrawalQuantity.ToSharedAssetQuantity(n.Asset),
-                        MaxWithdrawQuantity = asset.MaxWithdrawalQuantity.ToSharedAssetQuantity(n.Asset),
+                        MinWithdrawQuantity = asset.MinWithdrawalQuantity.ToSharedAssetQuantity(asset.Currency),
+                        MaxWithdrawQuantity = asset.MaxWithdrawalQuantity.ToSharedAssetQuantity(asset.Currency),
                         WithdrawEnabled = n.WithdrawalEnabled,
-                        WithdrawFee = n.WithdrawalFee.ToSharedAssetQuantity(n.Asset) ?? n.MinFee.ToSharedAssetQuantity(n.Asset),
+                        WithdrawFee = n.WithdrawalFee.ToSharedAssetQuantity(asset.Currency) ?? n.MinFee.ToSharedAssetQuantity(asset.Currency),
                     }
                     ).ToArray()
                 }
