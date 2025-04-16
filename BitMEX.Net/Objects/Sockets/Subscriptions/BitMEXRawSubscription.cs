@@ -66,7 +66,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         {
             var data = (T)message.Data;
             _handler.Invoke(message.As(data, null!, null, SocketUpdateType.Update));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

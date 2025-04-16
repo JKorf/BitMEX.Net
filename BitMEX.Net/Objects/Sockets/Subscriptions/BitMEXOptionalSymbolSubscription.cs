@@ -72,10 +72,10 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         {
             var data = (SocketUpdate<T[]>)message.Data;
             if (_symbols?.Contains(data.Data.First().Symbol) == false)
-                return new CallResult(null);
+                return CallResult.SuccessResult;
 
             _handler.Invoke(message.As(data.Data, data.Table, null, data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }
