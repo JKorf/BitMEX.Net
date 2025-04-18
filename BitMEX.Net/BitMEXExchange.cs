@@ -56,7 +56,7 @@ namespace BitMEX.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = new BitMEXSourceGenerationContext();
+        internal static JsonSerializerContext _serializerContext = new BitMEXSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to an BitMEX recognized symbol 
@@ -102,6 +102,11 @@ namespace BitMEX.Net
         /// </summary>
         public event Action<RateLimitEvent> RateLimitTriggered;
 
+        /// <summary>
+        /// Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+        /// </summary>
+        public event Action<RateLimitUpdateEvent> RateLimitUpdated;
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         internal BitMEXRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -114,6 +119,7 @@ namespace BitMEX.Net
             BitMEX = new RateLimitGate("BitMEX")
                 .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [], 120, TimeSpan.FromSeconds(60), RateLimitWindowType.Sliding));
             BitMEX.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            BitMEX.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
 
