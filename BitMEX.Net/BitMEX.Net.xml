@@ -732,6 +732,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.BitMEXServerTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.InfoUpdate">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.

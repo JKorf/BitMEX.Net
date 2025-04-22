@@ -8,6 +8,7 @@ namespace BitMEX.Net.Converters
 {
     [JsonSerializable(typeof(Dictionary<string, BitMEXTradeFee>))]
     [JsonSerializable(typeof(InfoUpdate))]
+    [JsonSerializable(typeof(BitMEXServerTime))]
 
     // End manual defined attributes
 
