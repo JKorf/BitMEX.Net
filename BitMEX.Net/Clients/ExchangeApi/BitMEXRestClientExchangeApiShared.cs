@@ -119,7 +119,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!result)
                 return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedBalance[]>(Exchange, TradingMode.Spot, result.Data.Select(x => 
+            return result.AsExchangeResult<SharedBalance[]>(Exchange, SupportedTradingModes, result.Data.Select(x => 
             new SharedBalance(BitMEXUtils.GetAssetFromCurrency(x.Currency), x.Quantity.ToSharedAssetQuantity(x.Currency), (x.Quantity + x.PendingCredit).ToSharedAssetQuantity(x.Currency))).ToArray());
         }
 
@@ -257,7 +257,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
-                return new ExchangeWebResult<SharedKline[]>(Exchange, TradingMode.Spot, result.As<SharedKline[]>(default));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, request.Symbol.TradingMode, result.As<SharedKline[]>(default));
 
             // Get next token
             OffsetToken? nextToken = null;
@@ -298,7 +298,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     item.Quantity = ((long)item.Quantity).ToSharedAssetQuantity(request.Symbol.BaseAsset);
             }
 
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, book);
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, book);
         }
 
         #endregion
@@ -326,7 +326,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return result.AsExchangeResult<SharedTrade[]>(Exchange, null, default);
 
             // Return
-            return result.AsExchangeResult<SharedTrade[]>(Exchange, TradingMode.Spot, result.Data.Select(x => 
+            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol.TradingMode, result.Data.Select(x => 
             new SharedTrade(x.Quantity.ToSharedSymbolQuantity(symbol), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Sell ? SharedOrderSide.Sell : SharedOrderSide.Buy,
@@ -370,7 +370,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 nextToken = new OffsetToken(offset + limit);
 
             // Return
-            return result.AsExchangeResult<SharedTrade[]>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedTrade(x.Quantity.ToSharedSymbolQuantity(symbol), x.Price, x.Timestamp)
+            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol.TradingMode, result.Data.Select(x => new SharedTrade(x.Quantity.ToSharedSymbolQuantity(symbol), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Sell ? SharedOrderSide.Sell : SharedOrderSide.Buy,
             }).ToArray(), nextToken);
@@ -1307,7 +1307,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, null, default);
 
             var data = orders.Data.Where(x => BitMEXUtils.GetSymbolType(x.Symbol) != SymbolType.Spot);
-            return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, TradingMode.Spot, data.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, SupportedTradingModes.Where(x => x != TradingMode.Spot).ToArray(), data.Select(x => new SharedFuturesOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
                 x.Symbol,
                 x.OrderId,
@@ -1363,7 +1363,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (orders.Data.Any())
                 nextToken = new OffsetToken(offset + limit);
 
-            return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, TradingMode.Spot, orders.Data.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, SupportedTradingModes.Where(x => x != TradingMode.Spot).ToArray(), orders.Data.Select(x => new SharedFuturesOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), 
                 x.Symbol,
                 x.OrderId,
@@ -1406,7 +1406,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!trades)
                 return trades.AsExchangeResult<SharedUserTrade[]>(Exchange, null, default);
 
-            return trades.AsExchangeResult<SharedUserTrade[]>(Exchange, TradingMode.Spot, trades.Data.Select(x => new SharedUserTrade(
+            return trades.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol.TradingMode, trades.Data.Select(x => new SharedUserTrade(
                 ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), 
                 x.Symbol,
                 x.OrderId,
@@ -1460,7 +1460,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (trades.Data.Count() == limit)
                 nextToken = new OffsetToken(offset + limit);
 
-            return trades.AsExchangeResult<SharedUserTrade[]>(Exchange, TradingMode.Spot, trades.Data.Select(x => new SharedUserTrade(
+            return trades.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol.TradingMode, trades.Data.Select(x => new SharedUserTrade(
                 ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), 
                 x.Symbol,
                 x.OrderId,
@@ -1636,7 +1636,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.OrderId.ToString()));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
         }
 
         EndpointOptions<GetOrderRequest> IFuturesTriggerOrderRestClient.GetFuturesTriggerOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
@@ -1898,7 +1898,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.OrderId.ToString()));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
         }
 
         EndpointOptions<CancelTpSlRequest> IFuturesTpSlRestClient.CancelFuturesTpSlOptions { get; } = new EndpointOptions<CancelTpSlRequest>(true)
