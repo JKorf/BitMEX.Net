@@ -253,7 +253,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         update.Data.LowPrice,
                         request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedSymbolQuantity(symbol),
                         update.Data.LastChangePcnt * 100
-                        );
+                        )
+                    {
+                        QuoteVolume = request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Turnover24h ?? 0 : (update.Data.Turnover24h ?? 0).ToSharedAssetQuantity(symbol.Split('_').Last())
+                    };
                 }
                 else
                 {
@@ -262,6 +265,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     ticker.LowPrice = update.Data.LowPrice ?? ticker.LowPrice;
                     ticker.Volume = update.Data.Volume24h == null ? ticker.Volume : request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedSymbolQuantity(symbol);
                     ticker.ChangePercentage = update.Data.LastChangePcnt == null ? ticker.ChangePercentage : update.Data.LastChangePcnt * 100;
+                    ticker.QuoteVolume = update.Data.Turnover24h == null ? ticker.QuoteVolume : request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Turnover24h ?? 0 : (update.Data.Turnover24h ?? 0).ToSharedAssetQuantity(symbol.Split('_').Last());
                 }
 
                 handler(update.AsExchangeEvent(Exchange, ticker));

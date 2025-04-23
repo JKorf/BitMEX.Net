@@ -827,6 +827,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXSymbolUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BitMEX.Net.Converters.BitMEXSourceGenerationContext.SocketUpdateBitMEXTradeUpdateArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
