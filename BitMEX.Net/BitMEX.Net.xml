@@ -29,6 +29,12 @@
             Get the BitMEX environment by name
             </summary>
         </member>
+        <member name="P:BitMEX.Net.BitMEXEnvironment.All">
+            <summary>
+            Available environment names
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:BitMEX.Net.BitMEXEnvironment.Live">
             <summary>
             Live environment
