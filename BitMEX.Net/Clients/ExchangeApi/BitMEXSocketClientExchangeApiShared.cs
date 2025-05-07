@@ -41,6 +41,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var result = await SubscribeToOrderUpdatesAsync(
                 update => {
+                    if (update.UpdateType == SocketUpdateType.Snapshot)
+                        return;
+
                     var data = update.Data.Where(x => BitMEXUtils.GetSymbolType(x.Symbol) == SymbolType.Spot).ToList();
                     if (!data.Any())
                         return;
@@ -113,7 +116,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var result = await SubscribeToBalanceUpdatesAsync(
                 update => handler(update.AsExchangeEvent<SharedBalance[]>(Exchange, update.Data.Select(x => 
                 new SharedBalance(
-                    BitMEXUtils.GetAssetFromCurrency(x.Currency), 
+                    BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency)), 
                     x.Quantity.ToSharedAssetQuantity(x.Currency),
                     (x.Quantity + x.PendingCredit).ToSharedAssetQuantity(x.Currency))).ToArray())),
                 ct: ct).ConfigureAwait(false);
@@ -139,6 +142,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var result = await SubscribeToUserTradeUpdatesAsync(
                 update =>
                 {
+                    if (update.UpdateType == SocketUpdateType.Snapshot)
+                        return;
+
                     var data = update.Data
                     .Where(x => x.ExecutionType == ExecutionType.Trade)
                     .ToList();
@@ -325,6 +331,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var result = await SubscribeToOrderUpdatesAsync(
                 update => {
+                    if (update.UpdateType == SocketUpdateType.Snapshot)
+                        return;
+
                     var data = update.Data.Where(x => BitMEXUtils.GetSymbolType(x.Symbol) != SymbolType.Spot).ToList();
                     if (!data.Any())
                         return;

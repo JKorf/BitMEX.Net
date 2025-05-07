@@ -235,21 +235,21 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMEXBalance[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXBalance[]>(_logger, ["wallet"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXBalance[]>(_logger, ["wallet"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTransactionUpdatesAsync(Action<DataEvent<BitMEXTransaction[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXTransaction[]>(_logger, ["transact"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXTransaction[]>(_logger, ["transact"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMEXPosition[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXPosition[]>(_logger, ["position"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXPosition[]>(_logger, ["position"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -271,7 +271,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<BitMEXExecution[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXExecution[]>(_logger, ["execution"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var subscription = new BitMEXSubscription<BitMEXExecution[]>(_logger, ["execution"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 

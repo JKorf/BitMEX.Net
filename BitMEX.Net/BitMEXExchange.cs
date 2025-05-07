@@ -57,6 +57,14 @@ namespace BitMEX.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
+        /// <summary>
+        /// Aliases for BitMEX assets
+        /// </summary>
+        public static AssetAliasConfiguration AssetAliases { get; } = new AssetAliasConfiguration
+        {
+            Aliases = [new AssetAlias("XBT", "BTC")]
+        };
+
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<BitMEXSourceGenerationContext>();
 
         /// <summary>
@@ -69,11 +77,8 @@ namespace BitMEX.Net
         /// <returns></returns>
         public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
-            if (baseAsset == "BTC")
-                baseAsset = "XBT";
-
-            if (quoteAsset == "BTC")
-                quoteAsset = "XBT";
+            baseAsset = AssetAliases.CommonToExchangeName(baseAsset);
+            quoteAsset = AssetAliases.CommonToExchangeName(quoteAsset);
 
             if (tradingMode == TradingMode.Spot)
                 return $"{baseAsset}_{quoteAsset}";

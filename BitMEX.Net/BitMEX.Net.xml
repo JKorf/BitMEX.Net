@@ -84,6 +84,11 @@
             Type of exchange
             </summary>
         </member>
+        <member name="P:BitMEX.Net.BitMEXExchange.AssetAliases">
+            <summary>
+            Aliases for BitMEX assets
+            </summary>
+        </member>
         <member name="M:BitMEX.Net.BitMEXExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <summary>
             Format a base and quote asset to an BitMEX recognized symbol 
