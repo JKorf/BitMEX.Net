@@ -34,6 +34,11 @@ namespace BitMEX.Net.Enums
         /// Rejected
         /// </summary>
         [Map("Rejected")]
-        Rejected
+        Rejected,
+        /// <summary>
+        /// Cancellation rejected
+        /// </summary>
+        [Map("CancelReject")]
+        CancelRejected
     }
 }

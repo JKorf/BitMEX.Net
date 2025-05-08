@@ -1787,6 +1787,11 @@
             Rejected
             </summary>
         </member>
+        <member name="F:BitMEX.Net.Enums.ExecutionType.CancelRejected">
+            <summary>
+            Cancellation rejected
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Enums.FairMethod">
             <summary>
             Fair method
