@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -8,6 +9,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Account info
     /// </summary>
+    [SerializationModel]
     public record BitMEXAccountInfo
     {
         /// <summary>
@@ -120,6 +122,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Preferences
     /// </summary>
+    [SerializationModel]
     public record BitMEXAccountInfoPreferences
     {
         /// <summary>
@@ -171,12 +174,12 @@ namespace BitMEX.Net.Objects.Models
         /// Disable emails
         /// </summary>
         [JsonPropertyName("disableEmails")]
-        public IEnumerable<string>? DisableEmails { get; set; }
+        public string[]? DisableEmails { get; set; }
         /// <summary>
         /// Disable push
         /// </summary>
         [JsonPropertyName("disablePush")]
-        public IEnumerable<string>? DisablePush { get; set; }
+        public string[]? DisablePush { get; set; }
         /// <summary>
         /// Display corp enroll upsell
         /// </summary>
@@ -191,32 +194,32 @@ namespace BitMEX.Net.Objects.Models
         /// Features
         /// </summary>
         [JsonPropertyName("features")]
-        public IEnumerable<string>? Features { get; set; } 
+        public string[]? Features { get; set; } 
         /// <summary>
         /// Favourites
         /// </summary>
         [JsonPropertyName("favourites")]
-        public IEnumerable<string>? Favourites { get; set; }
+        public string[]? Favourites { get; set; }
         /// <summary>
         /// Favourites assets
         /// </summary>
         [JsonPropertyName("favouritesAssets")]
-        public IEnumerable<string>? FavouritesAssets { get; set; }
+        public string[]? FavouritesAssets { get; set; }
         /// <summary>
         /// Favourites ordered
         /// </summary>
         [JsonPropertyName("favouritesOrdered")]
-        public IEnumerable<string>? FavouritesOrdered { get; set; }
+        public string[]? FavouritesOrdered { get; set; }
         /// <summary>
         /// Favourite bots
         /// </summary>
         [JsonPropertyName("favouriteBots")]
-        public IEnumerable<string>? FavouriteBots { get; set; }
+        public string[]? FavouriteBots { get; set; }
         /// <summary>
         /// Favourite contracts
         /// </summary>
         [JsonPropertyName("favouriteContracts")]
-        public IEnumerable<string>? FavouriteContracts { get; set; }
+        public string[]? FavouriteContracts { get; set; }
         /// <summary>
         /// Has set trading currencies
         /// </summary>
@@ -226,7 +229,7 @@ namespace BitMEX.Net.Objects.Models
         /// Hide confirm dialogs
         /// </summary>
         [JsonPropertyName("hideConfirmDialogs")]
-        public IEnumerable<string>? HideConfirmDialogs { get; set; }
+        public string[]? HideConfirmDialogs { get; set; }
         /// <summary>
         /// Hide connection modal
         /// </summary>
@@ -256,7 +259,7 @@ namespace BitMEX.Net.Objects.Models
         /// Hide notifications
         /// </summary>
         [JsonPropertyName("hideNotifications")]
-        public IEnumerable<string>? HideNotifications { get; set; }
+        public string[]? HideNotifications { get; set; }
         /// <summary>
         /// Hide phone confirm
         /// </summary>
@@ -306,7 +309,7 @@ namespace BitMEX.Net.Objects.Models
         /// Msgs seen
         /// </summary>
         [JsonPropertyName("msgsSeen")]
-        public IEnumerable<string>? MessagesSeen { get; set; }
+        public string[]? MessagesSeen { get; set; }
         /// <summary>
         /// Options beta
         /// </summary>
@@ -356,7 +359,7 @@ namespace BitMEX.Net.Objects.Models
         /// Sounds
         /// </summary>
         [JsonPropertyName("sounds")]
-        public IEnumerable<string>? Sounds { get; set; }
+        public string[]? Sounds { get; set; }
         /// <summary>
         /// Spacing preference
         /// </summary>
@@ -396,6 +399,6 @@ namespace BitMEX.Net.Objects.Models
         /// Videos seen
         /// </summary>
         [JsonPropertyName("videosSeen")]
-        public IEnumerable<string>? VideosSeen { get; set; }
+        public string[]? VideosSeen { get; set; }
     }
 }

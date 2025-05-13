@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BitMEX.Net.Clients;
 using BitMEX.Net.Objects.Options;
 using System.Threading;
+using BitMEX.Net.SymbolOrderBooks;
 
 namespace BitMEX.Net.UnitTests
 {
@@ -94,6 +95,12 @@ namespace BitMEX.Net.UnitTests
             await RunAndCheckResult(client => client.ExchangeApi.Trading.GetOrdersAsync(default, default, default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.ExchangeApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.ExchangeApi.Trading.GetPositionsAsync(default, default, default, default), true);
+        }
+
+        [Test]
+        public async Task TestOrderBooks()
+        {
+            await TestOrderBook(new BitMEXSymbolOrderBook("ETH_USDT"));
         }
     }
 }

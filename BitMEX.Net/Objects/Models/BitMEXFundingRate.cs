@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Converter;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMEX.Net.Converters;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Funding rate
     /// </summary>
+    [SerializationModel]
     public record BitMEXFundingRate
     {
         /// <summary>

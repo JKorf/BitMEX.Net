@@ -21,7 +21,7 @@ namespace BitMEX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/Account", "https://www.bitmex.com", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/Account", "https://www.bitmex.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.ExchangeApi.Account.GetUserEventsAsync(), "GetUserEvents", nestedJsonProperty: "userEvents");
             await tester.ValidateAsync(client => client.ExchangeApi.Account.GetAccountInfoAsync(), "GetAccountInfo", ignoreProperties: new List<string> { "notifications", "orderBookBinning" });
             await tester.ValidateAsync(client => client.ExchangeApi.Account.GetFeesAsync(), "GetFees");
@@ -36,8 +36,8 @@ namespace BitMEX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/ExchangeData", "https://www.bitmex.com", IsAuthenticated, stjCompare: true);
-            await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetActiveSymbolsAsync(), "GetActiveSymbols");
+            var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/ExchangeData", "https://www.bitmex.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetActiveSymbolsAsync(), "GetActiveSymbols", ignoreProperties: ["publishInterval", "fundingInterval", "rebalanceInterval"]);
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetActiveIntervalsAsync(), "GetActiveIntervals");
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetSymbolVolumesAsync(), "GetSymbolVolumes");
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetTradesAsync("ETHUSDT"), "GetTrades");
@@ -48,7 +48,7 @@ namespace BitMEX.Net.UnitTests
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetAggregatedBookTickerHistoryAsync("ETHUSDT", Enums.BinPeriod.FiveMinutes), "GetAggregatedBookTickerHistory");
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetOrderBookAsync("ETHUSDT", 25), "GetOrderBook");
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetInsuranceAsync("XBT"), "GetInsurance");
-            await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetFundingHistoryAsync("ETHUSDT"), "GetFundingHistory");
+            await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetFundingHistoryAsync("ETHUSDT"), "GetFundingHistory", ignoreProperties: ["fundingInterval"]);
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetAnnouncementsAsync(), "GetAnnouncements");
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetAssetsAsync(), "GetAssets");
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetAssetNetworksAsync(), "GetAssetNetworks");
@@ -63,7 +63,7 @@ namespace BitMEX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/Trading", "https://www.bitmex.com", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/Trading", "https://www.bitmex.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.OrderType.LimitIfTouched), "PlaceOrder", ignoreProperties: new List<string> { "text" });
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.EditOrderAsync("123"), "EditOrder", ignoreProperties: new List<string> { "text" });
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.GetOrdersAsync("123"), "GetOrders", ignoreProperties: new List<string> { "text" });

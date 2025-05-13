@@ -18,9 +18,9 @@ namespace BitMEX.Net.UnitTests
             {
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new SocketSubscriptionValidator<BitMEXSocketClient>(client, "Subscriptions/Exchange", "wss://ws.bitmex.com/", stjCompare: true);
-            await tester.ValidateAsync<IEnumerable<BitMEXTradeUpdate>>((client, handler) => client.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH_USDT", handler), "Trades", nestedJsonProperty: "data", ignoreProperties: ["trdType"]);
-            await tester.ValidateAsync<IEnumerable<BitMEXAggTrade>>((client, handler) => client.ExchangeApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.BinPeriod.FiveMinutes, handler), "Klines", nestedJsonProperty: "data");
+            var tester = new SocketSubscriptionValidator<BitMEXSocketClient>(client, "Subscriptions/Exchange", "wss://ws.bitmex.com/");
+            await tester.ValidateAsync<BitMEXTradeUpdate[]>((client, handler) => client.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH_USDT", handler), "Trades", nestedJsonProperty: "data", ignoreProperties: ["trdType"]);
+            await tester.ValidateAsync<BitMEXAggTrade[]>((client, handler) => client.ExchangeApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.BinPeriod.FiveMinutes, handler), "Klines", nestedJsonProperty: "data");
             await tester.ValidateAsync<BitMEXBookTicker>((client, handler) => client.ExchangeApi.SubscribeToBookTickerUpdatesAsync("ETH_USDT", handler), "BookTicker", nestedJsonProperty: "data");
         }
     }

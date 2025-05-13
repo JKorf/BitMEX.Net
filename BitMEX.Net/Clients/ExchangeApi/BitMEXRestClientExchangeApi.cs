@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.CommonObjects;
-using CryptoExchange.Net.Interfaces.CommonClients;
 using BitMEX.Net.Interfaces.Clients.ExchangeApi;
 using BitMEX.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
@@ -48,9 +46,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         /// <inheritdoc />
-        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor();
+        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
         /// <inheritdoc />
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -86,17 +84,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsJson)
-                return new ServerError(accessor.GetOriginalString());
+                return new ServerError(null, "Unknown request error", exception: exception);
 
             var message = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("message"));
             var name = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("name"));
             if (name == null)
-                return new ServerError(accessor.GetOriginalString());
+                return new ServerError(null, "Unknown request error", exception: exception);
 
-            return new ServerError($"{name} - {message}");
+            return new ServerError(null, $"{name} - {message}", exception: exception);
         }
 
         /// <inheritdoc />

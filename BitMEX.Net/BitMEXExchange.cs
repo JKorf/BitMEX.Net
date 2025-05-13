@@ -14,6 +14,9 @@ using System.Threading;
 using BitMEX.Net.Clients;
 using BitMEX.Net.Enums;
 using System.Linq;
+using System.Text.Json.Serialization;
+using BitMEX.Net.Converters;
+using CryptoExchange.Net.Converters;
 
 namespace BitMEX.Net
 {
@@ -55,6 +58,16 @@ namespace BitMEX.Net
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
         /// <summary>
+        /// Aliases for BitMEX assets
+        /// </summary>
+        public static AssetAliasConfiguration AssetAliases { get; } = new AssetAliasConfiguration
+        {
+            Aliases = [new AssetAlias("XBT", "BTC")]
+        };
+
+        internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<BitMEXSourceGenerationContext>();
+
+        /// <summary>
         /// Format a base and quote asset to an BitMEX recognized symbol 
         /// </summary>
         /// <param name="baseAsset">Base asset</param>
@@ -64,11 +77,8 @@ namespace BitMEX.Net
         /// <returns></returns>
         public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
-            if (baseAsset == "BTC")
-                baseAsset = "XBT";
-
-            if (quoteAsset == "BTC")
-                quoteAsset = "XBT";
+            baseAsset = AssetAliases.CommonToExchangeName(baseAsset);
+            quoteAsset = AssetAliases.CommonToExchangeName(quoteAsset);
 
             if (tradingMode == TradingMode.Spot)
                 return $"{baseAsset}_{quoteAsset}";
@@ -98,6 +108,11 @@ namespace BitMEX.Net
         /// </summary>
         public event Action<RateLimitEvent> RateLimitTriggered;
 
+        /// <summary>
+        /// Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+        /// </summary>
+        public event Action<RateLimitUpdateEvent> RateLimitUpdated;
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         internal BitMEXRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -110,6 +125,7 @@ namespace BitMEX.Net
             BitMEX = new RateLimitGate("BitMEX")
                 .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [], 120, TimeSpan.FromSeconds(60), RateLimitWindowType.Sliding));
             BitMEX.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            BitMEX.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
 

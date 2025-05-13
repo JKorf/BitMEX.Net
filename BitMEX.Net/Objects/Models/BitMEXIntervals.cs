@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,17 +10,18 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Interval
     /// </summary>
+    [SerializationModel]
     public record BitMEXIntervals
     {
         /// <summary>
         /// Intervals
         /// </summary>
         [JsonPropertyName("intervals")]
-        public IEnumerable<string> Intervals { get; set; } = [];
+        public string[] Intervals { get; set; } = [];
         /// <summary>
         /// Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
-        public IEnumerable<string> Symbols { get; set; } = [];
+        public string[] Symbols { get; set; } = [];
     }
 }

@@ -10,11 +10,15 @@ using System.Linq;
 using BitMEX.Net.Enums;
 using BitMEX.Net.ExtensionMethods;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXSocketClientExchangeApi : IBitMEXSocketClientExchangeApiShared
     {
+        private const string _topicSpotId = "BitMEXSpot";
+        private const string _topicFuturesId = "BitMEXFutures";
+
         public string Exchange => "BitMEX";
 
         public TradingMode[] SupportedTradingModes => new[] { TradingMode.Spot, TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse };
@@ -25,7 +29,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Spot Order client
 
         EndpointOptions<SubscribeSpotOrderRequest> ISpotOrderSocketClient.SubscribeSpotOrderOptions { get; } = new EndpointOptions<SubscribeSpotOrderRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<ExchangeEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<ExchangeEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
         {
             var validationError = ((ISpotOrderSocketClient)this).SubscribeSpotOrderOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
             if (validationError != null)
@@ -37,13 +41,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var result = await SubscribeToOrderUpdatesAsync(
                 update => {
+                    if (update.UpdateType == SocketUpdateType.Snapshot)
+                        return;
+
                     var data = update.Data.Where(x => BitMEXUtils.GetSymbolType(x.Symbol) == SymbolType.Spot).ToList();
                     if (!data.Any())
                         return;
 
-                    handler(update.AsExchangeEvent<IEnumerable<SharedSpotOrder>>(Exchange, data.Select(x =>
+                    handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, data.Select(x =>
                     
                         new SharedSpotOrder(
+                            ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol),
                             x.Symbol,
                             x.OrderId,
                             ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -53,11 +61,13 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         {
                             ClientOrderId = x.ClientOrderId,
                             OrderPrice = x.Price,
-                            Quantity = x.Quantity.ToSharedSymbolQuantity(x.Symbol),
-                            QuantityFilled = x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol),
+                            OrderQuantity = new SharedOrderQuantity(x.Quantity.ToSharedSymbolQuantity(x.Symbol)),
+                            QuantityFilled = new SharedOrderQuantity(x.QuantityFilled.ToSharedSymbolQuantity(x.Symbol)),
                             UpdateTime = x.TransactTime,
                             TimeInForce = ParseTimeInForce(x.TimeInForce),
-                            AveragePrice = x.AveragePrice
+                            AveragePrice = x.AveragePrice,
+                            TriggerPrice = x.StopPrice,
+                            IsTriggerOrder = x.StopPrice != null
                         }
                     ).ToArray()));
                 },
@@ -82,18 +92,18 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return SharedOrderStatus.Filled;
         }
 
-        private SharedOrderType ParseOrderType(OrderType orderType, ExecutionInstruction? executionInstruction)
+        private SharedOrderType ParseOrderType(OrderType orderType, ExecutionInstruction[]? executionInstruction)
         {
-            if (orderType == OrderType.Market) return SharedOrderType.Market;
-            if (orderType == OrderType.Limit && executionInstruction == ExecutionInstruction.PostOnly) return SharedOrderType.LimitMaker;
-            if (orderType == OrderType.Limit) return SharedOrderType.Limit;
+            if (orderType == OrderType.Market || orderType == OrderType.MarketIfTouched || orderType == OrderType.StopMarket) return SharedOrderType.Market;
+            if (orderType == OrderType.Limit && executionInstruction?.Contains(ExecutionInstruction.PostOnly) == true) return SharedOrderType.LimitMaker;
+            if (orderType == OrderType.Limit || orderType == OrderType.LimitIfTouched || orderType == OrderType.StopLimit) return SharedOrderType.Limit;
             return SharedOrderType.Other;
         }
         #endregion
 
         #region Balance client
         EndpointOptions<SubscribeBalancesRequest> IBalanceSocketClient.SubscribeBalanceOptions { get; } = new EndpointOptions<SubscribeBalancesRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var validationError = ((IBalanceSocketClient)this).SubscribeBalanceOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -104,9 +114,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, symbolInfoResult.Error!);
 
             var result = await SubscribeToBalanceUpdatesAsync(
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Select(x => 
+                update => handler(update.AsExchangeEvent<SharedBalance[]>(Exchange, update.Data.Select(x => 
                 new SharedBalance(
-                    BitMEXUtils.GetAssetFromCurrency(x.Currency), 
+                    BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency)), 
                     x.Quantity.ToSharedAssetQuantity(x.Currency),
                     (x.Quantity + x.PendingCredit).ToSharedAssetQuantity(x.Currency))).ToArray())),
                 ct: ct).ConfigureAwait(false);
@@ -119,9 +129,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region User Trade client
 
         EndpointOptions<SubscribeUserTradeRequest> IUserTradeSocketClient.SubscribeUserTradeOptions { get; } = new EndpointOptions<SubscribeUserTradeRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<ExchangeEvent<IEnumerable<SharedUserTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<ExchangeEvent<SharedUserTrade[]>> handler, CancellationToken ct)
         {
-            var validationError = ((IUserTradeSocketClient)this).SubscribeUserTradeOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
+            var validationError = ((IUserTradeSocketClient)this).SubscribeUserTradeOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
@@ -132,19 +142,23 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var result = await SubscribeToUserTradeUpdatesAsync(
                 update =>
                 {
+                    if (update.UpdateType == SocketUpdateType.Snapshot)
+                        return;
+
                     var data = update.Data
                     .Where(x => x.ExecutionType == ExecutionType.Trade)
                     .ToList();
                     if (!data.Any())
                         return;
 
-                    handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, data.Select(x =>
+                    handler(update.AsExchangeEvent<SharedUserTrade[]>(Exchange, data.Select(x =>
                         new SharedUserTrade(
+                            ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol) ?? ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
                             x.Symbol,
                             x.OrderId,
                             x.TradeId,
                             x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.Quantity.ToSharedSymbolQuantity(x.Symbol),
+                            x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0,
                             x.LastTradePrice!.Value,
                             x.Timestamp)
                         {
@@ -175,6 +189,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
             var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange,
                 new SharedBookTicker(
+                    ExchangeSymbolCache.ParseSymbol(request.Symbol.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, update.Data.Symbol),
+                    update.Data.Symbol,
                     update.Data.BestAskPrice,
                     request.Symbol.TradingMode != TradingMode.Spot ? update.Data.BestAskQuantity : update.Data.BestAskQuantity.ToSharedSymbolQuantity(symbol),
                     update.Data.BestBidPrice,
@@ -236,13 +252,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 if (ticker == null)
                 {
                     ticker = new SharedSpotTicker(
+                        ExchangeSymbolCache.ParseSymbol(request.Symbol.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, update.Data.Symbol),
                         update.Data.Symbol,
                         update.Data.LastPrice,
                         update.Data.HighPrice,
                         update.Data.LowPrice,
                         request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedSymbolQuantity(symbol),
                         update.Data.LastChangePcnt * 100
-                        );
+                        )
+                    {
+                        QuoteVolume = request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Turnover24h ?? 0 : (update.Data.Turnover24h ?? 0).ToSharedAssetQuantity(symbol.Split('_').Last())
+                    };
                 }
                 else
                 {
@@ -251,6 +271,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     ticker.LowPrice = update.Data.LowPrice ?? ticker.LowPrice;
                     ticker.Volume = update.Data.Volume24h == null ? ticker.Volume : request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedSymbolQuantity(symbol);
                     ticker.ChangePercentage = update.Data.LastChangePcnt == null ? ticker.ChangePercentage : update.Data.LastChangePcnt * 100;
+                    ticker.QuoteVolume = update.Data.Turnover24h == null ? ticker.QuoteVolume : request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Turnover24h ?? 0 : (update.Data.Turnover24h ?? 0).ToSharedAssetQuantity(symbol.Split('_').Last());
                 }
 
                 handler(update.AsExchangeEvent(Exchange, ticker));
@@ -263,7 +284,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Trade client
 
         EndpointOptions<SubscribeTradeRequest> ITradeSocketClient.SubscribeTradeOptions { get; } = new EndpointOptions<SubscribeTradeRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<IEnumerable<SharedTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<SharedTrade[]>> handler, CancellationToken ct)
         {
             var validationError = ((ITradeSocketClient)this).SubscribeTradeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -279,7 +300,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 if (update.UpdateType == SocketUpdateType.Snapshot)
                     return;
 
-                handler(update.AsExchangeEvent<IEnumerable<SharedTrade>>(Exchange, update.Data.Select(x =>
+                handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, update.Data.Select(x =>
                     new SharedTrade(
                         x.Quantity.ToSharedSymbolQuantity(x.Symbol),
                         x.Price,
@@ -298,7 +319,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Futures Order client
 
         EndpointOptions<SubscribeFuturesOrderRequest> IFuturesOrderSocketClient.SubscribeFuturesOrderOptions { get; } = new EndpointOptions<SubscribeFuturesOrderRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<ExchangeEvent<IEnumerable<SharedFuturesOrder>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<ExchangeEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderSocketClient)this).SubscribeFuturesOrderOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -310,12 +331,16 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var result = await SubscribeToOrderUpdatesAsync(
                 update => {
+                    if (update.UpdateType == SocketUpdateType.Snapshot)
+                        return;
+
                     var data = update.Data.Where(x => BitMEXUtils.GetSymbolType(x.Symbol) != SymbolType.Spot).ToList();
                     if (!data.Any())
                         return;
 
-                    handler(update.AsExchangeEvent<IEnumerable<SharedFuturesOrder>>(Exchange, data.Select(x =>
+                    handler(update.AsExchangeEvent<SharedFuturesOrder[]>(Exchange, data.Select(x =>
                         new SharedFuturesOrder(
+                            ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
                             x.Symbol,
                             x.OrderId,
                             ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -325,12 +350,15 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         {
                             ClientOrderId = x.ClientOrderId,
                             OrderPrice = x.Price,
-                            Quantity = x.Quantity,
-                            QuantityFilled = x.QuantityFilled,
+                            OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
+                            QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                             UpdateTime = x.TransactTime,
                             TimeInForce = ParseTimeInForce(x.TimeInForce),
                             AveragePrice = x.AveragePrice,
-                            ReduceOnly = x.ExecutionInstruction == ExecutionInstruction.ReduceOnly
+                            ReduceOnly = x.ExecutionInstruction?.Contains(ExecutionInstruction.ReduceOnly) == true,
+                            TriggerPrice = x.StopPrice,
+                            IsTriggerOrder = x.StopPrice > 0,
+                            IsCloseOrder = x.ExecutionInstruction?.Contains(ExecutionInstruction.Close) == true
                         }
                     ).ToArray()));
                 },
@@ -342,7 +370,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         #region Position client
         EndpointOptions<SubscribePositionRequest> IPositionSocketClient.SubscribePositionOptions { get; } = new EndpointOptions<SubscribePositionRequest>(false);
-        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<ExchangeEvent<IEnumerable<SharedPosition>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<ExchangeEvent<SharedPosition[]>> handler, CancellationToken ct)
         {
             var validationError = ((IPositionSocketClient)this).SubscribePositionOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -353,7 +381,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, symbolInfoResult.Error!);
 
             var result = await SubscribeToPositionUpdatesAsync(
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedPosition>>(Exchange, update.Data.Where(x => x.Currency != null).Select(x => new SharedPosition(x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
+                update => handler(update.AsExchangeEvent<SharedPosition[]>(Exchange, update.Data.Where(x => x.Currency != null).Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
                 {
                     AverageOpenPrice = x.AverageEntryPrice,
                     PositionSide = x.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,

@@ -1,13 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace BitMEX.Net.Enums
 {
     /// <summary>
     /// Execution type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<ExecutionType>))]
     public enum ExecutionType
     {
         /// <summary>
@@ -34,6 +34,11 @@ namespace BitMEX.Net.Enums
         /// Rejected
         /// </summary>
         [Map("Rejected")]
-        Rejected
+        Rejected,
+        /// <summary>
+        /// Cancellation rejected
+        /// </summary>
+        [Map("CancelReject")]
+        CancelRejected
     }
 }

@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Converter;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMEX.Net.Converters;
 using BitMEX.Net.Enums;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Index info
     /// </summary>
+    [SerializationModel]
     public record BitMEXIndex
     {
         /// <summary>

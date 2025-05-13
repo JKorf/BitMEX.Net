@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace BitMEX.Net.Enums
 {
     /// <summary>
     /// Book limit
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<IncrementalBookLimit>))]
     public enum IncrementalBookLimit
     {
         /// <summary>

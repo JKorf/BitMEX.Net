@@ -21,7 +21,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="day">Day</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetExecutionHistoryByDayAsync(string symbol, DateTime day, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXExecution[]>> GetExecutionHistoryByDayAsync(string symbol, DateTime day, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new order
@@ -75,7 +75,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXOrder>>> GetOrdersAsync(
+        Task<WebCallResult<BitMEXOrder[]>> GetOrdersAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -133,7 +133,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="clientOrderIds">Client order ids. Either this or orderIds should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXOrder>>> CancelOrdersAsync(
+        Task<WebCallResult<BitMEXOrder[]>> CancelOrdersAsync(
            IEnumerable<string>? orderIds = null,
            IEnumerable<string>? clientOrderIds = null,
            CancellationToken ct = default);
@@ -147,7 +147,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="filter">Filter orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXOrder>>> CancelAllOrdersAsync(
+        Task<WebCallResult<BitMEXOrder[]>> CancelAllOrdersAsync(
             IEnumerable<long>? targetAccountIds = null,
             string? symbol = null,
             Dictionary<string, object>? filter = null,
@@ -177,7 +177,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetUserExecutionsAsync(
+        Task<WebCallResult<BitMEXExecution[]>> GetUserExecutionsAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -205,7 +205,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXExecution>>> GetUserTradesAsync(
+        Task<WebCallResult<BitMEXExecution[]>> GetUserTradesAsync(
             IEnumerable<long>? targetAccountIds = null,
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
@@ -227,7 +227,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMEXPosition>>> GetPositionsAsync(
+        Task<WebCallResult<BitMEXPosition[]>> GetPositionsAsync(
             Dictionary<string, object>? filter = null,
             IEnumerable<string>? columns = null,
             int? limit = null,

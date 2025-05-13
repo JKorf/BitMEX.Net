@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -8,6 +9,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Position info
     /// </summary>
+    [SerializationModel]
     public record BitMEXPosition
     {
         /// <summary>
@@ -69,7 +71,7 @@ namespace BitMEX.Net.Objects.Models
         /// Deleverage percentile
         /// </summary>
         [JsonPropertyName("deleveragePercentile")]
-        public decimal DeleveragePercentile { get; set; }
+        public decimal? DeleveragePercentile { get; set; }
         /// <summary>
         /// Rebalanced profit and loss
         /// </summary>

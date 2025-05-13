@@ -19,7 +19,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
 
         public override CallResult HandleMessage(SocketConnection connection, DataEvent<InfoUpdate> message)
         {
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

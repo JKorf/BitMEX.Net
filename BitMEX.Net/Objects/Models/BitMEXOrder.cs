@@ -1,4 +1,5 @@
-﻿using BitMEX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMEX.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Order info
     /// </summary>
+    [SerializationModel]
     public record BitMEXOrder
     {
         /// <summary>
@@ -45,7 +47,7 @@ namespace BitMEX.Net.Objects.Models
         /// Order quantity
         /// </summary>
         [JsonPropertyName("orderQty")]
-        public long Quantity { get; set; }
+        public long? Quantity { get; set; }
         /// <summary>
         /// Price
         /// </summary>
@@ -90,7 +92,8 @@ namespace BitMEX.Net.Objects.Models
         /// Execution instructions
         /// </summary>
         [JsonPropertyName("execInst")]
-        public ExecutionInstruction? ExecutionInstruction { get; set; }
+        [JsonConverter(typeof(CommaSplitEnumConverter<ExecutionInstruction>))]
+        public ExecutionInstruction[]? ExecutionInstruction { get; set; }
         /// <summary>
         /// Contingency type
         /// </summary>
