@@ -42,7 +42,7 @@ namespace BitMEX.Net.Objects.Models
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<BitMEXOrderBookUpdateEntry, BitMEXSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<BitMEXOrderBookUpdateEntry>))]
     public class BitMEXOrderBookUpdateEntry : ISymbolOrderBookEntry
     {
         /// <summary>
