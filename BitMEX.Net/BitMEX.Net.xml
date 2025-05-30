@@ -239,6 +239,29 @@
         <member name="M:BitMEX.Net.Clients.BitMEXSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
+        <member name="T:BitMEX.Net.Clients.BitMEXUserClientProvider">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.#ctor(System.Action{BitMEX.Net.Objects.Options.BitMEXOptions})">
+            <summary>
+            ctor
+            </summary>
+            <param name="optionsDelegate">Options to use for created clients</param>
+        </member>
+        <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{BitMEX.Net.Objects.Options.BitMEXRestOptions},Microsoft.Extensions.Options.IOptions{BitMEX.Net.Objects.Options.BitMEXSocketOptions})">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApi">
             <inheritdoc cref="T:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApi" />
         </member>
@@ -3335,6 +3358,35 @@
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
             </summary>
             <param name="credentials">The credentials to set</param>
+        </member>
+        <member name="T:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider">
+            <summary>
+            Provider for clients with credentials for specific users
+            </summary>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+            <summary>
+            Initialize a client for the specified user identifier. This can be used so to initialize a client for a user so ApiCredentials do not need to be passed later.
+            </summary>
+            <param name="userIdentifier">The identifier for the user</param>
+            <param name="credentials">The credentials for the user</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+            <summary>
+            Get the Rest client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)" /> has been called prior for this user.
+            </summary>
+            <param name="userIdentifier">The identifier for user</param>
+            <param name="credentials">The credentials for the user. Required the first time a client is requested for this user unless <see cref="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)" /> has been called prior for this user.</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+            <summary>
+            Get the Socket client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)" /> has been called prior for this user.
+            </summary>
+            <param name="userIdentifier">The identifier for user</param>
+            <param name="credentials">The credentials for the user. Required the first time a client is requested for this user unless <see cref="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)" /> has been called prior for this user.</param>
+            <param name="environment">The environment to use</param>
         </member>
         <member name="T:BitMEX.Net.Interfaces.IBitMEXOrderBookFactory">
             <summary>

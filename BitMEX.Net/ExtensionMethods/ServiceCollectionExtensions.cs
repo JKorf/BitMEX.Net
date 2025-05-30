@@ -124,6 +124,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBitMEXOrderBookFactory, BitMEXOrderBookFactory>();
             services.AddTransient<IBitMEXTrackerFactory, BitMEXTrackerFactory>();
+            services.AddSingleton<IBitMEXUserClientProvider, BitMEXUserClientProvider>(x =>
+            new BitMEXUserClientProvider(
+                x.GetRequiredService<HttpClient>(),
+                x.GetRequiredService<ILoggerFactory>(),
+                x.GetRequiredService<IOptions<BitMEXRestOptions>>(),
+                x.GetRequiredService<IOptions<BitMEXSocketOptions>>()));
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMEXRestClient>().ExchangeApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMEXSocketClient>().ExchangeApi.SharedClient);
