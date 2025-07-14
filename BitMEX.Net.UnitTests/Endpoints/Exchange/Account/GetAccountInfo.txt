@@ -3,14 +3,9 @@ GET
 true
 {
   "id": 0,
-  "firstname": "string",
-  "lastname": "string",
   "username": "string",
   "accountName": "string",
   "isUser": true,
-  "email": "string",
-  "dateOfBirth": "string",
-  "phone": "string",
   "created": "2025-01-10T07:51:17.963Z",
   "lastUpdated": "2025-01-10T07:51:17.963Z",
   "preferences": {
@@ -100,9 +95,6 @@ true
   },
   "TFAEnabled": "string",
   "affiliateID": "string",
-  "country": "string",
-  "geoipCountry": "string",
-  "geoipRegion": "string",
   "firstTradeTimestamp": "2025-01-10T07:51:17.963Z",
   "firstDepositTimestamp": "2025-01-10T07:51:17.963Z",
   "isElite": false,
