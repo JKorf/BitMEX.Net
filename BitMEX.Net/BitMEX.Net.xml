@@ -3455,16 +3455,6 @@
             Id
             </summary>
         </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.Firstname">
-            <summary>
-            Firstname
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.Lastname">
-            <summary>
-            Lastname
-            </summary>
-        </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.Username">
             <summary>
             Username
@@ -3478,21 +3468,6 @@
         <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.IsUser">
             <summary>
             Is user
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.Email">
-            <summary>
-            Email
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.DateOfBirth">
-            <summary>
-            Date of birth
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.Phone">
-            <summary>
-            Phone
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.CreateTime">
@@ -3518,21 +3493,6 @@
         <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.AffiliateId">
             <summary>
             Affiliate id
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.Country">
-            <summary>
-            Country
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.GeoipCountry">
-            <summary>
-            Geo-ip country
-            </summary>
-        </member>
-        <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.GeoipRegion">
-            <summary>
-            Geo-ip region
             </summary>
         </member>
         <member name="P:BitMEX.Net.Objects.Models.BitMEXAccountInfo.FirstTradeTimestamp">

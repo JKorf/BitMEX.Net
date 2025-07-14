@@ -18,16 +18,6 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Firstname
-        /// </summary>
-        [JsonPropertyName("firstname")]
-        public string Firstname { get; set; } = string.Empty;
-        /// <summary>
-        /// Lastname
-        /// </summary>
-        [JsonPropertyName("lastname")]
-        public string Lastname { get; set; } = string.Empty;
-        /// <summary>
         /// Username
         /// </summary>
         [JsonPropertyName("username")]
@@ -42,21 +32,6 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("isUser")]
         public bool IsUser { get; set; }
-        /// <summary>
-        /// Email
-        /// </summary>
-        [JsonPropertyName("email")]
-        public string Email { get; set; } = string.Empty;
-        /// <summary>
-        /// Date of birth
-        /// </summary>
-        [JsonPropertyName("dateOfBirth")]
-        public DateTime? DateOfBirth { get; set; }
-        /// <summary>
-        /// Phone
-        /// </summary>
-        [JsonPropertyName("phone")]
-        public string? Phone { get; set; }
         /// <summary>
         /// CreateTime
         /// </summary>
@@ -82,21 +57,6 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("affiliateID")]
         public string? AffiliateId { get; set; }
-        /// <summary>
-        /// Country
-        /// </summary>
-        [JsonPropertyName("country")]
-        public string Country { get; set; } = string.Empty;
-        /// <summary>
-        /// Geo-ip country
-        /// </summary>
-        [JsonPropertyName("geoipCountry")]
-        public string GeoipCountry { get; set; } = string.Empty;
-        /// <summary>
-        /// Geo-ip region
-        /// </summary>
-        [JsonPropertyName("geoipRegion")]
-        public string GeoipRegion { get; set; } = string.Empty;
         /// <summary>
         /// First trade timestamp
         /// </summary>
