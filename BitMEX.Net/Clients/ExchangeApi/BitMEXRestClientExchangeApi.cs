@@ -22,6 +22,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Exchange Api");
+
+        private IStringMessageSerializer? _serializer;
         #endregion
 
         #region Api clients
@@ -72,9 +74,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
             if (parameters?.TryGetValue("filter", out var filter) == true)
-                parameters["filter"] = CreateSerializer().Serialize(filter);
+                parameters["filter"] = (_serializer ??= (IStringMessageSerializer)CreateSerializer()).Serialize(filter);
             if (parameters?.TryGetValue("columns", out var columns) == true)
-                parameters["columns"] = CreateSerializer().Serialize(columns);
+                parameters["columns"] = (_serializer ??= (IStringMessageSerializer)CreateSerializer()).Serialize(columns);
 
             var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
 
@@ -86,7 +88,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new ServerError(null, "Unknown request error", exception: exception);
 
             var message = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("message"));

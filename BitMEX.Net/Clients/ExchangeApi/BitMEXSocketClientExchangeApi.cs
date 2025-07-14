@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BitMEX.Net.Enums;
 using BitMEX.Net.Objects.Internal;
+using System.Net.WebSockets;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -61,7 +62,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
 
@@ -307,7 +308,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
-            if (!message.IsJson)
+            if (!message.IsValid)
                 return "pong";
 
             var table = message.GetValue<string>(_tablePath);

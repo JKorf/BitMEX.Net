@@ -494,7 +494,7 @@
             ctor
             </summary>
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.CreateAccessor">
+        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.CreateSerializer">
