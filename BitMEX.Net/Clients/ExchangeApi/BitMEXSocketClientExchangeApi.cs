@@ -49,6 +49,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             AddSystemSubscription(new BitMEXInfoSubscription(_logger));
 
+            ProcessUnparsableMessages = true;
+
             RegisterPeriodicQuery("Ping", TimeSpan.FromSeconds(5), x => new PingQuery(), (connection, result) =>
             {
                 if (!result)
