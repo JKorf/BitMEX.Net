@@ -4,8 +4,6 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Internal;
 using System.Linq;
 
@@ -14,20 +12,11 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class BitMEXOptionalSymbolSubscription<T> : Subscription<SocketResponse, SocketResponse> where T : ISymbolModel
     {
-        /// <inheritdoc />
-        public override HashSet<string> ListenerIdentifiers { get; set; }
 
         private readonly Action<DataEvent<T[]>> _handler;
 
         private readonly string[] _topics;
         private readonly string[]? _symbols;
-        private readonly string[]? _filters;
-
-        /// <inheritdoc />
-        public override Type? GetMessageType(IMessageAccessor message)
-        {
-            return typeof(SocketUpdate<T[]>);
-        }
 
         /// <summary>
         /// ctor
@@ -36,7 +25,6 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         {
             _handler = handler;
             _symbols = symbols;
-            _filters = filters;
             if (symbols != null)
                 _topics = symbols.Select(x => topic + ":" + x).ToArray();
             else if(filters != null)
@@ -44,7 +32,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
             else
                 _topics = [topic];
 
-            ListenerIdentifiers = new HashSet<string>(["upd" + topic]);
+            MessageMatcher = MessageMatcher.Create<SocketUpdate<T[]>>("upd" + topic, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -68,13 +56,12 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<SocketUpdate<T[]>> message)
         {
-            var data = (SocketUpdate<T[]>)message.Data;
-            if (_symbols?.Contains(data.Data.First().Symbol) == false)
+            if (_symbols?.Contains(message.Data.Data.First().Symbol) == false)
                 return CallResult.SuccessResult;
 
-            _handler.Invoke(message.As(data.Data, data.Table, null, data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
+            _handler.Invoke(message.As(message.Data.Data, message.Data.Table, null, message.Data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
             return CallResult.SuccessResult;
         }
     }

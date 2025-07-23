@@ -7,10 +7,9 @@ namespace BitMEX.Net.Objects.Sockets
 {
     internal class PingQuery : Query<string>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string>() { "pong" };
-
         public PingQuery() : base("ping", false, 0)
         {
+            MessageMatcher = MessageMatcher.Create<string>("pong");
             RequestTimeout = TimeSpan.FromSeconds(5);
         }
 

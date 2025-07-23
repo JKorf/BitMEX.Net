@@ -9,15 +9,13 @@ namespace BitMEX.Net.Objects.Sockets
 {
     internal class BitMEXQuery<T> : Query<T>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public BitMEXQuery(SocketCommand request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
         {
-            ListenerIdentifiers = new HashSet<string>(request.Parameters);
+            MessageMatcher = MessageMatcher.Create<T>(request.Parameters, HandleMessage);
             RequiredResponses = request.Parameters.Length;
         }
 
-        public override CallResult<T> HandleMessage(SocketConnection connection, DataEvent<T> message)
+        public CallResult<T> HandleMessage(SocketConnection connection, DataEvent<T> message)
         {
             if (message.Data is SocketResponse resp && !string.IsNullOrEmpty(resp.Error))
             {

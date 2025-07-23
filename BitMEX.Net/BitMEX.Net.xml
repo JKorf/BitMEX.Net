@@ -7028,12 +7028,6 @@
         <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1">
             <inheritdoc />
         </member>
-        <member name="P:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String[],System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0[]}},System.Boolean)">
             <summary>
             ctor
@@ -7045,16 +7039,10 @@
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Internal.SocketUpdate{`0[]}})">
             <inheritdoc />
         </member>
         <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
@@ -7072,16 +7060,10 @@
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{`0})">
             <inheritdoc />
         </member>
         <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
@@ -7099,7 +7081,7 @@
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Internal.SocketUpdate{`0}})">
             <inheritdoc />
         </member>
         <member name="T:BitMEX.Net.SymbolOrderBooks.BitMEXOrderBookFactory">

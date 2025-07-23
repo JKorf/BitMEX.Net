@@ -9,17 +9,11 @@ using System.Text;
 
 namespace BitMEX.Net.Objects.Sockets.Subscriptions
 {
-    internal class BitMEXInfoSubscription : SystemSubscription<InfoUpdate>
+    internal class BitMEXInfoSubscription : SystemSubscription
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string>() { "info" };
-
         public BitMEXInfoSubscription(ILogger logger) : base(logger, false)
         {
-        }
-
-        public override CallResult HandleMessage(SocketConnection connection, DataEvent<InfoUpdate> message)
-        {
-            return CallResult.SuccessResult;
+            MessageMatcher = MessageMatcher.Create<InfoUpdate>("info");
         }
     }
 }

@@ -14,18 +14,9 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class BitMEXSubscription<T> : Subscription<SocketResponse, SocketResponse>
     {
-        /// <inheritdoc />
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         private readonly Action<DataEvent<T>> _handler;
 
         private readonly string[] _topics;
-
-        /// <inheritdoc />
-        public override Type? GetMessageType(IMessageAccessor message)
-        {
-            return typeof(SocketUpdate<T>);
-        }
 
         /// <summary>
         /// ctor
@@ -38,7 +29,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         {
             _handler = handler;
             _topics = topics;
-            ListenerIdentifiers = new HashSet<string>(topics.Select(x => "upd" + x.Replace(":", "")));
+            MessageMatcher = MessageMatcher.Create(topics.Select(x => new MessageHandlerLink<SocketUpdate<T>>("upd" + x.Replace(":", ""), DoHandleMessage)).ToArray());
         }
 
         /// <inheritdoc />
@@ -62,10 +53,9 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<SocketUpdate<T>> message)
         {
-            var data = (SocketUpdate<T>)message.Data;
-            _handler.Invoke(message.As(data.Data, data.Table, null, data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
+            _handler.Invoke(message.As(message.Data.Data, message.Data.Table, null, message.Data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
             return CallResult.SuccessResult;
         }
     }
