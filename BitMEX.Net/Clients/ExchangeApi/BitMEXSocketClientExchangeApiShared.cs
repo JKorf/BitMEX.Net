@@ -175,10 +175,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         #region Book Ticker client
 
-        EndpointOptions<SubscribeBookTickerRequest> IBookTickerSocketClient.SubscribeBookTickerOptions { get; } = new EndpointOptions<SubscribeBookTickerRequest>(false);
+        EndpointOptions<SubscribeBookTickerRequest> IBookTickerSocketClient.SubscribeBookTickerOptions { get; } = new EndpointOptions<SubscribeBookTickerRequest>(false)
+        {
+            SupportsMultipleSymbols = true,
+            MaxSymbolCount = 20
+        };
         async Task<ExchangeResult<UpdateSubscription>> IBookTickerSocketClient.SubscribeToBookTickerUpdatesAsync(SubscribeBookTickerRequest request, Action<ExchangeEvent<SharedBookTicker>> handler, CancellationToken ct)
         {
-            var validationError = ((IBookTickerSocketClient)this).SubscribeBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IBookTickerSocketClient)this).SubscribeBookTickerOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
@@ -186,15 +190,15 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!symbolInfoResult)
                 return new ExchangeResult<UpdateSubscription>(Exchange, symbolInfoResult.Error!);
 
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange,
+            var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
+            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.AsExchangeEvent(Exchange,
                 new SharedBookTicker(
-                    ExchangeSymbolCache.ParseSymbol(request.Symbol.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, update.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(request.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, update.Data.Symbol),
                     update.Data.Symbol,
                     update.Data.BestAskPrice,
-                    request.Symbol.TradingMode != TradingMode.Spot ? update.Data.BestAskQuantity : update.Data.BestAskQuantity.ToSharedSymbolQuantity(symbol),
+                    request.TradingMode != TradingMode.Spot ? update.Data.BestAskQuantity : update.Data.BestAskQuantity.ToSharedSymbolQuantity(update.Data.Symbol),
                     update.Data.BestBidPrice,
-                    request.Symbol.TradingMode != TradingMode.Spot ? update.Data.BestBidQuantity : update.Data.BestBidQuantity.ToSharedSymbolQuantity(symbol)
+                    request.TradingMode != TradingMode.Spot ? update.Data.BestBidQuantity : update.Data.BestBidQuantity.ToSharedSymbolQuantity(update.Data.Symbol)
                     ))), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -203,10 +207,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Order Book client
-        SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(false, new[] { 10 });
+        SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(false, new[] { 10 })
+        {
+            MaxSymbolCount = 20,
+            SupportsMultipleSymbols = true
+        };
         async Task<ExchangeResult<UpdateSubscription>> IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<ExchangeEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
-            var validationError = ((IOrderBookSocketClient)this).SubscribeOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IOrderBookSocketClient)this).SubscribeOrderBookOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
@@ -214,16 +222,16 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!symbolInfoResult)
                 return new ExchangeResult<UpdateSubscription>(Exchange, symbolInfoResult.Error!);
 
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToOrderBookUpdatesAsync(symbol, update =>
+            var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
+            var result = await SubscribeToOrderBookUpdatesAsync(symbols, update =>
             {
                 var book = new SharedOrderBook(update.Data.Asks, update.Data.Bids);
-                if (request.Symbol.TradingMode == TradingMode.Spot)
+                if (request.TradingMode == TradingMode.Spot)
                 {
                     foreach (var item in book.Asks)
-                        item.Quantity = ((long)item.Quantity).ToSharedSymbolQuantity(symbol);
+                        item.Quantity = ((long)item.Quantity).ToSharedSymbolQuantity(update.Data.Symbol);
                     foreach (var item in book.Bids)
-                        item.Quantity = ((long)item.Quantity).ToSharedSymbolQuantity(symbol);
+                        item.Quantity = ((long)item.Quantity).ToSharedSymbolQuantity(update.Data.Symbol);
                 }
 
                 handler(update.AsExchangeEvent(Exchange, book));
@@ -237,7 +245,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         EndpointOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new EndpointOptions<SubscribeTickerRequest>(false);
         async Task<ExchangeResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<ExchangeEvent<SharedSpotTicker>> handler, CancellationToken ct)
         {
-            var validationError = ((ITickerSocketClient)this).SubscribeTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ITickerSocketClient)this).SubscribeTickerOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
@@ -246,7 +254,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, symbolInfoResult.Error!);
 
             SharedSpotTicker? ticker = null;
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToSymbolUpdatesAsync(symbol, update =>
             {
                 if (ticker == null)
@@ -283,10 +291,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         #region Trade client
 
-        EndpointOptions<SubscribeTradeRequest> ITradeSocketClient.SubscribeTradeOptions { get; } = new EndpointOptions<SubscribeTradeRequest>(false);
+        EndpointOptions<SubscribeTradeRequest> ITradeSocketClient.SubscribeTradeOptions { get; } = new EndpointOptions<SubscribeTradeRequest>(false)
+        {
+            SupportsMultipleSymbols = true,
+            MaxSymbolCount = 20
+        };
         async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<ExchangeEvent<SharedTrade[]>> handler, CancellationToken ct)
         {
-            var validationError = ((ITradeSocketClient)this).SubscribeTradeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ITradeSocketClient)this).SubscribeTradeOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
@@ -294,8 +306,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!symbolInfoResult)
                 return new ExchangeResult<UpdateSubscription>(Exchange, symbolInfoResult.Error!);
 
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTradeUpdatesAsync(symbol, update =>
+            var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
+            var result = await SubscribeToTradeUpdatesAsync(symbols, update =>
             {
                 if (update.UpdateType == SocketUpdateType.Snapshot)
                     return;
