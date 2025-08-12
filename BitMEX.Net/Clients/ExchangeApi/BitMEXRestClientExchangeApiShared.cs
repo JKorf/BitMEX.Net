@@ -226,7 +226,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             var interval = (Enums.BinPeriod)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.BinPeriod), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol!.TradingMode, SupportedTradingModes);
             if (validationError != null)
