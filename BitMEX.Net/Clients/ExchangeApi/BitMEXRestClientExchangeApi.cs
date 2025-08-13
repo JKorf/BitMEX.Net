@@ -14,6 +14,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -89,14 +90,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var message = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("message"));
             var name = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("name"));
             if (name == null)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
-            return new ServerError(null, $"{name} - {message}", exception: exception);
+            return new ServerError(name, GetErrorInfo(name, message), exception: exception);
         }
 
         /// <inheritdoc />

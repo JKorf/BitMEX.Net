@@ -13,6 +13,7 @@ using BitMEX.Net.Enums;
 using CryptoExchange.Net;
 using BitMEX.Net.Objects.Models;
 using System.Drawing;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -81,7 +82,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var asset = assets.Data.SingleOrDefault(x => x.Asset == request.Asset || BitMEXExchange.AssetAliases.CommonToExchangeName(x.Asset) == request.Asset);
             if (asset == null)
-                return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError("Not found"));
+                return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownAsset, "Asset not found")));
 
             return assets.AsExchangeResult<SharedAsset>(Exchange, TradingMode.Spot, 
                 new SharedAsset(BitMEXExchange.AssetAliases.ExchangeToCommonName(asset.Asset))
@@ -207,7 +208,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return result.AsExchangeResult<SharedFee>(Exchange, null, default);
 
             if(!result.Data.TryGetValue(request.Symbol!.GetSymbol(FormatSymbol), out var fees))
-                return result.AsExchangeError<SharedFee>(Exchange, new ServerError("Not found"));
+                return result.AsExchangeError<SharedFee>(Exchange, new ServerError(new ErrorInfo(ErrorType.Unknown, "Not found")));
 
             // Return
             return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedFee(fees.MakerFee * 100, fees.TakerFee * 100));
@@ -395,7 +396,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
 
             if (!resultTicker.Data.Any())
-                return resultTicker.AsExchangeError<SharedBookTicker>(Exchange, new ServerError("Symbol not found"));
+                return resultTicker.AsExchangeError<SharedBookTicker>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return resultTicker.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedBookTicker(
                 ExchangeSymbolCache.ParseSymbol(request.Symbol!.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, resultTicker.Data[0].Symbol),
@@ -542,7 +543,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var symbol = result.Data.SingleOrDefault(x => x.Symbol == request.Symbol!.GetSymbol(FormatSymbol));
             if (symbol == null)
-                return result.AsExchangeError<SharedSpotTicker>(Exchange, new ServerError("Not found"));
+                return result.AsExchangeError<SharedSpotTicker>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(
                 ExchangeSymbolCache.ParseSymbol(_topicSpotId, symbol.Symbol),
@@ -659,7 +660,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var order = orders.Data.SingleOrDefault();
             if (order == null)
-                return orders.AsExchangeError<SharedSpotOrder>(Exchange, new ServerError("Not found"));
+                return orders.AsExchangeError<SharedSpotOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicSpotId, order.Symbol),
@@ -941,7 +942,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var order = orders.Data.SingleOrDefault();
             if (order == null)
-                return orders.AsExchangeError<SharedSpotOrder>(Exchange, new ServerError("Not found"));
+                return orders.AsExchangeError<SharedSpotOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicSpotId, order.Symbol),
@@ -1078,7 +1079,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var symbol = resultTicker.Data.SingleOrDefault();
             if (symbol == null)
-                return resultTicker.AsExchangeError<SharedFuturesTicker>(Exchange, new ServerError("Not found"));
+                return resultTicker.AsExchangeError<SharedFuturesTicker>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return resultTicker.AsExchangeResult(Exchange, request.Symbol!.TradingMode, 
                 new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, symbol.Symbol), symbol.Symbol, symbol.LastPrice, symbol.HighPrice, symbol.LowPrice, symbol.Volume, symbol.LastChangePercentage)
@@ -1140,7 +1141,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
 
             if (!result.Data.Any())
-                return result.AsExchangeError<SharedLeverage>(Exchange, new ServerError("Position not found, no leverage set yet"));
+                return result.AsExchangeError<SharedLeverage>(Exchange, new ServerError(new ErrorInfo(ErrorType.NoPosition, "Position not found")));
 
             var position = result.Data.First();
             return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedLeverage(position.Leverage)
@@ -1199,7 +1200,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var symbol = result.Data.SingleOrDefault();
             if (symbol == null)
-                return result.AsExchangeError<SharedOpenInterest>(Exchange, new ServerError("Symbol not found"));
+                return result.AsExchangeError<SharedOpenInterest>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedOpenInterest(symbol.OpenInterest ?? 0));
         }
@@ -1270,7 +1271,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var order = orders.Data.SingleOrDefault();
             if (order == null)
-                return orders.AsExchangeError<SharedFuturesOrder>(Exchange, new ServerError("Not found"));
+                return orders.AsExchangeError<SharedFuturesOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFuturesOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicFuturesId, order.Symbol),
@@ -1575,7 +1576,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var order = orders.Data.SingleOrDefault();
             if (order == null)
-                return orders.AsExchangeError<SharedFuturesOrder>(Exchange, new ServerError("Not found"));
+                return orders.AsExchangeError<SharedFuturesOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return orders.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedFuturesOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicFuturesId, order.Symbol),
@@ -1666,7 +1667,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var order = orders.Data.SingleOrDefault();
             if (order == null)
-                return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError("Not found"));
+                return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFuturesTriggerOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicFuturesId, order.Symbol),
@@ -1826,7 +1827,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var order = orders.Data.SingleOrDefault();
             if (order == null)
-                return orders.AsExchangeError<SharedSpotTriggerOrder>(Exchange, new ServerError("Not found"));
+                return orders.AsExchangeError<SharedSpotTriggerOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTriggerOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicSpotId, order.Symbol),
