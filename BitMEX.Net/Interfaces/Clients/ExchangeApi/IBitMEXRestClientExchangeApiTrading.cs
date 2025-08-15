@@ -27,7 +27,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// Place a new order
         /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_new" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `XBTUSD`</param>
         /// <param name="orderSide">Order side</param>
         /// <param name="orderType">Order type</param>
         /// <param name="quantity">Quantity</param>

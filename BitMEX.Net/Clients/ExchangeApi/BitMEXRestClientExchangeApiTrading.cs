@@ -11,6 +11,7 @@ using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Enums;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Linq;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -160,7 +161,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.Add("text", "Sent from JKorf"); // Client reference
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             var result = await _baseClient.SendAsync<BitMEXOrder[]>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<BitMEXOrder>(result.Data?.Single());
+            var orderResult = result.As<BitMEXOrder>(result.Data?.Single());
+            if (!orderResult)
+                return orderResult;
+
+            if (!string.IsNullOrEmpty(orderResult.Data.Error))
+                return orderResult.AsError<BitMEXOrder>(new ServerError(new ErrorInfo(ErrorType.UnknownOrder, orderResult.Data.Error!)));
+
+            return orderResult;
         }
 
         #endregion
