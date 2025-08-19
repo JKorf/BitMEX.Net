@@ -39,8 +39,7 @@ namespace BitMEX.Net.UnitTests
             var result = await CreateClient().ExchangeApi.ExchangeData.GetTradesAsync("ETHUSDT", limit: 100000);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.Code, Is.EqualTo(400));
-            Assert.That(result.Error.Message.StartsWith("ValidationError"), Is.True);
+            Assert.That(result.Error.ErrorCode, Is.EqualTo("ValidationError"));
         }
 
         [Test]

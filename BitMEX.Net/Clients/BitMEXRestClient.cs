@@ -67,10 +67,8 @@ namespace BitMEX.Net.Clients
 
         /// <inheritdoc />
         public void SetApiCredentials(ApiCredentials credentials)
-        {
-            
+        {            
             ExchangeApi.SetApiCredentials(credentials);
-
         }
     }
 }

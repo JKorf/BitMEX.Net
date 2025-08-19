@@ -4,6 +4,7 @@ using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
 using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Internal;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMEX.Net.Objects.Sockets
 {
@@ -23,7 +24,7 @@ namespace BitMEX.Net.Objects.Sockets
                     // Duplicate subscription, this is allowed by design
                     return message.ToCallResult();
 
-                return message.ToCallResult<T>(new ServerError(resp.Error));
+                return message.ToCallResult<T>(new ServerError(ErrorInfo.Unknown with { Message = resp.Error }));
             }
 
             return message.ToCallResult();

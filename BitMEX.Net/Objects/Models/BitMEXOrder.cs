@@ -150,6 +150,12 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("pegOffsetValue")]
         public long? PegOffsetValue { get; set; }
+
+        /// <summary>
+        /// Error message
+        /// </summary>
+        [JsonPropertyName("error")]
+        public string? Error { get; set; }
     }
 
 

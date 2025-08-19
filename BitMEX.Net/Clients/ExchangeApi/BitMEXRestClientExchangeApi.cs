@@ -14,6 +14,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -22,6 +23,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Exchange Api");
+
+        protected override ErrorMapping ErrorMapping => BitMEXErrors.Errors;
 
         private IStringMessageSerializer? _serializer;
         #endregion
@@ -89,14 +92,23 @@ namespace BitMEX.Net.Clients.ExchangeApi
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
-                return new ServerError(null, "Unknown request error", exception: exception);
+            {
+                if (httpStatusCode == 401)
+                    return new ServerError(new ErrorInfo(ErrorType.Unauthorized, "Unauthorized"), exception: exception);
+
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
+            }
 
             var message = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("message"));
             var name = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("name"));
+            var details = accessor.GetValue<string?>(MessagePath.Get().Property("error").Property("details"));
             if (name == null)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
-            return new ServerError(null, $"{name} - {message}", exception: exception);
+            if (details != null && int.TryParse(details, out var intCode))
+                return new ServerError(intCode, GetErrorInfo(intCode, message));
+
+            return new ServerError(name, GetErrorInfo(name, message), exception: exception);
         }
 
         /// <inheritdoc />
