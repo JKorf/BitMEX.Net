@@ -9,7 +9,7 @@ namespace BitMEX.Net
 {
     internal static class BitMEXErrors
     {
-        public static ErrorCollection Errors { get; } = new ErrorCollection([
+        public static ErrorMapping Errors { get; } = new ErrorMapping([
                 new ErrorInfo(ErrorType.InsufficientBalance, false, "Insufficient balance", "19000")
             ], [
 

@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 
 namespace BitMEX.Net
 {
@@ -19,32 +19,28 @@ namespace BitMEX.Net
         {
         }
 
-        public override void AuthenticateRequest(
-            RestApiClient apiClient,
-            Uri uri,
-            HttpMethod method,
-            ref IDictionary<string, object>? uriParameters,
-            ref IDictionary<string, object>? bodyParameters,
-            ref Dictionary<string, string>? headers,
-            bool auth,
-            ArrayParametersSerialization arraySerialization,
-            HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat requestBodyFormat)
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            headers = new Dictionary<string, string>() { };
-
-            if (!auth)
+            if (!request.Authenticated)
                 return;
 
             var timestamp = GetTimestamp(apiClient);
-            // Receive window option
+
             var expires = DateTimeConverter.ConvertToSeconds(timestamp.AddSeconds(5))!;
-            headers.Add("api-expires", expires.Value.ToString());
-            headers.Add("api-key", ApiKey);
-            var body = bodyParameters == null ? "" : GetSerializedBody(_serializer, bodyParameters);
-            var query = uriParameters?.Any() != true ? uri.AbsolutePath : uri.SetParameters(uriParameters, arraySerialization).PathAndQuery;
-            var signStr = GetSignature(method.ToString().ToUpperInvariant(), query, expires.Value, body);
-            headers.Add("api-signature", signStr);
+            request.Headers.Add("api-expires", expires.Value.ToString());
+            request.Headers.Add("api-key", ApiKey);
+
+            var body = !request.BodyParameters.Any() ? "" : GetSerializedBody(_serializer, request.BodyParameters);
+            var queryParams = request.GetQueryString(true);
+            if (!string.IsNullOrEmpty(queryParams))
+                queryParams = $"?{queryParams}";
+
+            var signStr = $"{request.Method.ToString().ToUpperInvariant()}{request.Path}{queryParams}{expires}{body}";
+
+            request.Headers.Add("api-signature", SignHMACSHA256(signStr, SignOutputType.Hex));
+
+            request.SetBodyContent(body);
+            request.SetQueryString(queryParams);
         }
 
         public string GetSignature(string method, string pathAndQuery, long expires, string body)
