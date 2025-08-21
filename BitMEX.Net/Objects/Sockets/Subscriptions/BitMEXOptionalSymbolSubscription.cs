@@ -6,13 +6,14 @@ using Microsoft.Extensions.Logging;
 using System;
 using BitMEX.Net.Objects.Internal;
 using System.Linq;
+using CryptoExchange.Net.Clients;
 
 namespace BitMEX.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
     internal class BitMEXOptionalSymbolSubscription<T> : Subscription<SocketResponse, SocketResponse> where T : ISymbolModel
     {
-
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<T[]>> _handler;
 
         private readonly string[] _topics;
@@ -21,8 +22,9 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMEXOptionalSymbolSubscription(ILogger logger, string topic, string[]? filters, string[]? symbols, Action<DataEvent<T[]>> handler, bool auth) : base(logger, auth)
+        public BitMEXOptionalSymbolSubscription(ILogger logger, SocketApiClient client, string topic, string[]? filters, string[]? symbols, Action<DataEvent<T[]>> handler, bool auth) : base(logger, auth)
         {
+            _client = client;
             _handler = handler;
             _symbols = symbols;
             if (symbols != null)
@@ -38,7 +40,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new BitMEXQuery<SocketResponse>(new SocketCommand
+            return new BitMEXQuery<SocketResponse>(_client, new SocketCommand
             {
                 Operation = "subscribe",
                 Parameters = _topics
@@ -48,7 +50,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
         {
-            return new BitMEXQuery<SocketResponse>(new SocketCommand
+            return new BitMEXQuery<SocketResponse>(_client, new SocketCommand
             {
                 Operation = "unsubscribe",
                 Parameters = _topics

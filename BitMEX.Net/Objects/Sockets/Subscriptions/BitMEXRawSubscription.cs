@@ -8,12 +8,14 @@ using System.Collections.Generic;
 using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Internal;
 using System.Linq;
+using CryptoExchange.Net.Clients;
 
 namespace BitMEX.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
     internal class BitMEXRawSubscription<T> : Subscription<SocketResponse, SocketResponse>
     {
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<T>> _handler;
 
         private readonly string[] _topics;
@@ -21,12 +23,9 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="topics"></param>
-        /// <param name="handler"></param>
-        /// <param name="auth"></param>
-        public BitMEXRawSubscription(ILogger logger, string[] topics, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public BitMEXRawSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
         {
+            _client = client;
             _handler = handler;
             _topics = topics;
 
@@ -36,7 +35,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new BitMEXQuery<SocketResponse>(new SocketCommand
+            return new BitMEXQuery<SocketResponse>(_client, new SocketCommand
             {
                 Operation = "subscribe",
                 Parameters = _topics
@@ -46,7 +45,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
         {
-            return new BitMEXQuery<SocketResponse>(new SocketCommand
+            return new BitMEXQuery<SocketResponse>(_client, new SocketCommand
             {
                 Operation = "unsubscribe",
                 Parameters = _topics

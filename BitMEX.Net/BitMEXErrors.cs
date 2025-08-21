@@ -9,7 +9,7 @@ namespace BitMEX.Net
 {
     internal static class BitMEXErrors
     {
-        public static ErrorMapping Errors { get; } = new ErrorMapping([
+        public static ErrorMapping RestErrors { get; } = new ErrorMapping([
                 new ErrorInfo(ErrorType.InsufficientBalance, false, "Insufficient balance", "19000")
             ], [
 
@@ -47,5 +47,18 @@ namespace BitMEX.Net
                     return ErrorInfo.Unknown;
                 })
                 ]);
+
+        public static ErrorMapping SocketErrors { get; } = new ErrorMapping([],
+            [
+               new ErrorEvaluator("400", (code, msg) => {
+                    if (string.IsNullOrEmpty(msg))
+                        return ErrorInfo.Unknown;
+
+                    if (msg!.StartsWith("Unknown or expired symbol"))
+                        return new ErrorInfo(ErrorType.UnknownSymbol, false, "Unknown symbol", code);
+
+                    return ErrorInfo.Unknown;
+               })
+            ]);
     }
 }

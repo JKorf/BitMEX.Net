@@ -7033,7 +7033,7 @@
         <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String[],System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0[]}},System.Boolean)">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.String[],System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0[]}},System.Boolean)">
             <summary>
             ctor
             </summary>
@@ -7050,14 +7050,10 @@
         <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
-            <param name="logger"></param>
-            <param name="topics"></param>
-            <param name="handler"></param>
-            <param name="auth"></param>
         </member>
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
@@ -7071,14 +7067,10 @@
         <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
-            <param name="logger"></param>
-            <param name="topics"></param>
-            <param name="handler"></param>
-            <param name="auth"></param>
         </member>
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />

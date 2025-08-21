@@ -16,5 +16,8 @@ namespace BitMEX.Net.Objects.Internal
 
         [JsonPropertyName("error")]
         public string? Error { get; set; }
+
+        [JsonPropertyName("status")]
+        public int? Status { get; set; }
     }
 }
