@@ -17,6 +17,9 @@ namespace BitMEX.Net
                     if (string.IsNullOrEmpty(msg))
                         return ErrorInfo.Unknown;
 
+                    if (msg!.Equals("Invalid API Key."))
+                        return new ErrorInfo(ErrorType.Unauthorized, false, "Invalid API key", code);
+
                     if (msg!.Equals("Invalid symbol"))
                         return new ErrorInfo(ErrorType.UnknownSymbol, false, "Invalid symbol", code);
 
