@@ -256,6 +256,9 @@
         <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
             <inheritdoc />
         </member>
+        <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.ClearUserClients(System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
             <inheritdoc />
         </member>
@@ -3371,6 +3374,11 @@
             <param name="userIdentifier">The identifier for the user</param>
             <param name="credentials">The credentials for the user</param>
             <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.ClearUserClients(System.String)">
+            <summary>
+            Reset the cached clients for a user. This can be useful when a user changes API credentials.
+            </summary>
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.IBitMEXUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
             <summary>
@@ -7041,7 +7049,7 @@
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetUnsubQuery">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Internal.SocketUpdate{`0[]}})">
@@ -7058,7 +7066,7 @@
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetUnsubQuery">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXRawSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{`0})">
@@ -7075,7 +7083,7 @@
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetUnsubQuery">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Internal.SocketUpdate{`0}})">
