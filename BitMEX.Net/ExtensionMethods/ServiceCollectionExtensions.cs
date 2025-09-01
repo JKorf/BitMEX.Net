@@ -98,25 +98,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 client.Timeout = options.RequestTimeout;
                 return new BitMEXRestClient(client, serviceProvider.GetRequiredService<ILoggerFactory>(), serviceProvider.GetRequiredService<IOptions<BitMEXRestOptions>>());
             }).ConfigurePrimaryHttpMessageHandler((serviceProvider) => {
-                var handler = new HttpClientHandler();
-                try
-                {
-                    handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-                    handler.DefaultProxyCredentials = CredentialCache.DefaultCredentials;
-                }
-                catch (PlatformNotSupportedException) { }
-                catch (NotImplementedException) { } // Mono runtime throws NotImplementedException for DefaultProxyCredentials setting
-
                 var options = serviceProvider.GetRequiredService<IOptions<BitMEXRestOptions>>().Value;
-                if (options.Proxy != null)
-                {
-                    handler.Proxy = new WebProxy
-                    {
-                        Address = new Uri($"{options.Proxy.Host}:{options.Proxy.Port}"),
-                        Credentials = options.Proxy.Password == null ? null : new NetworkCredential(options.Proxy.Login, options.Proxy.Password)
-                    };
-                }
-                return handler;
+                return LibraryHelpers.CreateHttpClientMessageHandler(options.Proxy, options.HttpKeepAliveInterval);
             });
             services.Add(new ServiceDescriptor(typeof(IBitMEXSocketClient), x => { return new BitMEXSocketClient(x.GetRequiredService<IOptions<BitMEXSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
