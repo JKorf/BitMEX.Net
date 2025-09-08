@@ -29,6 +29,9 @@ namespace BitMEX.Net
                     if (msg!.Equals("Invalid price"))
                         return new ErrorInfo(ErrorType.InvalidPrice, false, "Invalid order price", code);
 
+                    if (msg.StartsWith("Order quantity must be a multiple of lot size"))
+                        return new ErrorInfo(ErrorType.InvalidQuantity, false, "Invalid order quantity, doesn't respect lot size", code);
+
                     if (msg.StartsWith("Invalid"))
                         return new ErrorInfo(ErrorType.InvalidParameter, false, "Invalid parameter", code);
 
