@@ -107,6 +107,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBitMEXOrderBookFactory, BitMEXOrderBookFactory>();
             services.AddTransient<IBitMEXTrackerFactory, BitMEXTrackerFactory>();
+            services.AddTransient<ITrackerFactory, BitMEXTrackerFactory>();
             services.AddSingleton<IBitMEXUserClientProvider, BitMEXUserClientProvider>(x =>
             new BitMEXUserClientProvider(
                 x.GetRequiredService<HttpClient>(),

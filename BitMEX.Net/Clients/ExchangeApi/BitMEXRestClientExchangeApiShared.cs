@@ -59,6 +59,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             MaxWithdrawQuantity = x.MaxWithdrawalQuantity.ToSharedAssetQuantity(x.Currency),
                             WithdrawEnabled = n.WithdrawalEnabled,
                             WithdrawFee = n.WithdrawalFee.ToSharedAssetQuantity(x.Currency) ?? n.MinFee.ToSharedAssetQuantity(x.Currency),
+                            ContractAddress = n.TokenAddress
                         }
                     ).ToArray()
                 };
@@ -95,6 +96,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         MaxWithdrawQuantity = asset.MaxWithdrawalQuantity.ToSharedAssetQuantity(asset.Currency),
                         WithdrawEnabled = n.WithdrawalEnabled,
                         WithdrawFee = n.WithdrawalFee.ToSharedAssetQuantity(asset.Currency) ?? n.MinFee.ToSharedAssetQuantity(asset.Currency),
+                        ContractAddress = n.TokenAddress
                     }
                     ).ToArray()
                 }
