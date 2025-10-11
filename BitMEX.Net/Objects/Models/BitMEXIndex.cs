@@ -99,7 +99,7 @@ namespace BitMEX.Net.Objects.Models
         /// Last price
         /// </summary>
         [JsonPropertyName("lastPrice")]
-        public decimal LastPrice { get; set; }
+        public decimal? LastPrice { get; set; }
         /// <summary>
         /// Last change percentage
         /// </summary>
