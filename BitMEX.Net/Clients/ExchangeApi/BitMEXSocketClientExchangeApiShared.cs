@@ -162,6 +162,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             x.LastTradePrice!.Value,
                             x.Timestamp)
                         {
+                            ClientOrderId = x.ClientOrderId,
                             Fee = x.Fee.ToSharedAssetQuantity(x.Currency),
                             Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
                         }

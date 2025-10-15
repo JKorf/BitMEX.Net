@@ -106,11 +106,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Balance Client
-        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+        GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions(AccountTypeFilter.Spot, AccountTypeFilter.Funding, AccountTypeFilter.Futures);
 
         async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
 
@@ -816,6 +816,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
+                ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee.ToSharedAssetQuantity(x.Currency),
                 Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
             }).ToArray());
@@ -865,6 +866,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
+                ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee.ToSharedAssetQuantity(x.Currency),
                 Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
             }).ToArray(), nextToken);
@@ -1425,6 +1427,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
+                ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee.ToSharedAssetQuantity(x.SettlementCurrency ?? x.Currency),
                 Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
             }).ToArray());
@@ -1479,6 +1482,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
+                ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee.ToSharedAssetQuantity(x.SettlementCurrency ?? x.Currency),
                 Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
             }).ToArray(), nextToken);
