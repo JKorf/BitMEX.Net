@@ -119,7 +119,7 @@ namespace BitMEX.Net.Objects.Models
         /// Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
-        public decimal MarkPrice { get; set; }        
+        public decimal? MarkPrice { get; set; }        
         /// <summary>
         /// Instant pnl
         /// </summary>
