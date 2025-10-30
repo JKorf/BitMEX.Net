@@ -24,6 +24,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Exchange Api");
 
+        public new BitMEXRestOptions ClientOptions => (BitMEXRestOptions)base.ClientOptions;
+
         protected override ErrorMapping ErrorMapping => BitMEXErrors.RestErrors;
 
         private IStringMessageSerializer? _serializer;

@@ -24,6 +24,10 @@ namespace BitMEX.Net.Objects.Options
             Default?.Set(this);
         }
 
+        /// <summary>
+        /// Broker id
+        /// </summary>
+        public string? BrokerId { get; set; }
         
          /// <summary>
         /// Exchange API options

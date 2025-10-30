@@ -7015,6 +7015,11 @@
             ctor
             </summary>
         </member>
+        <member name="P:BitMEX.Net.Objects.Options.BitMEXRestOptions.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
         <member name="P:BitMEX.Net.Objects.Options.BitMEXRestOptions.ExchangeOptions">
             <summary>
             Exchange API options

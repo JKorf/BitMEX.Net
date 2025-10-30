@@ -65,7 +65,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptionalEnum("execInst", executionInstruction);
             parameters.AddOptionalEnum("contingencyType", contingencyType);
 
-            parameters.Add("text", "Sent from JKorf");
+            parameters.Add("text", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange));
             var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXOrder>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -95,7 +95,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("price", price);
             parameters.AddOptional("stopPx", stopPrice);
             parameters.AddOptional("pegOffsetValue", pegOffsetValue);
-            parameters.Add("text", "Sent from JKorf"); // Client reference
+            parameters.Add("text", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange)); // Client reference
             var request = _definitions.GetOrCreate(HttpMethod.Put, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXOrder>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -158,7 +158,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("orderID", orderId);
             parameters.AddOptional("clOrdID", clientOrderId);
-            parameters.Add("text", "Sent from JKorf"); // Client reference
+            parameters.Add("text", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange)); // Client reference
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             var result = await _baseClient.SendAsync<BitMEXOrder[]>(request, parameters, ct).ConfigureAwait(false);
             var orderResult = result.As<BitMEXOrder>(result.Data?.Single());
@@ -184,7 +184,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("orderID", orderIds == null ? null : string.Join(",", orderIds));
             parameters.AddOptional("clOrdID", clientOrderIds == null ? null : string.Join(",", clientOrderIds));
-            parameters.Add("text", "Sent from JKorf"); // Client reference
+            parameters.Add("text", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange)); // Client reference
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -204,7 +204,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.Add("targetAccountIds", targetAccountIds == null ? "*" : string.Join(",", targetAccountIds));
             parameters.AddOptional("symbol", symbol);
             parameters.AddOptional("filter", filter);
-            parameters.Add("text", "Sent from JKorf"); // Client reference
+            parameters.Add("text", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange)); // Client reference
             var request = _definitions.GetOrCreate(HttpMethod.Delete, "api/v1/order/all", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
