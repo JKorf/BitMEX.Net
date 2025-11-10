@@ -17,6 +17,9 @@ namespace BitMEX.Net.SymbolOrderBooks
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <inheritdoc />
+        public string ExchangeName => BitMEXExchange.ExchangeName;
+
         /// <summary>
         /// ctor
         /// </summary>

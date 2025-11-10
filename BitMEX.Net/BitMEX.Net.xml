@@ -251,6 +251,9 @@
         <member name="T:BitMEX.Net.Clients.BitMEXUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:BitMEX.Net.Clients.BitMEXUserClientProvider.ExchangeName">
+            <inheritdoc />
+        </member>
         <member name="M:BitMEX.Net.Clients.BitMEXUserClientProvider.#ctor(System.Action{BitMEX.Net.Objects.Options.BitMEXOptions})">
             <summary>
             ctor
@@ -7100,6 +7103,9 @@
             <summary>
             BitMEX order book factory
             </summary>
+        </member>
+        <member name="P:BitMEX.Net.SymbolOrderBooks.BitMEXOrderBookFactory.ExchangeName">
+            <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.SymbolOrderBooks.BitMEXOrderBookFactory.#ctor(System.IServiceProvider)">
             <summary>

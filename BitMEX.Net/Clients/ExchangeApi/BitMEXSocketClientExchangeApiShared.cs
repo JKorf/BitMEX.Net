@@ -243,7 +243,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Ticker client
-        EndpointOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new EndpointOptions<SubscribeTickerRequest>(false);
+        SubscribeTickerOptions ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscribeTickerOptions();
         async Task<ExchangeResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<ExchangeEvent<SharedSpotTicker>> handler, CancellationToken ct)
         {
             var validationError = ((ITickerSocketClient)this).SubscribeTickerOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -315,6 +315,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
                 handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, update.Data.Select(x =>
                     new SharedTrade(
+                        ExchangeSymbolCache.ParseSymbol(request.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, x.Symbol),
+                        x.Symbol,
                         x.Quantity.ToSharedSymbolQuantity(x.Symbol),
                         x.Price,
                         x.Timestamp)

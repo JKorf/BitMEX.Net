@@ -8,7 +8,7 @@ namespace BitMEX.Net.Interfaces
     /// <summary>
     /// BitMEX local order book factory
     /// </summary>
-    public interface IBitMEXOrderBookFactory
+    public interface IBitMEXOrderBookFactory : IExchangeService
     {
         /// <summary>
         /// Exchange order book factory methods
