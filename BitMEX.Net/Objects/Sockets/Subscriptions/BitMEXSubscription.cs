@@ -16,14 +16,14 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
     internal class BitMEXSubscription<T> : Subscription<SocketResponse, SocketResponse>
     {
         private readonly SocketApiClient _client;
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, SocketUpdate<T>> _handler;
 
         private readonly string[] _topics;
 
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMEXSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public BitMEXSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DateTime, string?, SocketUpdate<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
@@ -52,9 +52,9 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<SocketUpdate<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, SocketUpdate<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Table, null, message.Data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
+            _handler.Invoke(receiveTime, originalData, message);
             return CallResult.SuccessResult;
         }
     }

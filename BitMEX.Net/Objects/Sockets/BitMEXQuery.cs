@@ -6,6 +6,7 @@ using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Internal;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Clients;
+using System;
 
 namespace BitMEX.Net.Objects.Sockets
 {
@@ -20,21 +21,21 @@ namespace BitMEX.Net.Objects.Sockets
             RequiredResponses = request.Parameters.Length;
         }
 
-        public CallResult<T> HandleMessage(SocketConnection connection, DataEvent<T> message)
+        public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)
         {
-            if (message.Data is SocketResponse resp && !string.IsNullOrEmpty(resp.Error))
+            if (message is SocketResponse resp && !string.IsNullOrEmpty(resp.Error))
             {
                 if (resp.Error!.StartsWith("You are already subscribed to this topic"))
                     // Duplicate subscription, this is allowed by design
-                    return message.ToCallResult();
+                    return new CallResult<T>(message, originalData, null);
 
                 if (resp.Status != null)
-                    return message.ToCallResult<T>(new ServerError(resp.Status.Value, _client.GetErrorInfo(resp.Status.Value, resp.Error)));
+                    return new CallResult<T>(new ServerError(resp.Status.Value, _client.GetErrorInfo(resp.Status.Value, resp.Error)), originalData);
 
-                return message.ToCallResult<T>(new ServerError(ErrorInfo.Unknown with { Message = resp.Error }));
+                return new CallResult<T>(new ServerError(ErrorInfo.Unknown with { Message = resp.Error }), originalData);
             }
 
-            return message.ToCallResult();
+            return new CallResult<T>(message, originalData, null);
         }
     }
 }

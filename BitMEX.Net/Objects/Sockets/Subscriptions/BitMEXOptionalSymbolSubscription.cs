@@ -14,7 +14,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
     internal class BitMEXOptionalSymbolSubscription<T> : Subscription<SocketResponse, SocketResponse> where T : ISymbolModel
     {
         private readonly SocketApiClient _client;
-        private readonly Action<DataEvent<T[]>> _handler;
+        private readonly Action<DateTime, string?, SocketUpdate<T[]>> _handler;
 
         private readonly string[] _topics;
         private readonly string[]? _symbols;
@@ -22,7 +22,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMEXOptionalSymbolSubscription(ILogger logger, SocketApiClient client, string topic, string[]? filters, string[]? symbols, Action<DataEvent<T[]>> handler, bool auth) : base(logger, auth)
+        public BitMEXOptionalSymbolSubscription(ILogger logger, SocketApiClient client, string topic, string[]? filters, string[]? symbols, Action<DateTime, string?, SocketUpdate<T[]>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
@@ -58,12 +58,12 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<SocketUpdate<T[]>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, SocketUpdate<T[]> message)
         {
-            if (_symbols?.Contains(message.Data.Data.First().Symbol) == false)
+            if (_symbols?.Contains(message.Data.First().Symbol) == false)
                 return CallResult.SuccessResult;
 
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Table, null, message.Data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
+            _handler.Invoke(receiveTime, originalData, message);
             return CallResult.SuccessResult;
         }
     }

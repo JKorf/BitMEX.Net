@@ -1,4 +1,4 @@
 > { "op": "subscribe", "args": ["quote:ETH_USDT"] }
-< {"success":true,"subscribe":"","request":{"op":"subscribe","args":["quote:ETH_USDT"]}}
+< {"success":true,"subscribe":"quote:ETH_USDT","request":{"op":"subscribe","args":["quote:ETH_USDT"]}}
 = 
 {"table":"quote","action":"insert","data":[{"timestamp":"2025-02-07T11:00:22.227Z","symbol":"ETH_USDT","bidSize":11900,"bidPrice":97269.9,"askPrice":97270.0,"askSize":8400}]}
