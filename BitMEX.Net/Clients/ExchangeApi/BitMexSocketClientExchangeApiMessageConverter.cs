@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
-    internal class BitMexSocketClientExchangeApiMessageConverter : DynamicJsonConverter
+    internal class BitMexSocketClientExchangeApiMessageConverter : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMEXExchange._serializerContext);
 
