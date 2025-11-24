@@ -1,29 +1,30 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using BitMEX.Net.Clients.MessageHandlers;
+using BitMEX.Net.Enums;
+using BitMEX.Net.Interfaces.Clients.ExchangeApi;
+using BitMEX.Net.Objects.Internal;
+using BitMEX.Net.Objects.Models;
+using BitMEX.Net.Objects.Options;
+using BitMEX.Net.Objects.Sockets;
+using BitMEX.Net.Objects.Sockets.Subscriptions;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
-using BitMEX.Net.Interfaces.Clients.ExchangeApi;
-using BitMEX.Net.Objects.Models;
-using BitMEX.Net.Objects.Options;
-using BitMEX.Net.Objects.Sockets.Subscriptions;
-using CryptoExchange.Net;
-using BitMEX.Net.Objects.Sockets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using BitMEX.Net.Enums;
-using BitMEX.Net.Objects.Internal;
 using System.Net.WebSockets;
-using CryptoExchange.Net.Objects.Errors;
-using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -71,7 +72,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
-        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMexSocketClientExchangeApiMessageConverter();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMexSocketExchangeMessageConverter();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

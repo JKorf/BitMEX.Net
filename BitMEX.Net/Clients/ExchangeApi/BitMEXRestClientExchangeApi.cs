@@ -15,6 +15,9 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using Bitget.Net.Clients.MessageHandlers;
+using System.Net.Http.Headers;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -27,6 +30,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
         public new BitMEXRestOptions ClientOptions => (BitMEXRestOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => BitMEXErrors.RestErrors;
+
+        protected override IRestMessageHandler MessageHandler { get; } = new BitMexRestMessageHandler(BitMEXErrors.RestErrors);
 
         private IStringMessageSerializer? _serializer;
         #endregion
@@ -91,7 +96,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
             {

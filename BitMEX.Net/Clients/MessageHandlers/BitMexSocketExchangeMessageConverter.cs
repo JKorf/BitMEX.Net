@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Text.Json;
 
-namespace BitMEX.Net.Clients.ExchangeApi
+namespace BitMEX.Net.Clients.MessageHandlers
 {
-    internal class BitMexSocketClientExchangeApiMessageConverter : JsonSocketMessageHandler
+    internal class BitMexSocketExchangeMessageConverter : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMEXExchange._serializerContext);
 
@@ -28,7 +28,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             new MessageEvaluator {
                 Priority = 1,
                 Fields = [
-                    new PropertyFieldReference("table") { Constraint = x => !_tableUpdatesWithoutSymbol.Contains(x) },
+                    new PropertyFieldReference("table") { Constraint = x => !_tableUpdatesWithoutSymbol.Contains(x!) },
                     new PropertyFieldReference("symbol") { Depth = 3 },
                 ],
                 IdentifyMessageCallback = x => $"upd{x.FieldValue("table")}{x.FieldValue("symbol")}"
@@ -37,7 +37,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             new MessageEvaluator {
                 Priority = 2,
                 Fields = [
-                    new PropertyFieldReference("table") { Constraint = x => _tableUpdatesWithoutSymbol.Contains(x) },
+                    new PropertyFieldReference("table") { Constraint = x => _tableUpdatesWithoutSymbol.Contains(x!) },
                 ],
                 IdentifyMessageCallback = x => $"upd{x.FieldValue("table")}"
             },
