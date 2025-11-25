@@ -72,7 +72,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
-        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMexSocketExchangeMessageConverter();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMexSocketExchangeMessageHandler();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
