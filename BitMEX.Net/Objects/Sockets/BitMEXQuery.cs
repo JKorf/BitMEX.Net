@@ -17,8 +17,10 @@ namespace BitMEX.Net.Objects.Sockets
         public BitMEXQuery(SocketApiClient client, SocketCommand request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<T>(request.Parameters, HandleMessage);
             RequiredResponses = request.Parameters.Length;
+
+            MessageMatcher = MessageMatcher.Create<T>(request.Parameters, HandleMessage);
+            MessageRouter = MessageRouter.Create<T>(request.Parameters, HandleMessage);
         }
 
         public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)

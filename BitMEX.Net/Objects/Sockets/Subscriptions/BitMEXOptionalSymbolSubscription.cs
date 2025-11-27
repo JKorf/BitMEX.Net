@@ -35,6 +35,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
                 _topics = [topic];
 
             MessageMatcher = MessageMatcher.Create<SocketUpdate<T[]>>("upd" + topic, DoHandleMessage);
+            MessageRouter = MessageRouter.Create<SocketUpdate<T[]>>("upd" + topic, DoHandleMessage);
         }
 
         /// <inheritdoc />

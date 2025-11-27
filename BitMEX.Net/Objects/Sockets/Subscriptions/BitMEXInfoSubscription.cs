@@ -14,6 +14,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         public BitMEXInfoSubscription(ILogger logger) : base(logger, false)
         {
             MessageMatcher = MessageMatcher.Create<InfoUpdate>("info");
+            MessageRouter = MessageRouter.Create<InfoUpdate>("info");
         }
     }
 }
