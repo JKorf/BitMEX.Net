@@ -20,7 +20,7 @@ namespace BitMEX.Net.Objects.Sockets
             RequiredResponses = request.Parameters.Length;
 
             MessageMatcher = MessageMatcher.Create<T>(request.Parameters, HandleMessage);
-            MessageRouter = MessageRouter.Create<T>(request.Parameters, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<T>(request.Parameters, HandleMessage);
         }
 
         public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)

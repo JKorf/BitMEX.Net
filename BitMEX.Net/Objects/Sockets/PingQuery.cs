@@ -12,7 +12,7 @@ namespace BitMEX.Net.Objects.Sockets
             RequestTimeout = TimeSpan.FromSeconds(5);
 
             MessageMatcher = MessageMatcher.Create<string>("pong");
-            MessageRouter = MessageRouter.Create<string>("pong");
+            MessageRouter = MessageRouter.CreateWithoutHandler<string>("pong");
         }
 
     }

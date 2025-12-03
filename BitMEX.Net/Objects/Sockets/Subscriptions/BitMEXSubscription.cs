@@ -23,15 +23,17 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMEXSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DateTime, string?, SocketUpdate<T>> handler, bool auth) : base(logger, auth)
+        public BitMEXSubscription(ILogger logger, SocketApiClient client, string topic, string[]? symbols, Action<DateTime, string?, SocketUpdate<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
-            _topics = topics;
-            MessageMatcher = MessageMatcher.Create(topics.Select(x => new MessageHandlerLink<SocketUpdate<T>>("upd" + x.Replace(":", ""), DoHandleMessage)).ToArray());
-            MessageRouter = MessageRouter.Create(topics.Select(x => new MessageRoute<SocketUpdate<T>>("upd" + x.Replace(":", ""), (string?)null, DoHandleMessage)).ToArray());
-        }
+            _topics = symbols == null ? [topic] : symbols.Select(x => $"{topic}:{x}").ToArray();
 
+
+            MessageMatcher = MessageMatcher.Create(_topics.Select(x => new MessageHandlerLink<SocketUpdate<T>>("upd" + x.Replace(":", ""), DoHandleMessage)).ToArray());
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<SocketUpdate<T>>("upd" + topic, symbols, DoHandleMessage);
+        }
+            
         /// <inheritdoc />
         protected override Query? GetSubQuery(SocketConnection connection)
         {

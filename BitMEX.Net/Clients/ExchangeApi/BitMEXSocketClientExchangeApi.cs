@@ -96,7 +96,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXTradeUpdate[]>(_logger, this, symbols.Select(x => "trade:" + x).ToArray(), handler, false);
+            var subscription = new BitMEXSubscription<BitMEXTradeUpdate[]>(_logger, this, "trade", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -118,7 +118,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXAggTrade[]>(_logger, this, symbols.Select(x => "tradeBin" + EnumConverter.GetString(period) + ":" + x).ToArray(), handler, false);
+            var subscription = new BitMEXSubscription<BitMEXAggTrade[]>(_logger, this, "tradeBin" + EnumConverter.GetString(period), symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -140,7 +140,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, this, symbols.Select(x => "quote:" + x).ToArray(), handler, false);
+            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, this, "quote", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -162,7 +162,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, this, symbols.Select(x => "quoteBin" + EnumConverter.GetString(period) + ":" + x).ToArray(), handler, false);
+            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, this, "quoteBin", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -179,7 +179,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXSettlementHistory[]>(_logger, this, ["settlement"], handler, false);
+            var subscription = new BitMEXSubscription<BitMEXSettlementHistory[]>(_logger, this, "settlement", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -201,7 +201,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXOrderBookUpdate[]>(_logger, this, symbols.Select(x => "orderBook10:" + x).ToArray(), handler, false);
+            var subscription = new BitMEXSubscription<BitMEXOrderBookUpdate[]>(_logger, this, "orderBook10", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -227,7 +227,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXOrderBookEntry[]>(_logger, this, symbols.Select(x => "orderBookL2" + (limit == IncrementalBookLimit.Top25 ? "_25": "") + ":" + x).ToArray(), handler, false);
+            var subscription = new BitMEXSubscription<BitMEXOrderBookEntry[]>(_logger, this, "orderBookL2" + (limit == IncrementalBookLimit.Top25 ? "_25" : ""), symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -244,7 +244,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXLiquidation[]>(_logger, this, ["liquidation"], handler, false);
+            var subscription = new BitMEXSubscription<BitMEXLiquidation[]>(_logger, this, "liquidation", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -261,7 +261,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXInsurance[]>(_logger, this, ["insurance"], handler, false);
+            var subscription = new BitMEXSubscription<BitMEXInsurance[]>(_logger, this, "insurance", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -277,7 +277,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
                     );
             });
-            var subscription = new BitMEXOptionalSymbolSubscription<BitMEXSymbolUpdate>(_logger, this, "instrument", category == null ? null :[EnumConverter.GetString(category)], null, handler, false);
+            var subscription = new BitMEXSubscription<BitMEXSymbolUpdate[]>(_logger, this, "instrument", category == null ? null :[EnumConverter.GetString(category)], handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -293,7 +293,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
                     );
             });
-            var subscription = new BitMEXOptionalSymbolSubscription<BitMEXSymbolUpdate>(_logger, this, "instrument", null, [symbol], handler, false);
+            var subscription = new BitMEXSubscription<BitMEXSymbolUpdate[]>(_logger, this, "instrument", [symbol], handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -310,7 +310,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXOptionalSymbolSubscription<BitMEXSymbolUpdate>(_logger, this, "instrument", null, symbols.ToArray(), handler, false);
+            var subscription = new BitMEXSubscription<BitMEXSymbolUpdate[]>(_logger, this, "instrument", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -331,7 +331,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
                     );
             });
-            var subscription = new BitMEXSubscription<BitMEXFundingRate[]>(_logger, this, symbols.Select(x => "funding:" + x).ToArray(), handler, false);
+            var subscription = new BitMEXSubscription<BitMEXFundingRate[]>(_logger, this, "funding", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -347,7 +347,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
                     );
             });
-            var subscription = new BitMEXSubscription<BitMEXAnnouncement[]>(_logger, this, ["announcement"], handler, false);
+            var subscription = new BitMEXSubscription<BitMEXAnnouncement[]>(_logger, this, "announcement", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtimePlatform"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -362,7 +362,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithStreamId(data.Table)
                     );
             });
-            var subscription = new BitMEXSubscription<BitMEXNotification[]>(_logger, this, ["publicNotifications"], handler, false);
+            var subscription = new BitMEXSubscription<BitMEXNotification[]>(_logger, this, "publicNotifications", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -378,7 +378,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
                     );
             });
-            var subscription = new BitMEXSubscription<BitMEXBalance[]>(_logger, this, ["wallet"], handler, true);
+            var subscription = new BitMEXSubscription<BitMEXBalance[]>(_logger, this, "wallet", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -395,7 +395,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     );
             });
 
-            var subscription = new BitMEXSubscription<BitMEXTransaction[]>(_logger, this, ["transact"], handler, true);
+            var subscription = new BitMEXSubscription<BitMEXTransaction[]>(_logger, this, "transact", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -411,7 +411,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
                     );
             });
-            var subscription = new BitMEXSubscription<BitMEXPosition[]>(_logger, this, ["position"], handler, true);
+            var subscription = new BitMEXSubscription<BitMEXPosition[]>(_logger, this, "position", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -427,7 +427,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
                     );
             });
-            var subscription = new BitMEXSubscription<BitMEXMarginStatus[]>(_logger, this, ["margin"], handler, true);
+            var subscription = new BitMEXSubscription<BitMEXMarginStatus[]>(_logger, this, "margin", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -443,7 +443,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
                     );
             });
-            var subscription = new BitMEXSubscription<BitMEXOrder[]>(_logger, this, ["order"], handler, true);
+            var subscription = new BitMEXSubscription<BitMEXOrder[]>(_logger, this, "order", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -459,7 +459,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
                     );
             });
-            var subscription = new BitMEXSubscription<BitMEXExecution[]>(_logger, this, ["execution"], handler, true);
+            var subscription = new BitMEXSubscription<BitMEXExecution[]>(_logger, this, "execution", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 

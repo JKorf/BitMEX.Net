@@ -7048,27 +7048,10 @@
             Exchange API options
             </summary>
         </member>
-        <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.String[],System.String[],System.Action{System.DateTime,System.String,BitMEX.Net.Objects.Internal.SocketUpdate{`0[]}},System.Boolean)">
-            <summary>
-            ctor
-            </summary>
-        </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXOptionalSymbolSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,System.DateTime,System.String,BitMEX.Net.Objects.Internal.SocketUpdate{`0[]})">
-            <inheritdoc />
-        </member>
         <member name="T:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{System.DateTime,System.String,BitMEX.Net.Objects.Internal.SocketUpdate{`0}},System.Boolean)">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.String[],System.Action{System.DateTime,System.String,BitMEX.Net.Objects.Internal.SocketUpdate{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
