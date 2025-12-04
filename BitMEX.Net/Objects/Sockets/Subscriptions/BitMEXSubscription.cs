@@ -13,7 +13,7 @@ using CryptoExchange.Net.Clients;
 namespace BitMEX.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class BitMEXSubscription<T> : Subscription<SocketResponse, SocketResponse>
+    internal class BitMEXSubscription<T> : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DateTime, string?, SocketUpdate<T>> _handler;
