@@ -16,7 +16,7 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
-using Bitget.Net.Clients.MessageHandlers;
+using BitMEX.Net.Clients.MessageHandlers;
 using System.Net.Http.Headers;
 
 namespace BitMEX.Net.Clients.ExchangeApi

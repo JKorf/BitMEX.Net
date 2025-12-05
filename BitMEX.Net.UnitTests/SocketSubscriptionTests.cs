@@ -18,6 +18,26 @@ namespace BitMEX.Net.UnitTests
 
         [TestCase(false)]
         [TestCase(true)]
+        public async Task ValidateConcurrentSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new BitMEXSocketClient(Options.Create(new BitMEXSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<BitMEXSocketClient>(client, "Subscriptions/Exchange", "wss://ws.bitmex.com/");
+            await tester.ValidateConcurrentAsync<BitMEXAggTrade[]>(
+                (client, handler) => client.ExchangeApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.BinPeriod.OneDay, handler),
+                (client, handler) => client.ExchangeApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.BinPeriod.OneHour, handler),
+                "Concurrent");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
         public async Task ValidateSpotExchangeDataSubscriptions(bool newDeserialization)
         {
             var logger = new LoggerFactory();
