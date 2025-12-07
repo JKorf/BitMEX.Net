@@ -26,10 +26,9 @@ namespace BitMEX.Net.Clients.MessageHandlers
             AddTopicMapping<SocketUpdate<BitMEXFundingRate[]>>(x => x.Data.First().Symbol);
         }
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
             //new MessageEvaluator {
-            //    Priority = 1,
             //    Fields = [
             //        new PropertyFieldReference("table") { Constraint = x => !_tableUpdatesWithoutSymbol.Contains(x!) },
             //        new PropertyFieldReference("symbol") { Depth = 3 },
@@ -37,16 +36,14 @@ namespace BitMEX.Net.Clients.MessageHandlers
             //    IdentifyMessageCallback = x => $"upd{x.FieldValue("table")}{x.FieldValue("symbol")}"
             //},
 
-            new MessageEvaluator {
-                Priority = 2,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("table"),
                 ],
-                IdentifyMessageCallback = x => $"upd{x.FieldValue("table")}"
+                TypeIdentifierCallback = x => $"upd{x.FieldValue("table")}"
             },
 
-            new MessageEvaluator {
-                Priority = 3,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("info"),
@@ -54,18 +51,16 @@ namespace BitMEX.Net.Clients.MessageHandlers
                 StaticIdentifier = "info"
             },
 
-            new MessageEvaluator {
-                Priority = 4,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("subscribe"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("subscribe")
+                TypeIdentifierCallback = x => x.FieldValue("subscribe")!
             },
 
             // TODO
-            new MessageEvaluator {
-                Priority = 5,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("error"),
