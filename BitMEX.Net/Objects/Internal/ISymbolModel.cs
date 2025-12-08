@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BitMEX.Net.Objects.Internal
+﻿namespace BitMEX.Net.Objects.Internal
 {
     internal interface ISymbolModel
     {

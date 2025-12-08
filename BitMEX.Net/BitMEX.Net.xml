@@ -2180,6 +2180,11 @@
             BitMEX Volatility Index
             </summary>
         </member>
+        <member name="F:BitMEX.Net.Enums.SymbolType.UnknownMRSXXX">
+            <summary>
+            Unknown
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Enums.TimeInForce">
             <summary>
             Time in force
@@ -7056,13 +7061,13 @@
             ctor
             </summary>
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,System.DateTime,System.String,BitMEX.Net.Objects.Internal.SocketUpdate{`0})">
+        <member name="M:BitMEX.Net.Objects.Sockets.Subscriptions.BitMEXSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.DateTime,System.String,BitMEX.Net.Objects.Internal.SocketUpdate{`0})">
             <inheritdoc />
         </member>
         <member name="T:BitMEX.Net.SymbolOrderBooks.BitMEXOrderBookFactory">
@@ -7124,14 +7129,14 @@
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.BitMEX(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.BitMEX(CryptoExchange.Net.Interfaces.Clients.ICryptoRestClient)">
             <summary>
             Get the BitMEX REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.BitMEX(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.BitMEX(CryptoExchange.Net.Interfaces.Clients.ICryptoSocketClient)">
             <summary>
             Get the BitMEX Websocket Api client
             </summary>

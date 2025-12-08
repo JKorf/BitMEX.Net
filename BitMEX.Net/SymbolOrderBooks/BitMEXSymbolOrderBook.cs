@@ -11,7 +11,6 @@ using BitMEX.Net.Objects.Options;
 using BitMEX.Net.Objects.Models;
 using System.Linq;
 using BitMEX.Net.ExtensionMethods;
-using CryptoExchange.Net.Interfaces;
 
 namespace BitMEX.Net.SymbolOrderBooks
 {

@@ -2,11 +2,11 @@ using CryptoExchange.Net.Objects;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects.Sockets;
 using BitMEX.Net.Objects.Models;
 using System.Collections.Generic;
 using BitMEX.Net.Enums;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 {

@@ -70,5 +70,10 @@ namespace BitMEX.Net.Enums
         /// </summary>
         [Map("MRIXXX")]
         BitMEXVolatilityIndex,
+        /// <summary>
+        /// Unknown
+        /// </summary>
+        [Map("MRSXXX")]
+        UnknownMRSXXX
     }
 }

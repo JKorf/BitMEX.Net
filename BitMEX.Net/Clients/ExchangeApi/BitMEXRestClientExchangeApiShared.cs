@@ -1,18 +1,15 @@
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using BitMEX.Net.Interfaces.Clients.ExchangeApi;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
 using CryptoExchange.Net.Objects;
-using System.Collections.Concurrent;
 using BitMEX.Net.ExtensionMethods;
 using BitMEX.Net.Enums;
 using CryptoExchange.Net;
 using BitMEX.Net.Objects.Models;
-using System.Drawing;
 using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMEX.Net.Clients.ExchangeApi

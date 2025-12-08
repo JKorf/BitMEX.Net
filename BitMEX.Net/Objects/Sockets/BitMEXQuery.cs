@@ -1,12 +1,10 @@
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using System.Collections.Generic;
-using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Internal;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Clients;
 using System;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace BitMEX.Net.Objects.Sockets
 {

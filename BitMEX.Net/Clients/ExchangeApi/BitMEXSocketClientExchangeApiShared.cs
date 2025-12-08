@@ -1,7 +1,5 @@
 using CryptoExchange.Net.SharedApis;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using BitMEX.Net.Interfaces.Clients.ExchangeApi;
 using System.Threading.Tasks;
 using System.Threading;

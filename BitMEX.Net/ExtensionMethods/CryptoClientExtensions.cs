@@ -1,6 +1,6 @@
-using CryptoExchange.Net.Interfaces;
 using BitMEX.Net.Clients;
 using BitMEX.Net.Interfaces.Clients;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace CryptoExchange.Net.Interfaces
 {
