@@ -59,13 +59,12 @@ namespace BitMEX.Net.Clients.MessageHandlers
                 TypeIdentifierCallback = x => x.FieldValue("subscribe")!
             },
 
-            // TODO
             new MessageTypeDefinition {
-                ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("error"),
+                    new PropertyFieldReference("args") { ArrayValues = true, Depth = 2 }
                 ],
-                StaticIdentifier = "subscribe"
+                TypeIdentifierCallback = x => string.Join("", x.FieldValue("args")!.Split(','))
             },
 
         ];
