@@ -93,8 +93,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     new DataEvent<BitMEXTradeUpdate[]>(data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
-                        .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
+                        .WithDataTimestamp(data.Data.Length > 0 ? data.Data.Max(x => x.Timestamp) : null)
                     );
             });
 
@@ -325,6 +325,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXFundingRate[]>>((receiveTime, originalData, data) =>
             {
+                if (data.Data.Length == 0)
+                    return;
+
                 onMessage(
                     new DataEvent<BitMEXFundingRate>(data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)

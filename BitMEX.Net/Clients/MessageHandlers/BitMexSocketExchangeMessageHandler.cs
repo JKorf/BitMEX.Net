@@ -16,25 +16,17 @@ namespace BitMEX.Net.Clients.MessageHandlers
 
         public BitMexSocketExchangeMessageHandler()
         {
-            AddTopicMapping<SocketUpdate<BitMEXTradeUpdate[]>>(x => x.Data.First().Symbol);
+            AddTopicMapping<SocketUpdate<BitMEXTradeUpdate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
             AddTopicMapping<SocketUpdate<BitMEXAggTrade[]>>(x => x.Data.First().Symbol);
             AddTopicMapping<SocketUpdate<BitMEXBookTicker[]>>(x => x.Data.First().Symbol);
-            AddTopicMapping<SocketUpdate<BitMEXSettlementHistory[]>>(x => x.Data.First().Symbol);
+            AddTopicMapping<SocketUpdate<BitMEXSettlementHistory[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
             AddTopicMapping<SocketUpdate<BitMEXOrderBookUpdate[]>>(x => x.Data.First().Symbol);
             AddTopicMapping<SocketUpdate<BitMEXOrderBookEntry[]>>(x => x.Data.First().Symbol);
-            AddTopicMapping<SocketUpdate<BitMEXLiquidation[]>>(x => x.Data.First().Symbol);
-            AddTopicMapping<SocketUpdate<BitMEXFundingRate[]>>(x => x.Data.First().Symbol);
+            AddTopicMapping<SocketUpdate<BitMEXLiquidation[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
+            AddTopicMapping<SocketUpdate<BitMEXFundingRate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
         }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
-
-            //new MessageEvaluator {
-            //    Fields = [
-            //        new PropertyFieldReference("table") { Constraint = x => !_tableUpdatesWithoutSymbol.Contains(x!) },
-            //        new PropertyFieldReference("symbol") { Depth = 3 },
-            //    ],
-            //    IdentifyMessageCallback = x => $"upd{x.FieldValue("table")}{x.FieldValue("symbol")}"
-            //},
 
             new MessageTypeDefinition {
                 Fields = [
