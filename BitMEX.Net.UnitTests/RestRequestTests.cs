@@ -12,14 +12,12 @@ namespace BitMEX.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateAccountCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateAccountCalls()
         {
             var client = new BitMEXRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/Account", "https://www.bitmex.com", IsAuthenticated);
@@ -29,14 +27,12 @@ namespace BitMEX.Net.UnitTests
             await tester.ValidateAsync(client => client.ExchangeApi.Account.GetBalancesAsync(), "GetBalances");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateExchangeDataCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateExchangeDataCalls()
         {
             var client = new BitMEXRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/ExchangeData", "https://www.bitmex.com", IsAuthenticated);
@@ -58,14 +54,12 @@ namespace BitMEX.Net.UnitTests
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetLiquidationsAsync(), "GetLiquidations");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateTradingCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateTradingCalls()
         {
             var client = new BitMEXRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/Trading", "https://www.bitmex.com", IsAuthenticated);

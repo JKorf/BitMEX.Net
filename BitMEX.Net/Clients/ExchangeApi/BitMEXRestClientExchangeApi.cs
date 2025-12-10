@@ -94,29 +94,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-            {
-                if (httpStatusCode == 401)
-                    return new ServerError(new ErrorInfo(ErrorType.Unauthorized, "Unauthorized"), exception: exception);
-
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-            }
-
-            var message = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("message"));
-            var name = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("name"));
-            var details = accessor.GetValue<string?>(MessagePath.Get().Property("error").Property("details"));
-            if (name == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            if (details != null && int.TryParse(details, out var intCode))
-                return new ServerError(intCode, GetErrorInfo(intCode, message));
-
-            return new ServerError(name, GetErrorInfo(name, message), exception: exception);
-        }
-
-        /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();
 
