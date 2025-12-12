@@ -26,6 +26,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
             _handler = handler;
             _topics = symbols == null ? [topic] : symbols.Select(x => $"{topic}:{x}").ToArray();
 
+            IndividualSubscriptionCount = symbols?.Length ?? 1;
 
             MessageMatcher = MessageMatcher.Create(_topics.Select(x => new MessageHandlerLink<SocketUpdate<T>>("upd" + x.Replace(":", ""), DoHandleMessage)).ToArray());
             MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<SocketUpdate<T>>("upd" + topic, symbols, DoHandleMessage);
