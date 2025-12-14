@@ -90,7 +90,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXTradeUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXTradeUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXTradeUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
@@ -112,7 +112,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXAggTrade[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXAggTrade[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXAggTrade[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -134,7 +134,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBookTicker[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXBookTicker>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMEXBookTicker>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -156,7 +156,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBookTicker[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXBookTicker>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMEXBookTicker>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -174,7 +174,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSettlementHistory[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXSettlementHistory[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXSettlementHistory[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
@@ -195,7 +195,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrderBookUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXOrderBookUpdate>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMEXOrderBookUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -217,7 +217,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrderBookEntry[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXOrderBookIncrementalUpdate>(new BitMEXOrderBookIncrementalUpdate
+                    new DataEvent<BitMEXOrderBookIncrementalUpdate>(Exchange, new BitMEXOrderBookIncrementalUpdate
                     {
                         Action = EnumConverter.ParseString<BookUpdateType>(data.Action)!.Value,
                         Entries = data.Data
@@ -239,7 +239,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXLiquidation[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXLiquidation[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXLiquidation[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
@@ -256,7 +256,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXInsurance[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXInsurance[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXInsurance[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
@@ -273,7 +273,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXSymbolUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXSymbolUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
@@ -289,7 +289,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXSymbolUpdate>(data.Data.Single(), receiveTime, originalData)
+                    new DataEvent<BitMEXSymbolUpdate>(Exchange, data.Data.Single(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
@@ -305,7 +305,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXSymbolUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXSymbolUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
@@ -329,7 +329,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     return;
 
                 onMessage(
-                    new DataEvent<BitMEXFundingRate>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMEXFundingRate>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -346,7 +346,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXAnnouncement[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXAnnouncement[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXAnnouncement[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
@@ -362,7 +362,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXNotification[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXNotification[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXNotification[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                     );
@@ -377,7 +377,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBalance[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXBalance[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXBalance[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
@@ -393,7 +393,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXTransaction[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXTransaction[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXTransaction[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
@@ -410,7 +410,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXPosition[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXPosition[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXPosition[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
@@ -426,7 +426,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXMarginStatus[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXMarginStatus>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMEXMarginStatus>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
@@ -442,7 +442,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrder[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXOrder[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXOrder[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
@@ -458,7 +458,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXExecution[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMEXExecution[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMEXExecution[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
