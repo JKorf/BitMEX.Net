@@ -29,6 +29,11 @@ namespace BitMEX.Net.Enums
         /// Indicative settle price
         /// </summary>
         [Map("IndicativeSettlePrice")]
-        IndicativeSettlePrice
+        IndicativeSettlePrice,
+        /// <summary>
+        /// Fair price stocks
+        /// </summary>
+        [Map("FairPriceStox")]
+        FairPriceStox
     }
 }

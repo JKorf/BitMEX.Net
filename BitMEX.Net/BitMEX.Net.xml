@@ -1912,6 +1912,11 @@
             Indicative settle price
             </summary>
         </member>
+        <member name="F:BitMEX.Net.Enums.MarkMethod.FairPriceStox">
+            <summary>
+            Fair price stocks
+            </summary>
+        </member>
         <member name="T:BitMEX.Net.Enums.OrderSide">
             <summary>
             Order side
@@ -2182,9 +2187,14 @@
             BitMEX Volatility Index
             </summary>
         </member>
-        <member name="F:BitMEX.Net.Enums.SymbolType.UnknownMRSXXX">
+        <member name="F:BitMEX.Net.Enums.SymbolType.PerpetualEquitySwapIndex">
             <summary>
-            Unknown
+            Perpetual equity swap index
+            </summary>
+        </member>
+        <member name="F:BitMEX.Net.Enums.SymbolType.PerpetualEquitySwap">
+            <summary>
+            Perpetual equity swap
             </summary>
         </member>
         <member name="T:BitMEX.Net.Enums.TimeInForce">
