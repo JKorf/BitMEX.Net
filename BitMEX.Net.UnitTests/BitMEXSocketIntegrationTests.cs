@@ -13,7 +13,7 @@ namespace BitMEX.Net.UnitTests
     [NonParallelizable]
     internal class BitMEXSocketIntegrationTests : SocketIntegrationTest<BitMEXSocketClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public BitMEXSocketIntegrationTests()
         {

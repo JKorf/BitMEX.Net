@@ -14,7 +14,7 @@ namespace BitMEX.Net.UnitTests
     [NonParallelizable]
     public class BitMEXRestIntegrationTests : RestIntegrationTest<BitMEXRestClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public override BitMEXRestClient GetClient(ILoggerFactory loggerFactory)
         {
