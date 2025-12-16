@@ -1,0 +1,6 @@
+>1 { "op": "subscribe", "args": ["tradeBin1d:ETH_USDT"] }
+>2 { "op": "subscribe", "args": ["tradeBin1h:ETH_USDT"] }
+<1 {"success":true,"subscribe":"tradeBin1d:ETH_USDT","request":{"op":"subscribe","args":["tradeBin1d:ETH_USDT"]}}
+<2 {"success":true,"subscribe":"tradeBin1h:ETH_USDT","request":{"op":"subscribe","args":["tradeBin1h:ETH_USDT"]}}
+=1 {"table":"tradeBin1h","action":"insert","data":[{"timestamp":"2025-02-07T10:55:00.000Z","symbol":"ETH_USDT"}]}
+=2 {"table":"tradeBin1d","action":"insert","data":[{"timestamp":"2025-02-07T10:55:00.000Z","symbol":"ETH_USDT"}]}

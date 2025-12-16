@@ -1,28 +1,32 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using BitMEX.Net.Clients.MessageHandlers;
+using BitMEX.Net.Enums;
+using BitMEX.Net.Interfaces.Clients.ExchangeApi;
+using BitMEX.Net.Objects.Internal;
+using BitMEX.Net.Objects.Models;
+using BitMEX.Net.Objects.Options;
+using BitMEX.Net.Objects.Sockets;
+using BitMEX.Net.Objects.Sockets.Subscriptions;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Interfaces;
 using Microsoft.Extensions.Logging;
-using BitMEX.Net.Interfaces.Clients.ExchangeApi;
-using BitMEX.Net.Objects.Models;
-using BitMEX.Net.Objects.Options;
-using BitMEX.Net.Objects.Sockets.Subscriptions;
-using CryptoExchange.Net;
-using BitMEX.Net.Objects.Sockets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using BitMEX.Net.Enums;
-using BitMEX.Net.Objects.Internal;
 using System.Net.WebSockets;
-using CryptoExchange.Net.Objects.Errors;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -70,6 +74,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMexSocketExchangeMessageHandler();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -82,9 +87,18 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXTradeUpdate[]>(_logger, this, symbols.Select(x => "trade:" + x).ToArray(), x => onMessage(
-                x.WithSymbol(x.Data.First().Symbol)
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXTradeUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXTradeUpdate[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
+                        .WithDataTimestamp(data.Data.Length > 0 ? data.Data.Max(x => x.Timestamp) : null)
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXTradeUpdate[]>(_logger, this, "trade", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -95,9 +109,18 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<BitMEXAggTrade[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXAggTrade[]>(_logger, this, symbols.Select(x => "tradeBin" + EnumConverter.GetString(period) + ":" + x).ToArray(), x => onMessage(
-                x.WithSymbol(x.Data.First().Symbol)
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXAggTrade[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXAggTrade[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.First().Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXAggTrade[]>(_logger, this, "tradeBin" + EnumConverter.GetString(period), symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -108,10 +131,18 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, this, symbols.Select(x => "quote:" + x).ToArray(), x => onMessage(
-                x.As(x.Data.First())
-                .WithSymbol(x.Data.First().Symbol)
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBookTicker[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXBookTicker>(Exchange, data.Data.First(), receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.First().Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, this, "quote", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -122,18 +153,35 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedBookTickerUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, this, symbols.Select(x => "quoteBin" + EnumConverter.GetString(period) + ":" + x).ToArray(), x => onMessage(
-                x.As(x.Data.First())
-                .WithSymbol(x.Data.First().Symbol)
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBookTicker[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXBookTicker>(Exchange, data.Data.First(), receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.First().Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXBookTicker[]>(_logger, this, "quoteBin", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSettlementUpdatesAsync(Action<DataEvent<BitMEXSettlementHistory[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXSettlementHistory[]>(_logger, this, ["settlement"], x => onMessage(x
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSettlementHistory[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXSettlementHistory[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXSettlementHistory[]>(_logger, this, "settlement", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -144,10 +192,18 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXOrderBookUpdate[]>(_logger, this, symbols.Select(x => "orderBook10:" + x).ToArray(), x => onMessage(
-                x.As(x.Data.First())
-                .WithSymbol(x.Data.First().Symbol)
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrderBookUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXOrderBookUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.First().Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXOrderBookUpdate[]>(_logger, this, "orderBook10", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -158,55 +214,105 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(IEnumerable<string> symbols, IncrementalBookLimit limit, Action<DataEvent<BitMEXOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXRawSubscription<SocketUpdate<BitMEXOrderBookEntry[]>>(_logger, this, symbols.Select(x => "orderBookL2" + (limit == IncrementalBookLimit.Top25 ? "_25": "") + ":" + x).ToArray(), x => onMessage(x.As(new BitMEXOrderBookIncrementalUpdate
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrderBookEntry[]>>((receiveTime, originalData, data) =>
             {
-                Action = EnumConverter.ParseString<BookUpdateType>(x.Data.Action)!.Value,
-                Entries = x.Data.Data
-            })
-                .WithSymbol(x.Data.Data.First().Symbol)
-                .WithUpdateType(x.Data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
-                .WithDataTimestamp(x.Data.Data.Max(x => x.Timestamp))), false);
+                onMessage(
+                    new DataEvent<BitMEXOrderBookIncrementalUpdate>(Exchange, new BitMEXOrderBookIncrementalUpdate
+                    {
+                        Action = EnumConverter.ParseString<BookUpdateType>(data.Action)!.Value,
+                        Entries = data.Data
+                    }, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.First().Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXOrderBookEntry[]>(_logger, this, "orderBookL2" + (limit == IncrementalBookLimit.Top25 ? "_25" : ""), symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<BitMEXLiquidation[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXLiquidation[]>(_logger, this, ["liquidation"], x => onMessage(
-                x.WithSymbol(x.Data.FirstOrDefault()?.Symbol!)), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXLiquidation[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXLiquidation[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXLiquidation[]>(_logger, this, "liquidation", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToInsuranceUpdatesAsync(Action<DataEvent<BitMEXInsurance[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXInsurance[]>(_logger, this, ["insurance"], x => onMessage(x
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXInsurance[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXInsurance[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXInsurance[]>(_logger, this, "insurance", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(SymbolCategory? category, Action<DataEvent<BitMEXSymbolUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXOptionalSymbolSubscription<BitMEXSymbolUpdate>(_logger, this, "instrument", category == null ? null :[EnumConverter.GetString(category)], null, x => onMessage(x
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXSymbolUpdate[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXSymbolUpdate[]>(_logger, this, "instrument", category == null ? null :[EnumConverter.GetString(category)], handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(string symbol, Action<DataEvent<BitMEXSymbolUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXOptionalSymbolSubscription<BitMEXSymbolUpdate>(_logger, this, "instrument", null, [symbol], x => onMessage(
-                x.As(x.Data.Single())
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXSymbolUpdate>(Exchange, data.Data.Single(), receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXSymbolUpdate[]>(_logger, this, "instrument", [symbol], handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXSymbolUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXOptionalSymbolSubscription<BitMEXSymbolUpdate>(_logger, this, "instrument", null, symbols.ToArray(), x => onMessage(x
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXSymbolUpdate[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXSymbolUpdate[]>(_logger, this, "instrument", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -217,67 +323,148 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToFundingUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXFundingRate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXFundingRate[]>(_logger, this, symbols.Select(x => "funding:" + x).ToArray(), x => onMessage(
-                x.As(x.Data.First())
-                .WithSymbol(x.Data.First().Symbol)
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXFundingRate[]>>((receiveTime, originalData, data) =>
+            {
+                if (data.Data.Length == 0)
+                    return;
+
+                onMessage(
+                    new DataEvent<BitMEXFundingRate>(Exchange, data.Data.First(), receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.First().Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXFundingRate[]>(_logger, this, "funding", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAnnouncementUpdatesAsync(Action<DataEvent<BitMEXAnnouncement[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXAnnouncement[]>(_logger, this, ["announcement"], x => onMessage(x.WithDataTimestamp(x.Data.Max(x => x.Timestamp))), false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXAnnouncement[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXAnnouncement[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXAnnouncement[]>(_logger, this, "announcement", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtimePlatform"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToNotificationUpdatesAsync(Action<DataEvent<BitMEXNotification[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXNotification[]>(_logger, this, ["publicNotifications"], onMessage, false);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXNotification[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXNotification[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXNotification[]>(_logger, this, "publicNotifications", null, handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMEXBalance[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXBalance[]>(_logger, this, ["wallet"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBalance[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXBalance[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXBalance[]>(_logger, this, "wallet", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTransactionUpdatesAsync(Action<DataEvent<BitMEXTransaction[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXTransaction[]>(_logger, this, ["transact"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXTransaction[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXTransaction[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
+                    );
+            });
+
+            var subscription = new BitMEXSubscription<BitMEXTransaction[]>(_logger, this, "transact", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMEXPosition[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXPosition[]>(_logger, this, ["position"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXPosition[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXPosition[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXPosition[]>(_logger, this, "position", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarginUpdatesAsync(Action<DataEvent<BitMEXMarginStatus>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXMarginStatus[]>(_logger, this, ["margin"], x => onMessage(x.As(x.Data.First())
-                .WithDataTimestamp(x.Data.Max(x => x.Timestamp))), true);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXMarginStatus[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXMarginStatus>(Exchange, data.Data.First(), receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXMarginStatus[]>(_logger, this, "margin", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMEXOrder[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXOrder[]>(_logger, this, ["order"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrder[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXOrder[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXOrder[]>(_logger, this, "order", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<BitMEXExecution[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMEXSubscription<BitMEXExecution[]>(_logger, this, ["execution"], x => onMessage(x.WithDataTimestamp(x.Data.Any() ? x.Data.Max(x => x.Timestamp) : null)), true);
+            var handler = new Action<DateTime, string?, SocketUpdate<BitMEXExecution[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMEXExecution[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.Timestamp) : null)
+                    );
+            });
+            var subscription = new BitMEXSubscription<BitMEXExecution[]>(_logger, this, "execution", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("realtime"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -300,9 +487,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return BaseAddress.AppendPath("realtime?" + queryParams);
         }
 
-        protected override Task<Uri?> GetReconnectUriAsync(SocketConnection connection)
+        protected override Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
         {
-            if (!connection.Subscriptions.Any(x => x.Authenticated))
+            if (!connection.HasAuthenticatedSubscription)
                 return Task.FromResult<Uri?>(null);
             
             return Task.FromResult(new Uri(GetAddress()!))!;

@@ -70,5 +70,15 @@ namespace BitMEX.Net.Enums
         /// </summary>
         [Map("MRIXXX")]
         BitMEXVolatilityIndex,
+        /// <summary>
+        /// Perpetual equity swap index
+        /// </summary>
+        [Map("MRSXXX")]
+        PerpetualEquitySwapIndex,
+        /// <summary>
+        /// Perpetual equity swap
+        /// </summary>
+        [Map("FFSCSX")]
+        PerpetualEquitySwap
     }
 }

@@ -1,6 +1,5 @@
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net;
-using BitMEX.Net.Clients.ExchangeApi;
 using BitMEX.Net.Interfaces.Clients.ExchangeApi;
 using System.Collections.Generic;
 using System.Net.Http;

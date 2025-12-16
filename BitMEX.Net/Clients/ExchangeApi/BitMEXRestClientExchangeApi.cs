@@ -1,9 +1,7 @@
-using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +13,9 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using BitMEX.Net.Clients.MessageHandlers;
+using System.Net.Http.Headers;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -27,6 +28,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
         public new BitMEXRestOptions ClientOptions => (BitMEXRestOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => BitMEXErrors.RestErrors;
+
+        protected override IRestMessageHandler MessageHandler { get; } = new BitMexRestMessageHandler(BitMEXErrors.RestErrors);
 
         private IStringMessageSerializer? _serializer;
         #endregion
@@ -88,29 +91,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
             // Optional response checking
 
             return result;
-        }
-
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-            {
-                if (httpStatusCode == 401)
-                    return new ServerError(new ErrorInfo(ErrorType.Unauthorized, "Unauthorized"), exception: exception);
-
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-            }
-
-            var message = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("message"));
-            var name = accessor.GetValue<string>(MessagePath.Get().Property("error").Property("name"));
-            var details = accessor.GetValue<string?>(MessagePath.Get().Property("error").Property("details"));
-            if (name == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            if (details != null && int.TryParse(details, out var intCode))
-                return new ServerError(intCode, GetErrorInfo(intCode, message));
-
-            return new ServerError(name, GetErrorInfo(name, message), exception: exception);
         }
 
         /// <inheritdoc />

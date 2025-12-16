@@ -1,11 +1,10 @@
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using System.Collections.Generic;
-using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Internal;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Clients;
+using System;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace BitMEX.Net.Objects.Sockets
 {
@@ -16,25 +15,27 @@ namespace BitMEX.Net.Objects.Sockets
         public BitMEXQuery(SocketApiClient client, SocketCommand request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<T>(request.Parameters, HandleMessage);
             RequiredResponses = request.Parameters.Length;
+
+            MessageMatcher = MessageMatcher.Create<T>(request.Parameters, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<T>(request.Parameters, HandleMessage);
         }
 
-        public CallResult<T> HandleMessage(SocketConnection connection, DataEvent<T> message)
+        public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)
         {
-            if (message.Data is SocketResponse resp && !string.IsNullOrEmpty(resp.Error))
+            if (message is SocketResponse resp && !string.IsNullOrEmpty(resp.Error))
             {
                 if (resp.Error!.StartsWith("You are already subscribed to this topic"))
                     // Duplicate subscription, this is allowed by design
-                    return message.ToCallResult();
+                    return new CallResult<T>(message, originalData, null);
 
                 if (resp.Status != null)
-                    return message.ToCallResult<T>(new ServerError(resp.Status.Value, _client.GetErrorInfo(resp.Status.Value, resp.Error)));
+                    return new CallResult<T>(new ServerError(resp.Status.Value, _client.GetErrorInfo(resp.Status.Value, resp.Error)), originalData);
 
-                return message.ToCallResult<T>(new ServerError(ErrorInfo.Unknown with { Message = resp.Error }));
+                return new CallResult<T>(new ServerError(ErrorInfo.Unknown with { Message = resp.Error }), originalData);
             }
 
-            return message.ToCallResult();
+            return new CallResult<T>(message, originalData, null);
         }
     }
 }

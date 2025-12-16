@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Net;
 using System.Net.Http;
 using BitMEX.Net;
 using BitMEX.Net.Clients;
@@ -13,10 +12,7 @@ using BitMEX.Net.Interfaces;
 using BitMEX.Net.Interfaces.Clients;
 using BitMEX.Net.Objects.Options;
 using BitMEX.Net.SymbolOrderBooks;
-using System.Threading;
-using System.IO;
-using System.Net.Sockets;
-using System.Threading.Tasks;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

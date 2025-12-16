@@ -1,9 +1,6 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
 using BitMEX.Net.Enums;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMEX.Net.Objects.Models

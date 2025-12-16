@@ -19,7 +19,7 @@ namespace BitMEX.Net.UnitTests
         {
         }
 
-        public override BitMEXSocketClient GetClient(ILoggerFactory loggerFactory)
+        public override BitMEXSocketClient GetClient(ILoggerFactory loggerFactory, bool useNewDeserialization)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -28,15 +28,17 @@ namespace BitMEX.Net.UnitTests
             return new BitMEXSocketClient(Options.Create(new BitMEXSocketOptions
             {
                 OutputOriginalData = true,
+                UseUpdatedDeserialization = useNewDeserialization,
                 ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
             }), loggerFactory);
         }
 
-        [Test]
-        public async Task TestSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task TestSubscriptions(bool useNewDeserialization)
         {
-            await RunAndCheckUpdate<BitMEXBalance[]>((client, updateHandler) => client.ExchangeApi.SubscribeToBalanceUpdatesAsync(default , default), false, true);
-            await RunAndCheckUpdate<BitMEXBookTicker>((client, updateHandler) => client.ExchangeApi.SubscribeToBookTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<BitMEXBalance[]>(useNewDeserialization , (client, updateHandler) => client.ExchangeApi.SubscribeToBalanceUpdatesAsync(default , default), false, true);
+            await RunAndCheckUpdate<BitMEXBookTicker>(useNewDeserialization , (client, updateHandler) => client.ExchangeApi.SubscribeToBookTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
         } 
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace BitMEX.Net.Objects.Internal
@@ -13,5 +11,8 @@ namespace BitMEX.Net.Objects.Internal
         public string Action { get; set; } = string.Empty;
         [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
+
+        [JsonPropertyName("filter")]
+        public Dictionary<string, string>? Filter { get; set; }
     }
 }

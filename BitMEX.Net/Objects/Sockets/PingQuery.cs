@@ -1,7 +1,5 @@
 ﻿using CryptoExchange.Net.Sockets;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BitMEX.Net.Objects.Sockets
 {
@@ -9,8 +7,10 @@ namespace BitMEX.Net.Objects.Sockets
     {
         public PingQuery() : base("ping", false, 0)
         {
-            MessageMatcher = MessageMatcher.Create<string>("pong");
             RequestTimeout = TimeSpan.FromSeconds(5);
+
+            MessageMatcher = MessageMatcher.Create<string>("pong");
+            MessageRouter = MessageRouter.CreateWithoutHandler<string>("pong");
         }
 
     }

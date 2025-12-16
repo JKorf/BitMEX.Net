@@ -1,10 +1,7 @@
-using BitMEX.Net.Converters;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMEX.Net.Objects.Models
@@ -43,7 +40,7 @@ namespace BitMEX.Net.Objects.Models
     /// Order book entry
     /// </summary>
     [JsonConverter(typeof(ArrayConverter<BitMEXOrderBookUpdateEntry>))]
-    public class BitMEXOrderBookUpdateEntry : ISymbolOrderBookEntry
+    public record BitMEXOrderBookUpdateEntry : ISymbolOrderBookEntry
     {
         /// <summary>
         /// Price

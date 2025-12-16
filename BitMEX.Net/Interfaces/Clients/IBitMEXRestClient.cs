@@ -1,6 +1,6 @@
 using BitMEX.Net.Interfaces.Clients.ExchangeApi;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BitMEX.Net.Interfaces.Clients

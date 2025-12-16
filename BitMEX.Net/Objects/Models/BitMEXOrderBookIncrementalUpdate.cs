@@ -1,8 +1,5 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
 using BitMEX.Net.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BitMEX.Net.Objects.Models
 {

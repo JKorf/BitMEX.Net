@@ -12,7 +12,6 @@ namespace BitMEX.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-
         [Test]
         public async Task ValidateAccountCalls()
         {

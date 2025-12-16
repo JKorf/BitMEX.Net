@@ -1,13 +1,9 @@
-using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 
 namespace BitMEX.Net
 {
@@ -15,6 +11,7 @@ namespace BitMEX.Net
     {
         private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
 
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
         public BitMEXAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }
@@ -27,10 +24,11 @@ namespace BitMEX.Net
             var timestamp = GetTimestamp(apiClient);
 
             var expires = DateTimeConverter.ConvertToSeconds(timestamp.AddSeconds(5))!;
+            request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("api-expires", expires.Value.ToString());
             request.Headers.Add("api-key", ApiKey);
 
-            var body = !request.BodyParameters.Any() ? "" : GetSerializedBody(_serializer, request.BodyParameters);
+            var body = (request.BodyParameters == null || request.BodyParameters.Count == 0) ? "" : GetSerializedBody(_serializer, request.BodyParameters);
             var queryParams = request.GetQueryString(true);
             if (!string.IsNullOrEmpty(queryParams))
                 queryParams = $"?{queryParams}";
