@@ -52,6 +52,14 @@ namespace BitMEX.Net.Clients.MessageHandlers
             },
 
             new MessageTypeDefinition {
+                ForceIfFound = true,
+                Fields = [
+                    new PropertyFieldReference("unsubscribe"),
+                ],
+                TypeIdentifierCallback = x => x.FieldValue("unsubscribe")!
+            },
+
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("error"),
                     new PropertyFieldReference("args") { ArrayValues = true, Depth = 2 }
