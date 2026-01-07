@@ -13,6 +13,6 @@ namespace BitMEX.Net.Objects.Internal
         public T Data { get; set; } = default!;
 
         [JsonPropertyName("filter")]
-        public Dictionary<string, string>? Filter { get; set; }
+        public Dictionary<string, object>? Filter { get; set; }
     }
 }

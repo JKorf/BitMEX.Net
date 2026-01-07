@@ -23,8 +23,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
     internal partial class BitMEXRestClientExchangeApi : RestApiClient, IBitMEXRestClientExchangeApi
     {
         #region fields 
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Exchange Api");
-
         public new BitMEXRestOptions ClientOptions => (BitMEXRestOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => BitMEXErrors.RestErrors;
@@ -70,9 +68,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
             var result = await base.SendAsync(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-
-            // Optional response checking
-
             return result;
         }
 
@@ -96,14 +91,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null) 
