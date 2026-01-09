@@ -56,7 +56,7 @@ namespace BitMEX.Net.SymbolOrderBooks
 
             _adjustQuantities = options.AdjustQuantities;
             _strictLevels = false;
-            _sequencesAreConsecutive = options?.Limit == null;
+            _sequencesAreConsecutive = false;
 
             Levels = options?.Limit;
             _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(10);
@@ -96,7 +96,7 @@ namespace BitMEX.Net.SymbolOrderBooks
 
             if (@event.UpdateType == SocketUpdateType.Snapshot)
             {
-                SetInitialOrderBook(
+                SetSnapshot(
                     DateTime.UtcNow.Ticks,
                     @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Buy).ToArray(),
                     @event.Data.Entries.Where(x => x.Side == Enums.OrderSide.Sell).ToArray(),
