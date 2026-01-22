@@ -17,6 +17,19 @@ namespace BitMEX.Net
     public static class BitMEXExchange
     {
         /// <summary>
+        /// Platform metadata
+        /// </summary>
+        public static PlatformInfo Metadata { get; } = new PlatformInfo(
+                "BitMEX",
+                "BitMEX",
+                "https://raw.githubusercontent.com/JKorf/BitMEX.Net/main/BitMEX.Net/Icon/icon.png",
+                "https://www.bitmex.com",
+                ["https://www.bitmex.com/api/explorer/#/"],
+                PlatformType.CryptoCurrencyExchange,
+                CentralizationType.Centralized
+                );
+
+        /// <summary>
         /// Exchange name
         /// </summary>
         public static string ExchangeName => "BitMEX";

@@ -54,6 +54,11 @@
             BitMEX exchange information and configuration
             </summary>
         </member>
+        <member name="P:BitMEX.Net.BitMEXExchange.Metadata">
+            <summary>
+            Platform metadata
+            </summary>
+        </member>
         <member name="P:BitMEX.Net.BitMEXExchange.ExchangeName">
             <summary>
             Exchange name
@@ -292,9 +297,6 @@
         <member name="P:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApi.ExchangeName">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApi.CreateAccessor">
-            <inheritdoc />
-        </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXRestClientExchangeApi.CreateSerializer">
             <inheritdoc />
         </member>
@@ -500,9 +502,6 @@
             ctor
             </summary>
         </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
-            <inheritdoc />
-        </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.CreateSerializer">
             <inheritdoc />
         </member>
@@ -591,9 +590,6 @@
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SubscribeToUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXExecution[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="P:BitMEX.Net.Clients.ExchangeApi.BitMEXSocketClientExchangeApi.SharedClient">

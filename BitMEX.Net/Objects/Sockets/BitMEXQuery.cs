@@ -17,7 +17,6 @@ namespace BitMEX.Net.Objects.Sockets
             _client = client;
             RequiredResponses = request.Parameters.Length;
 
-            MessageMatcher = MessageMatcher.Create<T>(request.Parameters, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<T>(request.Parameters, HandleMessage);
         }
 

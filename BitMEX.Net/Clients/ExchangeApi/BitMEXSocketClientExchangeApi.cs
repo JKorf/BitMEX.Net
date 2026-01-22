@@ -36,13 +36,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
     internal partial class BitMEXSocketClientExchangeApi : SocketApiClient, IBitMEXSocketClientExchangeApi
     {
         #region fields
-        private static readonly MessagePath _subscribePath = MessagePath.Get().Property("subscribe");
-        private static readonly MessagePath _tablePath = MessagePath.Get().Property("table");
-        private static readonly MessagePath _symbolPath = MessagePath.Get().Property("data").Index(0).Property("symbol");
-        private static readonly MessagePath _infoPath = MessagePath.Get().Property("info");
-        private static readonly MessagePath _errorPath = MessagePath.Get().Property("error");
-        private static readonly MessagePath _argsPath = MessagePath.Get().Property("request").Property("args");
-
         protected override ErrorMapping ErrorMapping => BitMEXErrors.SocketErrors;
         #endregion
 
@@ -56,8 +49,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             AddSystemSubscription(new BitMEXInfoSubscription(_logger));
 
-            ProcessUnparsableMessages = true;
-
             RegisterPeriodicQuery("Ping", TimeSpan.FromSeconds(5), x => new PingQuery(), (connection, result) =>
             {
                 if (!result)
@@ -70,8 +61,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
         #endregion
 
-        /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMexSocketExchangeMessageHandler();
@@ -564,52 +553,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return Task.FromResult<Uri?>(null);
             
             return Task.FromResult(new Uri(GetAddress()!))!;
-        }
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor message)
-        {
-            if (!message.IsValid)
-                return "pong";
-
-            var table = message.GetValue<string>(_tablePath);
-            if (table != null)
-            {
-                if (table.Equals("settlement")
-                    || table.Equals("liquidation")
-                    || table.Equals("execution")
-                    || table.Equals("order")
-                    || table.Equals("position")
-                    || table.Equals("instrument")
-                    || table.Equals("announcement")
-                    || table.Equals("publicNotifications")
-                    || table.Equals("insurance"))
-                {
-                    return "upd" + table;
-                }
-
-                var symbol = message.GetValue<string>(_symbolPath);
-                return "upd" + table + symbol;
-            }
-
-            var sub = message.GetValue<string>(_subscribePath);
-            if (sub != null)
-                return sub;
-
-            var info = message.GetValue<string>(_infoPath);
-            if (info != null)
-                return "info";
-
-            var error = message.GetValue<string>(_errorPath);
-            if (error != null)
-            {
-                // Check if the request is present in the error
-                var subArgs = message.GetValues<string>(_argsPath);
-                if (subArgs != null && subArgs.Any())
-                    return string.Join("", subArgs);
-            }
-
-            return null;
         }
 
         /// <inheritdoc />

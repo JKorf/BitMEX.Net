@@ -16,17 +16,15 @@ namespace BitMEX.Net.UnitTests
     public class SocketSubscriptionTests
     {
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateConcurrentSubscriptions(bool newDeserialization)
+        [Test]
+        public async Task ValidateConcurrentSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
 
             var client = new BitMEXSocketClient(Options.Create(new BitMEXSocketOptions
             {
-                OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization
+                OutputOriginalData = true
             }), logger);
 
             var tester = new SocketSubscriptionValidator<BitMEXSocketClient>(client, "Subscriptions/Exchange", "wss://ws.bitmex.com/");
@@ -36,9 +34,8 @@ namespace BitMEX.Net.UnitTests
                 "Concurrent");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotExchangeDataSubscriptions(bool newDeserialization)
+        [Test]
+        public async Task ValidateSpotExchangeDataSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
@@ -46,8 +43,7 @@ namespace BitMEX.Net.UnitTests
             var client = new BitMEXSocketClient(Options.Create(new BitMEXSocketOptions
             {
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789"),
-                OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization
+                OutputOriginalData = true
             }), logger);
             var tester = new SocketSubscriptionValidator<BitMEXSocketClient>(client, "Subscriptions/Exchange", "wss://ws.bitmex.com/");
             await tester.ValidateAsync<BitMEXTradeUpdate[]>((client, handler) => client.ExchangeApi.SubscribeToTradeUpdatesAsync("ETH_USDT", handler), "Trades", nestedJsonProperty: "data", ignoreProperties: ["trdType"]);
