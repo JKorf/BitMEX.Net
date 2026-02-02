@@ -397,6 +397,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 update => handler(update.ToType<SharedPosition[]>(update.Data.Where(x => x.Currency != null).Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
                 {
                     AverageOpenPrice = x.AverageEntryPrice,
+                    PositionMode = SharedPositionMode.OneWay,
                     PositionSide = x.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long,
                     UnrealizedPnl = x.UnrealizedPnl.ToSharedAssetQuantity(x.Currency!),
                     Leverage = x.Leverage,

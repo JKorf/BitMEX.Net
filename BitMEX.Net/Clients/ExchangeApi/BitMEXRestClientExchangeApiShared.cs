@@ -1600,6 +1600,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
                 Leverage = x.Leverage,
                 AverageOpenPrice = x.AverageEntryPrice,
+                PositionMode = SharedPositionMode.OneWay,
                 PositionSide = x.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long
             }).ToArray());
         }
