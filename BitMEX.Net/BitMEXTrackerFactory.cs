@@ -1,12 +1,17 @@
+using BitMEX.Net.Clients;
+using BitMEX.Net.Interfaces;
+using BitMEX.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
-using BitMEX.Net.Interfaces;
-using BitMEX.Net.Interfaces.Clients;
+using CryptoExchange.Net.Trackers.UserData;
+using CryptoExchange.Net.Trackers.UserData.Interfaces;
+using CryptoExchange.Net.Trackers.UserData.Objects;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
-using BitMEX.Net.Clients;
 
 namespace BitMEX.Net
 {
@@ -57,6 +62,64 @@ namespace BitMEX.Net
                 symbol,
                 limit,
                 period
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig config)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IBitMEXRestClient>() ?? new BitMEXRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IBitMEXSocketClient>() ?? new BitMEXSocketClient();
+            return new BitMEXUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMEXUserSpotDataTracker>>() ?? new NullLogger<BitMEXUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, SpotUserDataTrackerConfig config, ApiCredentials credentials, BitMEXEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IBitMEXUserClientProvider>() ?? new BitMEXUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new BitMEXUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMEXUserSpotDataTracker>>() ?? new NullLogger<BitMEXUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig config)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IBitMEXRestClient>() ?? new BitMEXRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IBitMEXSocketClient>() ?? new BitMEXSocketClient();
+            return new BitMEXUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMEXUserFuturesDataTracker>>() ?? new NullLogger<BitMEXUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, FuturesUserDataTrackerConfig config, ApiCredentials credentials, BitMEXEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IBitMEXUserClientProvider>() ?? new BitMEXUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new BitMEXUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMEXUserFuturesDataTracker>>() ?? new NullLogger<BitMEXUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
                 );
         }
     }
