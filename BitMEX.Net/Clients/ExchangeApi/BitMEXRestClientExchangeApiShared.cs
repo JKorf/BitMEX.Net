@@ -522,7 +522,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return response;
         }
 
-        public async Task<ExchangeResult<SharedSymbol[]>> GetSpotSymbolsForBaseAssetAsync(string baseAsset)
+        async Task<ExchangeResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
         {
             if (!ExchangeSymbolCache.HasCached(_topicSpotId))
             {
@@ -534,7 +534,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return new ExchangeResult<SharedSymbol[]>(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicSpotId, baseAsset));
         }
 
-        public async Task<ExchangeResult<bool>> SupportsSpotSymbolAsync(SharedSymbol symbol)
+        async Task<ExchangeResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(SharedSymbol symbol)
         {
             if (symbol.TradingMode != TradingMode.Spot)
                 throw new ArgumentException(nameof(symbol), "Only Spot symbols allowed");
@@ -549,7 +549,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return new ExchangeResult<bool>(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, symbol));
         }
 
-        public async Task<ExchangeResult<bool>> SupportsSpotSymbolAsync(string symbolName)
+        async Task<ExchangeResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(string symbolName)
         {
             if (!ExchangeSymbolCache.HasCached(_topicSpotId))
             {
@@ -1102,7 +1102,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return response;
         }
 
-        public async Task<ExchangeResult<SharedSymbol[]>> GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
+        async Task<ExchangeResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
         {
             if (!ExchangeSymbolCache.HasCached(_topicFuturesId))
             {
@@ -1114,7 +1114,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return new ExchangeResult<SharedSymbol[]>(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicFuturesId, baseAsset));
         }
 
-        public async Task<ExchangeResult<bool>> SupportsFuturesSymbolAsync(SharedSymbol symbol)
+        async Task<ExchangeResult<bool>> IFuturesSymbolRestClient.SupportsFuturesSymbolAsync(SharedSymbol symbol)
         {
             if (symbol.TradingMode == TradingMode.Spot)
                 throw new ArgumentException(nameof(symbol), "Spot symbols not allowed");
@@ -1129,7 +1129,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return new ExchangeResult<bool>(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, symbol));
         }
 
-        public async Task<ExchangeResult<bool>> SupportsFuturesSymbolAsync(string symbolName)
+        async Task<ExchangeResult<bool>> IFuturesSymbolRestClient.SupportsFuturesSymbolAsync(string symbolName)
         {
             if (!ExchangeSymbolCache.HasCached(_topicFuturesId))
             {
