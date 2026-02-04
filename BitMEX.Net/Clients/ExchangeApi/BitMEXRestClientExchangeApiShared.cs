@@ -181,7 +181,13 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 nextToken = new OffsetToken((offset ?? 0) + deposits.Data.Count());
 
             return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, 
-                deposits.Data.Where(x => x.TransactionType == TransactionType.Deposit).Select(x => new SharedDeposit(BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency)), x.Quantity.ToSharedAssetQuantity(x.Currency), x.TransactionStatus == TransactionStatus.Completed, x.TransactionTime)
+                deposits.Data.Where(x => x.TransactionType == TransactionType.Deposit).Select(x => 
+                new SharedDeposit(
+                    BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency)),
+                    x.Quantity.ToSharedAssetQuantity(x.Currency),
+                    x.TransactionStatus == TransactionStatus.Completed,
+                    x.TransactionTime,
+                    x.TransactionStatus == TransactionStatus.Completed ? SharedTransferStatus.Completed : SharedTransferStatus.Failed)
             {
                 Network = x.Network,
                 TransactionId = x.Transaction,
