@@ -153,13 +153,13 @@
         <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+        <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,BitMEX.Net.BitMEXEnvironment)">
             <inheritdoc />
         </member>
         <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+        <member name="M:BitMEX.Net.BitMEXTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,BitMEX.Net.BitMEXEnvironment)">
             <inheritdoc />
         </member>
         <member name="T:BitMEX.Net.BitMEXUserSpotDataTracker">
@@ -3471,7 +3471,7 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.IBitMEXTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+        <member name="M:BitMEX.Net.Interfaces.IBitMEXTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,BitMEX.Net.BitMEXEnvironment)">
             <summary>
             Create a new Spot user data tracker
             </summary>
@@ -3486,7 +3486,7 @@
             </summary>
             <param name="config">Configuration</param>
         </member>
-        <member name="M:BitMEX.Net.Interfaces.IBitMEXTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BitMEX.Net.BitMEXEnvironment)">
+        <member name="M:BitMEX.Net.Interfaces.IBitMEXTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,BitMEX.Net.BitMEXEnvironment)">
             <summary>
             Create a new futures user data tracker
             </summary>

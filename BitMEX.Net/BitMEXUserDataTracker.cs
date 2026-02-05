@@ -17,7 +17,7 @@ namespace BitMEX.Net
             IBitMEXRestClient restClient,
             IBitMEXSocketClient socketClient,
             string? userIdentifier,
-            SpotUserDataTrackerConfig config) : base(
+            SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.ExchangeApi.SharedClient,
                 null,
@@ -27,7 +27,7 @@ namespace BitMEX.Net
                 socketClient.ExchangeApi.SharedClient,
                 socketClient.ExchangeApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new SpotUserDataTrackerConfig())
         {
         }
     }
@@ -46,7 +46,7 @@ namespace BitMEX.Net
             IBitMEXRestClient restClient,
             IBitMEXSocketClient socketClient,
             string? userIdentifier,
-            FuturesUserDataTrackerConfig config) : base(logger,
+            FuturesUserDataTrackerConfig? config) : base(logger,
                 restClient.ExchangeApi.SharedClient,
                 null,
                 restClient.ExchangeApi.SharedClient,
@@ -56,7 +56,7 @@ namespace BitMEX.Net
                 socketClient.ExchangeApi.SharedClient,
                 socketClient.ExchangeApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new FuturesUserDataTrackerConfig())
         {
         }
     }

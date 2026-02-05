@@ -1228,7 +1228,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return result.AsExchangeError<SharedLeverage>(Exchange, new ServerError(new ErrorInfo(ErrorType.NoPosition, "Position not found")));
 
             var position = result.Data.First();
-            return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedLeverage(position.Leverage)
+            return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedLeverage(position.Leverage ?? 0)
             {
                 MarginMode = position.CrossMargin ? SharedMarginMode.Cross : SharedMarginMode.Isolated
             });
@@ -1253,7 +1253,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 if (!result)
                     return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedLeverage(result.Data.Leverage) { MarginMode = request.MarginMode });
+                return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedLeverage(result.Data.Leverage ?? 0) { MarginMode = request.MarginMode });
             }
             else
             {
@@ -1261,7 +1261,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 if (!result)
                     return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedLeverage(result.Data.Leverage) { MarginMode = request.MarginMode });
+                return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedLeverage(result.Data.Leverage ?? 0) { MarginMode = request.MarginMode });
             }
 
         }

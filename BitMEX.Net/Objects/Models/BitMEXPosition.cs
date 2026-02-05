@@ -39,27 +39,27 @@ namespace BitMEX.Net.Objects.Models
         /// The maximum of the maker, taker, and settlement fee.
         /// </summary>
         [JsonPropertyName("commission")]
-        public decimal FeeRate { get; set; }
+        public decimal? FeeRate { get; set; }
         /// <summary>
         /// Initial margin requirement
         /// </summary>
         [JsonPropertyName("initMarginReq")]
-        public decimal InitialMarginRequirement { get; set; }
+        public decimal? InitialMarginRequirement { get; set; }
         /// <summary>
         /// Maintenance margin requirement
         /// </summary>
         [JsonPropertyName("maintMarginReq")]
-        public decimal MaintenanceMarginRequirement { get; set; }
+        public decimal? MaintenanceMarginRequirement { get; set; }
         /// <summary>
         /// Risk limit
         /// </summary>
         [JsonPropertyName("riskLimit")]
-        public decimal RiskLimit { get; set; }
+        public decimal? RiskLimit { get; set; }
         /// <summary>
         /// Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
-        public decimal Leverage { get; set; }
+        public decimal? Leverage { get; set; }
         /// <summary>
         /// Cross margin
         /// </summary>
@@ -74,22 +74,22 @@ namespace BitMEX.Net.Objects.Models
         /// Rebalanced profit and loss
         /// </summary>
         [JsonPropertyName("rebalancedPnl")]
-        public long RebalancedPnl { get; set; }
+        public long? RebalancedPnl { get; set; }
         /// <summary>
         /// Previous realised profit and loss
         /// </summary>
         [JsonPropertyName("prevRealisedPnl")]
-        public long PreviousRealisedPnl { get; set; }
+        public long? PreviousRealisedPnl { get; set; }
         /// <summary>
         /// Previous unrealised profit and loss
         /// </summary>
         [JsonPropertyName("prevUnrealisedPnl")]
-        public long PreviousUnrealisedPnl { get; set; }
+        public long? PreviousUnrealisedPnl { get; set; }
         /// <summary>
         /// Opening quantity
         /// </summary>
         [JsonPropertyName("openingQty")]
-        public long OpeningQuantity { get; set; }
+        public long? OpeningQuantity { get; set; }
         /// <summary>
         /// Open order buy quantity
         /// </summary>
@@ -104,7 +104,7 @@ namespace BitMEX.Net.Objects.Models
         /// Open order buy premium
         /// </summary>
         [JsonPropertyName("openOrderBuyPremium")]
-        public decimal OpenOrderBuyPremium { get; set; }
+        public decimal? OpenOrderBuyPremium { get; set; }
         /// <summary>
         /// Open order sell quantity
         /// </summary>
@@ -119,7 +119,7 @@ namespace BitMEX.Net.Objects.Models
         /// Open order sell premium
         /// </summary>
         [JsonPropertyName("openOrderSellPremium")]
-        public decimal OpenOrderSellPremium { get; set; }
+        public decimal? OpenOrderSellPremium { get; set; }
         /// <summary>
         /// Current quantity
         /// </summary>
@@ -129,27 +129,27 @@ namespace BitMEX.Net.Objects.Models
         /// Current cost
         /// </summary>
         [JsonPropertyName("currentCost")]
-        public decimal CurrentCost { get; set; }
+        public decimal? CurrentCost { get; set; }
         /// <summary>
         /// Current commissions
         /// </summary>
         [JsonPropertyName("currentComm")]
-        public long CurrentCommissions { get; set; }
+        public long? CurrentCommissions { get; set; }
         /// <summary>
         /// Realised cost
         /// </summary>
         [JsonPropertyName("realisedCost")]
-        public decimal RealisedCost { get; set; }
+        public decimal? RealisedCost { get; set; }
         /// <summary>
         /// Unrealised cost
         /// </summary>
         [JsonPropertyName("unrealisedCost")]
-        public decimal UnrealisedCost { get; set; }
+        public decimal? UnrealisedCost { get; set; }
         /// <summary>
         /// Gross open premium
         /// </summary>
         [JsonPropertyName("grossOpenPremium")]
-        public decimal GrossOpenPremium { get; set; }
+        public decimal? GrossOpenPremium { get; set; }
         /// <summary>
         /// Is open
         /// </summary>
@@ -164,22 +164,22 @@ namespace BitMEX.Net.Objects.Models
         /// Mark value
         /// </summary>
         [JsonPropertyName("markValue")]
-        public decimal MarkValue { get; set; }
+        public decimal? MarkValue { get; set; }
         /// <summary>
         /// Risk value
         /// </summary>
         [JsonPropertyName("riskValue")]
-        public decimal RiskValue { get; set; }
+        public decimal? RiskValue { get; set; }
         /// <summary>
         /// Home notional
         /// </summary>
         [JsonPropertyName("homeNotional")]
-        public decimal HomeNotional { get; set; }
+        public decimal? HomeNotional { get; set; }
         /// <summary>
         /// Foreign notional
         /// </summary>
         [JsonPropertyName("foreignNotional")]
-        public decimal ForeignNotional { get; set; }
+        public decimal? ForeignNotional { get; set; }
         /// <summary>
         /// Position status
         /// </summary>
@@ -189,62 +189,62 @@ namespace BitMEX.Net.Objects.Models
         /// Position cost
         /// </summary>
         [JsonPropertyName("posCost")]
-        public decimal PositionCost { get; set; }
+        public decimal? PositionCost { get; set; }
         /// <summary>
         /// Position cross
         /// </summary>
         [JsonPropertyName("posCross")]
-        public decimal PositionCross { get; set; }
+        public decimal? PositionCross { get; set; }
         /// <summary>
         /// Position commissions
         /// </summary>
         [JsonPropertyName("posComm")]
-        public long PositionCommissions { get; set; }
+        public long? PositionCommissions { get; set; }
         /// <summary>
         /// Position loss
         /// </summary>
         [JsonPropertyName("posLoss")]
-        public decimal PositionLoss { get; set; }
+        public decimal? PositionLoss { get; set; }
         /// <summary>
         /// Position margin
         /// </summary>
         [JsonPropertyName("posMargin")]
-        public long PositionMargin { get; set; }
+        public long? PositionMargin { get; set; }
         /// <summary>
         /// Position maintenance
         /// </summary>
         [JsonPropertyName("posMaint")]
-        public long PositionMaintenance { get; set; }
+        public long? PositionMaintenance { get; set; }
         /// <summary>
         /// Initial margin
         /// </summary>
         [JsonPropertyName("initMargin")]
-        public decimal InitialMargin { get; set; }
+        public decimal? InitialMargin { get; set; }
         /// <summary>
         /// Maintenance margin
         /// </summary>
         [JsonPropertyName("maintMargin")]
-        public decimal MaintenanceMargin { get; set; }
+        public decimal? MaintenanceMargin { get; set; }
         /// <summary>
         /// Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
-        public long RealisedPnl { get; set; }
+        public long? RealisedPnl { get; set; }
         /// <summary>
         /// Unrealised profit and loss
         /// </summary>
         [JsonPropertyName("unrealisedPnl")]
-        public long UnrealizedPnl { get; set; }
+        public long? UnrealizedPnl { get; set; }
         /// <summary>
         /// Unrealised profit and loss percentage
         /// </summary>
         [JsonPropertyName("unrealisedPnlPcnt")]
-        public decimal UnrealisedPnlPcnt { get; set; }
+        public decimal? UnrealisedPnlPcnt { get; set; }
         /// <summary>
         /// Unrealised roe percentage
         /// </summary>
         [JsonPropertyName("unrealisedRoePcnt")]
-        public decimal UnrealisedRoePercentage { get; set; }
+        public decimal? UnrealisedRoePercentage { get; set; }
         /// <summary>
         /// Average cost price
         /// </summary>

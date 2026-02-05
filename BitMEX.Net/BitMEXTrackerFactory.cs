@@ -66,7 +66,7 @@ namespace BitMEX.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig config)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IBitMEXRestClient>() ?? new BitMEXRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBitMEXSocketClient>() ?? new BitMEXSocketClient();
@@ -80,7 +80,7 @@ namespace BitMEX.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, SpotUserDataTrackerConfig config, ApiCredentials credentials, BitMEXEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, BitMEXEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitMEXUserClientProvider>() ?? new BitMEXUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -95,7 +95,7 @@ namespace BitMEX.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig config)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig? config = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IBitMEXRestClient>() ?? new BitMEXRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBitMEXSocketClient>() ?? new BitMEXSocketClient();
@@ -109,7 +109,7 @@ namespace BitMEX.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, FuturesUserDataTrackerConfig config, ApiCredentials credentials, BitMEXEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitMEXEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitMEXUserClientProvider>() ?? new BitMEXUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
