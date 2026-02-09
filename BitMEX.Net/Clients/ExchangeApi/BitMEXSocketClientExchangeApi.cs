@@ -313,9 +313,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     UpdateTimeOffset(item.Timestamp);
 
                 onMessage(
-                    new DataEvent<BitMEXSymbolUpdate>(Exchange, data.Data.Single(), receiveTime, originalData)
+                    new DataEvent<BitMEXSymbolUpdate>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(data.Action == "partial" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Table)
+                        .WithSymbol(item.Symbol)
                         .WithDataTimestamp(item.Timestamp, GetTimeOffset())
                     );
             });

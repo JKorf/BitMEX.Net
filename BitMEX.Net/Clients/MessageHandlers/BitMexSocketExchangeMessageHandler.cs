@@ -15,7 +15,7 @@ namespace BitMEX.Net.Clients.MessageHandlers
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMEXExchange._serializerContext);
 
         public BitMexSocketExchangeMessageHandler()
-        {
+        {   
             AddTopicMapping<SocketUpdate<BitMEXTradeUpdate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
             AddTopicMapping<SocketUpdate<BitMEXAggTrade[]>>(x => x.Data.First().Symbol);
             AddTopicMapping<SocketUpdate<BitMEXBookTicker[]>>(x => x.Data.First().Symbol);
@@ -24,6 +24,7 @@ namespace BitMEX.Net.Clients.MessageHandlers
             AddTopicMapping<SocketUpdate<BitMEXOrderBookEntry[]>>(x => x.Data.First().Symbol);
             AddTopicMapping<SocketUpdate<BitMEXLiquidation[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
             AddTopicMapping<SocketUpdate<BitMEXFundingRate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
+            AddTopicMapping<SocketUpdate<BitMEXSymbolUpdate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
         }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
