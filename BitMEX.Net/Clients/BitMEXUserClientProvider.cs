@@ -12,8 +12,8 @@ namespace BitMEX.Net.Clients
     /// <inheritdoc />
     public class BitMEXUserClientProvider : IBitMEXUserClientProvider
     {
-        private static ConcurrentDictionary<string, IBitMEXRestClient> _restClients = new ConcurrentDictionary<string, IBitMEXRestClient>();
-        private static ConcurrentDictionary<string, IBitMEXSocketClient> _socketClients = new ConcurrentDictionary<string, IBitMEXSocketClient>();
+        private ConcurrentDictionary<string, IBitMEXRestClient> _restClients = new ConcurrentDictionary<string, IBitMEXRestClient>();
+        private ConcurrentDictionary<string, IBitMEXSocketClient> _socketClients = new ConcurrentDictionary<string, IBitMEXSocketClient>();
 
         private readonly IOptions<BitMEXRestOptions> _restOptions;
         private readonly IOptions<BitMEXSocketOptions> _socketOptions;
