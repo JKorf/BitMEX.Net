@@ -79,7 +79,7 @@ namespace BitMEX.Net.Objects.Models
         /// <summary>
         /// Transaction time
         /// </summary>
-        [JsonPropertyName("transactionTime")]
+        [JsonPropertyName("transactTime")]
         public DateTime TransactionTime { get; set; }
         /// <summary>
         /// Timestamp

@@ -161,9 +161,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset ?? "all");
             parameters.AddOptional("targetAccountId", targetAccountId);
-            parameters.AddOptional("reverse", reverse);
-            parameters.AddOptional("offset", offset);
-            parameters.AddOptional("limit", limit);
+            parameters.AddOptionalBoolString("reverse", reverse);
+            parameters.AddOptional("start", offset);
+            parameters.AddOptional("count", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/user/walletHistory", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXTransaction[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -254,7 +254,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            parameters.Add("enabled", isolatedMarginEnabled);
+            parameters.AddBoolString("enabled", isolatedMarginEnabled);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/position/isolate", BitMEXExchange.RateLimiter.BitMEX, 1, true);
             return await _baseClient.SendAsync<BitMEXPosition>(request, parameters, ct).ConfigureAwait(false);
         }
