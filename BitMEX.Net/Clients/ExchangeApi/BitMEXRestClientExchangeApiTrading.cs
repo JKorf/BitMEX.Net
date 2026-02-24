@@ -124,7 +124,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("columns", columns);
             parameters.AddOptional("start", offset);
             parameters.AddOptional("count", limit);
-            parameters.Add("reverse", reverse ?? true);
+            parameters.AddBoolString("reverse", reverse ?? true);
             parameters.AddOptional("startTime", startTime?.ToRfc3339String());
             parameters.AddOptional("endTime", endTime?.ToRfc3339String());
             var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/order", BitMEXExchange.RateLimiter.BitMEX, 1, true);
@@ -246,7 +246,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("columns", columns);
             parameters.AddOptional("count", limit);
             parameters.AddOptional("start", offset);
-            parameters.AddOptional("reverse", reverse);
+            parameters.AddOptionalBoolString("reverse", reverse);
             parameters.AddOptional("startTime", startTime?.ToRfc3339String());
             parameters.AddOptional("endTime", endTime?.ToRfc3339String());
             var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/execution", BitMEXExchange.RateLimiter.BitMEX, 1, true);
@@ -279,7 +279,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             parameters.AddOptional("columns", columns);
             parameters.AddOptional("start", offset);
             parameters.AddOptional("count", limit);
-            parameters.AddOptional("reverse", reverse);
+            parameters.AddOptionalBoolString("reverse", reverse);
             parameters.AddOptional("startTime", startTime?.ToRfc3339String());
             parameters.AddOptional("endTime", endTime?.ToRfc3339String());
             var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/execution/tradeHistory", BitMEXExchange.RateLimiter.BitMEX, 1, true);
