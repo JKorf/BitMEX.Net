@@ -13,6 +13,7 @@ using BitMEX.Net.Interfaces.Clients;
 using BitMEX.Net.Objects.Options;
 using BitMEX.Net.SymbolOrderBooks;
 using CryptoExchange.Net.Interfaces.Clients;
+using System.Threading;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -95,8 +96,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 return new BitMEXRestClient(client, serviceProvider.GetRequiredService<ILoggerFactory>(), serviceProvider.GetRequiredService<IOptions<BitMEXRestOptions>>());
             }).ConfigurePrimaryHttpMessageHandler((serviceProvider) => {
                 var options = serviceProvider.GetRequiredService<IOptions<BitMEXRestOptions>>().Value;
-                return LibraryHelpers.CreateHttpClientMessageHandler(options.Proxy, options.HttpKeepAliveInterval);
-            });
+                return LibraryHelpers.CreateHttpClientMessageHandler(options);
+            }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(IBitMEXSocketClient), x => { return new BitMEXSocketClient(x.GetRequiredService<IOptions<BitMEXSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
@@ -106,7 +107,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ITrackerFactory, BitMEXTrackerFactory>();
             services.AddSingleton<IBitMEXUserClientProvider, BitMEXUserClientProvider>(x =>
             new BitMEXUserClientProvider(
-                x.GetRequiredService<HttpClient>(),
+                x.GetRequiredService<IHttpClientFactory>().CreateClient(typeof(IBitMEXRestClient).Name),
                 x.GetRequiredService<ILoggerFactory>(),
                 x.GetRequiredService<IOptions<BitMEXRestOptions>>(),
                 x.GetRequiredService<IOptions<BitMEXSocketOptions>>()));
