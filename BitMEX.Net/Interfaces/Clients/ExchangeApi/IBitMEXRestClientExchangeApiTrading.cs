@@ -16,7 +16,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
     {
         /// <summary>
         /// Get user trade history by day
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getExecutionHistory" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getExecutionHistory" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/executionHistory
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol name</param>
         /// <param name="day">Day</param>
@@ -26,7 +31,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_new" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_new" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/order
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `XBTUSD` for perps or `XBT_USDT` for spot</param>
         /// <param name="orderSide">Order side</param>
@@ -65,7 +75,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get user orders
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_getOrders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_getOrders" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/order
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -92,7 +107,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Edit an active order
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_amend" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_amend" /><br />
+        /// Endpoint:<br />
+        /// PUT /api/v1/order
+        /// </para>
         /// </summary>
         /// <param name="orderId">Order id. Either this or clientOrderId should be provided</param>
         /// <param name="origClientOrderId">Client order id. Either this or orderId should be provided</param>
@@ -117,7 +137,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Cancel an order
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancel" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v1/order
+        /// </para>
         /// </summary>
         /// <param name="orderId">Order id. Either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">Client order id. Either this or orderId should be provided</param>
@@ -130,7 +155,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Cancel orders
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancel" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v1/order
+        /// </para>
         /// </summary>
         /// <param name="orderIds">Order ids. Either this or clientOrderIds should be provided</param>
         /// <param name="clientOrderIds">Client order ids. Either this or orderIds should be provided</param>
@@ -143,7 +173,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Cancel all orders matching the parameters
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAll" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAll" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v1/order/all
+        /// </para>
         /// </summary>
         /// <param name="targetAccountIds">Account ids</param>
         /// <param name="symbol">Filter by symbol</param>
@@ -158,7 +193,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Cancel all orders after the timeout passes. Acts as a dead-man switch. Use TimeSpan.Zero to cancel timeout
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAllAfter" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAllAfter" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/order/cancelAllAfter
+        /// </para>
         /// </summary>
         /// <param name="timeout">Timeout after which to cancel all orders. Use TimeSpan.Zero to cancel timeout</param>
         /// <param name="ct">Cancellation token</param>
@@ -167,7 +207,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get raw user execution history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/execution
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -194,7 +239,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get user trade history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_getTradeHistory" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_getTradeHistory" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/execution/tradeHistory
+        /// </para>
         /// </summary>
         /// <param name="targetAccountIds">Target account ids</param>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
@@ -223,7 +273,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get positions
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/position
+        /// </para>
         /// </summary>
         /// <param name="filter">Filter on fields</param>
         /// <param name="columns">Filter columns</param>
@@ -238,7 +293,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Set cross margin leverage. Automatically enables cross margin.
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateCrossLeverage" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateCrossLeverage" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/position/crossLeverage
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="leverage">New leverage</param>
@@ -253,7 +313,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Set isolated margin leverage. Automatically enables isolated margin
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateLeverage" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateLeverage" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/position/leverage
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="leverage">New leverage</param>

@@ -17,7 +17,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
     {
         /// <summary>
         /// Subscribe to trade updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: trade
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol name</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -27,7 +32,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to trade updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: trade
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -37,7 +47,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to kline updates. Note that this subscription only pushes an update when the period is finished. Updates during a kline will not be pushed.
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: tradeBin{period}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>
         /// <param name="period">Period</param>
@@ -48,7 +63,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to kline updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: tradeBin{period}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="period">Period</param>
@@ -59,7 +79,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to book ticker updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: quote
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -69,7 +94,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to book ticker updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: quote
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -79,7 +109,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to aggregated book ticker updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: quoteBin
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>
         /// <param name="period">Period</param>
@@ -90,7 +125,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to aggregated book ticker updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: quoteBin
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="period">Period</param>
@@ -101,7 +141,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to settlement updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: settlement
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -110,7 +155,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to order book updated for the first 10 levels on each update
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: orderBook10
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -120,7 +170,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to order book updated for the first 10 levels on each update
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: orderBook10
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -130,7 +185,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to incremental order book updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: orderBookL2{_25}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>
         /// <param name="limit">Limit</param>
@@ -141,7 +201,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to incremental order book updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: orderBookL2{_25}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="limit">Limit</param>
@@ -152,7 +217,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to liquidation updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: liquidation
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -161,7 +231,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to insurance updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: insurance
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -170,7 +245,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to symbol updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: instrument
+        /// </para>
         /// </summary>
         /// <param name="category">Optional category</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -180,7 +260,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to symbol updates. Note that only changed properties will be filled; unchanged properties will be null.
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: instrument
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -190,7 +275,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to symbol updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: instrument
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -200,7 +290,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to funding rate updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: funding
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -210,7 +305,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to funding rate updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: funding
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -220,7 +320,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to platform announcement updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtimePlatform: announcement
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -229,7 +334,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to public short lived notifications
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: publicNotifications
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -238,7 +348,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to user balance updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: wallet
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -247,7 +362,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to user transaction (deposit/withdrawal) updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: transact
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -256,7 +376,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to user position updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: position
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -265,7 +390,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to user margin updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: margin
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -274,7 +404,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to user order updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: order
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -283,7 +418,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Subscribe to user trade updates
-        /// <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/app/wsAPI" /><br />
+        /// Endpoint:<br />
+        /// WS /realtime: execution
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>

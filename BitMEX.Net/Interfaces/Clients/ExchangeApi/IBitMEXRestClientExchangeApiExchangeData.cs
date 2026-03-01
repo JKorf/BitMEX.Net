@@ -22,7 +22,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get active symbols
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getActive" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getActive" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/instrument/active
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -30,7 +35,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get all symbols matching the filters
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/instrument
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -57,7 +67,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get active intervals
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getActiveIntervals" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getActiveIntervals" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/instrument/activeIntervals
+        /// </para>
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
@@ -65,7 +80,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get composite indexes
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getCompositeIndex" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getCompositeIndex" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/instrument/compositeIndex
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol</param>
         /// <param name="filter">Filter on fields</param>
@@ -90,7 +110,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get indices
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getIndices" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getIndices" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/instrument/indices
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -98,7 +123,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get symbol USD volumes
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getUsdVolume" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getUsdVolume" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/instrument/usdVolume
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -106,7 +136,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get public trades
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -133,7 +168,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get klines
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_getBucketed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_getBucketed" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/bucketed
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -164,7 +204,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get exchange stats
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/stats
+        /// </para>
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
@@ -172,7 +217,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get exchange stat history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/stats/history
+        /// </para>
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
@@ -180,7 +230,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get exchange USD stats
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_historyUSD" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_historyUSD" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/stats/historyUSD
+        /// </para>
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
@@ -188,7 +243,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get settlement history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Settlement/Settlement_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Settlement/Settlement_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/settlement
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -215,7 +275,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get book ticker history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/quote
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -242,7 +307,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get aggregated book ticker history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_getBucketed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_getBucketed" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/quote/bucketed
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -273,7 +343,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get order book
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/OrderBook/OrderBook_getL2" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/OrderBook/OrderBook_getL2" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/orderBook/L2
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="limit">Number of rows</param>
@@ -283,7 +358,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get insurance history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Insurance/Insurance_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Insurance/Insurance_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/insurance
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -310,7 +390,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get funding rate history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Funding/Funding_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Funding/Funding_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/funding
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -337,7 +422,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get public announcements
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Announcement/Announcement_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Announcement/Announcement_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/announcement
+        /// </para>
         /// </summary>
         /// <param name="columns"></param>
         /// <param name="ct"></param>
@@ -348,7 +438,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get urgent announcements
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Announcement/Announcement_getUrgent" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Announcement/Announcement_getUrgent" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/announcement/urgent
+        /// </para>
         /// </summary>
         /// <param name="columns"></param>
         /// <param name="ct"></param>
@@ -359,7 +454,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get assets
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Wallet/Wallet_getAssetsConfig" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Wallet/Wallet_getAssetsConfig" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/wallet/assets
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -367,7 +467,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get asset networks
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Wallet/Wallet_getNetworksConfig" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Wallet/Wallet_getNetworksConfig" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/wallet/networks
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

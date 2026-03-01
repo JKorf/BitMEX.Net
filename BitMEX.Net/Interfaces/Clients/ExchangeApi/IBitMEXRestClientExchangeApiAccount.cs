@@ -14,7 +14,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
     {
         /// <summary>
         /// Get user events
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/UserEvent/UserEvent_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/UserEvent/UserEvent_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/userEvent
+        /// </para>
         /// </summary>
         /// <param name="fromId">From id</param>
         /// <param name="limit">Max number of results</param>
@@ -24,7 +29,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get account info
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -32,7 +42,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get user trading fees
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getCommission" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getCommission" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/commission
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -40,7 +55,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get deposit address
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getDepositAddress" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getDepositAddress" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/depositAddress
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset name</param>
         /// <param name="network">Network</param>
@@ -50,7 +70,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get user margin status
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getMargin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getMargin" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/margin
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -59,7 +84,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get user order quote fill ratio
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getQuoteFillRatio" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getQuoteFillRatio" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/quoteFillRatio
+        /// </para>
         /// </summary>
         /// <param name="accountId">Account id</param>
         /// <param name="ct">Cancellation token</param>
@@ -68,7 +98,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get user order quote value ratio
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getQuoteValueRatio" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getQuoteValueRatio" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/quoteValueRatio
+        /// </para>
         /// </summary>
         /// <param name="accountId">Account id</param>
         /// <param name="ct">Cancellation token</param>
@@ -77,7 +112,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get user 30 days average USD trading volume
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getTradingVolume" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getTradingVolume" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/tradingVolume
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -85,7 +125,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get user balances
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWallet" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getWallet" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/wallet
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -94,7 +139,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get balance history
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletHistory" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletHistory" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/walletHistory
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="targetAccountId">Filter by account id</param>
@@ -112,7 +162,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get wallet summary
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletSummary" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletSummary" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/walletSummary
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="startTime">Filter by start time</param>
@@ -122,7 +177,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Transfer funds between accounts
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_walletTransfer" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_walletTransfer" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/user/walletSummary
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="fromAccountId">From account id</param>
@@ -133,7 +193,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Create a new withdrawal request
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_requestWithdrawal" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_requestWithdrawal" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/user/requestWithdrawal
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="network">Network</param>
@@ -162,7 +227,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Cancel a pending withdrawal request
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_cancelPendingWithdrawal" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/User/User_cancelPendingWithdrawal" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v1/user/withdrawal
+        /// </para>
         /// </summary>
         /// <param name="transactId">Transaction id</param>
         /// <param name="ct">Cancellation token</param>
@@ -171,7 +241,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Set isolated margin enabled for a symbol
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_isolateMargin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_isolateMargin" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/position/isolate
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="isolatedMarginEnabled">Isolated margin enabled</param>
@@ -181,7 +256,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Update risk limit for a position
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateRiskLimit" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateRiskLimit" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/position/riskLimit
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="riskLimit">Risk limit</param>
@@ -192,7 +272,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Add or remove margin to an isolated margin position
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_transferIsolatedMargin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_transferIsolatedMargin" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/position/transferMargin
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol</param>
         /// <param name="quantity">Quantity to add or remove</param>
@@ -203,7 +288,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get saved addresses
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Address/Address_get" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Address/Address_get" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/address
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -211,7 +301,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Add a saved address
-        /// <para><a href="https://www.bitmex.com/api/explorer/#!/Address/Address_new" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#!/Address/Address_new" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/address
+        /// </para>
         /// </summary>
         /// <param name="currency">Currency which the asset is for</param>
         /// <param name="network">Network of the address</param>
@@ -238,7 +333,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get address book config
-        /// <para><a href="https://www.bitmex.com/api/explorer/#/AddressConfig" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#/AddressConfig" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/addressConfig
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -246,7 +346,12 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 
         /// <summary>
         /// Get API key info
-        /// <para><a href="https://www.bitmex.com/api/explorer/#/APIKey" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.bitmex.com/api/explorer/#/APIKey" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/apiKey
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
