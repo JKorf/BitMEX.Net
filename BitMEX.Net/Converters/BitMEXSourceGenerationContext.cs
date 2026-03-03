@@ -38,6 +38,7 @@ namespace BitMEX.Net.Converters
     [JsonSerializable(typeof(BitMEXAddressBookConfig[]))]
     [JsonSerializable(typeof(BitMEXApiKey[]))]
     [JsonSerializable(typeof(BitMEXAsset[]))]
+    [JsonSerializable(typeof(BitMEXMarginStatus[]))]
     [JsonSerializable(typeof(BitMEXAssetNetwork[]))]
     [JsonSerializable(typeof(BitMEXBalanceSummary[]))]
     [JsonSerializable(typeof(BitMEXCompositeIndex[]))]

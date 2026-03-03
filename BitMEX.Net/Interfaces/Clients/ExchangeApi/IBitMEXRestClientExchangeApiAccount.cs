@@ -77,10 +77,10 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/user/margin
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="asset">Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXMarginStatus>> GetMarginStatusAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMEXMarginStatus[]>> GetMarginStatusAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get user order quote fill ratio

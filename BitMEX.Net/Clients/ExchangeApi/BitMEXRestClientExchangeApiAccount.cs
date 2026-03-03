@@ -87,12 +87,20 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Margin Status
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXMarginStatus>> GetMarginStatusAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMEXMarginStatus[]>> GetMarginStatusAsync(string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.Add("symbol", symbol ?? "all");
+            parameters.Add("currency", asset ?? "all");
             var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/user/margin", BitMEXExchange.RateLimiter.BitMEX, 1, true);
-            return await _baseClient.SendAsync<BitMEXMarginStatus>(request, parameters, ct).ConfigureAwait(false);
+            if (asset == null)
+            {
+                return await _baseClient.SendAsync<BitMEXMarginStatus[]>(request, parameters, ct).ConfigureAwait(false);
+            }
+            else
+            {
+                var result = await _baseClient.SendAsync<BitMEXMarginStatus>(request, parameters, ct).ConfigureAwait(false);
+                return result.As<BitMEXMarginStatus[]>([result.Data]);
+            }
         }
 
         #endregion
@@ -142,7 +150,15 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset ?? "all");
             var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/user/wallet", BitMEXExchange.RateLimiter.BitMEX, 1, true);
-            return await _baseClient.SendAsync<BitMEXBalance[]>(request, parameters, ct).ConfigureAwait(false);
+            if (asset == null)
+            {
+                return await _baseClient.SendAsync<BitMEXBalance[]>(request, parameters, ct).ConfigureAwait(false);
+            }
+            else
+            {
+                var result = await _baseClient.SendAsync<BitMEXBalance>(request, parameters, ct).ConfigureAwait(false);
+                return result.As<BitMEXBalance[]>([result.Data]);
+            }
         }
 
         #endregion

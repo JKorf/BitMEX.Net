@@ -48,7 +48,7 @@ namespace BitMEX.Net.UnitTests
             await RunAndCheckResult(client => client.ExchangeApi.Account.GetUserEventsAsync(default, default, default), true);
             await RunAndCheckResult(client => client.ExchangeApi.Account.GetAccountInfoAsync(default), true);
             await RunAndCheckResult(client => client.ExchangeApi.Account.GetFeesAsync(default), true);
-            //await RunAndCheckResult(client => client.ExchangeApi.Account.GetMarginStatusAsync(default, default), true);
+            await RunAndCheckResult(client => client.ExchangeApi.Account.GetMarginStatusAsync(default, default), true);
             await RunAndCheckResult(client => client.ExchangeApi.Account.GetQuoteFillRatioAsync(default, default), true);
             await RunAndCheckResult(client => client.ExchangeApi.Account.GetTradingVolumeAsync(default), true);
             await RunAndCheckResult(client => client.ExchangeApi.Account.GetBalancesAsync(default, default), true);

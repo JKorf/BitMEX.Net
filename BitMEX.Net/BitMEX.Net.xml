@@ -2393,7 +2393,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetUserEventsAsync(System.Nullable{System.Int64},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user events
-            <para><a href="https://www.bitmex.com/api/explorer/#!/UserEvent/UserEvent_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/UserEvent/UserEvent_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/userEvent
+            </para>
             </summary>
             <param name="fromId">From id</param>
             <param name="limit">Max number of results</param>
@@ -2403,7 +2408,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
             <summary>
             Get account info
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/user
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2411,7 +2421,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetFeesAsync(System.Threading.CancellationToken)">
             <summary>
             Get user trading fees
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getCommission" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getCommission" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/commission
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2419,7 +2434,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetDepositAddressAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get deposit address
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getDepositAddress" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getDepositAddress" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/depositAddress
+            </para>
             </summary>
             <param name="asset">Asset name</param>
             <param name="network">Network</param>
@@ -2429,16 +2449,26 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetMarginStatusAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get user margin status
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getMargin" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getMargin" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/margin
+            </para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="asset">Filter by asset</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetQuoteFillRatioAsync(System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get user order quote fill ratio
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getQuoteFillRatio" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getQuoteFillRatio" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/quoteFillRatio
+            </para>
             </summary>
             <param name="accountId">Account id</param>
             <param name="ct">Cancellation token</param>
@@ -2447,7 +2477,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetQuoteValueRatioAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get user order quote value ratio
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getQuoteValueRatio" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getQuoteValueRatio" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/quoteValueRatio
+            </para>
             </summary>
             <param name="accountId">Account id</param>
             <param name="ct">Cancellation token</param>
@@ -2456,7 +2491,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetTradingVolumeAsync(System.Threading.CancellationToken)">
             <summary>
             Get user 30 days average USD trading volume
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getTradingVolume" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getTradingVolume" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/tradingVolume
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2464,7 +2504,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetBalancesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get user balances
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWallet" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getWallet" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/wallet
+            </para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="ct">Cancellation token</param>
@@ -2473,7 +2518,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetBalanceHistoryAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get balance history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletHistory" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletHistory" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/walletHistory
+            </para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="targetAccountId">Filter by account id</param>
@@ -2486,7 +2536,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetBalanceSummaryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get wallet summary
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletSummary" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getWalletSummary" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/walletSummary
+            </para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="startTime">Filter by start time</param>
@@ -2496,7 +2551,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.TransferAsync(System.String,System.Int64,System.Int64,System.Int64,System.Threading.CancellationToken)">
             <summary>
             Transfer funds between accounts
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_walletTransfer" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_walletTransfer" /><br />
+            Endpoint:<br />
+            POST /api/v1/user/walletSummary
+            </para>
             </summary>
             <param name="asset">Asset</param>
             <param name="fromAccountId">From account id</param>
@@ -2507,7 +2567,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.WithdrawAsync(System.String,System.String,System.Int64,System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Create a new withdrawal request
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_requestWithdrawal" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_requestWithdrawal" /><br />
+            Endpoint:<br />
+            POST /api/v1/user/requestWithdrawal
+            </para>
             </summary>
             <param name="asset">Asset</param>
             <param name="network">Network</param>
@@ -2525,7 +2590,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.CancelWithdrawalAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a pending withdrawal request
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_cancelPendingWithdrawal" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_cancelPendingWithdrawal" /><br />
+            Endpoint:<br />
+            DELETE /api/v1/user/withdrawal
+            </para>
             </summary>
             <param name="transactId">Transaction id</param>
             <param name="ct">Cancellation token</param>
@@ -2534,7 +2604,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.SetIsolatedMarginAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Set isolated margin enabled for a symbol
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_isolateMargin" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_isolateMargin" /><br />
+            Endpoint:<br />
+            POST /api/v1/position/isolate
+            </para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="isolatedMarginEnabled">Isolated margin enabled</param>
@@ -2544,7 +2619,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.SetRiskLimitAsync(System.String,System.Int32,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Update risk limit for a position
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateRiskLimit" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateRiskLimit" /><br />
+            Endpoint:<br />
+            POST /api/v1/position/riskLimit
+            </para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="riskLimit">Risk limit</param>
@@ -2555,7 +2635,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.TransferMarginAsync(System.String,System.Int64,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Add or remove margin to an isolated margin position
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_transferIsolatedMargin" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_transferIsolatedMargin" /><br />
+            Endpoint:<br />
+            POST /api/v1/position/transferMargin
+            </para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="quantity">Quantity to add or remove</param>
@@ -2566,7 +2651,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetSavedAddressesAsync(System.Threading.CancellationToken)">
             <summary>
             Get saved addresses
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Address/Address_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Address/Address_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/address
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2574,7 +2664,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.AddSavedAddressAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Add a saved address
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Address/Address_new" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Address/Address_new" /><br />
+            Endpoint:<br />
+            POST /api/v1/address
+            </para>
             </summary>
             <param name="currency">Currency which the asset is for</param>
             <param name="network">Network of the address</param>
@@ -2591,7 +2686,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetAddressBookSettingsAsync(System.Threading.CancellationToken)">
             <summary>
             Get address book config
-            <para><a href="https://www.bitmex.com/api/explorer/#/AddressConfig" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#/AddressConfig" /><br />
+            Endpoint:<br />
+            GET /api/v1/addressConfig
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2599,7 +2699,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
             <summary>
             Get API key info
-            <para><a href="https://www.bitmex.com/api/explorer/#/APIKey" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#/APIKey" /><br />
+            Endpoint:<br />
+            GET /api/v1/apiKey
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2619,7 +2724,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetActiveSymbolsAsync(System.Threading.CancellationToken)">
             <summary>
             Get active symbols
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getActive" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getActive" /><br />
+            Endpoint:<br />
+            GET /api/v1/instrument/active
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2627,7 +2737,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetSymbolsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get all symbols matching the filters
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/instrument
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2644,7 +2759,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetActiveIntervalsAsync(System.Threading.CancellationToken)">
             <summary>
             Get active intervals
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getActiveIntervals" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getActiveIntervals" /><br />
+            Endpoint:<br />
+            GET /api/v1/instrument/activeIntervals
+            </para>
             </summary>
             <param name="ct"></param>
             <returns></returns>
@@ -2652,7 +2772,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetCompositeIndexesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get composite indexes
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getCompositeIndex" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getCompositeIndex" /><br />
+            Endpoint:<br />
+            GET /api/v1/instrument/compositeIndex
+            </para>
             </summary>
             <param name="symbol">Filter by symbol</param>
             <param name="filter">Filter on fields</param>
@@ -2668,7 +2793,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetIndicesAsync(System.Threading.CancellationToken)">
             <summary>
             Get indices
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getIndices" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getIndices" /><br />
+            Endpoint:<br />
+            GET /api/v1/instrument/indices
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2676,7 +2806,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetSymbolVolumesAsync(System.Threading.CancellationToken)">
             <summary>
             Get symbol USD volumes
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getUsdVolume" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Instrument/Instrument_getUsdVolume" /><br />
+            Endpoint:<br />
+            GET /api/v1/instrument/usdVolume
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2684,7 +2819,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetTradesAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get public trades
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/trade
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2701,7 +2841,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetKlinesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get klines
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_getBucketed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Trade/Trade_getBucketed" /><br />
+            Endpoint:<br />
+            GET /api/v1/trade/bucketed
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2720,7 +2865,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetExchangeStatsAsync(System.Threading.CancellationToken)">
             <summary>
             Get exchange stats
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/stats
+            </para>
             </summary>
             <param name="ct"></param>
             <returns></returns>
@@ -2728,7 +2878,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetExchangeStatHistoryAsync(System.Threading.CancellationToken)">
             <summary>
             Get exchange stat history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_history" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_history" /><br />
+            Endpoint:<br />
+            GET /api/v1/stats/history
+            </para>
             </summary>
             <param name="ct"></param>
             <returns></returns>
@@ -2736,7 +2891,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetExchangeStatHistoryUSDAsync(System.Threading.CancellationToken)">
             <summary>
             Get exchange USD stats
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_historyUSD" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Stats/Stats_historyUSD" /><br />
+            Endpoint:<br />
+            GET /api/v1/stats/historyUSD
+            </para>
             </summary>
             <param name="ct"></param>
             <returns></returns>
@@ -2744,7 +2904,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetSettlementHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get settlement history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Settlement/Settlement_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Settlement/Settlement_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/settlement
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2761,7 +2926,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetBookTickerHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get book ticker history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/quote
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2778,7 +2948,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetAggregatedBookTickerHistoryAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Nullable{System.Boolean},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get aggregated book ticker history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_getBucketed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Quote/Quote_getBucketed" /><br />
+            Endpoint:<br />
+            GET /api/v1/quote/bucketed
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2797,7 +2972,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetOrderBookAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get order book
-            <para><a href="https://www.bitmex.com/api/explorer/#!/OrderBook/OrderBook_getL2" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/OrderBook/OrderBook_getL2" /><br />
+            Endpoint:<br />
+            GET /api/v1/orderBook/L2
+            </para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="limit">Number of rows</param>
@@ -2807,7 +2987,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetInsuranceAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get insurance history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Insurance/Insurance_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Insurance/Insurance_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/insurance
+            </para>
             </summary>
             <param name="asset">Filter by asset. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2824,7 +3009,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetFundingHistoryAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get funding rate history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Funding/Funding_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Funding/Funding_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/funding
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2841,7 +3031,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetAnnouncementsAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Get public announcements
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Announcement/Announcement_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Announcement/Announcement_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/announcement
+            </para>
             </summary>
             <param name="columns"></param>
             <param name="ct"></param>
@@ -2850,7 +3045,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetUrgentAnnouncementsAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Get urgent announcements
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Announcement/Announcement_getUrgent" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Announcement/Announcement_getUrgent" /><br />
+            Endpoint:<br />
+            GET /api/v1/announcement/urgent
+            </para>
             </summary>
             <param name="columns"></param>
             <param name="ct"></param>
@@ -2859,7 +3059,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
             <summary>
             Get assets
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Wallet/Wallet_getAssetsConfig" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Wallet/Wallet_getAssetsConfig" /><br />
+            Endpoint:<br />
+            GET /api/v1/wallet/assets
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2867,7 +3072,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiExchangeData.GetAssetNetworksAsync(System.Threading.CancellationToken)">
             <summary>
             Get asset networks
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Wallet/Wallet_getNetworksConfig" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Wallet/Wallet_getNetworksConfig" /><br />
+            Endpoint:<br />
+            GET /api/v1/wallet/networks
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2901,7 +3111,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetExecutionHistoryByDayAsync(System.String,System.DateTime,System.Threading.CancellationToken)">
             <summary>
             Get user trade history by day
-            <para><a href="https://www.bitmex.com/api/explorer/#!/User/User_getExecutionHistory" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/User/User_getExecutionHistory" /><br />
+            Endpoint:<br />
+            GET /api/v1/user/executionHistory
+            </para>
             </summary>
             <param name="symbol">Symbol name</param>
             <param name="day">Day</param>
@@ -2911,7 +3126,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.PlaceOrderAsync(System.String,BitMEX.Net.Enums.OrderSide,BitMEX.Net.Enums.OrderType,System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.TimeInForce},System.Nullable{BitMEX.Net.Enums.ExecutionInstruction},System.Nullable{BitMEX.Net.Enums.ContingencyType},System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMEX.Net.Enums.PeggedPriceType},System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_new" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_new" /><br />
+            Endpoint:<br />
+            POST /api/v1/order
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `XBTUSD` for perps or `XBT_USDT` for spot</param>
             <param name="orderSide">Order side</param>
@@ -2935,7 +3155,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetOrdersAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user orders
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_getOrders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_getOrders" /><br />
+            Endpoint:<br />
+            GET /api/v1/order
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -2952,7 +3177,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.EditOrderAsync(System.String,System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Edit an active order
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_amend" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_amend" /><br />
+            Endpoint:<br />
+            PUT /api/v1/order
+            </para>
             </summary>
             <param name="orderId">Order id. Either this or clientOrderId should be provided</param>
             <param name="origClientOrderId">Client order id. Either this or orderId should be provided</param>
@@ -2968,7 +3198,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancel" /><br />
+            Endpoint:<br />
+            DELETE /api/v1/order
+            </para>
             </summary>
             <param name="orderId">Order id. Either this or clientOrderId should be provided</param>
             <param name="clientOrderId">Client order id. Either this or orderId should be provided</param>
@@ -2978,7 +3213,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel orders
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancel" /><br />
+            Endpoint:<br />
+            DELETE /api/v1/order
+            </para>
             </summary>
             <param name="orderIds">Order ids. Either this or clientOrderIds should be provided</param>
             <param name="clientOrderIds">Client order ids. Either this or orderIds should be provided</param>
@@ -2988,7 +3228,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.CancelAllOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Threading.CancellationToken)">
             <summary>
             Cancel all orders matching the parameters
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAll" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAll" /><br />
+            Endpoint:<br />
+            DELETE /api/v1/order/all
+            </para>
             </summary>
             <param name="targetAccountIds">Account ids</param>
             <param name="symbol">Filter by symbol</param>
@@ -2999,7 +3244,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.CancelAllAfterAsync(System.TimeSpan,System.Threading.CancellationToken)">
             <summary>
             Cancel all orders after the timeout passes. Acts as a dead-man switch. Use TimeSpan.Zero to cancel timeout
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAllAfter" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Order/Order_cancelAllAfter" /><br />
+            Endpoint:<br />
+            POST /api/v1/order/cancelAllAfter
+            </para>
             </summary>
             <param name="timeout">Timeout after which to cancel all orders. Use TimeSpan.Zero to cancel timeout</param>
             <param name="ct">Cancellation token</param>
@@ -3008,7 +3258,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetUserExecutionsAsync(System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get raw user execution history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/execution
+            </para>
             </summary>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
             <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
@@ -3025,7 +3280,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Nullable{BitMEX.Net.Enums.SymbolFilter},System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user trade history
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_getTradeHistory" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Execution/Execution_getTradeHistory" /><br />
+            Endpoint:<br />
+            GET /api/v1/execution/tradeHistory
+            </para>
             </summary>
             <param name="targetAccountIds">Target account ids</param>
             <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
@@ -3043,7 +3303,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.GetPositionsAsync(System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get positions
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_get" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_get" /><br />
+            Endpoint:<br />
+            GET /api/v1/position
+            </para>
             </summary>
             <param name="filter">Filter on fields</param>
             <param name="columns">Filter columns</param>
@@ -3054,7 +3319,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.SetCrossMarginLeverageAsync(System.String,System.Decimal,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Set cross margin leverage. Automatically enables cross margin.
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateCrossLeverage" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateCrossLeverage" /><br />
+            Endpoint:<br />
+            POST /api/v1/position/crossLeverage
+            </para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="leverage">New leverage</param>
@@ -3065,7 +3335,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXRestClientExchangeApiTrading.SetIsolatedMarginLeverageAsync(System.String,System.Decimal,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Set isolated margin leverage. Automatically enables isolated margin
-            <para><a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateLeverage" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/api/explorer/#!/Position/Position_updateLeverage" /><br />
+            Endpoint:<br />
+            POST /api/v1/position/leverage
+            </para>
             </summary>
             <param name="symbol">Symbol</param>
             <param name="leverage">New leverage</param>
@@ -3081,7 +3356,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: trade
+            </para>
             </summary>
             <param name="symbol">Symbol name</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3091,7 +3371,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: trade
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3101,7 +3386,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAggTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline updates. Note that this subscription only pushes an update when the period is finished. Updates during a kline will not be pushed.
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: tradeBin{period}
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="period">Period</param>
@@ -3112,7 +3402,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAggTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: tradeBin{period}
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="period">Period</param>
@@ -3123,7 +3418,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to book ticker updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: quote
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3133,7 +3433,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to book ticker updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: quote
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3143,7 +3448,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToAggregatedBookTickerUpdatesAsync(System.String,BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to aggregated book ticker updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: quoteBin
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="period">Period</param>
@@ -3154,7 +3464,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToAggregatedBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.BinPeriod,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBookTicker}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to aggregated book ticker updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: quoteBin
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="period">Period</param>
@@ -3165,7 +3480,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSettlementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSettlementHistory[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to settlement updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: settlement
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3174,7 +3494,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updated for the first 10 levels on each update
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: orderBook10
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3184,7 +3509,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updated for the first 10 levels on each update
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: orderBook10
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3194,7 +3524,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.String,BitMEX.Net.Enums.IncrementalBookLimit,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to incremental order book updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: orderBookL2{_25}
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="limit">Limit</param>
@@ -3205,7 +3540,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMEX.Net.Enums.IncrementalBookLimit,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to incremental order book updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: orderBookL2{_25}
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="limit">Limit</param>
@@ -3216,7 +3556,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXLiquidation[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to liquidation updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: liquidation
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3225,7 +3570,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToInsuranceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXInsurance[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to insurance updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: insurance
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3234,7 +3584,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Nullable{BitMEX.Net.Enums.SymbolCategory},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to symbol updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: instrument
+            </para>
             </summary>
             <param name="category">Optional category</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3244,7 +3599,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to symbol updates. Note that only changed properties will be filled; unchanged properties will be null.
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: instrument
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3254,7 +3614,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToSymbolUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXSymbolUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to symbol updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: instrument
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3264,7 +3629,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToFundingUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXFundingRate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to funding rate updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: funding
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3274,7 +3644,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToFundingUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXFundingRate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to funding rate updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: funding
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3284,7 +3659,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToAnnouncementUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXAnnouncement[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to platform announcement updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtimePlatform: announcement
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3293,7 +3673,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToNotificationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXNotification[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to public short lived notifications
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: publicNotifications
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3302,7 +3687,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXBalance[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user balance updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: wallet
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3311,7 +3701,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToTransactionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXTransaction[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user transaction (deposit/withdrawal) updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: transact
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3320,7 +3715,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXPosition[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user position updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: position
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3329,7 +3729,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToMarginUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXMarginStatus}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user margin updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: margin
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3338,7 +3743,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXOrder[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user order updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: order
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3347,7 +3757,12 @@
         <member name="M:BitMEX.Net.Interfaces.Clients.ExchangeApi.IBitMEXSocketClientExchangeApi.SubscribeToUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMEX.Net.Objects.Models.BitMEXExecution[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user trade updates
-            <para><a href="https://www.bitmex.com/app/wsAPI" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.bitmex.com/app/wsAPI" /><br />
+            Endpoint:<br />
+            WS /realtime: execution
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
