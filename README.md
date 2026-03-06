@@ -199,6 +199,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.8.0 - 06 Mar 2026
+    * Updated CryptoExchange.Net to version 10.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Improved method XML comments
+
 * Version 3.7.1 - 03 Mar 2026
     * Updated CryptoExchange.Net to version 10.7.2, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Fixed asset parameter serialization on restCient.ExchangeApi.Account.GetMarginStatusAsync
