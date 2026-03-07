@@ -42,15 +42,15 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/instrument
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXSymbol[]>> GetSymbolsAsync(
@@ -87,14 +87,14 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/instrument/compositeIndex
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXCompositeIndex[]>> GetCompositeIndexesAsync(
@@ -143,15 +143,15 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/trade
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXTrade[]>> GetTradesAsync(
@@ -175,17 +175,17 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/trade/bucketed
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="period">Period to aggregate by</param>
-        /// <param name="partial">Whether to include the current unfished period</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="period">["<c>binSize</c>"] Period to aggregate by</param>
+        /// <param name="partial">["<c>partial</c>"] Whether to include the current unfished period</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXAggTrade[]>> GetKlinesAsync(
@@ -250,15 +250,15 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/settlement
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXSettlementHistory[]>> GetSettlementHistoryAsync(
@@ -282,15 +282,15 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/quote
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXBookTicker[]>> GetBookTickerHistoryAsync(
@@ -314,17 +314,17 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/quote/bucketed
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="period">Period to aggregate by</param>
-        /// <param name="partial">Whether to include the current unfished period</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="period">["<c>binSize</c>"] Period to aggregate by</param>
+        /// <param name="partial">["<c>partial</c>"] Whether to include the current unfished period</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXBookTicker[]>> GetAggregatedBookTickerHistoryAsync(
@@ -350,8 +350,8 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/orderBook/L2
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
-        /// <param name="limit">Number of rows</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol</param>
+        /// <param name="limit">["<c>depth</c>"] Number of rows</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXOrderBook>> GetOrderBookAsync(string symbol, int limit, CancellationToken ct = default);
@@ -365,15 +365,15 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/insurance
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXInsurance[]>> GetInsuranceAsync(
@@ -397,15 +397,15 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/funding
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXFundingRate[]>> GetFundingHistoryAsync(
@@ -429,7 +429,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/announcement
         /// </para>
         /// </summary>
-        /// <param name="columns"></param>
+        /// <param name="columns">["<c>columns</c>"]</param>
         /// <param name="ct"></param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXAnnouncement[]>> GetAnnouncementsAsync(
@@ -445,7 +445,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// GET /api/v1/announcement/urgent
         /// </para>
         /// </summary>
-        /// <param name="columns"></param>
+        /// <param name="columns">["<c>columns</c>"]</param>
         /// <param name="ct"></param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXAnnouncement[]>> GetUrgentAnnouncementsAsync(
@@ -481,15 +481,15 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <summary>
         /// Get liquidations
         /// </summary>
-        /// <param name="symbol">Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol. When sending an asset name (for example XBT) it will filter on nearest expiring contract by default, unless symbolFilter is specified</param>
         /// <param name="symbolFilter">Symbol additional filter when using an asset to filter</param>
-        /// <param name="filter">Filter on fields</param>
-        /// <param name="columns">Filter columns</param>
-        /// <param name="reverse">Reverse direction</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="offset">Result offset</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="filter">["<c>filter</c>"] Filter on fields</param>
+        /// <param name="columns">["<c>columns</c>"] Filter columns</param>
+        /// <param name="reverse">["<c>reverse</c>"] Reverse direction</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="offset">["<c>start</c>"] Result offset</param>
+        /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMEXLiquidation[]>> GetLiquidationsAsync(string? symbol = null,
