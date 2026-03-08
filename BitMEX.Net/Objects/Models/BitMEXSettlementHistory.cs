@@ -12,22 +12,22 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXSettlementHistory
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Settlement type
+        /// ["<c>settlementType</c>"] Settlement type
         /// </summary>
         [JsonPropertyName("settlementType")]
         public SettlementType SettlementType { get; set; }
         /// <summary>
-        /// Settled price
+        /// ["<c>settledPrice</c>"] Settled price
         /// </summary>
         [JsonPropertyName("settledPrice")]
         public decimal SettledPrice { get; set; }

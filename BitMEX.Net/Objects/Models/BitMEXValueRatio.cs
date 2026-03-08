@@ -11,37 +11,37 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXValueRatio
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Account id
+        /// ["<c>account</c>"] Account id
         /// </summary>
         [JsonPropertyName("account")]
         public decimal AccountId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Quote count
+        /// ["<c>quoteCount</c>"] Quote count
         /// </summary>
         [JsonPropertyName("quoteCount")]
         public int QuoteCount { get; set; }
         /// <summary>
-        /// Volume XBT
+        /// ["<c>volumeXBT</c>"] Volume XBT
         /// </summary>
         [JsonPropertyName("volumeXBT")]
         public long VolumeXBT { get; set; }
         /// <summary>
-        /// Quote value ratio
+        /// ["<c>QVR</c>"] Quote value ratio
         /// </summary>
         [JsonPropertyName("QVR")]
         public decimal QuoteValueRatio { get; set; }
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }

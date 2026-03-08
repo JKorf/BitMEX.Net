@@ -10,17 +10,17 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXUsdVolume
     {
         /// <summary>
-        /// Average trading volume USD
+        /// ["<c>advUsd</c>"] Average trading volume USD
         /// </summary>
         [JsonPropertyName("advUsd")]
         public decimal AverageVolumeUsd { get; set; }
         /// <summary>
-        /// Average trading volume USD spot
+        /// ["<c>advUsdSpot</c>"] Average trading volume USD spot
         /// </summary>
         [JsonPropertyName("advUsdSpot")]
         public decimal AverageVolumeUsdSpot { get; set; }
         /// <summary>
-        /// Average trading volume USD contract
+        /// ["<c>advUsdContract</c>"] Average trading volume USD contract
         /// </summary>
         [JsonPropertyName("advUsdContract")]
         public decimal AverageVolumeUsdContract { get; set; }

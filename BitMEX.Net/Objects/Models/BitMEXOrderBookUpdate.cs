@@ -13,24 +13,24 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXOrderBookUpdate
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>symbol</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Bids
+        /// ["<c>bids</c>"] Bids
         /// </summary>
         [JsonPropertyName("bids")]
         public BitMEXOrderBookUpdateEntry[] Bids { get; set; } = [];
         /// <summary>
-        /// Asks
+        /// ["<c>asks</c>"] Asks
         /// </summary>
         [JsonPropertyName("asks")]
         public BitMEXOrderBookUpdateEntry[] Asks { get; set; } = [];
 
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

@@ -11,17 +11,17 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXInsurance
     {
         /// <summary>   
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Wallet balance
+        /// ["<c>walletBalance</c>"] Wallet balance
         /// </summary>
         [JsonPropertyName("walletBalance")]
         public long WalletBalance { get; set; }

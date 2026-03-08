@@ -11,67 +11,67 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXAggTrade
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Open price
+        /// ["<c>open</c>"] Open price
         /// </summary>
         [JsonPropertyName("open")]
         public decimal OpenPrice { get; set; }
         /// <summary>
-        /// High price
+        /// ["<c>high</c>"] High price
         /// </summary>
         [JsonPropertyName("high")]
         public decimal HighPrice { get; set; }
         /// <summary>
-        /// Low price
+        /// ["<c>low</c>"] Low price
         /// </summary>
         [JsonPropertyName("low")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// Close price
+        /// ["<c>close</c>"] Close price
         /// </summary>
         [JsonPropertyName("close")]
         public decimal ClosePrice { get; set; }
         /// <summary>
-        /// Number of trades
+        /// ["<c>trades</c>"] Number of trades
         /// </summary>
         [JsonPropertyName("trades")]
         public decimal Trades { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public long Volume { get; set; }
         /// <summary>
-        /// Last quantity
+        /// ["<c>lastSize</c>"] Last quantity
         /// </summary>
         [JsonPropertyName("lastSize")]
         public long LastQuantity { get; set; }
         /// <summary>
-        /// Volume weighted average price
+        /// ["<c>vwap</c>"] Volume weighted average price
         /// </summary>
         [JsonPropertyName("vwap")]
         public decimal? VolumeWeightedAveragePrice { get; set; }
         /// <summary>
-        /// Turnover
+        /// ["<c>turnover</c>"] Turnover
         /// </summary>
         [JsonPropertyName("turnover")]
         public decimal Turnover { get; set; }
         /// <summary>
-        /// Home notional
+        /// ["<c>homeNotional</c>"] Home notional
         /// </summary>
         [JsonPropertyName("homeNotional")]
         public decimal HomeNotional { get; set; }
         /// <summary>
-        /// Foreign notional
+        /// ["<c>foreignNotional</c>"] Foreign notional
         /// </summary>
         [JsonPropertyName("foreignNotional")]
         public decimal ForeignNotional { get; set; }

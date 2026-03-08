@@ -11,272 +11,272 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXPosition
     {
         /// <summary>
-        /// Account id
+        /// ["<c>account</c>"] Account id
         /// </summary>
         [JsonPropertyName("account")]
         public long AccountId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Currency
+        /// ["<c>currency</c>"] Currency
         /// </summary>
         [JsonPropertyName("currency")]
         public string? Currency { get; set; }
         /// <summary>
-        /// Underlying
+        /// ["<c>underlying</c>"] Underlying
         /// </summary>
         [JsonPropertyName("underlying")]
         public string? Underlying { get; set; }
         /// <summary>
-        /// Quote asset
+        /// ["<c>quoteCurrency</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("quoteCurrency")]
         public string? QuoteAsset { get; set; }
         /// <summary>
-        /// The maximum of the maker, taker, and settlement fee.
+        /// ["<c>commission</c>"] The maximum of the maker, taker, and settlement fee.
         /// </summary>
         [JsonPropertyName("commission")]
         public decimal? FeeRate { get; set; }
         /// <summary>
-        /// Initial margin requirement
+        /// ["<c>initMarginReq</c>"] Initial margin requirement
         /// </summary>
         [JsonPropertyName("initMarginReq")]
         public decimal? InitialMarginRequirement { get; set; }
         /// <summary>
-        /// Maintenance margin requirement
+        /// ["<c>maintMarginReq</c>"] Maintenance margin requirement
         /// </summary>
         [JsonPropertyName("maintMarginReq")]
         public decimal? MaintenanceMarginRequirement { get; set; }
         /// <summary>
-        /// Risk limit
+        /// ["<c>riskLimit</c>"] Risk limit
         /// </summary>
         [JsonPropertyName("riskLimit")]
         public decimal? RiskLimit { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal? Leverage { get; set; }
         /// <summary>
-        /// Cross margin
+        /// ["<c>crossMargin</c>"] Cross margin
         /// </summary>
         [JsonPropertyName("crossMargin")]
         public bool CrossMargin { get; set; }
         /// <summary>
-        /// Deleverage percentile
+        /// ["<c>deleveragePercentile</c>"] Deleverage percentile
         /// </summary>
         [JsonPropertyName("deleveragePercentile")]
         public decimal? DeleveragePercentile { get; set; }
         /// <summary>
-        /// Rebalanced profit and loss
+        /// ["<c>rebalancedPnl</c>"] Rebalanced profit and loss
         /// </summary>
         [JsonPropertyName("rebalancedPnl")]
         public long? RebalancedPnl { get; set; }
         /// <summary>
-        /// Previous realised profit and loss
+        /// ["<c>prevRealisedPnl</c>"] Previous realised profit and loss
         /// </summary>
         [JsonPropertyName("prevRealisedPnl")]
         public long? PreviousRealisedPnl { get; set; }
         /// <summary>
-        /// Previous unrealised profit and loss
+        /// ["<c>prevUnrealisedPnl</c>"] Previous unrealised profit and loss
         /// </summary>
         [JsonPropertyName("prevUnrealisedPnl")]
         public long? PreviousUnrealisedPnl { get; set; }
         /// <summary>
-        /// Opening quantity
+        /// ["<c>openingQty</c>"] Opening quantity
         /// </summary>
         [JsonPropertyName("openingQty")]
         public long? OpeningQuantity { get; set; }
         /// <summary>
-        /// Open order buy quantity
+        /// ["<c>openOrderBuyQty</c>"] Open order buy quantity
         /// </summary>
         [JsonPropertyName("openOrderBuyQty")]
         public long OpenOrderBuyQuantity { get; set; }
         /// <summary>
-        /// Open order buy cost
+        /// ["<c>openOrderBuyCost</c>"] Open order buy cost
         /// </summary>
         [JsonPropertyName("openOrderBuyCost")]
         public decimal OpenOrderBuyCost { get; set; }
         /// <summary>
-        /// Open order buy premium
+        /// ["<c>openOrderBuyPremium</c>"] Open order buy premium
         /// </summary>
         [JsonPropertyName("openOrderBuyPremium")]
         public decimal? OpenOrderBuyPremium { get; set; }
         /// <summary>
-        /// Open order sell quantity
+        /// ["<c>openOrderSellQty</c>"] Open order sell quantity
         /// </summary>
         [JsonPropertyName("openOrderSellQty")]
         public long OpenOrderSellQuantity { get; set; }
         /// <summary>
-        /// Open order sell cost
+        /// ["<c>openOrderSellCost</c>"] Open order sell cost
         /// </summary>
         [JsonPropertyName("openOrderSellCost")]
         public decimal OpenOrderSellCost { get; set; }
         /// <summary>
-        /// Open order sell premium
+        /// ["<c>openOrderSellPremium</c>"] Open order sell premium
         /// </summary>
         [JsonPropertyName("openOrderSellPremium")]
         public decimal? OpenOrderSellPremium { get; set; }
         /// <summary>
-        /// Current quantity
+        /// ["<c>currentQty</c>"] Current quantity
         /// </summary>
         [JsonPropertyName("currentQty")]
         public long? CurrentQuantity { get; set; }
         /// <summary>
-        /// Current cost
+        /// ["<c>currentCost</c>"] Current cost
         /// </summary>
         [JsonPropertyName("currentCost")]
         public decimal? CurrentCost { get; set; }
         /// <summary>
-        /// Current commissions
+        /// ["<c>currentComm</c>"] Current commissions
         /// </summary>
         [JsonPropertyName("currentComm")]
         public long? CurrentCommissions { get; set; }
         /// <summary>
-        /// Realised cost
+        /// ["<c>realisedCost</c>"] Realised cost
         /// </summary>
         [JsonPropertyName("realisedCost")]
         public decimal? RealisedCost { get; set; }
         /// <summary>
-        /// Unrealised cost
+        /// ["<c>unrealisedCost</c>"] Unrealised cost
         /// </summary>
         [JsonPropertyName("unrealisedCost")]
         public decimal? UnrealisedCost { get; set; }
         /// <summary>
-        /// Gross open premium
+        /// ["<c>grossOpenPremium</c>"] Gross open premium
         /// </summary>
         [JsonPropertyName("grossOpenPremium")]
         public decimal? GrossOpenPremium { get; set; }
         /// <summary>
-        /// Is open
+        /// ["<c>isOpen</c>"] Is open
         /// </summary>
         [JsonPropertyName("isOpen")]
         public bool IsOpen { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>markPrice</c>"] Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
         public decimal? MarkPrice { get; set; }
         /// <summary>
-        /// Mark value
+        /// ["<c>markValue</c>"] Mark value
         /// </summary>
         [JsonPropertyName("markValue")]
         public decimal? MarkValue { get; set; }
         /// <summary>
-        /// Risk value
+        /// ["<c>riskValue</c>"] Risk value
         /// </summary>
         [JsonPropertyName("riskValue")]
         public decimal? RiskValue { get; set; }
         /// <summary>
-        /// Home notional
+        /// ["<c>homeNotional</c>"] Home notional
         /// </summary>
         [JsonPropertyName("homeNotional")]
         public decimal? HomeNotional { get; set; }
         /// <summary>
-        /// Foreign notional
+        /// ["<c>foreignNotional</c>"] Foreign notional
         /// </summary>
         [JsonPropertyName("foreignNotional")]
         public decimal? ForeignNotional { get; set; }
         /// <summary>
-        /// Position status
+        /// ["<c>posState</c>"] Position status
         /// </summary>
         [JsonPropertyName("posState")]
         public string PositionStatus { get; set; } = string.Empty;
         /// <summary>
-        /// Position cost
+        /// ["<c>posCost</c>"] Position cost
         /// </summary>
         [JsonPropertyName("posCost")]
         public decimal? PositionCost { get; set; }
         /// <summary>
-        /// Position cross
+        /// ["<c>posCross</c>"] Position cross
         /// </summary>
         [JsonPropertyName("posCross")]
         public decimal? PositionCross { get; set; }
         /// <summary>
-        /// Position commissions
+        /// ["<c>posComm</c>"] Position commissions
         /// </summary>
         [JsonPropertyName("posComm")]
         public long? PositionCommissions { get; set; }
         /// <summary>
-        /// Position loss
+        /// ["<c>posLoss</c>"] Position loss
         /// </summary>
         [JsonPropertyName("posLoss")]
         public decimal? PositionLoss { get; set; }
         /// <summary>
-        /// Position margin
+        /// ["<c>posMargin</c>"] Position margin
         /// </summary>
         [JsonPropertyName("posMargin")]
         public long? PositionMargin { get; set; }
         /// <summary>
-        /// Position maintenance
+        /// ["<c>posMaint</c>"] Position maintenance
         /// </summary>
         [JsonPropertyName("posMaint")]
         public long? PositionMaintenance { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>initMargin</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("initMargin")]
         public decimal? InitialMargin { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>maintMargin</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("maintMargin")]
         public decimal? MaintenanceMargin { get; set; }
         /// <summary>
-        /// Realised profit and loss
+        /// ["<c>realisedPnl</c>"] Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
         public long? RealisedPnl { get; set; }
         /// <summary>
-        /// Unrealised profit and loss
+        /// ["<c>unrealisedPnl</c>"] Unrealised profit and loss
         /// </summary>
         [JsonPropertyName("unrealisedPnl")]
         public long? UnrealizedPnl { get; set; }
         /// <summary>
-        /// Unrealised profit and loss percentage
+        /// ["<c>unrealisedPnlPcnt</c>"] Unrealised profit and loss percentage
         /// </summary>
         [JsonPropertyName("unrealisedPnlPcnt")]
         public decimal? UnrealisedPnlPcnt { get; set; }
         /// <summary>
-        /// Unrealised roe percentage
+        /// ["<c>unrealisedRoePcnt</c>"] Unrealised roe percentage
         /// </summary>
         [JsonPropertyName("unrealisedRoePcnt")]
         public decimal? UnrealisedRoePercentage { get; set; }
         /// <summary>
-        /// Average cost price
+        /// ["<c>avgCostPrice</c>"] Average cost price
         /// </summary>
         [JsonPropertyName("avgCostPrice")]
         public decimal? AverageCostPrice { get; set; }
         /// <summary>
-        /// Average entry price
+        /// ["<c>avgEntryPrice</c>"] Average entry price
         /// </summary>
         [JsonPropertyName("avgEntryPrice")]
         public decimal? AverageEntryPrice { get; set; }
         /// <summary>
-        /// Break even price
+        /// ["<c>breakEvenPrice</c>"] Break even price
         /// </summary>
         [JsonPropertyName("breakEvenPrice")]
         public decimal? BreakEvenPrice { get; set; }
         /// <summary>
-        /// Margin call price
+        /// ["<c>marginCallPrice</c>"] Margin call price
         /// </summary>
         [JsonPropertyName("marginCallPrice")]
         public decimal? MarginCallPrice { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>liquidationPrice</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("liquidationPrice")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Bankrupt price
+        /// ["<c>bankruptPrice</c>"] Bankrupt price
         /// </summary>
         [JsonPropertyName("bankruptPrice")]
         public decimal? BankruptPrice { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

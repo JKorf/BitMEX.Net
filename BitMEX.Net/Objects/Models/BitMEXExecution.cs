@@ -11,88 +11,88 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXExecution : BitMEXOrder
     {
         /// <summary>
-        /// Trade id
+        /// ["<c>execID</c>"] Trade id
         /// </summary>
         [JsonPropertyName("execID")]
         public string TradeId { get; set; } = string.Empty;
         /// <summary>
-        /// Last trade quantity
+        /// ["<c>lastQty</c>"] Last trade quantity
         /// </summary>
         [JsonPropertyName("lastQty")]
         public long? LastTradeQuantity { get; set; }
         /// <summary>
-        /// Last trade price
+        /// ["<c>lastPx</c>"] Last trade price
         /// </summary>
         [JsonPropertyName("lastPx")]
         public decimal? LastTradePrice { get; set; }
         /// <summary>
-        /// Last trade liquidity indicator
+        /// ["<c>lastLiquidityInd</c>"] Last trade liquidity indicator
         /// </summary>
         [JsonPropertyName("lastLiquidityInd")]
         public string? LastTradeLiquidityIndicator { get; set; }
         /// <summary>
-        /// Execution type
+        /// ["<c>execType</c>"] Execution type
         /// </summary>
         [JsonPropertyName("execType")]
         public ExecutionType ExecutionType { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>commission</c>"] Fee
         /// </summary>
         [JsonPropertyName("commission")]
         public decimal FeePercentage { get; set; }
         /// <summary>
-        /// Broker fee
+        /// ["<c>brokerCommission</c>"] Broker fee
         /// </summary>
         [JsonPropertyName("brokerCommission")]
         public decimal? BrokerFee { get; set; }
         /// <summary>
-        /// Role
+        /// ["<c>feeType</c>"] Role
         /// </summary>
         [JsonPropertyName("feeType")]
         public TradeRole? Role { get; set; }
 
         /// <summary>
-        /// Trade publish indicator
+        /// ["<c>tradePublishIndicator</c>"] Trade publish indicator
         /// </summary>
         [JsonPropertyName("tradePublishIndicator")]
         public string TradePublishIndicator { get; set; } = string.Empty;
         /// <summary>
-        /// Matching trade id
+        /// ["<c>trdMatchID</c>"] Matching trade id
         /// </summary>
         [JsonPropertyName("trdMatchID")]
         public string TradeMatchId { get; set; } = string.Empty;
         /// <summary>
-        /// Value filled
+        /// ["<c>execCost</c>"] Value filled
         /// </summary>
         [JsonPropertyName("execCost")]
         public long ValueFilled { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>execComm</c>"] Fee
         /// </summary>
         [JsonPropertyName("execComm")]
         public long Fee { get; set; }
         /// <summary>
-        /// Broker exec comm
+        /// ["<c>brokerExecComm</c>"] Broker exec comm
         /// </summary>
         [JsonPropertyName("brokerExecComm")]
         public decimal BrokerExecComm { get; set; }
         /// <summary>
-        /// Home notional
+        /// ["<c>homeNotional</c>"] Home notional
         /// </summary>
         [JsonPropertyName("homeNotional")]
         public decimal HomeNotional { get; set; }
         /// <summary>
-        /// Foreign notional
+        /// ["<c>foreignNotional</c>"] Foreign notional
         /// </summary>
         [JsonPropertyName("foreignNotional")]
         public decimal ForeignNotional { get; set; }
         /// <summary>
-        /// Realised profit and loss
+        /// ["<c>realisedPnl</c>"] Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
         public long RealisedPnl { get; set; }
         /// <summary>
-        /// Trade type
+        /// ["<c>trdType</c>"] Trade type
         /// </summary>
         [JsonPropertyName("trdType")]
         public string? TradeType { get; set; }

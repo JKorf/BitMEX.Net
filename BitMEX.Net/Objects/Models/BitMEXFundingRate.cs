@@ -12,31 +12,31 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXFundingRate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Funding interval
+        /// ["<c>fundingInterval</c>"] Funding interval
         /// </summary>
         [JsonPropertyName("fundingInterval")]
         [JsonConverter(typeof(IntervalConverter))]
         public TimeSpan FundingInterval { get; set; }
 
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
 
         /// <summary>
-        /// Funding rate daily
+        /// ["<c>fundingRateDaily</c>"] Funding rate daily
         /// </summary>
         [JsonPropertyName("fundingRateDaily")]
         public decimal FundingRateDaily { get; set; }

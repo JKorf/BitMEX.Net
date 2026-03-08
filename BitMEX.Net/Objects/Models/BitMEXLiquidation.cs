@@ -11,27 +11,27 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXLiquidation
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order id
+        /// ["<c>orderID</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderID")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>leavesQty</c>"] Quantity
         /// </summary>
         [JsonPropertyName("leavesQty")]
         public long Quantity { get; set; }

@@ -11,37 +11,37 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXFillRatio
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>date</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("date")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Account id
+        /// ["<c>account</c>"] Account id
         /// </summary>
         [JsonPropertyName("account")]
         public long AccountId { get; set; }
         /// <summary>
-        /// Quote count
+        /// ["<c>quoteCount</c>"] Quote count
         /// </summary>
         [JsonPropertyName("quoteCount")]
         public long QuoteCount { get; set; }
         /// <summary>
-        /// Dealt count
+        /// ["<c>dealtCount</c>"] Dealt count
         /// </summary>
         [JsonPropertyName("dealtCount")]
         public long DealtCount { get; set; }
         /// <summary>
-        /// Quotes moving average 7 days
+        /// ["<c>quotesMavg7</c>"] Quotes moving average 7 days
         /// </summary>
         [JsonPropertyName("quotesMavg7")]
         public decimal QuotesMavg7d { get; set; }
         /// <summary>
-        /// Dealt moving average 7 days
+        /// ["<c>dealtMavg7</c>"] Dealt moving average 7 days
         /// </summary>
         [JsonPropertyName("dealtMavg7")]
         public decimal DealtMavg7d { get; set; }
         /// <summary>
-        /// Quote fill ratio moving average 7 days 
+        /// ["<c>quoteFillRatioMavg7</c>"] Quote fill ratio moving average 7 days 
         /// </summary>
         [JsonPropertyName("quoteFillRatioMavg7")]
         public decimal QuoteFillRatioMavg7d { get; set; }

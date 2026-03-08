@@ -13,123 +13,123 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXIndex
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Base asset
+        /// ["<c>rootSymbol</c>"] Base asset
         /// </summary>
         [JsonPropertyName("rootSymbol")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Status
+        /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
         public SymbolStatus Status { get; set; }
         /// <summary>
-        /// Symbol type
+        /// ["<c>typ</c>"] Symbol type
         /// </summary>
         [JsonPropertyName("typ")]
         public SymbolType SymbolType { get; set; }        
         /// <summary>
-        /// Underlying asset
+        /// ["<c>underlying</c>"] Underlying asset
         /// </summary>
         [JsonPropertyName("underlying")]
         public string Underlying { get; set; } = string.Empty;
         /// <summary>
-        /// Quote asset
+        /// ["<c>quoteCurrency</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("quoteCurrency")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Underlying symbol
+        /// ["<c>underlyingSymbol</c>"] Underlying symbol
         /// </summary>
         [JsonPropertyName("underlyingSymbol")]
         public string UnderlyingSymbol { get; set; } = string.Empty;
         /// <summary>
-        /// Reference
+        /// ["<c>reference</c>"] Reference
         /// </summary>
         [JsonPropertyName("reference")]
         public string Reference { get; set; } = string.Empty;
         /// <summary>
-        /// Reference symbol
+        /// ["<c>referenceSymbol</c>"] Reference symbol
         /// </summary>
         [JsonPropertyName("referenceSymbol")]
         public string ReferenceSymbol { get; set; } = string.Empty;        
         /// <summary>
-        /// Publish interval
+        /// ["<c>publishInterval</c>"] Publish interval
         /// </summary>
         [JsonPropertyName("publishInterval")]
         [JsonConverter(typeof(IntervalConverter))]
         public TimeSpan? PublishInterval { get; set; }        
         /// <summary>
-        /// Price step
+        /// ["<c>tickSize</c>"] Price step
         /// </summary>
         [JsonPropertyName("tickSize")]
         public decimal PriceStep { get; set; }        
         /// <summary>
-        /// Is quanto
+        /// ["<c>isQuanto</c>"] Is quanto
         /// </summary>
         [JsonPropertyName("isQuanto")]
         public bool IsQuanto { get; set; }
         /// <summary>
-        /// Is inverse
+        /// ["<c>isInverse</c>"] Is inverse
         /// </summary>
         [JsonPropertyName("isInverse")]
         public bool IsInverse { get; set; }        
         /// <summary>
-        /// Taxed
+        /// ["<c>taxed</c>"] Taxed
         /// </summary>
         [JsonPropertyName("taxed")]
         public bool Taxed { get; set; }
         /// <summary>
-        /// Deleverage
+        /// ["<c>deleverage</c>"] Deleverage
         /// </summary>
         [JsonPropertyName("deleverage")]
         public bool Deleverage { get; set; }        
         /// <summary>
-        /// Previous price24h
+        /// ["<c>prevPrice24h</c>"] Previous price24h
         /// </summary>
         [JsonPropertyName("prevPrice24h")]
         public decimal PrevPrice24h { get; set; }        
         /// <summary>
-        /// Last price
+        /// ["<c>lastPrice</c>"] Last price
         /// </summary>
         [JsonPropertyName("lastPrice")]
         public decimal? LastPrice { get; set; }
         /// <summary>
-        /// Last change percentage
+        /// ["<c>lastChangePcnt</c>"] Last change percentage
         /// </summary>
         [JsonPropertyName("lastChangePcnt")]
         public decimal? LastChangePcnt { get; set; }        
         /// <summary>
-        /// Has liquidity
+        /// ["<c>hasLiquidity</c>"] Has liquidity
         /// </summary>
         [JsonPropertyName("hasLiquidity")]
         public bool HasLiquidity { get; set; }        
         /// <summary>
-        /// Mark method
+        /// ["<c>markMethod</c>"] Mark method
         /// </summary>
         [JsonPropertyName("markMethod")]
         public MarkMethod MarkMethod { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>markPrice</c>"] Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
         public decimal? MarkPrice { get; set; }        
         /// <summary>
-        /// Instant pnl
+        /// ["<c>instantPnl</c>"] Instant pnl
         /// </summary>
         [JsonPropertyName("instantPnl")]
         public bool InstantPnl { get; set; }        
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Capped
+        /// ["<c>capped</c>"] Capped
         /// </summary>
         [JsonPropertyName("capped")]
         public bool Capped { get; set; }

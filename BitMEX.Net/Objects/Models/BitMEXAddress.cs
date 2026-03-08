@@ -11,77 +11,77 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXAddress
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Created time
+        /// ["<c>created</c>"] Created time
         /// </summary>
         [JsonPropertyName("created")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>userId</c>"] User id
         /// </summary>
         [JsonPropertyName("userId")]
         public long UserId { get; set; }
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Note
+        /// ["<c>note</c>"] Note
         /// </summary>
         [JsonPropertyName("note")]
         public string Note { get; set; } = string.Empty;
         /// <summary>
-        /// Skip confirm
+        /// ["<c>skipConfirm</c>"] Skip confirm
         /// </summary>
         [JsonPropertyName("skipConfirm")]
         public bool SkipConfirm { get; set; }
         /// <summary>
-        /// Skip confirm verified
+        /// ["<c>skipConfirmVerified</c>"] Skip confirm verified
         /// </summary>
         [JsonPropertyName("skipConfirmVerified")]
         public bool SkipConfirmVerified { get; set; }
         /// <summary>
-        /// Skip 2FA
+        /// ["<c>skip2FA</c>"] Skip 2FA
         /// </summary>
         [JsonPropertyName("skip2FA")]
         public bool Skip2FA { get; set; }
         /// <summary>
-        /// Skip 2FA verified
+        /// ["<c>skip2FAVerified</c>"] Skip 2FA verified
         /// </summary>
         [JsonPropertyName("skip2FAVerified")]
         public bool Skip2FAVerified { get; set; }
         /// <summary>
-        /// Network
+        /// ["<c>network</c>"] Network
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Memo
+        /// ["<c>memo</c>"] Memo
         /// </summary>
         [JsonPropertyName("memo")]
         public string? Memo { get; set; }
         /// <summary>
-        /// Cooldown expires
+        /// ["<c>cooldownExpires</c>"] Cooldown expires
         /// </summary>
         [JsonPropertyName("cooldownExpires")]
         public DateTime? CooldownExpires { get; set; }
         /// <summary>
-        /// Verified
+        /// ["<c>verified</c>"] Verified
         /// </summary>
         [JsonPropertyName("verified")]
         public bool Verified { get; set; }

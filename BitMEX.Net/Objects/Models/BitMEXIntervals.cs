@@ -10,12 +10,12 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXIntervals
     {
         /// <summary>
-        /// Intervals
+        /// ["<c>intervals</c>"] Intervals
         /// </summary>
         [JsonPropertyName("intervals")]
         public string[] Intervals { get; set; } = [];
         /// <summary>
-        /// Symbols
+        /// ["<c>symbols</c>"] Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
         public string[] Symbols { get; set; } = [];

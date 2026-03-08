@@ -10,32 +10,32 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXNotification
     {
         /// <summary>
-        /// Title
+        /// ["<c>title</c>"] Title
         /// </summary>
         [JsonPropertyName("title")]
         public string Title { get; set; } = string.Empty;
         /// <summary>
-        /// Body
+        /// ["<c>body</c>"] Body
         /// </summary>
         [JsonPropertyName("body")]
         public string Body { get; set; } = string.Empty;
         /// <summary>
-        /// Time to live
+        /// ["<c>ttl</c>"] Time to live
         /// </summary>
         [JsonPropertyName("ttl")]
         public int? TimeToLive { get; set; }
         /// <summary>
-        /// Closable
+        /// ["<c>closable</c>"] Closable
         /// </summary>
         [JsonPropertyName("closable")]
         public bool Closable { get; set; }
         /// <summary>
-        /// Persist
+        /// ["<c>persist</c>"] Persist
         /// </summary>
         [JsonPropertyName("persist")]
         public bool Persist { get; set; }
         /// <summary>
-        /// Sound
+        /// ["<c>sound</c>"] Sound
         /// </summary>
         [JsonPropertyName("sound")]
         public string Sound { get; set; } = string.Empty;

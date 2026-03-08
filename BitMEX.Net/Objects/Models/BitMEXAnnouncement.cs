@@ -11,27 +11,27 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXAnnouncement
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Link
+        /// ["<c>link</c>"] Link
         /// </summary>
         [JsonPropertyName("link")]
         public string Link { get; set; } = string.Empty;
         /// <summary>
-        /// Title
+        /// ["<c>title</c>"] Title
         /// </summary>
         [JsonPropertyName("title")]
         public string Title { get; set; } = string.Empty;
         /// <summary>
-        /// Content
+        /// ["<c>content</c>"] Content
         /// </summary>
         [JsonPropertyName("content")]
         public string Content { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>date</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("date")]
         public DateTime Timestamp { get; set; }

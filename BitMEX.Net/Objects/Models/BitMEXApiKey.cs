@@ -11,52 +11,52 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXApiKey
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Nonce
+        /// ["<c>nonce</c>"] Nonce
         /// </summary>
         [JsonPropertyName("nonce")]
         public long Nonce { get; set; }
         /// <summary>
-        /// Cidr
+        /// ["<c>cidr</c>"] Cidr
         /// </summary>
         [JsonPropertyName("cidr")]
         public string Cidr { get; set; } = string.Empty;
         /// <summary>
-        /// Cidr
+        /// ["<c>cidrs</c>"] Cidr
         /// </summary>
         [JsonPropertyName("cidrs")]
         public string[] Cidrs { get; set; } = [];
         /// <summary>
-        /// Permissions
+        /// ["<c>permissions</c>"] Permissions
         /// </summary>
         [JsonPropertyName("permissions")]
         public string[] Permissions { get; set; } = [];
         /// <summary>
-        /// Target account id
+        /// ["<c>targetAccountId</c>"] Target account id
         /// </summary>
         [JsonPropertyName("targetAccountId")]
         public long? TargetAccountId { get; set; }
         /// <summary>
-        /// Enabled
+        /// ["<c>enabled</c>"] Enabled
         /// </summary>
         [JsonPropertyName("enabled")]
         public bool Enabled { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>userId</c>"] User id
         /// </summary>
         [JsonPropertyName("userId")]
         public long UserId { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>created</c>"] Create time
         /// </summary>
         [JsonPropertyName("created")]
         public DateTime CreateTime { get; set; }

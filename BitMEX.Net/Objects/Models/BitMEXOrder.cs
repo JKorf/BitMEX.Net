@@ -12,145 +12,145 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderID</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderID")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>clOrdID</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clOrdID")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Client order link id
+        /// ["<c>clOrdLinkID</c>"] Client order link id
         /// </summary>
         [JsonPropertyName("clOrdLinkID")]
         public string? ClientOrderLinkId { get; set; }
         /// <summary>
-        /// Account id
+        /// ["<c>account</c>"] Account id
         /// </summary>
         [JsonPropertyName("account")]
         public long AccountId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide OrderSide { get; set; }
         /// <summary>
-        /// Order quantity
+        /// ["<c>orderQty</c>"] Order quantity
         /// </summary>
         [JsonPropertyName("orderQty")]
         public long? Quantity { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Display quantity
+        /// ["<c>displayQty</c>"] Display quantity
         /// </summary>
         [JsonPropertyName("displayQty")]
         public decimal? DisplayQuantity { get; set; }
         /// <summary>
-        /// Stop price
+        /// ["<c>stopPx</c>"] Stop price
         /// </summary>
         [JsonPropertyName("stopPx")]
         public decimal? StopPrice { get; set; }
         /// <summary>
-        /// Pegged order price type
+        /// ["<c>pegPriceType</c>"] Pegged order price type
         /// </summary>
         [JsonPropertyName("pegPriceType")]
         public PeggedPriceType? PeggedPriceType { get; set; }
         /// <summary>
-        /// Currency
+        /// ["<c>currency</c>"] Currency
         /// </summary>
         [JsonPropertyName("currency")]
         public string Currency { get; set; } = string.Empty;
         /// <summary>
-        /// Settlement currency
+        /// ["<c>settlCurrency</c>"] Settlement currency
         /// </summary>
         [JsonPropertyName("settlCurrency")]
         public string? SettlementCurrency { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>ordType</c>"] Order type
         /// </summary>
         [JsonPropertyName("ordType")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Time in force
+        /// ["<c>timeInForce</c>"] Time in force
         /// </summary>
         [JsonPropertyName("timeInForce")]
         public TimeInForce TimeInForce { get; set; }
         /// <summary>
-        /// Execution instructions
+        /// ["<c>execInst</c>"] Execution instructions
         /// </summary>
         [JsonPropertyName("execInst")]
         [JsonConverter(typeof(CommaSplitEnumConverter<ExecutionInstruction>))]
         public ExecutionInstruction[]? ExecutionInstruction { get; set; }
         /// <summary>
-        /// Contingency type
+        /// ["<c>contingencyType</c>"] Contingency type
         /// </summary>
         [JsonPropertyName("contingencyType")]
         public ContingencyType? ContingencyType { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>ordStatus</c>"] Order status
         /// </summary>
         [JsonPropertyName("ordStatus")]
         public OrderStatus Status { get; set; }
         /// <summary>
-        /// Triggered
+        /// ["<c>triggered</c>"] Triggered
         /// </summary>
         [JsonPropertyName("triggered")]
         public string? Triggered { get; set; }
         /// <summary>
-        /// Working indicator
+        /// ["<c>workingIndicator</c>"] Working indicator
         /// </summary>
         [JsonPropertyName("workingIndicator")]
         public bool WorkingIndicator { get; set; }
         /// <summary>
-        /// Order reject reason
+        /// ["<c>ordRejReason</c>"] Order reject reason
         /// </summary>
         [JsonPropertyName("ordRejReason")]
         public string? OrderRejectReason { get; set; }
         /// <summary>
-        /// Quantity remaining
+        /// ["<c>leavesQty</c>"] Quantity remaining
         /// </summary>
         [JsonPropertyName("leavesQty")]
         public long QuantityRemaining { get; set; }
         /// <summary>
-        /// Quantity filled
+        /// ["<c>cumQty</c>"] Quantity filled
         /// </summary>
         [JsonPropertyName("cumQty")]
         public long QuantityFilled { get; set; }
         /// <summary>
-        /// Average price
+        /// ["<c>avgPx</c>"] Average price
         /// </summary>
         [JsonPropertyName("avgPx")]
         public decimal? AveragePrice { get; set; }
         /// <summary>
-        /// Transact time
+        /// ["<c>transactTime</c>"] Transact time
         /// </summary>
         [JsonPropertyName("transactTime")]
         public DateTime TransactTime { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// Peg offset value
+        /// ["<c>pegOffsetValue</c>"] Peg offset value
         /// </summary>
         [JsonPropertyName("pegOffsetValue")]
         public long? PegOffsetValue { get; set; }
 
         /// <summary>
-        /// Error message
+        /// ["<c>error</c>"] Error message
         /// </summary>
         [JsonPropertyName("error")]
         public string? Error { get; set; }

@@ -11,27 +11,27 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXExchangeStatHistory
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>date</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("date")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Root symbol
+        /// ["<c>rootSymbol</c>"] Root symbol
         /// </summary>
         [JsonPropertyName("rootSymbol")]
         public string RootSymbol { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string? Asset { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public long Volume { get; set; }
         /// <summary>
-        /// Turnover
+        /// ["<c>turnover</c>"] Turnover
         /// </summary>
         [JsonPropertyName("turnover")]
         public long Turnover { get; set; }

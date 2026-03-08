@@ -10,22 +10,22 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXTradeFee
     {
         /// <summary>
-        /// Max fee
+        /// ["<c>maxFee</c>"] Max fee
         /// </summary>
         [JsonPropertyName("maxFee")]
         public decimal MaxFee { get; set; }
         /// <summary>
-        /// Maker fee
+        /// ["<c>makerFee</c>"] Maker fee
         /// </summary>
         [JsonPropertyName("makerFee")]
         public decimal MakerFee { get; set; }
         /// <summary>
-        /// Taker fee
+        /// ["<c>takerFee</c>"] Taker fee
         /// </summary>
         [JsonPropertyName("takerFee")]
         public decimal TakerFee { get; set; }
         /// <summary>
-        /// Settlement fee
+        /// ["<c>settlementFee</c>"] Settlement fee
         /// </summary>
         [JsonPropertyName("settlementFee")]
         public decimal SettlementFee { get; set; }

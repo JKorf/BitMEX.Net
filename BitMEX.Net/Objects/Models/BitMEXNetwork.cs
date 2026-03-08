@@ -10,42 +10,42 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXNetwork
     {
         /// <summary>
-        /// Network
+        /// ["<c>network</c>"] Network
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Network symbol
+        /// ["<c>networkSymbol</c>"] Network symbol
         /// </summary>
         [JsonPropertyName("networkSymbol")]
         public string NetworkSymbol { get; set; } = string.Empty;
         /// <summary>
-        /// Transaction explorer
+        /// ["<c>transactionExplorer</c>"] Transaction explorer
         /// </summary>
         [JsonPropertyName("transactionExplorer")]
         public string TransactionExplorer { get; set; } = string.Empty;
         /// <summary>
-        /// Token explorer
+        /// ["<c>tokenExplorer</c>"] Token explorer
         /// </summary>
         [JsonPropertyName("tokenExplorer")]
         public string TokenExplorer { get; set; } = string.Empty;
         /// <summary>
-        /// Deposit confirmations
+        /// ["<c>depositConfirmations</c>"] Deposit confirmations
         /// </summary>
         [JsonPropertyName("depositConfirmations")]
         public int? DepositConfirmations { get; set; }
         /// <summary>
-        /// Enabled
+        /// ["<c>enabled</c>"] Enabled
         /// </summary>
         [JsonPropertyName("enabled")]
         public bool Enabled { get; set; }

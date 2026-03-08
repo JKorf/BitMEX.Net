@@ -11,37 +11,37 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXAddressBookConfig
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long? Id { get; set; }
         /// <summary>
-        /// Whitelist
+        /// ["<c>whitelist</c>"] Whitelist
         /// </summary>
         [JsonPropertyName("whitelist")]
         public bool Whitelist { get; set; }
         /// <summary>
-        /// Created time
+        /// ["<c>created</c>"] Created time
         /// </summary>
         [JsonPropertyName("created")]
         public DateTime? CreateTime { get; set; }
         /// <summary>
-        /// Disabled time
+        /// ["<c>disabled</c>"] Disabled time
         /// </summary>
         [JsonPropertyName("disabled")]
         public DateTime? DisableTime { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>userId</c>"] User id
         /// </summary>
         [JsonPropertyName("userId")]
         public long UserId { get; set; }
         /// <summary>
-        /// Default cooldown
+        /// ["<c>defaultCooldown</c>"] Default cooldown
         /// </summary>
         [JsonPropertyName("defaultCooldown")]
         public int DefaultCooldown { get; set; }
         /// <summary>
-        /// Frozen
+        /// ["<c>frozen</c>"] Frozen
         /// </summary>
         [JsonPropertyName("frozen")]
         public bool Frozen { get; set; }

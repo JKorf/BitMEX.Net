@@ -12,67 +12,67 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXAsset
     {
         /// <summary>
-        /// Asset
+        /// ["<c>asset</c>"] Asset
         /// </summary>
         [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Currency
+        /// ["<c>currency</c>"] Currency
         /// </summary>
         [JsonPropertyName("currency")]
         public string Currency { get; set; } = string.Empty;
         /// <summary>
-        /// Major currency
+        /// ["<c>majorCurrency</c>"] Major currency
         /// </summary>
         [JsonPropertyName("majorCurrency")]
         public string MajorCurrency { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Asset type
+        /// ["<c>currencyType</c>"] Asset type
         /// </summary>
         [JsonPropertyName("currencyType")]
         public AssetType AssetType { get; set; }
         /// <summary>
-        /// Scale
+        /// ["<c>scale</c>"] Scale
         /// </summary>
         [JsonPropertyName("scale")]
         public int Scale { get; set; }
         /// <summary>
-        /// Enabled
+        /// ["<c>enabled</c>"] Enabled
         /// </summary>
         [JsonPropertyName("enabled")]
         public bool Enabled { get; set; }
         /// <summary>
-        /// Is margin asset
+        /// ["<c>isMarginCurrency</c>"] Is margin asset
         /// </summary>
         [JsonPropertyName("isMarginCurrency")]
         public bool IsMarginAsset { get; set; }
         /// <summary>
-        /// Memo required
+        /// ["<c>memoRequired</c>"] Memo required
         /// </summary>
         [JsonPropertyName("memoRequired")]
         public bool MemoRequired { get; set; }
         /// <summary>
-        /// Min deposit quantity
+        /// ["<c>minDepositAmount</c>"] Min deposit quantity
         /// </summary>
         [JsonPropertyName("minDepositAmount")]
         public long? MinDepositQuantity { get; set; }
         /// <summary>
-        /// Min withdrawal quantity
+        /// ["<c>minWithdrawalAmount</c>"] Min withdrawal quantity
         /// </summary>
         [JsonPropertyName("minWithdrawalAmount")]
         public long? MinWithdrawalQuantity { get; set; }
         /// <summary>
-        /// Max withdrawal quantity
+        /// ["<c>maxWithdrawalAmount</c>"] Max withdrawal quantity
         /// </summary>
         [JsonPropertyName("maxWithdrawalAmount")]
         public long? MaxWithdrawalQuantity { get; set; }
         /// <summary>
-        /// Networks
+        /// ["<c>networks</c>"] Networks
         /// </summary>
         [JsonPropertyName("networks")]
         public BitMEXAssetNetwork[] Networks { get; set; } = Array.Empty<BitMEXAssetNetwork>();
@@ -85,37 +85,37 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXAssetNetwork
     {
         /// <summary>
-        /// Asset
+        /// ["<c>asset</c>"] Asset
         /// </summary>
         [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Token address
+        /// ["<c>tokenAddress</c>"] Token address
         /// </summary>
         [JsonPropertyName("tokenAddress")]
         public string? TokenAddress { get; set; }
         /// <summary>
-        /// Deposit enabled
+        /// ["<c>depositEnabled</c>"] Deposit enabled
         /// </summary>
         [JsonPropertyName("depositEnabled")]
         public bool DepositEnabled { get; set; }
         /// <summary>
-        /// Withdrawal enabled
+        /// ["<c>withdrawalEnabled</c>"] Withdrawal enabled
         /// </summary>
         [JsonPropertyName("withdrawalEnabled")]
         public bool WithdrawalEnabled { get; set; }
         /// <summary>
-        /// Withdrawal fee
+        /// ["<c>withdrawalFee</c>"] Withdrawal fee
         /// </summary>
         [JsonPropertyName("withdrawalFee")]
         public long? WithdrawalFee { get; set; }
         /// <summary>
-        /// Min fee
+        /// ["<c>minFee</c>"] Min fee
         /// </summary>
         [JsonPropertyName("minFee")]
         public long? MinFee { get; set; }
         /// <summary>
-        /// Max fee
+        /// ["<c>maxFee</c>"] Max fee
         /// </summary>
         [JsonPropertyName("maxFee")]
         public long? MaxFee { get; set; }

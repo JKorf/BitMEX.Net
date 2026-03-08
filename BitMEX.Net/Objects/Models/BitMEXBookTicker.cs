@@ -11,32 +11,32 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXBookTicker
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Best bid quantity
+        /// ["<c>bidSize</c>"] Best bid quantity
         /// </summary>
         [JsonPropertyName("bidSize")]
         public long BestBidQuantity { get; set; }
         /// <summary>
-        /// Best bid price
+        /// ["<c>bidPrice</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("bidPrice")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Best ask price
+        /// ["<c>askPrice</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("askPrice")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Best ask quantity
+        /// ["<c>askSize</c>"] Best ask quantity
         /// </summary>
         [JsonPropertyName("askSize")]
         public long BestAskQuantity { get; set; }

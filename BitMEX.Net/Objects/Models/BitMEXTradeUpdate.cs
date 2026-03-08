@@ -12,52 +12,52 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXTradeUpdate
     {
         /// <summary>
-        /// Trade match id
+        /// ["<c>trdMatchID</c>"] Trade match id
         /// </summary>
         [JsonPropertyName("trdMatchID")]
         public string TradeMatchId { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Trade quantity
+        /// ["<c>size</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("size")]
         public long Quantity { get; set; }
         /// <summary>
-        /// Trade price
+        /// ["<c>price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Tick direction
+        /// ["<c>tickDirection</c>"] Tick direction
         /// </summary>
         [JsonPropertyName("tickDirection")]
         public TickDirection TickDirection { get; set; }
         /// <summary>
-        /// Gross value
+        /// ["<c>grossValue</c>"] Gross value
         /// </summary>
         [JsonPropertyName("grossValue")]
         public long? GrossValue { get; set; }
         /// <summary>
-        /// Home notional
+        /// ["<c>homeNotional</c>"] Home notional
         /// </summary>
         [JsonPropertyName("homeNotional")]
         public decimal? HomeNotional { get; set; }
         /// <summary>
-        /// Foreign notional
+        /// ["<c>foreignNotional</c>"] Foreign notional
         /// </summary>
         [JsonPropertyName("foreignNotional")]
         public decimal? ForeignNotional { get; set; }

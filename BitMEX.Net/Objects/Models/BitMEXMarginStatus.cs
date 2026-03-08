@@ -11,147 +11,147 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXMarginStatus
     {
         /// <summary>
-        /// Account id
+        /// ["<c>account</c>"] Account id
         /// </summary>
         [JsonPropertyName("account")]
         public long AccountId { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Risk limit
+        /// ["<c>riskLimit</c>"] Risk limit
         /// </summary>
         [JsonPropertyName("riskLimit")]
         public decimal RiskLimit { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
         public string? Status { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public long Quantity { get; set; }
         /// <summary>
-        /// Previous realised profit and loss
+        /// ["<c>prevRealisedPnl</c>"] Previous realised profit and loss
         /// </summary>
         [JsonPropertyName("prevRealisedPnl")]
         public long? PrevRealisedPnl { get; set; }
         /// <summary>
-        /// Gross comm
+        /// ["<c>grossComm</c>"] Gross comm
         /// </summary>
         [JsonPropertyName("grossComm")]
         public long GrossComm { get; set; }
         /// <summary>
-        /// Gross open cost
+        /// ["<c>grossOpenCost</c>"] Gross open cost
         /// </summary>
         [JsonPropertyName("grossOpenCost")]
         public long GrossOpenCost { get; set; }
         /// <summary>
-        /// Gross open premium
+        /// ["<c>grossOpenPremium</c>"] Gross open premium
         /// </summary>
         [JsonPropertyName("grossOpenPremium")]
         public long GrossOpenPremium { get; set; }
         /// <summary>
-        /// Gross execution cost
+        /// ["<c>grossExecCost</c>"] Gross execution cost
         /// </summary>
         [JsonPropertyName("grossExecCost")]
         public long? GrossExecCost { get; set; }
         /// <summary>
-        /// Gross mark value
+        /// ["<c>grossMarkValue</c>"] Gross mark value
         /// </summary>
         [JsonPropertyName("grossMarkValue")]
         public long GrossMarkValue { get; set; }
         /// <summary>
-        /// Risk value
+        /// ["<c>riskValue</c>"] Risk value
         /// </summary>
         [JsonPropertyName("riskValue")]
         public long RiskValue { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>initMargin</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("initMargin")]
         public decimal InitialMargin { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>maintMargin</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("maintMargin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
-        /// Target excess margin
+        /// ["<c>targetExcessMargin</c>"] Target excess margin
         /// </summary>
         [JsonPropertyName("targetExcessMargin")]
         public long TargetExcessMargin { get; set; }
         /// <summary>
-        /// Realised profit and loss
+        /// ["<c>realisedPnl</c>"] Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
         public long RealisedPnl { get; set; }
         /// <summary>
-        /// Unrealised profit and loss
+        /// ["<c>unrealisedPnl</c>"] Unrealised profit and loss
         /// </summary>
         [JsonPropertyName("unrealisedPnl")]
         public long UnrealisedPnl { get; set; }
         /// <summary>
-        /// Wallet balance
+        /// ["<c>walletBalance</c>"] Wallet balance
         /// </summary>
         [JsonPropertyName("walletBalance")]
         public long WalletBalance { get; set; }
         /// <summary>
-        /// Margin balance
+        /// ["<c>marginBalance</c>"] Margin balance
         /// </summary>
         [JsonPropertyName("marginBalance")]
         public long MarginBalance { get; set; }
         /// <summary>
-        /// Margin leverage
+        /// ["<c>marginLeverage</c>"] Margin leverage
         /// </summary>
         [JsonPropertyName("marginLeverage")]
         public decimal MarginLeverage { get; set; }
         /// <summary>
-        /// Margin used percentage
+        /// ["<c>marginUsedPcnt</c>"] Margin used percentage
         /// </summary>
         [JsonPropertyName("marginUsedPcnt")]
         public decimal MarginUsedPercentage { get; set; }
         /// <summary>
-        /// Excess margin
+        /// ["<c>excessMargin</c>"] Excess margin
         /// </summary>
         [JsonPropertyName("excessMargin")]
         public decimal ExcessMargin { get; set; }
         /// <summary>
-        /// Available margin
+        /// ["<c>availableMargin</c>"] Available margin
         /// </summary>
         [JsonPropertyName("availableMargin")]
         public long AvailableMargin { get; set; }
         /// <summary>
-        /// Withdrawable margin
+        /// ["<c>withdrawableMargin</c>"] Withdrawable margin
         /// </summary>
         [JsonPropertyName("withdrawableMargin")]
         public long WithdrawableMargin { get; set; }
         /// <summary>
-        /// Maker fee discount
+        /// ["<c>makerFeeDiscount</c>"] Maker fee discount
         /// </summary>
         [JsonPropertyName("makerFeeDiscount")]
         public decimal? MakerFeeDiscount { get; set; }
         /// <summary>
-        /// Taker fee discount
+        /// ["<c>takerFeeDiscount</c>"] Taker fee discount
         /// </summary>
         [JsonPropertyName("takerFeeDiscount")]
         public decimal? TakerFeeDiscount { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Foreign margin balance
+        /// ["<c>foreignMarginBalance</c>"] Foreign margin balance
         /// </summary>
         [JsonPropertyName("foreignMarginBalance")]
         public long ForeignMarginBalance { get; set; }
         /// <summary>
-        /// Foreign requirement
+        /// ["<c>foreignRequirement</c>"] Foreign requirement
         /// </summary>
         [JsonPropertyName("foreignRequirement")]
         public long ForeignRequirement { get; set; }

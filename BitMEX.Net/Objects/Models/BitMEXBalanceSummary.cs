@@ -10,52 +10,52 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXBalanceSummary
     {
         /// <summary>
-        /// Account id
+        /// ["<c>account</c>"] Account id
         /// </summary>
         [JsonPropertyName("account")]
         public decimal AccountId { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Transaction type
+        /// ["<c>transactType</c>"] Transaction type
         /// </summary>
         [JsonPropertyName("transactType")]
         public string TransactType { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public long Quantity { get; set; }
         /// <summary>
-        /// Pending debit
+        /// ["<c>pendingDebit</c>"] Pending debit
         /// </summary>
         [JsonPropertyName("pendingDebit")]
         public long PendingDebit { get; set; }
         /// <summary>
-        /// Realised profit and loss
+        /// ["<c>realisedPnl</c>"] Realised profit and loss
         /// </summary>
         [JsonPropertyName("realisedPnl")]
         public long RealisedPnl { get; set; }
         /// <summary>
-        /// Wallet balance
+        /// ["<c>walletBalance</c>"] Wallet balance
         /// </summary>
         [JsonPropertyName("walletBalance")]
         public long WalletBalance { get; set; }
         /// <summary>
-        /// Unrealised profit and loss
+        /// ["<c>unrealisedPnl</c>"] Unrealised profit and loss
         /// </summary>
         [JsonPropertyName("unrealisedPnl")]
         public long UnrealisedPnl { get; set; }
         /// <summary>
-        /// Margin balance
+        /// ["<c>marginBalance</c>"] Margin balance
         /// </summary>
         [JsonPropertyName("marginBalance")]
         public long MarginBalance { get; set; }
