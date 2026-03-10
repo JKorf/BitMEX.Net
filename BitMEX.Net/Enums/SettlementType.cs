@@ -11,7 +11,7 @@ namespace BitMEX.Net.Enums
     public enum SettlementType
     {
         /// <summary>
-        /// Settlement
+        /// ["<c>settlement</c>"] Settlement
         /// </summary>
         [Map("settlement")]
         Settlement

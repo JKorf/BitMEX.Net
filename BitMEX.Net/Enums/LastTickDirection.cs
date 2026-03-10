@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,22 +11,22 @@ namespace BitMEX.Net.Enums
     public enum TickDirection
     {
         /// <summary>
-        /// Minus zero tick
+        /// ["<c>ZeroMinusTick</c>"] Minus zero tick
         /// </summary>
         [Map("ZeroMinusTick")]
         ZeroMinusTick,
         /// <summary>
-        /// Minus tick
+        /// ["<c>MinusTick</c>"] Minus tick
         /// </summary>
         [Map("MinusTick")]
         MinusTick,
         /// <summary>
-        /// Up zero tick
+        /// ["<c>ZeroPlusTick</c>"] Up zero tick
         /// </summary>
         [Map("ZeroPlusTick")]
         ZeroPlusTick,
         /// <summary>
-        /// Up tick
+        /// ["<c>PlusTick</c>"] Up tick
         /// </summary>
         [Map("PlusTick")]
         PlusTick

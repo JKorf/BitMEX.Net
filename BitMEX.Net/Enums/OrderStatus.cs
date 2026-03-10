@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,27 +11,27 @@ namespace BitMEX.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// New order
+        /// ["<c>new</c>"] New order
         /// </summary>
         [Map("new")]
         New,
         /// <summary>
-        /// Filled
+        /// ["<c>filled</c>"] Filled
         /// </summary>
         [Map("filled")]
         Filled,
         /// <summary>
-        /// Partially filled
+        /// ["<c>PartiallyFilled</c>"] Partially filled
         /// </summary>
         [Map("PartiallyFilled")]
         PartiallyFilled,
         /// <summary>
-        /// Canceled
+        /// ["<c>Canceled</c>"] Canceled
         /// </summary>
         [Map("Canceled")]
         Canceled,
         /// <summary>
-        /// Rejected
+        /// ["<c>Rejected</c>"] Rejected
         /// </summary>
         [Map("Rejected")]
         Rejected

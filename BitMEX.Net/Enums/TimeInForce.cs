@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,27 +11,27 @@ namespace BitMEX.Net.Enums
     public enum TimeInForce
     {
         /// <summary>
-        /// Current day
+        /// ["<c>Day</c>"] Current day
         /// </summary>
         [Map("Day")]
         Day,
         /// <summary>
-        /// Good until canceled
+        /// ["<c>GoodTillCancel</c>"] Good until canceled
         /// </summary>
         [Map("GoodTillCancel")]
         GoodTillCancel,
         /// <summary>
-        /// Immediate or cancel
+        /// ["<c>ImmediateOrCancel</c>"] Immediate or cancel
         /// </summary>
         [Map("ImmediateOrCancel")]
         ImmediateOrCancel,
         /// <summary>
-        /// Fill or kill
+        /// ["<c>FillOrKill</c>"] Fill or kill
         /// </summary>
         [Map("FillOrKill")]
         FillOrKill,
         /// <summary>
-        /// At the close
+        /// ["<c>AtTheClose</c>"] At the close
         /// </summary>
         [Map("AtTheClose")]
         AtTheClose

@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,22 +11,22 @@ namespace BitMEX.Net.Enums
     public enum BookUpdateType
     {
         /// <summary>
-        /// Snapshot
+        /// ["<c>partial</c>"] Snapshot
         /// </summary>
         [Map("partial")]
         Snapshot,
         /// <summary>
-        /// Insert
+        /// ["<c>insert</c>"] Insert
         /// </summary>
         [Map("insert")]
         Insert,
         /// <summary>
-        /// Update
+        /// ["<c>update</c>"] Update
         /// </summary>
         [Map("update")]
         Update,
         /// <summary>
-        /// Delete
+        /// ["<c>delete</c>"] Delete
         /// </summary>
         [Map("delete")]
         Delete

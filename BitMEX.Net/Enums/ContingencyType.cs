@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,12 +11,12 @@ namespace BitMEX.Net.Enums
     public enum ContingencyType
     {
         /// <summary>
-        /// One cancels other order linked with clientOrderLinkId
+        /// ["<c>OneCancelsTheOther</c>"] One cancels other order linked with clientOrderLinkId
         /// </summary>
         [Map("OneCancelsTheOther")]
         OneCancelsTheOther,
         /// <summary>
-        /// One triggers other order linked with clientOrderLinkId
+        /// ["<c>OneTriggersTheOther</c>"] One triggers other order linked with clientOrderLinkId
         /// </summary>
         [Map("OneTriggersTheOther")]
         OneTriggersTheOther

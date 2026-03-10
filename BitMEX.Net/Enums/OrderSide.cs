@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,12 +11,12 @@ namespace BitMEX.Net.Enums
     public enum OrderSide
     {
         /// <summary>
-        /// Buy
+        /// ["<c>Buy</c>"] Buy
         /// </summary>
         [Map("Buy")]
         Buy,
         /// <summary>
-        /// Sell
+        /// ["<c>Sell</c>"] Sell
         /// </summary>
         [Map("Sell")]
         Sell

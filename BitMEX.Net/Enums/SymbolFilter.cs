@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,37 +11,37 @@ namespace BitMEX.Net.Enums
     public enum SymbolFilter
     {
         /// <summary>
-        /// Nearest expiring contract
+        /// ["<c>nearest</c>"] Nearest expiring contract
         /// </summary>
         [Map("nearest")]
         Nearest,
         /// <summary>
-        /// Daily
+        /// ["<c>daily</c>"] Daily
         /// </summary>
         [Map("daily")]
         Daily,
         /// <summary>
-        /// Weekly
+        /// ["<c>weekly</c>"] Weekly
         /// </summary>
         [Map("weekly")]
         Weekly,
         /// <summary>
-        /// Monthly
+        /// ["<c>monthly</c>"] Monthly
         /// </summary>
         [Map("monthly")]
         Monthly,
         /// <summary>
-        /// Quarterly
+        /// ["<c>quarterly</c>"] Quarterly
         /// </summary>
         [Map("quarterly")]
         Quarterly,
         /// <summary>
-        /// Bi-quarterly
+        /// ["<c>biquarterly</c>"] Bi-quarterly
         /// </summary>
         [Map("biquarterly")]
         BiQuarterly,
         /// <summary>
-        /// Perpetual
+        /// ["<c>perpetual</c>"] Perpetual
         /// </summary>
         [Map("perpetual")]
         Perpetual

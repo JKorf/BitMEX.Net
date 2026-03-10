@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,12 +11,12 @@ namespace BitMEX.Net.Enums
     public enum TransactionType
     {
         /// <summary>
-        /// Deposit
+        /// ["<c>Deposit</c>"] Deposit
         /// </summary>
         [Map("Deposit")]
         Deposit,
         /// <summary>
-        /// Withdrawal
+        /// ["<c>Withdrawal</c>"] Withdrawal
         /// </summary>
         [Map("Withdrawal")]
         Withdrawal

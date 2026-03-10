@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,47 +11,47 @@ namespace BitMEX.Net.Enums
     public enum ExecutionInstruction
     {
         /// <summary>
-        /// Post only order
+        /// ["<c>ParticipateDoNotInitiate</c>"] Post only order
         /// </summary>
         [Map("ParticipateDoNotInitiate")]
         PostOnly,
         /// <summary>
-        /// All or none
+        /// ["<c>AllOrNone</c>"] All or none
         /// </summary>
         [Map("AllOrNone")]
         AllOrNone,
         /// <summary>
-        /// Mark price as trigger price type for Stop and If-Touched orders
+        /// ["<c>MarkPrice</c>"] Mark price as trigger price type for Stop and If-Touched orders
         /// </summary>
         [Map("MarkPrice")]
         MarkPrice,
         /// <summary>
-        /// Index price as trigger price type for Stop and If-Touched orders
+        /// ["<c>IndexPrice</c>"] Index price as trigger price type for Stop and If-Touched orders
         /// </summary>
         [Map("IndexPrice")]
         IndexPrice,
         /// <summary>
-        /// Last price as trigger price type for Stop and If-Touched orders
+        /// ["<c>LastPrice</c>"] Last price as trigger price type for Stop and If-Touched orders
         /// </summary>
         [Map("LastPrice")]
         LastPrice,
         /// <summary>
-        /// Close implies ReduceOnly. A Close order will cancel other active limit orders with the same side and symbol if the open quantity exceeds the current position
+        /// ["<c>Close</c>"] Close implies ReduceOnly. A Close order will cancel other active limit orders with the same side and symbol if the open quantity exceeds the current position
         /// </summary>
         [Map("Close")]
         Close,
         /// <summary>
-        /// Reduce only
+        /// ["<c>ReduceOnly</c>"] Reduce only
         /// </summary>
         [Map("ReduceOnly")]
         ReduceOnly,
         /// <summary>
-        /// Pegged orders must have an execInst of Fixed
+        /// ["<c>Fixed</c>"] Pegged orders must have an execInst of Fixed
         /// </summary>
         [Map("Fixed")]
         Fixed,
         /// <summary>
-        /// Last within mark
+        /// ["<c>LastWithinMark</c>"] Last within mark
         /// </summary>
         [Map("LastWithinMark")]
         LastWithinMark

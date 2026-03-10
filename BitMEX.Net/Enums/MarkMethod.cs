@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,27 +11,27 @@ namespace BitMEX.Net.Enums
     public enum MarkMethod
     {
         /// <summary>
-        /// Fair price
+        /// ["<c>FairPrice</c>"] Fair price
         /// </summary>
         [Map("FairPrice")]
         FairPrice,
         /// <summary>
-        /// Last price
+        /// ["<c>LastPrice</c>"] Last price
         /// </summary>
         [Map("LastPrice")]
         LastPrice,
         /// <summary>
-        /// Last price protected
+        /// ["<c>LastPriceProtected</c>"] Last price protected
         /// </summary>
         [Map("LastPriceProtected")]
         LastPriceProtected,
         /// <summary>
-        /// Indicative settle price
+        /// ["<c>IndicativeSettlePrice</c>"] Indicative settle price
         /// </summary>
         [Map("IndicativeSettlePrice")]
         IndicativeSettlePrice,
         /// <summary>
-        /// Fair price stocks
+        /// ["<c>FairPriceStox</c>"] Fair price stocks
         /// </summary>
         [Map("FairPriceStox")]
         FairPriceStox

@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,72 +11,72 @@ namespace BitMEX.Net.Enums
     public enum SymbolType
     {
         /// <summary>
-        /// Perpetual Contracts
+        /// ["<c>FFWCSX</c>"] Perpetual Contracts
         /// </summary>
         [Map("FFWCSX")]
         PerpetualContract,
         /// <summary>
-        /// Perpetual Contracts (FX underliers)
+        /// ["<c>FFWCSF</c>"] Perpetual Contracts (FX underliers)
         /// </summary>
         [Map("FFWCSF")]
         PerpetualContractFX,
         /// <summary>
-        /// Prediction Market
+        /// ["<c>FFICSX</c>"] Prediction Market
         /// </summary>
         [Map("FFICSX")]
         PredictionMarket,
         /// <summary>
-        /// Unknown
+        /// ["<c>FXXXS</c>"] Unknown
         /// </summary>
         [Map("FXXXS")]
         UnknownFXXXS,
         /// <summary>
-        /// Unknown
+        /// ["<c>FMXXS</c>"] Unknown
         /// </summary>
         [Map("FMXXS")]
         UnknownFMXXS,
         /// <summary>
-        /// Spot
+        /// ["<c>IFXXXP</c>"] Spot
         /// </summary>
         [Map("IFXXXP")]
         Spot,
         /// <summary>
-        /// Futures
+        /// ["<c>FFCCSX</c>"] Futures
         /// </summary>
         [Map("FFCCSX")]
         Futures,
         /// <summary>
-        /// BitMEX Basket Index
+        /// ["<c>MRBXXX</c>"] BitMEX Basket Index
         /// </summary>
         [Map("MRBXXX")]
         BitMEXBasketIndex,
         /// <summary>
-        /// BitMEX Crypto Index
+        /// ["<c>MRCXXX</c>"] BitMEX Crypto Index
         /// </summary>
         [Map("MRCXXX")]
         BitMEXCryptoIndex,
         /// <summary>
-        /// BitMEX FX Index
+        /// ["<c>MRFXXX</c>"] BitMEX FX Index
         /// </summary>
         [Map("MRFXXX")]
         BitMEXFXIndex,
         /// <summary>
-        /// BitMEX Lending/Premium Index
+        /// ["<c>MRRXXX</c>"] BitMEX Lending/Premium Index
         /// </summary>
         [Map("MRRXXX")]
         BitMEXLendingPremiumIndex,
         /// <summary>
-        /// BitMEX Volatility Index
+        /// ["<c>MRIXXX</c>"] BitMEX Volatility Index
         /// </summary>
         [Map("MRIXXX")]
         BitMEXVolatilityIndex,
         /// <summary>
-        /// Perpetual equity swap index
+        /// ["<c>MRSXXX</c>"] Perpetual equity swap index
         /// </summary>
         [Map("MRSXXX")]
         PerpetualEquitySwapIndex,
         /// <summary>
-        /// Perpetual equity swap
+        /// ["<c>FFSCSX</c>"] Perpetual equity swap
         /// </summary>
         [Map("FFSCSX")]
         PerpetualEquitySwap

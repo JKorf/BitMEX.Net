@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,12 +11,12 @@ namespace BitMEX.Net.Enums
     public enum FairMethod
     {
         /// <summary>
-        /// Funding rate
+        /// ["<c>FundingRate</c>"] Funding rate
         /// </summary>
         [Map("FundingRate")]
         FundingRate,
         /// <summary>
-        /// Impact mid price
+        /// ["<c>ImpactMidPrice</c>"] Impact mid price
         /// </summary>
         [Map("ImpactMidPrice")]
         ImpactMidPrice

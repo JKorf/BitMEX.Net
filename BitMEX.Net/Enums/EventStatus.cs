@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,12 +11,12 @@ namespace BitMEX.Net.Enums
     public enum EventStatus
     {
         /// <summary>
-        /// Success
+        /// ["<c>success</c>"] Success
         /// </summary>
         [Map("success")]
         Success,
         /// <summary>
-        /// Failure
+        /// ["<c>failure</c>"] Failure
         /// </summary>
         [Map("failure")]
         Failure

@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,217 +11,217 @@ namespace BitMEX.Net.Enums
     public enum EventType
     {
         /// <summary>
-        /// Api key created
+        /// ["<c>apiKeyCreated</c>"] Api key created
         /// </summary>
         [Map("apiKeyCreated")]
         ApiKeyCreated,
         /// <summary>
-        /// Deleverage execution
+        /// ["<c>deleverageExecution</c>"] Deleverage execution
         /// </summary>
         [Map("deleverageExecution")]
         DeleverageExecution,
         /// <summary>
-        /// Deposit confirmed
+        /// ["<c>depositConfirmed</c>"] Deposit confirmed
         /// </summary>
         [Map("depositConfirmed")]
         DepositConfirmed,
         /// <summary>
-        /// Deposit pending
+        /// ["<c>depositPending</c>"] Deposit pending
         /// </summary>
         [Map("depositPending")]
         DepositPending,
         /// <summary>
-        /// Ban zero volume api user
+        /// ["<c>banZeroVolumeApiUser</c>"] Ban zero volume api user
         /// </summary>
         [Map("banZeroVolumeApiUser")]
         BanZeroVolumeApiUser,
         /// <summary>
-        /// Liquidation order placed
+        /// ["<c>liquidationOrderPlaced</c>"] Liquidation order placed
         /// </summary>
         [Map("liquidationOrderPlaced")]
         LiquidationOrderPlaced,
         /// <summary>
-        /// Login
+        /// ["<c>login</c>"] Login
         /// </summary>
         [Map("login")]
         Login,
         /// <summary>
-        /// Existing account registration attempt
+        /// ["<c>existingAccountRegistrationAttempt</c>"] Existing account registration attempt
         /// </summary>
         [Map("existingAccountRegistrationAttempt")]
         ExistingAccountRegistrationAttempt,
         /// <summary>
-        /// Password changed
+        /// ["<c>passwordChanged</c>"] Password changed
         /// </summary>
         [Map("passwordChanged")]
         PasswordChanged,
         /// <summary>
-        /// Position state liquidated
+        /// ["<c>positionStateLiquidated</c>"] Position state liquidated
         /// </summary>
         [Map("positionStateLiquidated")]
         PositionStateLiquidated,
         /// <summary>
-        /// Position state warning
+        /// ["<c>positionStateWarning</c>"] Position state warning
         /// </summary>
         [Map("positionStateWarning")]
         PositionStateWarning,
         /// <summary>
-        /// Reset password confirmed
+        /// ["<c>resetPasswordConfirmed</c>"] Reset password confirmed
         /// </summary>
         [Map("resetPasswordConfirmed")]
         ResetPasswordConfirmed,
         /// <summary>
-        /// Reset password request
+        /// ["<c>resetPasswordRequest</c>"] Reset password request
         /// </summary>
         [Map("resetPasswordRequest")]
         ResetPasswordRequest,
         /// <summary>
-        /// Trading bot stopped
+        /// ["<c>tradingBotStopped</c>"] Trading bot stopped
         /// </summary>
         [Map("tradingBotStopped")]
         TradingBotStopped,
         /// <summary>
-        /// Transfer canceled
+        /// ["<c>transferCanceled</c>"] Transfer canceled
         /// </summary>
         [Map("transferCanceled")]
         TransferCanceled,
         /// <summary>
-        /// Transfer completed
+        /// ["<c>transferCompleted</c>"] Transfer completed
         /// </summary>
         [Map("transferCompleted")]
         TransferCompleted,
         /// <summary>
-        /// Transfer received
+        /// ["<c>transferReceived</c>"] Transfer received
         /// </summary>
         [Map("transferReceived")]
         TransferReceived,
         /// <summary>
-        /// Transfer requested
+        /// ["<c>transferRequested</c>"] Transfer requested
         /// </summary>
         [Map("transferRequested")]
         TransferRequested,
         /// <summary>
-        /// 2FA disabled
+        /// ["<c>twoFactorDisabled</c>"] 2FA disabled
         /// </summary>
         [Map("twoFactorDisabled")]
         TwoFactorDisabled,
         /// <summary>
-        /// 2FA enabled
+        /// ["<c>twoFactorEnabled</c>"] 2FA enabled
         /// </summary>
         [Map("twoFactorEnabled")]
         TwoFactorEnabled,
         /// <summary>
-        /// 2FA reset codes created
+        /// ["<c>twoFactorResetCodeCreated</c>"] 2FA reset codes created
         /// </summary>
         [Map("twoFactorResetCodeCreated")]
         TwoFactorResetCodeCreated,
         /// <summary>
-        /// Withdrawal canceled
+        /// ["<c>withdrawalCanceled</c>"] Withdrawal canceled
         /// </summary>
         [Map("withdrawalCanceled")]
         WithdrawalCanceled,
         /// <summary>
-        /// Withdrawal completed
+        /// ["<c>withdrawalCompleted</c>"] Withdrawal completed
         /// </summary>
         [Map("withdrawalCompleted")]
         WithdrawalCompleted,
         /// <summary>
-        /// Withdrawal confirmed
+        /// ["<c>withdrawalConfirmed</c>"] Withdrawal confirmed
         /// </summary>
         [Map("withdrawalConfirmed")]
         WithdrawalConfirmed,
         /// <summary>
-        /// Withdrawal requested
+        /// ["<c>withdrawalRequested</c>"] Withdrawal requested
         /// </summary>
         [Map("withdrawalRequested")]
         WithdrawalRequested,
         /// <summary>
-        /// Address created
+        /// ["<c>addressCreated</c>"] Address created
         /// </summary>
         [Map("addressCreated")]
         AddressCreated,
         /// <summary>
-        /// Address removed
+        /// ["<c>addressRemoved</c>"] Address removed
         /// </summary>
         [Map("addressRemoved")]
         AddressRemoved,
         /// <summary>
-        /// Address verified
+        /// ["<c>addressVerified</c>"] Address verified
         /// </summary>
         [Map("addressVerified")]
         AddressVerified,
         /// <summary>
-        /// Address skip confirm requested
+        /// ["<c>addressSkipConfirmRequested</c>"] Address skip confirm requested
         /// </summary>
         [Map("addressSkipConfirmRequested")]
         AddressSkipConfirmRequested,
         /// <summary>
-        /// Address skip confirm verified
+        /// ["<c>addressSkipConfirmVerified</c>"] Address skip confirm verified
         /// </summary>
         [Map("addressSkipConfirmVerified")]
         AddressSkipConfirmVerified,
         /// <summary>
-        /// Address cooldown updated
+        /// ["<c>addressCooldownUpdated</c>"] Address cooldown updated
         /// </summary>
         [Map("addressCooldownUpdated")]
         AddressCooldownUpdated,
         /// <summary>
-        /// Address config updated
+        /// ["<c>addressConfigUpdated</c>"] Address config updated
         /// </summary>
         [Map("addressConfigUpdated")]
         AddressConfigUpdated,
         /// <summary>
-        /// Verify
+        /// ["<c>verify</c>"] Verify
         /// </summary>
         [Map("verify")]
         Verify,
         /// <summary>
-        /// Restricted account
+        /// ["<c>restrictedAccount</c>"] Restricted account
         /// </summary>
         [Map("restrictedAccount")]
         RestrictedAccount,
         /// <summary>
-        /// Unrestricted account
+        /// ["<c>unrestrictedAccount</c>"] Unrestricted account
         /// </summary>
         [Map("unrestrictedAccount")]
         UnrestrictedAccount,
         /// <summary>
-        /// Disabled account
+        /// ["<c>disabledAccount</c>"] Disabled account
         /// </summary>
         [Map("disabledAccount")]
         DisabledAccount,
         /// <summary>
-        /// Enabled account
+        /// ["<c>enabledAccount</c>"] Enabled account
         /// </summary>
         [Map("enabledAccount")]
         EnabledAccount,
         /// <summary>
-        /// Role mapping destory
+        /// ["<c>role:roleMappingDestroy</c>"] Role mapping destory
         /// </summary>
         [Map("role:roleMappingDestroy")]
         RoleMappingDestroy,
         /// <summary>
-        /// Role chat banned
+        /// ["<c>role:chatBanned</c>"] Role chat banned
         /// </summary>
         [Map("role:chatBanned")]
         RoleChatBanned,
         /// <summary>
-        /// Role withdrawal banned
+        /// ["<c>role:withdrawalBanned</c>"] Role withdrawal banned
         /// </summary>
         [Map("role:withdrawalBanned")]
         RoleWithdrawalBanned,
         /// <summary>
-        /// Role order banned
+        /// ["<c>role:orderBanned</c>"] Role order banned
         /// </summary>
         [Map("role:orderBanned")]
         RoleOrderBanned,
         /// <summary>
-        /// Role api banned
+        /// ["<c>role:apiBanned</c>"] Role api banned
         /// </summary>
         [Map("role:apiBanned")]
         RoleApiBanned,
         /// <summary>
-        /// Role restricted jurisdication privilege
+        /// ["<c>role:restrictedJurisdictionPrivilege</c>"] Role restricted jurisdication privilege
         /// </summary>
         [Map("role:restrictedJurisdictionPrivilege")]
         RoleRestrictedJurisdictionPrivilege

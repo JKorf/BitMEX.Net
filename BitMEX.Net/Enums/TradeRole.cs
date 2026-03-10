@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,12 +11,12 @@ namespace BitMEX.Net.Enums
     public enum TradeRole
     {
         /// <summary>
-        /// Maker
+        /// ["<c>maker</c>"] Maker
         /// </summary>
         [Map("maker", "Maker")]
         Maker,
         /// <summary>
-        /// Taker
+        /// ["<c>taker</c>"] Taker
         /// </summary>
         [Map("taker", "Taker")]
         Taker

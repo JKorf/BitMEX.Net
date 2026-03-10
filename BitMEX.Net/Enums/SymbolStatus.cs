@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,22 +11,22 @@ namespace BitMEX.Net.Enums
     public enum SymbolStatus
     {
         /// <summary>
-        /// Unlisted
+        /// ["<c>Unlisted</c>"] Unlisted
         /// </summary>
         [Map("Unlisted")]
         Unlisted,
         /// <summary>
-        /// Open
+        /// ["<c>Open</c>"] Open
         /// </summary>
         [Map("Open")]
         Open,
         /// <summary>
-        /// Closed
+        /// ["<c>Closed</c>"] Closed
         /// </summary>
         [Map("Closed")]
         Closed,
         /// <summary>
-        /// Settled
+        /// ["<c>Settled</c>"] Settled
         /// </summary>
         [Map("Settled")]
         Settled

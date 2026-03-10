@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,12 +11,12 @@ namespace BitMEX.Net.Enums
     public enum AssetType
     {
         /// <summary>
-        /// Crypto asset
+        /// ["<c>Crypto</c>"] Crypto asset
         /// </summary>
         [Map("Crypto")]
         Crypto,
         /// <summary>
-        /// Synthetic asset
+        /// ["<c>Synthetic</c>"] Synthetic asset
         /// </summary>
         [Map("Synthetic")]
         Synthetic

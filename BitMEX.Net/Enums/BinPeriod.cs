@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,22 +11,22 @@ namespace BitMEX.Net.Enums
     public enum BinPeriod
     {
         /// <summary>
-        /// One minute
+        /// ["<c>1m</c>"] One minute
         /// </summary>
         [Map("1m")]
         OneMinute = 60,
         /// <summary>
-        /// Five minutes
+        /// ["<c>5m</c>"] Five minutes
         /// </summary>
         [Map("5m")]
         FiveMinutes = 60 * 5,
         /// <summary>
-        /// One hour
+        /// ["<c>1h</c>"] One hour
         /// </summary>
         [Map("1h")]
         OneHour = 60 * 60,
         /// <summary>
-        /// One day
+        /// ["<c>1d</c>"] One day
         /// </summary>
         [Map("1d")]
         OneDay = 60 * 60 * 24

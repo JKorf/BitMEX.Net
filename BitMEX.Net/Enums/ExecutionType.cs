@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
@@ -11,32 +11,32 @@ namespace BitMEX.Net.Enums
     public enum ExecutionType
     {
         /// <summary>
-        /// New
+        /// ["<c>New</c>"] New
         /// </summary>
         [Map("New")]
         New,
         /// <summary>
-        /// Trade
+        /// ["<c>Trade</c>"] Trade
         /// </summary>
         [Map("Trade")]
         Trade,
         /// <summary>
-        /// Canceled
+        /// ["<c>Canceled</c>"] Canceled
         /// </summary>
         [Map("Canceled")]
         Canceled,
         /// <summary>
-        /// Funding
+        /// ["<c>Funding</c>"] Funding
         /// </summary>
         [Map("Funding")]
         Funding,
         /// <summary>
-        /// Rejected
+        /// ["<c>Rejected</c>"] Rejected
         /// </summary>
         [Map("Rejected")]
         Rejected,
         /// <summary>
-        /// Cancellation rejected
+        /// ["<c>CancelReject</c>"] Cancellation rejected
         /// </summary>
         [Map("CancelReject")]
         CancelRejected
