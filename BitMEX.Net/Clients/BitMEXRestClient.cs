@@ -13,7 +13,7 @@ using CryptoExchange.Net.Objects.Options;
 namespace BitMEX.Net.Clients
 {
     /// <inheritdoc cref="IBitMEXRestClient" />
-    public class BitMEXRestClient : BaseRestClient, IBitMEXRestClient
+    public class BitMEXRestClient : BaseRestClient<BitMEXEnvironment, BitMEXCredentials>, IBitMEXRestClient
     {
         #region Api clients
 
@@ -50,12 +50,6 @@ namespace BitMEX.Net.Clients
 
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            ExchangeApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -65,10 +59,5 @@ namespace BitMEX.Net.Clients
             BitMEXRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {            
-            ExchangeApi.SetApiCredentials(credentials);
-        }
     }
 }

@@ -26,7 +26,7 @@ namespace BitMEX.Net.UnitTests
             {
                 AutoTimestamp = false,
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new BitMEXCredentials(key, sec) : null
             }));
         }
 

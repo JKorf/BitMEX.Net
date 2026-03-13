@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace BitMEX.Net
 {
-    internal class BitMEXAuthenticationProvider : AuthenticationProvider
+    internal class BitMEXAuthenticationProvider : AuthenticationProvider<BitMEXCredentials, HMACCredential>
     {
         private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
 
         public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
-        public BitMEXAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public BitMEXAuthenticationProvider(BitMEXCredentials credentials) : base(credentials)
         {
         }
 
@@ -26,7 +26,7 @@ namespace BitMEX.Net
             var expires = DateTimeConverter.ConvertToSeconds(timestamp.AddSeconds(5))!;
             request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("api-expires", expires.Value.ToString());
-            request.Headers.Add("api-key", ApiKey);
+            request.Headers.Add("api-key", Credential.PublicKey);
 
             var body = (request.BodyParameters == null || request.BodyParameters.Count == 0) ? "" : GetSerializedBody(_serializer, request.BodyParameters);
             var queryParams = request.GetQueryString(true);

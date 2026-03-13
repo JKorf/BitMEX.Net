@@ -13,7 +13,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
     /// <summary>
     /// BitMEX Exchange streams
     /// </summary>
-    public interface IBitMEXSocketClientExchangeApi : ISocketApiClient, IDisposable
+    public interface IBitMEXSocketClientExchangeApi : ISocketApiClient<BitMEXCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to trade updates

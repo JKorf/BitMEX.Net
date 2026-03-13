@@ -14,7 +14,7 @@ namespace BitMEX.Net.UnitTests
         [Test]
         public void CheckSignatureExample1()
         {
-            var authProvider = new BitMEXAuthenticationProvider(new ApiCredentials("XXX", "XXX"));
+            var authProvider = new BitMEXAuthenticationProvider(new BitMEXCredentials("XXX", "XXX"));
             var client = (RestApiClient)new BitMEXRestClient().ExchangeApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(

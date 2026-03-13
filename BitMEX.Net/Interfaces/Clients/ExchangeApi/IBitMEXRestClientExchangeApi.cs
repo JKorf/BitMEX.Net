@@ -6,7 +6,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
     /// <summary>
     /// BitMEX Exchange API endpoints
     /// </summary>
-    public interface IBitMEXRestClientExchangeApi : IRestApiClient, IDisposable
+    public interface IBitMEXRestClientExchangeApi : IRestApiClient<BitMEXCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

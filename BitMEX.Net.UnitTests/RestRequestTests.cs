@@ -18,7 +18,7 @@ namespace BitMEX.Net.UnitTests
             var client = new BitMEXRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new BitMEXCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/Account", "https://www.bitmex.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.ExchangeApi.Account.GetUserEventsAsync(), "GetUserEvents", nestedJsonProperty: "userEvents");
@@ -33,7 +33,7 @@ namespace BitMEX.Net.UnitTests
             var client = new BitMEXRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new BitMEXCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/ExchangeData", "https://www.bitmex.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.ExchangeApi.ExchangeData.GetActiveSymbolsAsync(), "GetActiveSymbols", ignoreProperties: ["publishInterval", "fundingInterval", "rebalanceInterval"]);
@@ -60,7 +60,7 @@ namespace BitMEX.Net.UnitTests
             var client = new BitMEXRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new BitMEXCredentials("123", "456");
             });
             var tester = new RestRequestValidator<BitMEXRestClient>(client, "Endpoints/Exchange/Trading", "https://www.bitmex.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.OrderType.LimitIfTouched), "PlaceOrder", ignoreProperties: new List<string> { "text" });

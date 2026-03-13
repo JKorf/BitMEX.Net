@@ -33,7 +33,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
     /// <summary>
     /// Client providing access to the BitMEX Exchange websocket Api
     /// </summary>
-    internal partial class BitMEXSocketClientExchangeApi : SocketApiClient, IBitMEXSocketClientExchangeApi
+    internal partial class BitMEXSocketClientExchangeApi : SocketApiClient<BitMEXEnvironment, BitMEXAuthenticationProvider, BitMEXCredentials>, IBitMEXSocketClientExchangeApi
     {
         #region fields
         protected override ErrorMapping ErrorMapping => BitMEXErrors.SocketErrors;
@@ -66,7 +66,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMexSocketExchangeMessageHandler();
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BitMEXAuthenticationProvider CreateAuthenticationProvider(BitMEXCredentials credentials)
             => new BitMEXAuthenticationProvider(credentials);
 
         /// <inheritdoc />
@@ -544,7 +544,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var provider = (BitMEXAuthenticationProvider)AuthenticationProvider;
             var expires = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(5));
-            var queryParams = $"api-key={provider.ApiKey}&api-signature={provider.GetSignature("GET", "/realtime", expires.Value, "")}&api-expires={expires}";
+            var queryParams = $"api-key={provider.PublicKey}&api-signature={provider.GetSignature("GET", "/realtime", expires.Value, "")}&api-expires={expires}";
             return BaseAddress.AppendPath("realtime?" + queryParams);
         }
 

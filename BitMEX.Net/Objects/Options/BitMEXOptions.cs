@@ -6,7 +6,7 @@ namespace BitMEX.Net.Objects.Options
     /// <summary>
     /// BitMEX options
     /// </summary>
-    public class BitMEXOptions : LibraryOptions<BitMEXRestOptions, BitMEXSocketOptions, ApiCredentials, BitMEXEnvironment>
+    public class BitMEXOptions : LibraryOptions<BitMEXRestOptions, BitMEXSocketOptions, BitMEXCredentials, BitMEXEnvironment>
     {
     }
 }

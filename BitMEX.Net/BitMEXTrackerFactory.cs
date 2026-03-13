@@ -80,7 +80,7 @@ namespace BitMEX.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, BitMEXEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, BitMEXCredentials credentials, SpotUserDataTrackerConfig? config = null, BitMEXEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitMEXUserClientProvider>() ?? new BitMEXUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -109,7 +109,7 @@ namespace BitMEX.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitMEXEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, BitMEXCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitMEXEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitMEXUserClientProvider>() ?? new BitMEXUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);

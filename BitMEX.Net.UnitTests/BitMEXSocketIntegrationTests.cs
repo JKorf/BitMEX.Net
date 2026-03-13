@@ -28,7 +28,7 @@ namespace BitMEX.Net.UnitTests
             return new BitMEXSocketClient(Options.Create(new BitMEXSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new BitMEXCredentials(key, sec) : null
             }), loggerFactory);
         }
 
