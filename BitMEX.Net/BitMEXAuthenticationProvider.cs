@@ -26,7 +26,7 @@ namespace BitMEX.Net
             var expires = DateTimeConverter.ConvertToSeconds(timestamp.AddSeconds(5))!;
             request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("api-expires", expires.Value.ToString());
-            request.Headers.Add("api-key", Credential.PublicKey);
+            request.Headers.Add("api-key", Credential.Key);
 
             var body = (request.BodyParameters == null || request.BodyParameters.Count == 0) ? "" : GetSerializedBody(_serializer, request.BodyParameters);
             var queryParams = request.GetQueryString(true);

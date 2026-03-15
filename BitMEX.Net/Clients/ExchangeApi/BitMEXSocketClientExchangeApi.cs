@@ -544,7 +544,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var provider = (BitMEXAuthenticationProvider)AuthenticationProvider;
             var expires = DateTimeConverter.ConvertToSeconds(DateTime.UtcNow.AddSeconds(5));
-            var queryParams = $"api-key={provider.PublicKey}&api-signature={provider.GetSignature("GET", "/realtime", expires.Value, "")}&api-expires={expires}";
+            var queryParams = $"api-key={provider.Key}&api-signature={provider.GetSignature("GET", "/realtime", expires.Value, "")}&api-expires={expires}";
             return BaseAddress.AppendPath("realtime?" + queryParams);
         }
 
