@@ -194,7 +194,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                                 x.Quantity.ToSharedAssetQuantity(x.Currency),
                                 x.TransactionStatus == TransactionStatus.Completed,
                                 x.TransactionTime,
-                                x.TransactionStatus == TransactionStatus.Completed ? SharedTransferStatus.Completed : SharedTransferStatus.Failed)
+                                ParseTransferStatus(x.TransactionStatus))
                             {
                                 Network = x.Network,
                                 TransactionId = x.Transaction,
@@ -202,6 +202,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
                                 Id = x.TransactionId
                             })
                        .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus ParseTransferStatus(TransactionStatus status)
+        {
+            if (status == TransactionStatus.Completed)
+                return SharedTransferStatus.Completed;
+
+            if (status == TransactionStatus.Canceled)
+                return SharedTransferStatus.Failed;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
@@ -993,9 +1004,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
-            if (status == OrderStatus.New) return SharedOrderStatus.Open;
-            if (status == OrderStatus.Canceled || status == OrderStatus.Rejected) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == OrderStatus.New || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
+            if (status == OrderStatus.Rejected || status == OrderStatus.Canceled) return SharedOrderStatus.Canceled;
+            if (status == OrderStatus.Filled) return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderType type, ExecutionInstruction[]? executionInstruction)
@@ -2016,7 +2029,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (status == OrderStatus.Canceled || status == OrderStatus.Rejected)
                 return SharedTriggerOrderStatus.CanceledOrRejected;
 
-            return SharedTriggerOrderStatus.Active;
+            if (status == OrderStatus.New || status == OrderStatus.PartiallyFilled)
+                return SharedTriggerOrderStatus.Active;
+
+            return SharedTriggerOrderStatus.Unknown;
         }
 
         EndpointOptions<CancelOrderRequest> ISpotTriggerOrderRestClient.CancelSpotTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
