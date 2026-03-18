@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BitMEX.Net.Clients;
 using System.Linq;
+using CryptoExchange.Net.Authentication;
 
 namespace BitMEX.Net.UnitTests
 {

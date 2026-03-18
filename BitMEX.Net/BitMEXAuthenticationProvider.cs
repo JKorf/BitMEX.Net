@@ -7,12 +7,11 @@ using System.Collections.Generic;
 
 namespace BitMEX.Net
 {
-    internal class BitMEXAuthenticationProvider : AuthenticationProvider<BitMEXCredentials, HMACCredential>
+    internal class BitMEXAuthenticationProvider : AuthenticationProvider<BitMEXCredentials, BitMEXCredentials>
     {
         private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
-        public BitMEXAuthenticationProvider(BitMEXCredentials credentials) : base(credentials)
+        public BitMEXAuthenticationProvider(BitMEXCredentials credentials) : base(credentials, credentials)
         {
         }
 

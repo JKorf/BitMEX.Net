@@ -1,6 +1,7 @@
 using BitMEX.Net.Clients;
 using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;

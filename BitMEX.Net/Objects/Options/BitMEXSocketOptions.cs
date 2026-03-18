@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BitMEX.Net.Objects.Options
@@ -27,7 +28,7 @@ namespace BitMEX.Net.Objects.Options
         /// <summary>
         /// Exchange API options
         /// </summary>
-        public SocketApiOptions<BitMEXCredentials> ExchangeOptions { get; private set; } = new SocketApiOptions<BitMEXCredentials>();
+        public SocketApiOptions ExchangeOptions { get; private set; } = new SocketApiOptions();
 
         internal BitMEXSocketOptions Set(BitMEXSocketOptions targetOptions)
         {
