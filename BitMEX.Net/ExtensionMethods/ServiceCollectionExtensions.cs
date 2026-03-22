@@ -109,8 +109,6 @@ namespace Microsoft.Extensions.DependencyInjection
             }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(IBitMEXSocketClient), x => { return new BitMEXSocketClient(x.GetRequiredService<IOptions<BitMEXSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
-            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
-            services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBitMEXOrderBookFactory, BitMEXOrderBookFactory>();
             services.AddTransient<IBitMEXTrackerFactory, BitMEXTrackerFactory>();
             services.AddTransient<ITrackerFactory, BitMEXTrackerFactory>();
