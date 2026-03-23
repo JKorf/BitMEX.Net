@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BitMEX.Net.Objects.Options
@@ -5,7 +6,7 @@ namespace BitMEX.Net.Objects.Options
     /// <summary>
     /// Options for the BitMEXRestClient
     /// </summary>
-    public class BitMEXRestOptions : RestExchangeOptions<BitMEXEnvironment>
+    public class BitMEXRestOptions : RestExchangeOptions<BitMEXEnvironment, BitMEXCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -34,13 +35,10 @@ namespace BitMEX.Net.Objects.Options
         /// </summary>
         public RestApiOptions ExchangeOptions { get; private set; } = new RestApiOptions();
 
-
         internal BitMEXRestOptions Set(BitMEXRestOptions targetOptions)
         {
-            targetOptions = base.Set<BitMEXRestOptions>(targetOptions);
-            
+            targetOptions = base.Set<BitMEXRestOptions>(targetOptions);            
             targetOptions.ExchangeOptions = ExchangeOptions.Set(targetOptions.ExchangeOptions);
-
             return targetOptions;
         }
     }

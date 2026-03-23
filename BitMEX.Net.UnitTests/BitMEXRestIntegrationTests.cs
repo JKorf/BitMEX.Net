@@ -8,6 +8,7 @@ using BitMEX.Net.Clients;
 using BitMEX.Net.Objects.Options;
 using System.Threading;
 using BitMEX.Net.SymbolOrderBooks;
+using CryptoExchange.Net.Authentication;
 
 namespace BitMEX.Net.UnitTests
 {
@@ -26,7 +27,7 @@ namespace BitMEX.Net.UnitTests
             {
                 AutoTimestamp = false,
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new BitMEXCredentials(key, sec) : null
             }));
         }
 

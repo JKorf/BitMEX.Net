@@ -7,13 +7,14 @@ using BitMEX.Net.Objects.Models;
 using System.Collections.Generic;
 using BitMEX.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
 {
     /// <summary>
     /// BitMEX Exchange streams
     /// </summary>
-    public interface IBitMEXSocketClientExchangeApi : ISocketApiClient, IDisposable
+    public interface IBitMEXSocketClientExchangeApi : ISocketApiClient<BitMEXCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to trade updates

@@ -20,7 +20,7 @@ using System.Net.Http.Headers;
 namespace BitMEX.Net.Clients.ExchangeApi
 {
     /// <inheritdoc cref="IBitMEXRestClientExchangeApi" />
-    internal partial class BitMEXRestClientExchangeApi : RestApiClient, IBitMEXRestClientExchangeApi
+    internal partial class BitMEXRestClientExchangeApi : RestApiClient<BitMEXEnvironment, BitMEXAuthenticationProvider, BitMEXCredentials>, IBitMEXRestClientExchangeApi
     {
         #region fields 
         public new BitMEXRestOptions ClientOptions => (BitMEXRestOptions)base.ClientOptions;
@@ -57,7 +57,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMEXExchange._serializerContext));
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BitMEXAuthenticationProvider CreateAuthenticationProvider(BitMEXCredentials credentials)
             => new BitMEXAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)

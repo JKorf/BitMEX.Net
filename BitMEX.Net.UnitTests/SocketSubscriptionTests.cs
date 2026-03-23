@@ -1,6 +1,7 @@
 using BitMEX.Net.Clients;
 using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;
@@ -42,7 +43,7 @@ namespace BitMEX.Net.UnitTests
 
             var client = new BitMEXSocketClient(Options.Create(new BitMEXSocketOptions
             {
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789"),
+                ApiCredentials = new BitMEXCredentials("123", "456"),
                 OutputOriginalData = true
             }), logger);
             var tester = new SocketSubscriptionValidator<BitMEXSocketClient>(client, "Subscriptions/Exchange", "wss://ws.bitmex.com/");

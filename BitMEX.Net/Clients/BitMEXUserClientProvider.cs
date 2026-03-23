@@ -49,7 +49,7 @@ namespace BitMEX.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, BitMEXEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, BitMEXCredentials credentials, BitMEXEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -63,7 +63,7 @@ namespace BitMEX.Net.Clients
         }
 
         /// <inheritdoc />
-        public IBitMEXRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, BitMEXEnvironment? environment = null)
+        public IBitMEXRestClient GetRestClient(string userIdentifier, BitMEXCredentials? credentials = null, BitMEXEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -72,7 +72,7 @@ namespace BitMEX.Net.Clients
         }
 
         /// <inheritdoc />
-        public IBitMEXSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, BitMEXEnvironment? environment = null)
+        public IBitMEXSocketClient GetSocketClient(string userIdentifier, BitMEXCredentials? credentials = null, BitMEXEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -80,7 +80,7 @@ namespace BitMEX.Net.Clients
             return client;
         }
 
-        private IBitMEXRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, BitMEXEnvironment? environment)
+        private IBitMEXRestClient CreateRestClient(string userIdentifier, BitMEXCredentials? credentials, BitMEXEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new BitMEXRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -92,7 +92,7 @@ namespace BitMEX.Net.Clients
             return client;
         }
 
-        private IBitMEXSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, BitMEXEnvironment? environment)
+        private IBitMEXSocketClient CreateSocketClient(string userIdentifier, BitMEXCredentials? credentials, BitMEXEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new BitMEXSocketClient(clientSocketOptions!, _loggerFactory);

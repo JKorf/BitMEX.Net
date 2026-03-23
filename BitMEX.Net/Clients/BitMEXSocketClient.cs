@@ -12,7 +12,7 @@ using CryptoExchange.Net.Objects.Options;
 namespace BitMEX.Net.Clients
 {
     /// <inheritdoc cref="IBitMEXSocketClient" />
-    public class BitMEXSocketClient : BaseSocketClient, IBitMEXSocketClient
+    public class BitMEXSocketClient : BaseSocketClient<BitMEXEnvironment, BitMEXCredentials>, IBitMEXSocketClient
     {
         #region fields
         #endregion
@@ -52,12 +52,6 @@ namespace BitMEX.Net.Clients
         }
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            ExchangeApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -65,14 +59,6 @@ namespace BitMEX.Net.Clients
         public static void SetDefaultOptions(Action<BitMEXSocketOptions> optionsDelegate)
         {
             BitMEXSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            
-            ExchangeApi.SetApiCredentials(credentials);
-
         }
     }
 }

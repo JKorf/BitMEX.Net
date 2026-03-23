@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BitMEX.Net.Objects.Options
@@ -5,7 +6,7 @@ namespace BitMEX.Net.Objects.Options
     /// <summary>
     /// Options for the BitMEXSocketClient
     /// </summary>
-    public class BitMEXSocketOptions : SocketExchangeOptions<BitMEXEnvironment>
+    public class BitMEXSocketOptions : SocketExchangeOptions<BitMEXEnvironment, BitMEXCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -16,7 +17,6 @@ namespace BitMEX.Net.Objects.Options
             SocketSubscriptionsCombineTarget = 10
         };
 
-
         /// <summary>
         /// ctor
         /// </summary>
@@ -24,21 +24,16 @@ namespace BitMEX.Net.Objects.Options
         {
             Default?.Set(this);
         }
-
-
         
-         /// <summary>
+        /// <summary>
         /// Exchange API options
         /// </summary>
         public SocketApiOptions ExchangeOptions { get; private set; } = new SocketApiOptions();
 
-
         internal BitMEXSocketOptions Set(BitMEXSocketOptions targetOptions)
         {
-            targetOptions = base.Set<BitMEXSocketOptions>(targetOptions);
-            
+            targetOptions = base.Set<BitMEXSocketOptions>(targetOptions);            
             targetOptions.ExchangeOptions = ExchangeOptions.Set(targetOptions.ExchangeOptions);
-
             return targetOptions;
         }
     }

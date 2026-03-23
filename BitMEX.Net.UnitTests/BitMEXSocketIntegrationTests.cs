@@ -1,6 +1,7 @@
 ﻿using BitMEX.Net.Clients;
 using BitMEX.Net.Objects.Models;
 using BitMEX.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -28,7 +29,7 @@ namespace BitMEX.Net.UnitTests
             return new BitMEXSocketClient(Options.Create(new BitMEXSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new BitMEXCredentials(key, sec) : null
             }), loggerFactory);
         }
 
