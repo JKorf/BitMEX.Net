@@ -43,5 +43,8 @@ namespace BitMEX.Net
             Secret = secret;
             return this;
         }
+
+        /// <inheritdoc />
+        public override ApiCredentials Copy() => new BitMEXCredentials(this);
     }
 }
