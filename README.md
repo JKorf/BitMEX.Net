@@ -46,26 +46,42 @@ BitMEX.Net is available on [GitHub packages](https://github.com/JKorf/BitMEX.Net
 The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/BitMEX.Net/releases).
 
 ## How to use
-* REST Endpoints
-	```csharp
-	// Get the ETH/USDT ticker via rest request
-	var restClient = new BitMEXRestClient();
-	var tickerResult = await restClient.ExchangeApi.ExchangeData.GetSymbolsAsync("ETHUSDT");
-	var lastPrice = tickerResult.Data.Single().LastPrice;
-	```
-* Websocket streams
-	```csharp
-	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new BitMEXSocketClient();
-	var tickerSubscriptionResult = socketClient.ExchangeApi.SubscribeToSymbolUpdatesAsync("ETHUSDT", (update) =>
-	{
-		// If update.Data.LastPrice == null the price hasn't changed since last update
-		if (update.Data.LastPrice != null)
-		{ 
-			var lastPrice = update.Data.LastPrice;
-		}
-	});
-	```
+*Basic request:*
+```csharp
+// Get the ETH/USDT ticker via rest request
+var restClient = new BitMEXRestClient();
+var tickerResult = await restClient.ExchangeApi.ExchangeData.GetSymbolsAsync("ETHUSDT");
+var lastPrice = tickerResult.Data.Single().LastPrice;
+```
+	
+*Place order:*
+```csharp
+var restClient = new BitMEXRestClient(opts => {
+	opts.ApiCredentials = new BitMEXCredentials("APIKEY", "APISECRET");
+});
+
+// Place Limit order to go long for 10 contracts ETH/USD at 2000
+var orderResult = await restClient.ExchangeApi.Trading.PlaceOrderAsync(
+    "ETH_USD",
+    OrderSide.Buy,
+    OrderType.Limit,
+    10,    
+    2000);
+```
+
+*WebSocket subscription:*
+```csharp
+// Subscribe to ETH/USDT ticker updates via the websocket API
+var socketClient = new BitMEXSocketClient();
+var tickerSubscriptionResult = socketClient.ExchangeApi.SubscribeToSymbolUpdatesAsync("ETHUSDT", (update) =>
+{
+	// If update.Data.LastPrice == null the price hasn't changed since last update
+	if (update.Data.LastPrice != null)
+	{ 
+		var lastPrice = update.Data.LastPrice;
+	}
+});
+```
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev?library=BitMEX.Net), or have a look at the examples [here](https://github.com/JKorf/BitMEX.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
