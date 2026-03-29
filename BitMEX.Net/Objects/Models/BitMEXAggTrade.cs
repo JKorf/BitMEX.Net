@@ -75,6 +75,11 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("foreignNotional")]
         public decimal ForeignNotional { get; set; }
+        /// <summary>
+        /// ["<c>pool</c>"] Pool
+        /// </summary>
+        [JsonPropertyName("pool")]
+        public string? Pool { get; set; }
     }
 
 

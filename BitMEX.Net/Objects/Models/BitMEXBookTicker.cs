@@ -40,6 +40,11 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("askSize")]
         public long BestAskQuantity { get; set; }
+        /// <summary>
+        /// ["<c>pool</c>"] Pool
+        /// </summary>
+        [JsonPropertyName("pool")]
+        public string? Pool { get; set; }
     }
 
 

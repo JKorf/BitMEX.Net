@@ -23,6 +23,11 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("rootSymbol")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>instrumentID</c>"] Instrument id
+        /// </summary>
+        [JsonPropertyName("instrumentID")]
+        public long? InstrumentId { get; set; }
+        /// <summary>
         /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
@@ -108,6 +113,11 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("maxOrderQty")]
         public long MaxOrderQuantity { get; set; }
+        /// <summary>
+        /// ["<c>minPrice</c>"] Min price
+        /// </summary>
+        [JsonPropertyName("minPrice")]
+        public decimal MinPrice { get; set; }
         /// <summary>
         /// ["<c>maxPrice</c>"] Max price
         /// </summary>
@@ -270,6 +280,11 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("limitUpPrice")]
         public decimal? LimitUpPrice { get; set; }
+        /// <summary>
+        /// ["<c>prevTotalVolume</c>"] Previous total volume
+        /// </summary>
+        [JsonPropertyName("prevTotalVolume")]
+        public long PreviousTotalVolume { get; set; }
         /// <summary>
         /// ["<c>totalVolume</c>"] Total volume
         /// </summary>
@@ -470,5 +485,25 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// ["<c>capped</c>"] Capped
+        /// </summary>
+        [JsonPropertyName("capped")]
+        public bool Capped { get; set; }
+        /// <summary>
+        /// ["<c>closingTimestamp</c>"] Close timestamp
+        /// </summary>
+        [JsonPropertyName("closingTimestamp")]
+        public DateTime? ClosingTimestamp { get; set; }
+        /// <summary>
+        /// ["<c>openingTimestamp</c>"] Open timestamp
+        /// </summary>
+        [JsonPropertyName("openingTimestamp")]
+        public DateTime? OpeningTimestamp { get; set; }
+        /// <summary>
+        /// ["<c>pool</c>"] Pool
+        /// </summary>
+        [JsonPropertyName("pool")]
+        public string? Pool { get; set; }
     }
 }

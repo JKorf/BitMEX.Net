@@ -23,6 +23,11 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("rootSymbol")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>instrumentID</c>"] Instrument id
+        /// </summary>
+        [JsonPropertyName("instrumentID")]
+        public long? InstrumentId { get; set; }
+        /// <summary>
         /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
@@ -133,5 +138,36 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("capped")]
         public bool Capped { get; set; }
+        /// <summary>
+        /// ["<c>minPrice</c>"] Min price
+        /// </summary>
+        [JsonPropertyName("minPrice")]
+        public decimal MinPrice { get; set; }
+        /// <summary>
+        /// Last tick direction
+        /// </summary>
+        [JsonPropertyName("lastTickDirection")]
+        public TickDirection LastTickDirection { get; set; }
+        /// <summary>
+        /// ["<c>openValue</c>"] Open value
+        /// </summary>
+        [JsonPropertyName("openValue")]
+        public decimal OpenValue { get; set; }
+        /// <summary>
+        /// ["<c>calcInterval</c>"] Calc interval
+        /// </summary>
+        [JsonPropertyName("calcInterval")]
+        [JsonConverter(typeof(IntervalConverter))]
+        public TimeSpan? CalcInterval { get; set; }
+        /// <summary>
+        /// ["<c>publishTime</c>"] Publish time
+        /// </summary>
+        [JsonPropertyName("publishTime")]
+        public DateTime? PublishTime { get; set; }
+        /// <summary>
+        /// ["<c>openInterest</c>"] Open interest
+        /// </summary>
+        [JsonPropertyName("openInterest")]
+        public long? OpenInterest { get; set; }
     }
 }
