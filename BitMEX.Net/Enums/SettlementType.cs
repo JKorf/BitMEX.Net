@@ -13,7 +13,7 @@ namespace BitMEX.Net.Enums
         /// <summary>
         /// ["<c>settlement</c>"] Settlement
         /// </summary>
-        [Map("settlement")]
+        [Map("settlement", "Settlement")]
         Settlement
     }
 }

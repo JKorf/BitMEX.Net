@@ -5,6 +5,7 @@ using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Clients;
 using System;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace BitMEX.Net.Objects.Sockets
 {
