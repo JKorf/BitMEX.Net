@@ -12,6 +12,11 @@ namespace BitMEX.Net.Objects.Models
     public record BitMEXAsset
     {
         /// <summary>
+        /// Asset id
+        /// </summary>
+        [JsonPropertyName("assetID")]
+        public long? AssetId { get; set; }
+        /// <summary>
         /// ["<c>asset</c>"] Asset
         /// </summary>
         [JsonPropertyName("asset")]
