@@ -67,12 +67,31 @@ namespace BitMEX.Net
         /// </summary>
         /// <param name="asset">Asset name</param>
         /// <returns></returns>
-        public static int GetAssetScale(string asset)
+        public static int? GetAssetScale(string asset)
         {
             if (char.IsUpper(asset.Last()))
-                return _scalesByAsset[asset];
+            {
+                if (_scalesByAsset.TryGetValue(asset, out var val))
+                    return val;
 
-            return _scalesByCurrency[asset];
+                _ = UpdateSymbolInfoNowAsync();
+                return null;
+            }
+
+            if (_scalesByCurrency.TryGetValue(asset, out var valCur))
+                return valCur;
+
+            _ = UpdateSymbolInfoNowAsync();
+            return null;
+        }
+
+        private static async Task UpdateSymbolInfoNowAsync()
+        {
+            if (_lastUpdateTime > DateTime.UtcNow.AddMinutes(-1))
+                return;
+
+            _lastUpdateTime = DateTime.UtcNow.AddDays(-1);
+            await UpdateSymbolInfoAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -80,20 +99,41 @@ namespace BitMEX.Net
         /// </summary>
         /// <param name="symbol">Symbol name</param>
         /// <returns></returns>
-        public static int GetSymbolQuantityScale(string symbol) => _scalesBySymbol[symbol];
-        
+        public static int? GetSymbolQuantityScale(string symbol)
+        {
+            if (_scalesBySymbol.TryGetValue(symbol, out var val))
+                return val;
+
+            _ = UpdateSymbolInfoNowAsync();
+            return null;
+        }
+
         /// <summary>
         /// Get the type for a symbol
         /// </summary>
         /// <param name="symbol">Symbol name</param>
         /// <returns></returns>
-        public static SymbolType GetSymbolType(string symbol) => _symbolTypes[symbol];
+        public static SymbolType? GetSymbolType(string symbol)
+        {
+            if (_symbolTypes.TryGetValue(symbol, out var val))
+                return val;
+
+            _ = UpdateSymbolInfoNowAsync();
+            return null;
+        }
 
         /// <summary>
         /// Get asset name for a currency
         /// </summary>
         /// <param name="currency">Currency name</param>
         /// <returns></returns>
-        public static string GetAssetFromCurrency(string currency) => _currencyToAsset[currency];
+        public static string? GetAssetFromCurrency(string currency)
+        {
+            if (_currencyToAsset.TryGetValue(currency, out var val))
+                return val;
+
+            _ = UpdateSymbolInfoNowAsync();
+            return null;
+        }
     }
 }

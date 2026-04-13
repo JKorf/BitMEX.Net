@@ -120,7 +120,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
 
             return result.AsExchangeResult<SharedBalance[]>(Exchange, SupportedTradingModes, result.Data.Select(x => 
-            new SharedBalance(BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency)), x.Quantity.ToSharedAssetQuantity(x.Currency), (x.Quantity + x.PendingCredit).ToSharedAssetQuantity(x.Currency))).ToArray());
+                new SharedBalance(
+                    BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency) ?? x.Currency),
+                    x.Quantity.ToSharedAssetQuantity(x.Currency) ?? 0,
+                    (x.Quantity + x.PendingCredit).ToSharedAssetQuantity(x.Currency) ?? 0)
+                ).ToArray());
         }
 
         #endregion
@@ -190,8 +194,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                        .Where(x => x.TransactionType == TransactionType.Deposit)
                        .Select(x => 
                             new SharedDeposit(
-                                BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency)),
-                                x.Quantity.ToSharedAssetQuantity(x.Currency),
+                                BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency) ?? x.Currency),
+                                x.Quantity.ToSharedAssetQuantity(x.Currency) ?? 0,
                                 x.TransactionStatus == TransactionStatus.Completed,
                                 x.TransactionTime,
                                 ParseTransferStatus(x.TransactionStatus))
@@ -303,7 +307,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             x.HighPrice,
                             x.LowPrice,
                             x.OpenPrice,
-                            x.Volume.ToSharedSymbolQuantity(symbol)))
+                            x.Volume.ToSharedSymbolQuantity(symbol) ?? 0))
                    .ToArray(), nextPageRequest);
         }
 
@@ -332,9 +336,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (request.Symbol!.TradingMode == TradingMode.Spot)
             {
                 foreach (var item in book.Asks)
-                    item.Quantity = ((long)item.Quantity).ToSharedAssetQuantity(request.Symbol!.BaseAsset);
+                    item.Quantity = ((long)item.Quantity).ToSharedAssetQuantity(request.Symbol!.BaseAsset) ?? 0;
                 foreach (var item in book.Bids)
-                    item.Quantity = ((long)item.Quantity).ToSharedAssetQuantity(request.Symbol!.BaseAsset);
+                    item.Quantity = ((long)item.Quantity).ToSharedAssetQuantity(request.Symbol!.BaseAsset) ?? 0;
             }
 
             return result.AsExchangeResult(Exchange, request.Symbol!.TradingMode, book);
@@ -366,7 +370,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             // Return
             return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol!.TradingMode, result.Data.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity.ToSharedSymbolQuantity(symbol), x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, x.Quantity.ToSharedSymbolQuantity(symbol) ?? 0, x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Sell ? SharedOrderSide.Sell : SharedOrderSide.Buy,
             }).ToArray());
@@ -417,7 +421,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                        TradingMode.Spot,
                        ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                        .Select(x => 
-                            new SharedTrade(request.Symbol, symbol, x.Quantity.ToSharedSymbolQuantity(symbol), x.Price, x.Timestamp)
+                            new SharedTrade(request.Symbol, symbol, x.Quantity.ToSharedSymbolQuantity(symbol) ?? 0, x.Price, x.Timestamp)
                             {
                                 Side = x.Side == OrderSide.Sell ? SharedOrderSide.Sell : SharedOrderSide.Buy,
                             })
@@ -449,9 +453,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 ExchangeSymbolCache.ParseSymbol(request.Symbol!.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, resultTicker.Data[0].Symbol),
                 resultTicker.Data[0].Symbol,
                 resultTicker.Data[0].BestAskPrice,
-                resultTicker.Data[0].BestAskQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol),
+                resultTicker.Data[0].BestAskQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol) ?? 0,
                 resultTicker.Data[0].BestBidPrice,
-                resultTicker.Data[0].BestBidQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol)));
+                resultTicker.Data[0].BestBidQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol) ?? 0));
         }
 
         #endregion
@@ -501,7 +505,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
                        ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                        .Where(x => x.TransactionType == TransactionType.Withdrawal)
                        .Select(x => 
-                            new SharedWithdrawal(BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency)), x.Address, x.Quantity.ToSharedAssetQuantity(x.Currency), x.TransactionStatus == TransactionStatus.Completed, x.Timestamp)
+                            new SharedWithdrawal(
+                                BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency) ?? x.Currency), 
+                                x.Address,
+                                x.Quantity.ToSharedAssetQuantity(x.Currency) ?? 0,
+                                x.TransactionStatus == TransactionStatus.Completed,
+                                x.Timestamp)
                             {
                                 Network = x.Network,
                                 Tag = x.Memo,
@@ -537,7 +546,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var withdrawal = await Account.WithdrawAsync(
                 BitMEXExchange.AssetAliases.ExchangeToCommonName(request.Asset),
                 network: request.Network!,
-                request.Quantity.ToBitMEXAssetQuantity(request.Asset),
+                request.Quantity.ToBitMEXAssetQuantity(request.Asset) ?? 0,
                 request.Address,
                 memo: request.AddressTag,
                 ct: ct).ConfigureAwait(false);
@@ -646,7 +655,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 symbol.LastPrice,
                 symbol.HighPrice,
                 symbol.LowPrice,
-                symbol.Volume24h.ToSharedSymbolQuantity(symbol.Symbol),
+                symbol.Volume24h.ToSharedSymbolQuantity(symbol.Symbol) ?? 0,
                 Math.Round(symbol.PrevPrice24h == 0 ? 0 : symbol.LastPrice / symbol.PrevPrice24h * 100 - 100, 3)
                 )
             {
@@ -676,7 +685,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.LastPrice,
                 x.HighPrice,
                 x.LowPrice,
-                x.Volume24h.ToSharedSymbolQuantity(x.Symbol),
+                x.Volume24h.ToSharedSymbolQuantity(x.Symbol) ?? 0,
                 Math.Round(x.PrevPrice24h == 0 ? 0 : x.LastPrice / x.PrevPrice24h * 100 - 100, 3))
             {
                 QuoteVolume = x.Turnover24h.ToSharedAssetQuantity(x.Symbol!.Split('_').Last())

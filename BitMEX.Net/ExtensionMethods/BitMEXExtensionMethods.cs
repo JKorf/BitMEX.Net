@@ -13,13 +13,16 @@ namespace BitMEX.Net.ExtensionMethods
         /// <param name="value">Value</param>
         /// <param name="asset">The asset in which the quantity is</param>
         /// <returns></returns>
-        public static decimal ToSharedAssetQuantity(this long value, string asset)
+        public static decimal? ToSharedAssetQuantity(this long value, string asset)
         {
             var scale = BitMEXUtils.GetAssetScale(asset);
+            if (scale == null)
+                return null;
+
             if (scale == 1)
                 return value;
 
-            return value / (decimal)Math.Pow(10, scale);
+            return value / (decimal)Math.Pow(10, scale.Value);
         }
 
         /// <summary>
@@ -28,13 +31,16 @@ namespace BitMEX.Net.ExtensionMethods
         /// <param name="value">Value</param>
         /// <param name="symbol">The symbol for which the quantity is</param>
         /// <returns></returns>
-        public static decimal ToSharedSymbolQuantity(this long value, string symbol)
+        public static decimal? ToSharedSymbolQuantity(this long value, string symbol)
         {
             var scale = BitMEXUtils.GetSymbolQuantityScale(symbol);
+            if (scale == null)
+                return null;
+
             if (scale == 1)
                 return value;
 
-            return value / (decimal)Math.Pow(10, scale);
+            return value / (decimal)Math.Pow(10, scale.Value);
         }
 
         /// <summary>
@@ -49,10 +55,13 @@ namespace BitMEX.Net.ExtensionMethods
                 return null;
 
             var scale = BitMEXUtils.GetAssetScale(asset);
+            if (scale == null)
+                return null;
+
             if (scale == 1)
                 return value;
 
-            return value / (decimal)Math.Pow(10, scale);
+            return value / (decimal)Math.Pow(10, scale.Value);
         }
 
         /// <summary>
@@ -67,10 +76,13 @@ namespace BitMEX.Net.ExtensionMethods
                 return null;
 
             var scale = BitMEXUtils.GetSymbolQuantityScale(symbol);
+            if (scale == null)
+                return null;
+
             if (scale == 1)
                 return value;
 
-            return value / (decimal)Math.Pow(10, scale);
+            return value / (decimal)Math.Pow(10, scale.Value);
         }
 
         /// <summary>
@@ -79,13 +91,16 @@ namespace BitMEX.Net.ExtensionMethods
         /// <param name="value">Value</param>
         /// <param name="asset">The asset which the quantity is in</param>
         /// <returns></returns>
-        public static long ToBitMEXAssetQuantity(this decimal value, string asset)
+        public static long? ToBitMEXAssetQuantity(this decimal value, string asset)
         {
             var scale = BitMEXUtils.GetAssetScale(asset);
+            if (scale == null)
+                return null;
+
             if (scale == 1)
                 return (long)value;
 
-            return (long)(value * (decimal)Math.Pow(10, scale));
+            return (long)(value * (decimal)Math.Pow(10, scale.Value));
         }
 
         /// <summary>
@@ -100,10 +115,13 @@ namespace BitMEX.Net.ExtensionMethods
                 return null;
 
             var scale = BitMEXUtils.GetAssetScale(asset);
+            if (scale == null)
+                return null;
+
             if (scale == 1)
                 return (long)value;
 
-            return (long)(value * (decimal)Math.Pow(10, scale));
+            return (long)(value * (decimal)Math.Pow(10, scale.Value));
         }
 
         /// <summary>
@@ -112,13 +130,16 @@ namespace BitMEX.Net.ExtensionMethods
         /// <param name="value">Value</param>
         /// <param name="symbol">The symbol for which the quantity is</param>
         /// <returns></returns>
-        public static long ToBitMEXSymbolQuantity(this decimal value, string symbol)
+        public static long? ToBitMEXSymbolQuantity(this decimal value, string symbol)
         {
             var scale = BitMEXUtils.GetSymbolQuantityScale(symbol);
+            if (scale == null)
+                return null;
+
             if (scale == 1)
                 return (long)value;
 
-            return (long)(value * (decimal)Math.Pow(10, scale));
+            return (long)(value * (decimal)Math.Pow(10, scale.Value));
         }
 
         /// <summary>
@@ -133,10 +154,13 @@ namespace BitMEX.Net.ExtensionMethods
                 return null;
 
             var scale = BitMEXUtils.GetSymbolQuantityScale(symbol);
+            if (scale == null)
+                return null;
+
             if (scale == 1)
                 return (long)value;
 
-            return (long)(value * (decimal)Math.Pow(10, scale));
+            return (long)(value * (decimal)Math.Pow(10, scale.Value));
         }
     }
 }
