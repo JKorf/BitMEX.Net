@@ -217,6 +217,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.9.3 - 13 Apr 2026
+    * Fixed potential exceptions when new symbols or assets are added when using BitMEXUtils helper methods
+
 * Version 3.9.2 - 09 Apr 2026
     * Updated CryptoExchange.Net to version 11.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Added some missing properties on response models
