@@ -505,5 +505,11 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("pool")]
         public string? Pool { get; set; }
+        /// <summary>
+        /// ["<c>Tags</c>"] Tags
+        /// </summary>
+        [JsonPropertyName("tags")]
+        [JsonConverter(typeof(CommaSplitStringConverter))]
+        public string[] Tags { get; set; } = [];
     }
 }
