@@ -1,0 +1,79 @@
+# BitMEX.Net
+
+BitMEX.Net is a CryptoExchange.Net-based .NET client for BitMEX REST and websocket APIs.
+
+## Install
+
+```bash
+dotnet add package JKorf.BitMEX.Net
+```
+
+## Client Shape
+
+```csharp
+using BitMEX.Net;
+using BitMEX.Net.Clients;
+using BitMEX.Net.Enums;
+
+var restClient = new BitMEXRestClient(options =>
+{
+    options.ApiCredentials = new BitMEXCredentials("API_KEY", "API_SECRET");
+});
+
+var socketClient = new BitMEXSocketClient();
+```
+
+REST:
+
+- `restClient.ExchangeApi.ExchangeData`
+- `restClient.ExchangeApi.Account`
+- `restClient.ExchangeApi.Trading`
+- `restClient.ExchangeApi.SharedClient`
+
+Sockets:
+
+- `socketClient.ExchangeApi`
+- `socketClient.ExchangeApi.SharedClient`
+
+There is no `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, `CoinFuturesApi`, or passphrase credential.
+
+## Common Calls
+
+```csharp
+var symbols = await restClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync();
+var klines = await restClient.ExchangeApi.ExchangeData.GetKlinesAsync("XBTUSD", BinPeriod.OneMinute, limit: 100);
+var book = await restClient.ExchangeApi.ExchangeData.GetOrderBookAsync("XBTUSD", 25);
+var balances = await restClient.ExchangeApi.Account.GetBalancesAsync();
+var orders = await restClient.ExchangeApi.Trading.GetOrdersAsync("XBTUSD");
+var positions = await restClient.ExchangeApi.Trading.GetPositionsAsync();
+```
+
+## Trading
+
+```csharp
+var order = await restClient.ExchangeApi.Trading.PlaceOrderAsync(
+    symbol: "XBTUSD",
+    orderSide: OrderSide.Buy,
+    orderType: OrderType.Limit,
+    quantity: 100,
+    price: 50000m,
+    timeInForce: TimeInForce.GoodTillCancel);
+```
+
+## Sockets
+
+```csharp
+var sub = await socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync("XBTUSD", update =>
+{
+    foreach (var trade in update.Data)
+        Console.WriteLine($"{trade.Symbol} {trade.Price}");
+});
+```
+
+## BitMEX Details
+
+- Use BitMEX-native symbols such as `XBTUSD` and `ETH_USDT`.
+- Use `BinPeriod.OneMinute`, `FiveMinutes`, `OneHour`, or `OneDay`.
+- BitMEX quantities are base units for assets/spot and contract counts for derivatives.
+- Call `await BitMEXUtils.UpdateSymbolInfoAsync();` before using `ToBitMEXSymbolQuantity`, `ToBitMEXAssetQuantity`, `ToSharedSymbolQuantity`, or `ToSharedAssetQuantity`.
+- Always check `result.Success` before reading `result.Data`.

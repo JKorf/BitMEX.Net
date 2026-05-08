@@ -1,0 +1,57 @@
+---
+description: BitMEX.Net API shape and examples
+globs: **/*
+alwaysApply: true
+---
+
+# BitMEX.Net Rules
+
+Use the real BitMEX.Net structure:
+
+- `BitMEXRestClient.ExchangeApi.ExchangeData`
+- `BitMEXRestClient.ExchangeApi.Account`
+- `BitMEXRestClient.ExchangeApi.Trading`
+- `BitMEXSocketClient.ExchangeApi`
+- `ExchangeApi.SharedClient` for CryptoExchange.Net shared abstractions
+
+Do not generate Binance, Bitget, BitMart, or Bitfinex client roots. There is no `SpotApi`, `UsdFuturesApi`, `SpotApiV3`, `FuturesApiV2`, `PerpetualFuturesApi`, or `CoinFuturesApi`.
+
+Credentials:
+
+```csharp
+options.ApiCredentials = new BitMEXCredentials("API_KEY", "API_SECRET");
+```
+
+No passphrase.
+
+Symbols and quantities:
+
+- Perpetual example: `XBTUSD`
+- Spot example: `ETH_USDT`
+- Query `ExchangeData.GetActiveSymbolsAsync()` for exact symbols.
+- BitMEX quantities can be base units or contract counts.
+- Call `await BitMEXUtils.UpdateSymbolInfoAsync();` before using conversion helpers from `BitMEX.Net.ExtensionMethods`.
+- Kline interval enum is `BinPeriod`.
+
+Handle results:
+
+```csharp
+var result = await client.ExchangeApi.ExchangeData.GetOrderBookAsync("XBTUSD", 25);
+if (!result.Success)
+    return;
+
+var book = result.Data;
+```
+
+Common mappings:
+
+- Market symbols: `ExchangeData.GetActiveSymbolsAsync()` / `GetSymbolsAsync(...)`
+- Klines: `ExchangeData.GetKlinesAsync(symbol, BinPeriod.OneMinute, ...)`
+- Trades: `ExchangeData.GetTradesAsync(symbol, ...)`
+- Balances: `Account.GetBalancesAsync(...)`
+- Orders: `Trading.GetOrdersAsync(...)`
+- Place order: `Trading.PlaceOrderAsync(...)`
+- Cancel order: `Trading.CancelOrderAsync(orderId: ...)`
+- Positions: `Trading.GetPositionsAsync(...)`
+- Public sockets: `socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync(...)`
+- Private sockets: `socketClient.ExchangeApi.SubscribeToOrderUpdatesAsync(...)`

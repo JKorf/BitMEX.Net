@@ -1,0 +1,309 @@
+# BitMEX.Net Full AI Reference
+
+This file is optimized for AI coding assistants. It maps the actual BitMEX.Net API shape, options, endpoint groups, symbols, quantities, and common implementation patterns.
+
+## Identity
+
+- Repository: `JKorf/BitMEX.Net`
+- Package: `JKorf.BitMEX.Net`
+- Current project version: `3.9.3`
+- Base library: `CryptoExchange.Net`
+- REST client: `BitMEXRestClient`
+- Socket client: `BitMEXSocketClient`
+- Credentials: `BitMEXCredentials(string key, string secret)`
+
+BitMEX.Net is not organized by separate spot/futures client roots. All REST endpoints live under `ExchangeApi`, split into `ExchangeData`, `Account`, and `Trading`.
+
+## Correct Setup
+
+```csharp
+using BitMEX.Net;
+using BitMEX.Net.Clients;
+using BitMEX.Net.Enums;
+using BitMEX.Net.ExtensionMethods;
+
+var restClient = new BitMEXRestClient(options =>
+{
+    options.ApiCredentials = new BitMEXCredentials("API_KEY", "API_SECRET");
+    options.Environment = BitMEXEnvironment.Live;
+});
+
+var socketClient = new BitMEXSocketClient(options =>
+{
+    options.ApiCredentials = new BitMEXCredentials("API_KEY", "API_SECRET");
+});
+```
+
+## Options
+
+REST options:
+
+- `BitMEXRestOptions.Environment`
+- `BitMEXRestOptions.ApiCredentials`
+- `BitMEXRestOptions.AutoTimestamp`, default `false`
+- `BitMEXRestOptions.BrokerId`
+- `BitMEXRestOptions.ExchangeOptions`
+
+Socket options:
+
+- `BitMEXSocketOptions.Environment`
+- `BitMEXSocketOptions.ApiCredentials`
+- `BitMEXSocketOptions.SocketSubscriptionsCombineTarget`, default `10`
+- `BitMEXSocketOptions.ExchangeOptions`
+
+Global defaults:
+
+```csharp
+BitMEXRestClient.SetDefaultOptions(options =>
+{
+    options.ApiCredentials = new BitMEXCredentials("API_KEY", "API_SECRET");
+});
+
+BitMEXSocketClient.SetDefaultOptions(options =>
+{
+    options.ApiCredentials = new BitMEXCredentials("API_KEY", "API_SECRET");
+});
+```
+
+Dependency injection is available through `services.AddBitMEX(...)`.
+
+## REST API Map
+
+### ExchangeData
+
+Use `restClient.ExchangeApi.ExchangeData` for public market, instrument, book, funding, liquidation, announcement, and asset-network metadata:
+
+- `GetServerTimeAsync()`
+- `GetActiveSymbolsAsync()`
+- `GetSymbolsAsync(symbol, symbolFilter, filter, columns, reverse, startTime, endTime, offset, limit)`
+- `GetActiveIntervalsAsync()`
+- `GetCompositeIndexesAsync(symbol, ...)`
+- `GetIndicesAsync()`
+- `GetSymbolVolumesAsync()`
+- `GetTradesAsync(symbol, symbolFilter, filter, columns, reverse, startTime, endTime, offset, limit)`
+- `GetKlinesAsync(symbol, BinPeriod.OneMinute, symbolFilter, partial, filter, columns, reverse, startTime, endTime, offset, limit)`
+- `GetExchangeStatsAsync()`
+- `GetExchangeStatHistoryAsync()`
+- `GetExchangeStatHistoryUSDAsync()`
+- `GetSettlementHistoryAsync(symbol, ...)`
+- `GetBookTickerHistoryAsync(symbol, ...)`
+- `GetAggregatedBookTickerHistoryAsync(symbol, BinPeriod.OneMinute, ...)`
+- `GetOrderBookAsync(symbol, limit)`
+- `GetInsuranceAsync(asset, ...)`
+- `GetFundingHistoryAsync(symbol, ...)`
+- `GetAnnouncementsAsync(columns)`
+- `GetUrgentAnnouncementsAsync(columns)`
+- `GetAssetsAsync()`
+- `GetAssetNetworksAsync()`
+- `GetLiquidationsAsync(symbol, ...)`
+
+There is no `GetTickerAsync` endpoint wrapper. Use `GetSymbolsAsync`/`GetActiveSymbolsAsync` for instrument/ticker-like current fields, and `GetBookTickerHistoryAsync` for quote history.
+
+### Account
+
+Use `restClient.ExchangeApi.Account` for authenticated user, wallet, margin, withdrawal, address, and API-key endpoints:
+
+- `GetUserEventsAsync(fromId, limit)`
+- `GetAccountInfoAsync()`
+- `GetFeesAsync()`
+- `GetDepositAddressAsync(asset, network)`
+- `GetMarginStatusAsync(asset)`
+- `GetQuoteFillRatioAsync(accountId)`
+- `GetQuoteValueRatioAsync(accountId)`
+- `GetTradingVolumeAsync()`
+- `GetBalancesAsync(asset)`
+- `GetBalanceHistoryAsync(asset, targetAccountId, reverse, offset, limit)`
+- `GetBalanceSummaryAsync(asset, startTime, endTime)`
+- `TransferAsync(asset, fromAccountId, toAccountId, quantity)`
+- `WithdrawAsync(asset, network, quantity, address, memo, addressId, targetUserId, fee, text, otpToken)`
+- `CancelWithdrawalAsync(transactId)`
+- `SetIsolatedMarginAsync(symbol, isolatedMarginEnabled)`
+- `SetRiskLimitAsync(symbol, riskLimit, targetAccountId)`
+- `TransferMarginAsync(symbol, quantity, targetAccountId)`
+- `GetSavedAddressesAsync()`
+- `AddSavedAddressAsync(currency, network, address, name, note, skipConfirm, skip2FA, memo, otpToken)`
+- `GetAddressBookSettingsAsync()`
+- `GetApiKeyInfoAsync()`
+
+### Trading
+
+Use `restClient.ExchangeApi.Trading` for order, execution, trade history, position, and leverage operations:
+
+- `PlaceOrderAsync(symbol, orderSide, orderType, quantity, price, timeInForce, executionInstruction, contingencyType, displayQuantity, stopPrice, pegOffsetValue, pegPriceType, clientOrderLinkId, clientOrderId)`
+- `GetOrdersAsync(symbol, symbolFilter, filter, columns, reverse, startTime, endTime, offset, limit)`
+- `EditOrderAsync(orderId, origClientOrderId, newClientOrderId, quantity, quantityRemaining, price, stopPrice, pegOffsetValue)`
+- `CancelOrderAsync(orderId, clientOrderId)`
+- `CancelOrdersAsync(orderIds, clientOrderIds)`
+- `CancelAllOrdersAsync(targetAccountIds, symbol, filter)`
+- `CancelAllAfterAsync(timeout)`
+- `GetExecutionHistoryByDayAsync(symbol, day)`
+- `GetUserExecutionsAsync(symbol, symbolFilter, filter, columns, reverse, startTime, endTime, offset, limit)`
+- `GetUserTradesAsync(targetAccountIds, symbol, symbolFilter, filter, columns, reverse, startTime, endTime, offset, limit)`
+- `GetPositionsAsync(filter, columns, limit)`
+- `SetCrossMarginLeverageAsync(symbol, leverage, targetAccountId)`
+- `SetIsolatedMarginLeverageAsync(symbol, leverage, targetAccountId)`
+
+Order enums:
+
+- `OrderSide.Buy`, `OrderSide.Sell`
+- `OrderType.Limit`, `Market`, `StopMarket`, `StopLimit`, `MarketIfTouched`, `LimitIfTouched`, `Pegged`
+- `TimeInForce.Day`, `GoodTillCancel`, `ImmediateOrCancel`, `FillOrKill`, `AtTheClose`
+- `ExecutionInstruction.PostOnly`, `AllOrNone`, `MarkPrice`, `IndexPrice`, `LastPrice`, `Close`, `ReduceOnly`, `Fixed`, `LastWithinMark`
+
+## Websocket API Map
+
+Use `socketClient.ExchangeApi`.
+
+Public subscriptions:
+
+- `SubscribeToTradeUpdatesAsync(symbols, onMessage)`
+- `SubscribeToKlineUpdatesAsync(symbols, BinPeriod.OneMinute, onMessage)`
+- `SubscribeToBookTickerUpdatesAsync(symbols, onMessage)`
+- `SubscribeToAggregatedBookTickerUpdatesAsync(symbols, BinPeriod.OneMinute, onMessage)`
+- `SubscribeToSettlementUpdatesAsync(onMessage)`
+- `SubscribeToOrderBookUpdatesAsync(symbols, onMessage)`
+- `SubscribeToIncrementalOrderBookUpdatesAsync(symbols, IncrementalBookLimit.Top25, onMessage)`
+- `SubscribeToLiquidationUpdatesAsync(onMessage)`
+- `SubscribeToInsuranceUpdatesAsync(onMessage)`
+- `SubscribeToSymbolUpdatesAsync(SymbolCategory.Spot, onMessage)`
+- `SubscribeToSymbolUpdatesAsync(symbol, onMessage)`
+- `SubscribeToFundingUpdatesAsync(symbols, onMessage)`
+- `SubscribeToAnnouncementUpdatesAsync(onMessage)`
+- `SubscribeToNotificationUpdatesAsync(onMessage)`
+
+Private subscriptions:
+
+- `SubscribeToBalanceUpdatesAsync(onMessage)`
+- `SubscribeToTransactionUpdatesAsync(onMessage)`
+- `SubscribeToPositionUpdatesAsync(onMessage)`
+- `SubscribeToMarginUpdatesAsync(onMessage)`
+- `SubscribeToOrderUpdatesAsync(onMessage)`
+- `SubscribeToUserTradeUpdatesAsync(onMessage)`
+
+Socket callbacks receive `DataEvent<T>`. Many BitMEX channels return arrays because updates can contain multiple rows.
+
+## Symbols
+
+BitMEX symbols are exchange-native:
+
+- `XBTUSD` for the classic inverse perpetual
+- `ETH_USDT` for a spot-style symbol example shown in the README
+- `ETHUSDT` for a linear contract-style example when returned by BitMEX metadata
+
+Use:
+
+```csharp
+var symbols = await restClient.ExchangeApi.ExchangeData.GetActiveSymbolsAsync();
+var xbt = symbols.Data.SingleOrDefault(x => x.Symbol == "XBTUSD");
+```
+
+Avoid:
+
+```text
+BTC-USDT
+BTC/USDT
+tBTCUSD
+SpotApiV3
+UsdFuturesApiV3
+FuturesApiV2
+```
+
+## Quantities And Conversion
+
+BitMEX uses base-unit currency quantities for wallets and some spot trading. Examples:
+
+- `XBt` is the base unit representation for Bitcoin quantities.
+- `gwei` can represent Ethereum base units.
+- Derivatives generally use contract quantities.
+
+Before using conversion helpers:
+
+```csharp
+var symbolInfo = await BitMEXUtils.UpdateSymbolInfoAsync();
+if (!symbolInfo.Success)
+    return;
+```
+
+Convert human asset/symbol amounts:
+
+```csharp
+var bitmexSpotQuantity = 0.01m.ToBitMEXSymbolQuantity("ETH_USDT");
+var humanSpotQuantity = bitmexSpotQuantity.ToSharedSymbolQuantity("ETH_USDT");
+var bitmexAssetQuantity = 0.01m.ToBitMEXAssetQuantity("ETH");
+var humanAssetQuantity = bitmexAssetQuantity.ToSharedAssetQuantity("gwei");
+```
+
+Do not pass `0.01m` directly as a BitMEX spot `quantity` unless the API really expects `0.01` for that instrument. In this library, `PlaceOrderAsync` takes `long? quantity`.
+
+## Result Handling
+
+```csharp
+var result = await restClient.ExchangeApi.ExchangeData.GetOrderBookAsync("XBTUSD", 25);
+if (!result.Success)
+{
+    Console.WriteLine($"BitMEX error: {result.Error}");
+    return;
+}
+
+Console.WriteLine(result.Data.Asks.Length);
+```
+
+For sockets:
+
+```csharp
+var sub = await socketClient.ExchangeApi.SubscribeToOrderBookUpdatesAsync("XBTUSD", update =>
+{
+    Console.WriteLine(update.Data.Symbol);
+});
+
+if (!sub.Success)
+{
+    Console.WriteLine(sub.Error);
+    return;
+}
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Shared Clients
+
+BitMEX.Net implements CryptoExchange.Net shared APIs:
+
+- `restClient.ExchangeApi.SharedClient`
+- `socketClient.ExchangeApi.SharedClient`
+
+Supported trading modes include spot, linear/inverse perpetuals, and linear/inverse delivery contracts. Shared clients may call `BitMEXUtils.UpdateSymbolInfoAsync()` internally to map symbols and quantities.
+
+## Local State Helpers
+
+Use built-in helpers instead of manually maintaining complex local state:
+
+- `BitMEXOrderBookFactory`
+- `BitMEXSymbolOrderBook`
+- `BitMEXTrackerFactory`
+- `BitMEXUserSpotDataTracker`
+- `BitMEXUserFuturesDataTracker`
+
+## Known Nonexistent Patterns
+
+These are wrong for BitMEX.Net:
+
+```csharp
+client.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
+client.UsdFuturesApi.Trading.PlaceOrderAsync(...);
+client.ExchangeApi.Trading.GetOpenOrdersAsync("XBTUSD");
+new BitMEXCredentials("key", "secret", "passphrase");
+KlineInterval.OneMinute;
+OrderType.Stop;
+```
+
+Use:
+
+```csharp
+client.ExchangeApi.ExchangeData.GetSymbolsAsync("XBTUSD");
+client.ExchangeApi.Trading.PlaceOrderAsync("XBTUSD", OrderSide.Buy, OrderType.Limit, quantity: 100, price: 50000m);
+client.ExchangeApi.Trading.GetOrdersAsync("XBTUSD");
+new BitMEXCredentials("key", "secret");
+BinPeriod.OneMinute;
+OrderType.StopMarket;
+```

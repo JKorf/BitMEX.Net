@@ -85,6 +85,13 @@ var tickerSubscriptionResult = socketClient.ExchangeApi.SubscribeToSymbolUpdates
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev?library=BitMEX.Net), or have a look at the examples [here](https://github.com/JKorf/BitMEX.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
+## AI documentation
+For AI coding assistants and quick onboarding:
+* [`llms.txt`](llms.txt) provides concise AI context
+* [`llms-full.txt`](llms-full.txt) provides detailed patterns, pitfalls and endpoint routing
+* [`docs/ai-api-map.md`](docs/ai-api-map.md) maps common intents to client members
+* [`Examples/ai-friendly`](Examples/ai-friendly) contains compact examples that are compiled by the test suite
+
 ### BitMEX Quantities
 BitMEX handles quantities a bit differently than most exchange API's. Asset quantities like account balances are denoted in a base value.  
 For example 9846 XBt instead of 0.00009846 BTC. The same logic is also applied to trading quantities, if you want to place a spot order for 0.1 BTC you'd need to specify a quantity of 10000000 XBt. Note that futures trading works with contracts.  
