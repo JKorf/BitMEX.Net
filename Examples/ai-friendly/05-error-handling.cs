@@ -26,7 +26,7 @@ var subscription = await socketClient.ExchangeApi.SubscribeToIncrementalOrderBoo
         Console.WriteLine($"Incremental book update: {update.Data.Action}");
     });
 
-if (!EnsureSuccess(subscription, "subscribe to incremental book"))
+if (!EnsureSuccessSocket(subscription, "subscribe to incremental book"))
     return;
 
 await socketClient.UnsubscribeAsync(subscription.Data);
@@ -40,7 +40,7 @@ static bool EnsureSuccess<T>(WebCallResult<T> result, string action)
     return false;
 }
 
-static bool EnsureSuccess<T>(CallResult<T> result, string action)
+static bool EnsureSuccessSocket<T>(CallResult<T> result, string action)
 {
     if (result.Success)
         return true;
