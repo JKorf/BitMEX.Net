@@ -2,6 +2,13 @@
 
 Generate code against the actual BitMEX.Net client shape.
 
+Before making API-shape decisions, also read:
+
+- `AGENTS.md` for the full repository-specific AI coding guide
+- `llms.txt` for concise Bitstamp.Net context
+- `llms-full.txt` for detailed endpoint routing, pitfalls and examples
+- `docs/ai-api-map.md` for intent-to-method mapping
+
 ## Correct Client Roots
 
 ```csharp
