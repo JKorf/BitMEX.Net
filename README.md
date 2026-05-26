@@ -225,6 +225,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.10.0 - 26 May 2026
+    * Updated CryptoExchange.Net to version 11.2.0
+    * Added Tags property to BitMEXSymbol model
+
 * Version 3.9.3 - 13 Apr 2026
     * Fixed potential exceptions when new symbols or assets are added when using BitMEXUtils helper methods
 
