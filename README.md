@@ -1,6 +1,7 @@
 # ![BitMEX.Net](https://raw.githubusercontent.com/JKorf/BitMEX.Net/main/BitMEX.Net/Icon/icon.png) BitMEX.Net  
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/BitMEX.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/BitMEX.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/BitMEX.Net?style=for-the-badge)
+![Since](https://img.shields.io/badge/since-2024-brightgreen?style=for-the-badge)
 
 BitMEX.Net is a client library for accessing the [BitMEX REST and Websocket API](https://www.bitmex.com/app/apiOverview). 
 
