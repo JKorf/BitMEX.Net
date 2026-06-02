@@ -1,13 +1,11 @@
 # Examples
 
-### BitMEX.Examples.Api
-A minimal API showing how to integrate BitMEX.Net in a web API project
+| Project | Topic |
+|---|---|
+| `BitMEX.Examples.Api` | Minimal ASP.NET Core API integration, dependency injection, public ticker endpoint, private balances endpoint |
+| `BitMEX.Examples.Console` | Basic REST ticker request and WebSocket symbol subscription |
+| `BitMEX.Examples.OrderPlacement` | Limit order placement, order status lookup, and cancellation |
+| `BitMEX.Examples.OrderBook` | Client-side order book implementation with live console display |
+| `BitMEX.Examples.Tracker` | Trade tracker with rolling market statistics |
 
-### BitMEX.Examples.Console
-A simple console client demonstrating basic usage
-
-### BitMEX.Examples.OrderBook
-Example of using the client side order book implementation
-
-### BitMEX.Examples.Tracker
-Example of using the trade tracker
+The `ai-friendly` folder contains standalone copy/paste examples intended for quick onboarding and AI coding assistant context.

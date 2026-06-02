@@ -1,3 +1,4 @@
+using BitMEX.Net;
 using BitMEX.Net.Interfaces.Clients;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ builder.Services.AddBitMEX();
 /*
 builder.Services.AddBitMEX(options =>
 {
-    options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>");
+    options.ApiCredentials = new BitMEXCredentials("<APIKEY>", "<APISECRET>");
     options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
@@ -27,7 +28,9 @@ app.UseHttpsRedirection();
 app.MapGet("/{Symbol}", async ([FromServices] IBitMEXRestClient client, string symbol) =>
 {
     var result = await client.ExchangeApi.ExchangeData.GetSymbolsAsync(symbol);
-    return result.Data.Single().LastPrice;
+    return result.Success
+        ? Results.Ok(result.Data.Single().LastPrice)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
@@ -35,7 +38,9 @@ app.MapGet("/{Symbol}", async ([FromServices] IBitMEXRestClient client, string s
 app.MapGet("/Balances", async ([FromServices] IBitMEXRestClient client) =>
 {
     var result = await client.ExchangeApi.Account.GetBalancesAsync();
-    return (object)(result.Success ? result.Data : result.Error!);
+    return result.Success
+        ? Results.Ok(result.Data)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
