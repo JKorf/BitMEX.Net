@@ -34,6 +34,11 @@ namespace BitMEX.Net.Enums
         /// ["<c>FairPriceStox</c>"] Fair price stocks
         /// </summary>
         [Map("FairPriceStox")]
-        FairPriceStox
+        FairPriceStox,
+        /// <summary>
+        /// ["<c>LastPricePreLaunch</c>"] Last price pre-launch
+        /// </summary>
+        [Map("LastPricePreLaunch")]
+        LastPricePreLaunch
     }
 }
