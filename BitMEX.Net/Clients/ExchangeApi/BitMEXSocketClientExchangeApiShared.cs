@@ -18,8 +18,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         private const string _topicFuturesId = "BitMEXFutures";
         private const string _exchangeName = "BitMEX";
 
-        public string Exchange => _exchangeName;
-
         public TradingMode[] SupportedTradingModes => new[] { TradingMode.Spot, TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
