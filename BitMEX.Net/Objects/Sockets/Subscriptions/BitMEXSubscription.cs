@@ -29,7 +29,10 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
 
             IndividualSubscriptionCount = symbols?.Length ?? 1;
 
-            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<SocketUpdate<T>>("upd" + topic, symbols, DoHandleMessage);
+            if (symbols != null)
+                MessageRouter = MessageRouter.CreateForEvent<SocketUpdate<T>>("upd" + topic, symbols, DoHandleMessage);
+            else
+                MessageRouter = MessageRouter.CreateForEvent<SocketUpdate<T>>("upd" + topic, DoHandleMessage);
         }
             
         /// <inheritdoc />
@@ -56,7 +59,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, SocketUpdate<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

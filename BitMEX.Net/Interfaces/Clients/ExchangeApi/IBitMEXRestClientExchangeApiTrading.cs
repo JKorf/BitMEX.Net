@@ -27,7 +27,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="day">["<c>timestamp</c>"] Day</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXExecution[]>> GetExecutionHistoryByDayAsync(string symbol, DateTime day, CancellationToken ct = default);
+        Task<HttpResult<BitMEXExecution[]>> GetExecutionHistoryByDayAsync(string symbol, DateTime day, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new order
@@ -56,7 +56,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="clientOrderId">["<c>clOrdID</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXOrder>> PlaceOrderAsync(
+        Task<HttpResult<BitMEXOrder>> PlaceOrderAsync(
             string symbol,
             OrderSide orderSide,
             OrderType orderType,
@@ -93,7 +93,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXOrder[]>> GetOrdersAsync(
+        Task<HttpResult<BitMEXOrder[]>> GetOrdersAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -124,7 +124,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="pegOffsetValue">["<c>pegOffsetValue</c>"] New peg offset value</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXOrder>> EditOrderAsync(
+        Task<HttpResult<BitMEXOrder>> EditOrderAsync(
             string? orderId = null,
             string? origClientOrderId = null,
             string? newClientOrderId = null,
@@ -148,7 +148,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="clientOrderId">["<c>clOrdID</c>"] Client order id. Either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXOrder>> CancelOrderAsync(
+        Task<HttpResult<BitMEXOrder>> CancelOrderAsync(
             string? orderId = null,
             string? clientOrderId = null,
             CancellationToken ct = default);
@@ -166,7 +166,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="clientOrderIds">["<c>clOrdID</c>"] Client order ids. Either this or orderIds should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXOrder[]>> CancelOrdersAsync(
+        Task<HttpResult<BitMEXOrder[]>> CancelOrdersAsync(
            IEnumerable<string>? orderIds = null,
            IEnumerable<string>? clientOrderIds = null,
            CancellationToken ct = default);
@@ -185,7 +185,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="filter">["<c>filter</c>"] Filter orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXOrder[]>> CancelAllOrdersAsync(
+        Task<HttpResult<BitMEXOrder[]>> CancelAllOrdersAsync(
             IEnumerable<long>? targetAccountIds = null,
             string? symbol = null,
             Dictionary<string, object>? filter = null,
@@ -203,7 +203,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="timeout">["<c>timeout</c>"] Timeout after which to cancel all orders. Use TimeSpan.Zero to cancel timeout</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> CancelAllAfterAsync(TimeSpan timeout, CancellationToken ct = default);
+        Task<HttpResult> CancelAllAfterAsync(TimeSpan timeout, CancellationToken ct = default);
 
         /// <summary>
         /// Get raw user execution history
@@ -225,7 +225,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXExecution[]>> GetUserExecutionsAsync(
+        Task<HttpResult<BitMEXExecution[]>> GetUserExecutionsAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -258,7 +258,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXExecution[]>> GetUserTradesAsync(
+        Task<HttpResult<BitMEXExecution[]>> GetUserTradesAsync(
             IEnumerable<long>? targetAccountIds = null,
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
@@ -285,7 +285,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXPosition[]>> GetPositionsAsync(
+        Task<HttpResult<BitMEXPosition[]>> GetPositionsAsync(
             Dictionary<string, object>? filter = null,
             IEnumerable<string>? columns = null,
             int? limit = null,
@@ -305,7 +305,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="targetAccountId">["<c>targetAccountId</c>"] Target account id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXPosition>> SetCrossMarginLeverageAsync(
+        Task<HttpResult<BitMEXPosition>> SetCrossMarginLeverageAsync(
             string symbol,
             decimal leverage,
             long? targetAccountId = null,
@@ -325,7 +325,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="targetAccountId">["<c>targetAccountId</c>"] Target account id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXPosition>> SetIsolatedMarginLeverageAsync(
+        Task<HttpResult<BitMEXPosition>> SetIsolatedMarginLeverageAsync(
             string symbol,
             decimal leverage,
             long? targetAccountId = null,

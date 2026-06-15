@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using BitMEX.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Objects;
 
 namespace BitMEX.Net.UnitTests
 {
@@ -27,12 +28,11 @@ namespace BitMEX.Net.UnitTests
                     return headers["api-signature"].ToString();
                 },
                 "f03398fcf2c6e91f48d6b7f5e22de2d4996071613f0e76e130d5a381d5c894c5",
-                new Dictionary<string, object>
+                new Parameters(BitMEXExchange._parameterSerializationSettings)
                 {
                     { "symbol", "LTCBTC" },
                 },
                 DateTimeConverter.ParseFromDouble(1499827320559),
-                true,
                 false);
         }
 

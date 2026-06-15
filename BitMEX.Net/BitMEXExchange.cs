@@ -73,6 +73,12 @@ namespace BitMEX.Net
         };
 
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<BitMEXSourceGenerationContext>();
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.Number,
+            DateTimes = DateTimeSerialization.Rfc3339String,
+            Bool = BoolSerialization.String
+        };
 
         /// <summary>
         /// Format a base and quote asset to an BitMEX recognized symbol 

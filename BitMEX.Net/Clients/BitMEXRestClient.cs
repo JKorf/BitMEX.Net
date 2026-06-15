@@ -45,7 +45,7 @@ namespace BitMEX.Net.Clients
         {
             Initialize(options.Value);
             
-            ExchangeApi = AddApiClient(new BitMEXRestClientExchangeApi(_logger, httpClient, options.Value));
+            ExchangeApi = AddApiClient(new BitMEXRestClientExchangeApi(loggerFactory, httpClient, options.Value));
         }
 
         #endregion

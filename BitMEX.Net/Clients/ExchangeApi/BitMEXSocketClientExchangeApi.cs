@@ -44,14 +44,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
         /// <summary>
         /// ctor
         /// </summary>
-        internal BitMEXSocketClientExchangeApi(ILogger logger, BitMEXSocketOptions options) :
-            base(logger, options.Environment.SocketClientAddress!, options, options.ExchangeOptions)
+        internal BitMEXSocketClientExchangeApi(ILoggerFactory? loggerFactory, BitMEXSocketOptions options) :
+            base(loggerFactory, BitMEXExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.ExchangeOptions)
         {
             AddSystemSubscription(new BitMEXInfoSubscription(_logger));
 
             RegisterPeriodicQuery("Ping", TimeSpan.FromSeconds(5), x => new PingQuery(), (connection, result) =>
             {
-                if (!result)
+                if (!result.Success)
                 {
                     // Ping timeout, reconnect
                     _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
@@ -70,11 +70,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
             => new BitMEXAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BitMEXTradeUpdate[]>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BitMEXTradeUpdate[]>> onMessage, CancellationToken ct = default)
             => SubscribeToTradeUpdatesAsync([symbol], onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXTradeUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXTradeUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -96,11 +96,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, BinPeriod period, Action<DataEvent<BitMEXAggTrade[]>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, BinPeriod period, Action<DataEvent<BitMEXAggTrade[]>> onMessage, CancellationToken ct = default)
             => SubscribeToKlineUpdatesAsync([symbol], period, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<BitMEXAggTrade[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<BitMEXAggTrade[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXAggTrade[]>>((receiveTime, originalData, data) =>
             {
@@ -117,11 +117,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
             => SubscribeToBookTickerUpdatesAsync([symbol], onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBookTicker[]>>((receiveTime, originalData, data) =>
             {
@@ -143,11 +143,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToAggregatedBookTickerUpdatesAsync(string symbol, BinPeriod period, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToAggregatedBookTickerUpdatesAsync(string symbol, BinPeriod period, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
             => SubscribeToAggregatedBookTickerUpdatesAsync([symbol], period, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedBookTickerUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToAggregatedBookTickerUpdatesAsync(IEnumerable<string> symbols, BinPeriod period, Action<DataEvent<BitMEXBookTicker>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBookTicker[]>>((receiveTime, originalData, data) =>
             {
@@ -169,7 +169,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSettlementUpdatesAsync(Action<DataEvent<BitMEXSettlementHistory[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSettlementUpdatesAsync(Action<DataEvent<BitMEXSettlementHistory[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSettlementHistory[]>>((receiveTime, originalData, data) =>
             {
@@ -190,11 +190,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<BitMEXOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<BitMEXOrderBookUpdate>> onMessage, CancellationToken ct = default)
             => SubscribeToOrderBookUpdatesAsync([symbol], onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrderBookUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -216,11 +216,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string symbol, IncrementalBookLimit limit, Action<DataEvent<BitMEXOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string symbol, IncrementalBookLimit limit, Action<DataEvent<BitMEXOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
             => SubscribeToIncrementalOrderBookUpdatesAsync([symbol], limit, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(IEnumerable<string> symbols, IncrementalBookLimit limit, Action<DataEvent<BitMEXOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(IEnumerable<string> symbols, IncrementalBookLimit limit, Action<DataEvent<BitMEXOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrderBookEntry[]>>((receiveTime, originalData, data) =>
             {
@@ -246,7 +246,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<BitMEXLiquidation[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<BitMEXLiquidation[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXLiquidation[]>>((receiveTime, originalData, data) =>
             {
@@ -263,7 +263,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToInsuranceUpdatesAsync(Action<DataEvent<BitMEXInsurance[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToInsuranceUpdatesAsync(Action<DataEvent<BitMEXInsurance[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXInsurance[]>>((receiveTime, originalData, data) =>
             {
@@ -284,7 +284,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(SymbolCategory? category, Action<DataEvent<BitMEXSymbolUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(SymbolCategory? category, Action<DataEvent<BitMEXSymbolUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -304,7 +304,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(string symbol, Action<DataEvent<BitMEXSymbolUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(string symbol, Action<DataEvent<BitMEXSymbolUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -325,7 +325,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXSymbolUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXSymbolUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXSymbolUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -346,11 +346,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToFundingUpdatesAsync(string symbol, Action<DataEvent<BitMEXFundingRate>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingUpdatesAsync(string symbol, Action<DataEvent<BitMEXFundingRate>> onMessage, CancellationToken ct = default)
             => SubscribeToFundingUpdatesAsync([symbol], onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXFundingRate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMEXFundingRate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXFundingRate[]>>((receiveTime, originalData, data) =>
             {
@@ -374,7 +374,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAnnouncementUpdatesAsync(Action<DataEvent<BitMEXAnnouncement[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToAnnouncementUpdatesAsync(Action<DataEvent<BitMEXAnnouncement[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXAnnouncement[]>>((receiveTime, originalData, data) =>
             {
@@ -394,7 +394,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToNotificationUpdatesAsync(Action<DataEvent<BitMEXNotification[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToNotificationUpdatesAsync(Action<DataEvent<BitMEXNotification[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXNotification[]>>((receiveTime, originalData, data) =>
             {
@@ -409,7 +409,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMEXBalance[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMEXBalance[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXBalance[]>>((receiveTime, originalData, data) =>
             {
@@ -429,7 +429,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTransactionUpdatesAsync(Action<DataEvent<BitMEXTransaction[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTransactionUpdatesAsync(Action<DataEvent<BitMEXTransaction[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXTransaction[]>>((receiveTime, originalData, data) =>
             {
@@ -450,7 +450,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMEXPosition[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMEXPosition[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXPosition[]>>((receiveTime, originalData, data) =>
             {
@@ -470,7 +470,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginUpdatesAsync(Action<DataEvent<BitMEXMarginStatus>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarginUpdatesAsync(Action<DataEvent<BitMEXMarginStatus>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXMarginStatus[]>>((receiveTime, originalData, data) =>
             {
@@ -490,7 +490,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMEXOrder[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMEXOrder[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXOrder[]>>((receiveTime, originalData, data) =>
             {
@@ -510,7 +510,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<BitMEXExecution[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<BitMEXExecution[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, SocketUpdate<BitMEXExecution[]>>((receiveTime, originalData, data) =>
             {
@@ -532,9 +532,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         protected override Task<CallResult<string?>> GetConnectionUrlAsync(string address, bool authentication)
         {
             if (!authentication)
-                return Task.FromResult(new CallResult<string?>(address));
+                return Task.FromResult(CallResult<string?>.Ok(address));
 
-            return Task.FromResult(new CallResult<string?>(GetAddress()!));
+            return Task.FromResult(CallResult<string?>.Ok(GetAddress()!));
         }
 
         private string? GetAddress()

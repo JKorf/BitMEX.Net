@@ -44,12 +44,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region constructor/destructor
-        internal BitMEXRestClientExchangeApi(ILogger logger, HttpClient? httpClient, BitMEXRestOptions options)
-            : base(logger, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
+        internal BitMEXRestClientExchangeApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, BitMEXRestOptions options)
+            : base(loggerFactory, BitMEXExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
         {
             Account = new BitMEXRestClientExchangeApiAccount(this);
-            ExchangeData = new BitMEXRestClientExchangeApiExchangeData(logger, this);
-            Trading = new BitMEXRestClientExchangeApiTrading(logger, this);
+            ExchangeData = new BitMEXRestClientExchangeApiExchangeData(_logger, this);
+            Trading = new BitMEXRestClientExchangeApiTrading(_logger, this);
         }
         #endregion
 
@@ -60,34 +60,23 @@ namespace BitMEX.Net.Clients.ExchangeApi
         protected override BitMEXAuthenticationProvider CreateAuthenticationProvider(BitMEXCredentials credentials)
             => new BitMEXAuthenticationProvider(credentials);
 
-        internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
-            => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        internal async Task<HttpResult> SendAsync(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await base.SendAsync(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-            return result;
+            return await base.SendAsync<Unit>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
         }
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
             if (parameters?.TryGetValue("filter", out var filter) == true)
                 parameters["filter"] = (_serializer ??= (IStringMessageSerializer)CreateSerializer()).Serialize(filter);
             if (parameters?.TryGetValue("columns", out var columns) == true)
                 parameters["columns"] = (_serializer ??= (IStringMessageSerializer)CreateSerializer()).Serialize(columns);
 
-            var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-
-            // Optional response checking
-
-            return result;
+            return await base.SendAsync<T>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();
 
         /// <inheritdoc />

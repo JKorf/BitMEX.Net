@@ -17,7 +17,7 @@ namespace BitMEX.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated)
+            if (!request.RequestDefinition.Authenticated)
                 return;
 
             var timestamp = GetTimestamp(apiClient);
@@ -32,7 +32,7 @@ namespace BitMEX.Net
             if (!string.IsNullOrEmpty(queryParams))
                 queryParams = $"?{queryParams}";
 
-            var signStr = $"{request.Method.ToString().ToUpperInvariant()}{request.Path}{queryParams}{expires}{body}";
+            var signStr = $"{request.RequestDefinition.Method.ToString().ToUpperInvariant()}{request.RequestDefinition.Path}{queryParams}{expires}{body}";
 
             request.Headers.Add("api-signature", SignHMACSHA256(signStr, SignOutputType.Hex));
 

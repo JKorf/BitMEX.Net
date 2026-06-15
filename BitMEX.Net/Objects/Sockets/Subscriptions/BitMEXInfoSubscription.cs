@@ -10,7 +10,7 @@ namespace BitMEX.Net.Objects.Sockets.Subscriptions
     {
         public BitMEXInfoSubscription(ILogger logger) : base(logger, false)
         {
-            MessageRouter = MessageRouter.CreateWithoutHandler<InfoUpdate>("info");
+            MessageRouter = MessageRouter.CreateVoid<InfoUpdate>("info");
         }
     }
 }

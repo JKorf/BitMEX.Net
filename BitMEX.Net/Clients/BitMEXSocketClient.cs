@@ -45,10 +45,8 @@ namespace BitMEX.Net.Clients
         public BitMEXSocketClient(IOptions<BitMEXSocketOptions> options, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "BitMEX")
         {
             Initialize(options.Value);
-
-            
-            ExchangeApi = AddApiClient(new BitMEXSocketClientExchangeApi(_logger, options.Value));
-
+                        
+            ExchangeApi = AddApiClient(new BitMEXSocketClientExchangeApi(loggerFactory, options.Value));
         }
         #endregion
 

@@ -18,7 +18,7 @@ namespace BitMEX.Net.Objects.Sockets
             _client = client;
             RequiredResponses = request.Parameters.Length;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<T>(request.Parameters, HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<T>(request.Parameters, HandleMessage);
         }
 
         public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)
@@ -27,15 +27,15 @@ namespace BitMEX.Net.Objects.Sockets
             {
                 if (resp.Error!.StartsWith("You are already subscribed to this topic"))
                     // Duplicate subscription, this is allowed by design
-                    return new CallResult<T>(message, originalData, null);
+                    return CallResult<T>.Ok(message, originalData);
 
                 if (resp.Status != null)
-                    return new CallResult<T>(new ServerError(resp.Status.Value, _client.GetErrorInfo(resp.Status.Value, resp.Error)), originalData);
+                    return CallResult<T>.Fail(new ServerError(resp.Status.Value, _client.GetErrorInfo(resp.Status.Value, resp.Error)), originalData);
 
-                return new CallResult<T>(new ServerError(ErrorInfo.Unknown with { Message = resp.Error }), originalData);
+                return CallResult<T>.Fail(new ServerError(ErrorInfo.Unknown with { Message = resp.Error }), originalData);
             }
 
-            return new CallResult<T>(message, originalData, null);
+            return CallResult<T>.Ok(message, originalData);
         }
     }
 }
