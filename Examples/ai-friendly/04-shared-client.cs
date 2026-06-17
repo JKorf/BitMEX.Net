@@ -17,6 +17,12 @@ var shared = client.ExchangeApi.SharedClient;
 Console.WriteLine($"Exchange: {shared.Exchange}");
 Console.WriteLine($"Trading modes: {string.Join(", ", shared.SupportedTradingModes)}");
 
+var info = shared.Discover();
+var supportedFeatures = info.Features
+    .Where(x => x.Supported)
+    .Select(x => x.EndpointName);
+Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supportedFeatures)}");
+
 var assets = await shared.GetAssetsAsync(new GetAssetsRequest());
 if (!assets.Success)
 {

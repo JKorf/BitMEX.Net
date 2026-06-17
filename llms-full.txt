@@ -12,7 +12,7 @@ This file is optimized for AI coding assistants. It maps the actual BitMEX.Net A
 - Socket client: `BitMEXSocketClient`
 - Credentials: `BitMEXCredentials(string key, string secret)`
 
-BitMEX.Net is not organized by separate spot/futures client roots. All REST endpoints live under `ExchangeApi`, split into `ExchangeData`, `Account`, and `Trading`.
+BitMEX.Net is not organized by separate spot/futures client roots. All REST endpoints live under `ExchangeApi`, split into `ExchangeData`, `Account`, and `Trading`. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`.
 
 ## Correct Setup
 
@@ -273,6 +273,16 @@ BitMEX.Net implements CryptoExchange.Net shared APIs:
 - `socketClient.ExchangeApi.SharedClient`
 
 Supported trading modes include spot, linear/inverse perpetuals, and linear/inverse delivery contracts. Shared clients may call `BitMEXUtils.UpdateSymbolInfoAsync()` internally to map symbols and quantities.
+
+Use `SharedClient.Discover()` before routing optional shared features across exchanges:
+
+```csharp
+var info = restClient.ExchangeApi.SharedClient.Discover();
+var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
+Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+```
+
+Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers, such as symbol support checks, return `ExchangeCallResult<T>`.
 
 ## Local State Helpers
 

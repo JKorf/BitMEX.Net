@@ -8,9 +8,9 @@ These examples are intentionally small console programs that AI assistants can c
 | --- | --- |
 | `01-market-and-account.cs` | Public market data, balances, result handling, and BitMEX quantity conversion |
 | `02-trading-and-positions.cs` | Limit order placement, order query/cancel, positions, and leverage calls |
-| `03-websocket.cs` | Public and private websocket subscriptions |
-| `04-shared-client.cs` | CryptoExchange.Net shared client access from BitMEX.Net |
-| `05-error-handling.cs` | Reusable error handling helpers for REST and sockets |
+| `03-websocket.cs` | Public and private websocket subscriptions with teardown |
+| `04-shared-client.cs` | CryptoExchange.Net shared client access, capability discovery, and shared assets |
+| `05-error-handling.cs` | Reusable `HttpResult`, `WebSocketResult`, and `ExchangeCallResult` result handling notes |
 
 ## BitMEX Shape To Remember
 
