@@ -498,7 +498,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                                 x.Address,
                                 x.Quantity.ToSharedAssetQuantity(x.Currency) ?? 0,
                                 x.TransactionStatus == TransactionStatus.Completed,
-                                x.Timestamp)
+                                x.Timestamp,
+                                GetWithdrawalStatus(x))
                             {
                                 Network = x.Network,
                                 Tag = x.Memo,
@@ -507,6 +508,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
                                 Id = x.TransactionId
                             })
                        .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus GetWithdrawalStatus(BitMEXTransaction x)
+        {
+            if (x.TransactionStatus == TransactionStatus.Canceled)
+                return SharedTransferStatus.Failed;
+
+            if (x.TransactionStatus == TransactionStatus.Completed)
+                return SharedTransferStatus.Completed;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
