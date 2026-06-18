@@ -27,7 +27,7 @@ namespace BitMEX.Net
             request.Headers.Add("api-expires", expires.Value.ToString());
             request.Headers.Add("api-key", Credential.Key);
 
-            var body = (request.BodyParameters == null || request.BodyParameters.Count == 0) ? "" : GetSerializedBody(_serializer, request.BodyParameters);
+            var body = (request.BodyParameters == null || request.BodyParameters.Empty) ? "" : GetSerializedBody(_serializer, request.BodyParameters);
             var queryParams = request.GetQueryString(true);
             if (!string.IsNullOrEmpty(queryParams))
                 queryParams = $"?{queryParams}";
