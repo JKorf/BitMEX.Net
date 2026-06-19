@@ -22,7 +22,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
-        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(this);
+        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BitMEXExchange.Metadata, this);
 
         #region Spot Order client
 
@@ -49,7 +49,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     handler(update.ToType<SharedSpotOrder[]>(data.Select(x =>
                     
                         new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol),
+                            ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol),
                             x.Symbol,
                             x.OrderId,
                             ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -153,7 +153,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
                     handler(update.ToType<SharedUserTrade[]>(data.Select(x =>
                         new SharedUserTrade(
-                            ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol) ?? ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
+                            ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol) ?? ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                             x.Symbol,
                             x.OrderId,
                             x.TradeId,
@@ -194,7 +194,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.ToType(
                 new SharedBookTicker(
-                    ExchangeSymbolCache.ParseSymbol(request.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, update.Data.Symbol),
+                    ExchangeSymbolCache.ParseSymbol(request.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, EnvironmentName, null, update.Data.Symbol),
                     update.Data.Symbol,
                     update.Data.BestAskPrice,
                     request.TradingMode != TradingMode.Spot ? update.Data.BestAskQuantity : update.Data.BestAskQuantity.ToSharedSymbolQuantity(update.Data.Symbol) ?? 0,
@@ -261,7 +261,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 if (ticker == null)
                 {
                     ticker = new SharedSpotTicker(
-                        ExchangeSymbolCache.ParseSymbol(request.Symbol.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, update.Data.Symbol),
+                        ExchangeSymbolCache.ParseSymbol(request.Symbol.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, EnvironmentName, null, update.Data.Symbol),
                         update.Data.Symbol,
                         update.Data.LastPrice,
                         update.Data.HighPrice,
@@ -315,7 +315,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
                 handler(update.ToType<SharedTrade[]>(update.Data.Select(x =>
                     new SharedTrade(
-                        ExchangeSymbolCache.ParseSymbol(request.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, x.Symbol),
+                        ExchangeSymbolCache.ParseSymbol(request.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, EnvironmentName, null, x.Symbol),
                         x.Symbol,
                         x.Quantity.ToSharedSymbolQuantity(x.Symbol) ?? 0,
                         x.Price,
@@ -355,7 +355,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
                     handler(update.ToType<SharedFuturesOrder[]>(data.Select(x =>
                         new SharedFuturesOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
+                            ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                             x.Symbol,
                             x.OrderId,
                             ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -396,7 +396,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, symbolInfoResult.Error!);
 
             var result = await SubscribeToPositionUpdatesAsync(
-                update => handler(update.ToType<SharedPosition[]>(update.Data.Where(x => x.Currency != null).Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
+                update => handler(update.ToType<SharedPosition[]>(update.Data.Where(x => x.Currency != null).Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
                 {
                     AverageOpenPrice = x.AverageEntryPrice,
                     PositionMode = SharedPositionMode.OneWay,

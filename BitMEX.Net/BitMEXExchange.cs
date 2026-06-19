@@ -26,7 +26,8 @@ namespace BitMEX.Net
                 "https://www.bitmex.com",
                 ["https://www.bitmex.com/api/explorer/#/"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                BitMEXEnvironment.All
                 );
 
         /// <summary>

@@ -24,7 +24,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
-        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(this);
+        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BitMEXExchange.Metadata, this);
 
 
         #region Asset client
@@ -441,7 +441,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedBookTicker>(resultTicker, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return HttpResult.Ok(resultTicker, new SharedBookTicker(
-                ExchangeSymbolCache.ParseSymbol(request.Symbol!.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, resultTicker.Data[0].Symbol),
+                ExchangeSymbolCache.ParseSymbol(request.Symbol!.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, EnvironmentName, null, resultTicker.Data[0].Symbol),
                 resultTicker.Data[0].Symbol,
                 resultTicker.Data[0].BestAskPrice,
                 resultTicker.Data[0].BestAskQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol) ?? 0,
@@ -584,20 +584,20 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     PriceStep = s.PriceStep
                 }).ToArray());
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, response.Data!);
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, EnvironmentName, null, response.Data!);
             return response;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicSpotId))
+            if (!ExchangeSymbolCache.HasCached(_topicSpotId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<SharedSymbol[]>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicSpotId, baseAsset));
+            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicSpotId, EnvironmentName, null, baseAsset));
         }
 
         async Task<ExchangeCallResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(SharedSymbol symbol)
@@ -605,26 +605,26 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (symbol.TradingMode != TradingMode.Spot)
                 throw new ArgumentException(nameof(symbol), "Only Spot symbols allowed");
 
-            if (!ExchangeSymbolCache.HasCached(_topicSpotId))
+            if (!ExchangeSymbolCache.HasCached(_topicSpotId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, symbol));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, EnvironmentName, null, symbol));
         }
 
         async Task<ExchangeCallResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(string symbolName)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicSpotId))
+            if (!ExchangeSymbolCache.HasCached(_topicSpotId, EnvironmentName, null))
             {
                 var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, symbolName));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicSpotId, EnvironmentName, null, symbolName));
         }
         #endregion
 
@@ -650,7 +650,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedSpotTicker>(result, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return HttpResult.Ok(result, new SharedSpotTicker(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, symbol.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, symbol.Symbol),
                 symbol.Symbol,
                 symbol.LastPrice,
                 symbol.HighPrice,
@@ -680,7 +680,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, result.Data.Where(x => x.SymbolType == SymbolType.Spot).Select(x =>
             new SharedSpotTicker(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol),
                 x.Symbol,
                 x.LastPrice,
                 x.HighPrice,
@@ -760,7 +760,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedSpotOrder>(orders, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return HttpResult.Ok(orders, new SharedSpotOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, order.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, order.Symbol),
                 order.Symbol,
                 order.OrderId,
                 ParseOrderType(order.OrderType, order.ExecutionInstruction),
@@ -803,7 +803,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var data = orders.Data.Where(x => BitMEXUtils.GetSymbolType(x.Symbol) == SymbolType.Spot);
             return HttpResult.Ok(orders, data.Select(x => new SharedSpotOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol),
                 x.Symbol,
                 x.OrderId,
                 ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -864,7 +864,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                        .Select(x => 
                            new SharedSpotOrder(
-                                ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol), 
+                                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol), 
                                 x.Symbol,
                                 x.OrderId,
                                 ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -906,7 +906,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedUserTrade[]>(trades);
 
             return HttpResult.Ok(trades, trades.Data.Select(x => new SharedUserTrade(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol), 
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol), 
                 x.Symbol,
                 x.OrderId,
                 x.TradeId,
@@ -959,7 +959,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                        .Select(x => 
                            new SharedUserTrade(
-                                ExchangeSymbolCache.ParseSymbol(_topicSpotId, x.Symbol), 
+                                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, x.Symbol), 
                                 x.Symbol,
                                 x.OrderId,
                                 x.TradeId,
@@ -1054,7 +1054,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedSpotOrder>(orders, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return HttpResult.Ok(orders, new SharedSpotOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, order.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, order.Symbol),
                 order.Symbol,
                 order.OrderId,
                 ParseOrderType(order.OrderType, order.ExecutionInstruction),
@@ -1171,20 +1171,20 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 DeliveryTime = s.SettleTime
             }).ToArray());
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicFuturesId, response.Data!);
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicFuturesId, EnvironmentName, null, response.Data!);
             return response;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicFuturesId))
+            if (!ExchangeSymbolCache.HasCached(_topicFuturesId, EnvironmentName, null))
             {
                 var symbols = await ((IFuturesSymbolRestClient)this).GetFuturesSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<SharedSymbol[]>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicFuturesId, baseAsset));
+            return ExchangeCallResult<SharedSymbol[]>.Ok(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicFuturesId, EnvironmentName, null, baseAsset));
         }
 
         async Task<ExchangeCallResult<bool>> IFuturesSymbolRestClient.SupportsFuturesSymbolAsync(SharedSymbol symbol)
@@ -1192,26 +1192,26 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (symbol.TradingMode == TradingMode.Spot)
                 throw new ArgumentException(nameof(symbol), "Spot symbols not allowed");
 
-            if (!ExchangeSymbolCache.HasCached(_topicFuturesId))
+            if (!ExchangeSymbolCache.HasCached(_topicFuturesId, EnvironmentName, null))
             {
                 var symbols = await ((IFuturesSymbolRestClient)this).GetFuturesSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, symbol));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, EnvironmentName, null, symbol));
         }
 
         async Task<ExchangeCallResult<bool>> IFuturesSymbolRestClient.SupportsFuturesSymbolAsync(string symbolName)
         {
-            if (!ExchangeSymbolCache.HasCached(_topicFuturesId))
+            if (!ExchangeSymbolCache.HasCached(_topicFuturesId, EnvironmentName, null))
             {
                 var symbols = await ((IFuturesSymbolRestClient)this).GetFuturesSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
                 if (!symbols.Success)
                     return ExchangeCallResult<bool>.Fail(Exchange, symbols.Error!);
             }
 
-            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, symbolName));
+            return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicFuturesId, EnvironmentName, null, symbolName));
         }
         #endregion
 
@@ -1233,7 +1233,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedFuturesTicker>(resultTicker, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return HttpResult.Ok(resultTicker, 
-                new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, symbol.Symbol), symbol.Symbol, symbol.LastPrice, symbol.HighPrice, symbol.LowPrice, symbol.Volume, symbol.LastChangePercentage)
+                new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, symbol.Symbol), symbol.Symbol, symbol.LastPrice, symbol.HighPrice, symbol.LowPrice, symbol.Volume, symbol.LastChangePercentage)
             {
                 MarkPrice = symbol.MarkPrice,
                 FundingRate = symbol.FundingRate,
@@ -1262,7 +1262,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return HttpResult.Ok(resultTickers, data.Select(x =>
             {
                 var markPrice = resultTickers.Data.Single(p => p.Symbol == x.Symbol);
-                return new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.LastChangePercentage)
+                return new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.LastChangePercentage)
                 {
                     MarkPrice = markPrice.MarkPrice,
                     FundingRate = markPrice.FundingRate,
@@ -1418,7 +1418,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedFuturesOrder>(orders, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return HttpResult.Ok(orders, new SharedFuturesOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, order.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, order.Symbol),
                 order.Symbol,
                 order.OrderId,
                 ParseOrderType(order.OrderType, order.ExecutionInstruction),
@@ -1459,7 +1459,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             var data = orders.Data.Where(x => BitMEXUtils.GetSymbolType(x.Symbol) != SymbolType.Spot);
             return HttpResult.Ok(orders, data.Select(x => new SharedFuturesOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
                 x.Symbol,
                 x.OrderId,
                 ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -1518,7 +1518,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                        .Select(x => 
                            new SharedFuturesOrder(
-                                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), 
+                                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), 
                                 x.Symbol,
                                 x.OrderId,
                                 ParseOrderType(x.OrderType, x.ExecutionInstruction),
@@ -1562,7 +1562,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedUserTrade[]>(trades);
 
             return HttpResult.Ok(trades, trades.Data.Select(x => new SharedUserTrade(
-                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), 
+                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), 
                 x.Symbol,
                 x.OrderId,
                 x.TradeId,
@@ -1615,7 +1615,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                        .Select(x => 
                             new SharedUserTrade(
-                                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), 
+                                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), 
                                 x.Symbol,
                                 x.OrderId,
                                 x.TradeId,
@@ -1663,7 +1663,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 data = data.Where(x => request.TradingMode.Value.IsPerpetual() ? BitMEXUtils.GetSymbolType(x.Symbol) == SymbolType.PerpetualContract : BitMEXUtils.GetSymbolType(x.Symbol) == SymbolType.Futures);
             
             var resultTypes = request.Symbol == null && request.TradingMode == null ? SupportedTradingModes : request.Symbol != null ? new[] { request.Symbol!.TradingMode } : new[] { request.TradingMode!.Value };
-            return HttpResult.Ok(result, data.Where(x => x.Currency != null).Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
+            return HttpResult.Ok(result, data.Where(x => x.Currency != null).Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
             {
                 UnrealizedPnl = x.UnrealizedPnl.ToSharedAssetQuantity(x.Currency!),
                 LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
@@ -1729,7 +1729,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedFuturesOrder>(orders, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return HttpResult.Ok(orders, new SharedFuturesOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, order.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, order.Symbol),
                 order.Symbol,
                 order.OrderId,
                 ParseOrderType(order.OrderType, order.ExecutionInstruction),
@@ -1820,7 +1820,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedFuturesTriggerOrder>(orders, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return HttpResult.Ok(orders, new SharedFuturesTriggerOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, order.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, order.Symbol),
                 order.Symbol,
                 order.OrderId,
                 order.OrderType == OrderType.StopLimit ? SharedOrderType.Limit : SharedOrderType.Market,
@@ -1980,7 +1980,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedSpotTriggerOrder>(orders, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return HttpResult.Ok(orders, new SharedSpotTriggerOrder(
-                ExchangeSymbolCache.ParseSymbol(_topicSpotId, order.Symbol),
+                ExchangeSymbolCache.ParseSymbol(_topicSpotId, EnvironmentName, null, order.Symbol),
                 order.Symbol,
                 order.OrderId,
                 order.OrderType == OrderType.StopLimit ? SharedOrderType.Limit : SharedOrderType.Market,
