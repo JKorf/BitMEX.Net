@@ -121,6 +121,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, result.Data.Select(x => 
                 new SharedBalance(
+                    SupportedTradingModes,
                     BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency) ?? x.Currency),
                     x.Quantity.ToSharedAssetQuantity(x.Currency) ?? 0,
                     (x.Quantity + x.PendingCredit).ToSharedAssetQuantity(x.Currency) ?? 0)

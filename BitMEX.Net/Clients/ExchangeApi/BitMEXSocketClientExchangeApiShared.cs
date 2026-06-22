@@ -116,6 +116,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var result = await SubscribeToBalanceUpdatesAsync(
                 update => handler(update.ToType<SharedBalance[]>(update.Data.Select(x => 
                 new SharedBalance(
+                    SupportedTradingModes,
                     BitMEXExchange.AssetAliases.ExchangeToCommonName(BitMEXUtils.GetAssetFromCurrency(x.Currency) ?? x.Currency), 
                     x.Quantity.ToSharedAssetQuantity(x.Currency) ?? 0,
                     (x.Quantity + x.PendingCredit).ToSharedAssetQuantity(x.Currency) ?? 0)).ToArray())),

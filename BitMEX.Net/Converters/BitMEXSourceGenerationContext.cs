@@ -1,5 +1,6 @@
 using BitMEX.Net.Objects.Internal;
 using BitMEX.Net.Objects.Models;
+using CryptoExchange.Net.Objects;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -70,6 +71,8 @@ namespace BitMEX.Net.Converters
     [JsonSerializable(typeof(decimal))]
     [JsonSerializable(typeof(DateTime))]
     [JsonSerializable(typeof(DateTime?))]
+    [JsonSerializable(typeof(Parameters))]
+    [JsonSerializable(typeof(Parameters[]))]
     internal partial class BitMEXSourceGenerationContext : JsonSerializerContext
     {
     }
