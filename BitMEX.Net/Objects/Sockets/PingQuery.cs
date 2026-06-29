@@ -9,9 +9,7 @@ namespace BitMEX.Net.Objects.Sockets
         public PingQuery() : base("ping", false, 0)
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
-
-            MessageRouter = MessageRouter.CreateWithoutHandler<string>("pong");
+            MessageRouter = MessageRouter.CreateVoid<string>("pong");
         }
-
     }
 }

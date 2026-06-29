@@ -13,6 +13,7 @@ var socketClient = new BitMEXSocketClient(options =>
     options.ApiCredentials = new BitMEXCredentials("API_KEY", "API_SECRET");
 });
 
+// Subscription methods return WebSocketResult<UpdateSubscription>.
 var tradeSubscription = await socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync(
     "XBTUSD",
     update =>

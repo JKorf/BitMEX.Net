@@ -68,25 +68,25 @@ namespace BitMEX.Net.SymbolOrderBooks
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
             var symbolResult = await BitMEXUtils.UpdateSymbolInfoAsync(ct).ConfigureAwait(false);
-            if (!symbolResult)
-                return new CallResult<UpdateSubscription>(symbolResult.Error!);
+            if (!symbolResult.Success)
+                return CallResult<UpdateSubscription>.Fail(symbolResult.Error!);
 
             var result = await _socketClient.ExchangeApi.SubscribeToIncrementalOrderBookUpdatesAsync(Symbol, Levels == 25 ? Enums.IncrementalBookLimit.Top25 : Enums.IncrementalBookLimit.Full, DataHandler, ct).ConfigureAwait(false);
-            if (!result)
-                return result;
+            if (!result.Success)
+                return CallResult.Fail<UpdateSubscription>(result.Error);
 
             if (ct.IsCancellationRequested)
             {
                 await result.Data.CloseAsync().ConfigureAwait(false);
-                return result.AsError<UpdateSubscription>(new CancellationRequestedError());
+                return CallResult<UpdateSubscription>.Fail(new CancellationRequestedError());
             }
             Status = OrderBookStatus.Syncing;
 
             var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-            if (!setResult)
+            if (!setResult.Success)
                 await result.Data.CloseAsync().ConfigureAwait(false);
 
-            return setResult ? result : new CallResult<UpdateSubscription>(setResult.Error!);
+            return setResult.Success ? CallResult.Ok(result.Data) : CallResult.Fail<UpdateSubscription>(setResult.Error!);
         }
 
         private void DataHandler(DataEvent<BitMEXOrderBookIncrementalUpdate> @event)
@@ -118,7 +118,7 @@ namespace BitMEX.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
         }

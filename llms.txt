@@ -1,6 +1,6 @@
 # BitMEX.Net
 
-BitMEX.Net is a CryptoExchange.Net-based .NET client for BitMEX REST and websocket APIs.
+BitMEX.Net is a CryptoExchange.Net-based .NET client for BitMEX REST and websocket APIs. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`.
 
 ## Install
 
@@ -29,11 +29,13 @@ REST:
 - `restClient.ExchangeApi.Account`
 - `restClient.ExchangeApi.Trading`
 - `restClient.ExchangeApi.SharedClient`
+- Call `restClient.ExchangeApi.SharedClient.Discover()` to inspect supported shared REST features
 
 Sockets:
 
 - `socketClient.ExchangeApi`
 - `socketClient.ExchangeApi.SharedClient`
+- Call `socketClient.ExchangeApi.SharedClient.Discover()` to inspect supported shared socket features
 
 There is no `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, `CoinFuturesApi`, or passphrase credential.
 

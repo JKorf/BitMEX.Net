@@ -29,11 +29,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Server Time
 
         /// <inheritdoc />
-        public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
+        public async Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             var result = await _baseClient.SendAsync<BitMEXServerTime>(request, null, ct).ConfigureAwait(false);
-            return result.As(result.Data?.Timestamp ?? default);
+            if (!result.Success)
+                return HttpResult.Fail<DateTime>(result);
+
+            return HttpResult.Ok(result, result.Data.Timestamp);
         }
 
         #endregion
@@ -41,9 +44,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Active Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXSymbol[]>> GetActiveSymbolsAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXSymbol[]>> GetActiveSymbolsAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/instrument/active", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/instrument/active", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXSymbol[]>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -52,7 +55,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get All Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXSymbol[]>> GetSymbolsAsync(
+        public async Task<HttpResult<BitMEXSymbol[]>> GetSymbolsAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -64,17 +67,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (symbol != null)
-                parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddOptionalBoolString("reverse", reverse);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/instrument", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+                parameters.Add("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/instrument", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXSymbol[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -83,9 +86,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Active Intervals
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXIntervals>> GetActiveIntervalsAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXIntervals>> GetActiveIntervalsAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/instrument/activeIntervals", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/instrument/activeIntervals", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXIntervals>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -94,7 +97,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Composite Indexes
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXCompositeIndex[]>> GetCompositeIndexesAsync(
+        public async Task<HttpResult<BitMEXCompositeIndex[]>> GetCompositeIndexesAsync(
             string symbol,
             Dictionary<string, object>? filter = null,
             IEnumerable<string>? columns = null,
@@ -105,17 +108,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null, 
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddOptionalBoolString("reverse", reverse);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/instrument/compositeIndex", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/instrument/compositeIndex", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXCompositeIndex[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -124,9 +127,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Indices
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXIndex[]>> GetIndicesAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXIndex[]>> GetIndicesAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/instrument/indices", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/instrument/indices", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXIndex[]>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -135,9 +138,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Symbol Volumes
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXSymbolVolume[]>> GetSymbolVolumesAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXSymbolVolume[]>> GetSymbolVolumesAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/instrument/usdVolume", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/instrument/usdVolume", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXSymbolVolume[]>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -146,7 +149,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXTrade[]>> GetTradesAsync(
+        public async Task<HttpResult<BitMEXTrade[]>> GetTradesAsync(
             string symbol,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -158,18 +161,18 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (symbol != null)
-                parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddBoolString("reverse", reverse ?? true);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
-            parameters.AddOptional("start", offset);
+                parameters.Add("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
+            parameters.Add("start", offset);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/trade", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/trade", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -178,7 +181,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXAggTrade[]>> GetKlinesAsync(
+        public async Task<HttpResult<BitMEXAggTrade[]>> GetKlinesAsync(
             string symbol,
             BinPeriod period,
             SymbolFilter? symbolFilter = null,
@@ -192,20 +195,20 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (symbol != null)
-                parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddEnum("binSize", period);
-            parameters.AddOptional("partial", partial);
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddBoolString("reverse", reverse ?? true);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
+                parameters.Add("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.Add("binSize", period);
+            parameters.Add("partial", partial);
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/trade/bucketed", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/trade/bucketed", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXAggTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -214,10 +217,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Exchange Stats
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXExchangeStat[]>> GetExchangeStatsAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXExchangeStat[]>> GetExchangeStatsAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/stats", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/stats", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXExchangeStat[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -226,10 +229,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Exchange Stat History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXExchangeStatHistory[]>> GetExchangeStatHistoryAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXExchangeStatHistory[]>> GetExchangeStatHistoryAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/stats/history", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/stats/history", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXExchangeStatHistory[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -238,10 +241,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Exchange Stat History USD
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXExchangeStatHistoryUsd[]>> GetExchangeStatHistoryUSDAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXExchangeStatHistoryUsd[]>> GetExchangeStatHistoryUSDAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/stats/historyUSD", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/stats/historyUSD", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXExchangeStatHistoryUsd[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -250,7 +253,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Settlement History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXSettlementHistory[]>> GetSettlementHistoryAsync(
+        public async Task<HttpResult<BitMEXSettlementHistory[]>> GetSettlementHistoryAsync(
             string symbol,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -262,17 +265,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (symbol != null)
-                parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddBoolString("reverse", reverse ?? true);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/settlement", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+                parameters.Add("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/settlement", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXSettlementHistory[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -281,7 +284,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Book Ticker History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXBookTicker[]>> GetBookTickerHistoryAsync(
+        public async Task<HttpResult<BitMEXBookTicker[]>> GetBookTickerHistoryAsync(
             string symbol,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -293,17 +296,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (symbol != null)
-                parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddBoolString("reverse", reverse ?? true);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/quote", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+                parameters.Add("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/quote", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXBookTicker[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -312,7 +315,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Aggregated Book Ticker
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXBookTicker[]>> GetAggregatedBookTickerHistoryAsync(
+        public async Task<HttpResult<BitMEXBookTicker[]>> GetAggregatedBookTickerHistoryAsync(
             string symbol,
             BinPeriod period,
             SymbolFilter? symbolFilter = null,
@@ -326,19 +329,19 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (symbol != null)
-                parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddEnum("binSize", period);
-            parameters.AddOptional("partial", partial);
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddBoolString("reverse", reverse ?? true);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/quote/bucketed", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+                parameters.Add("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.Add("binSize", period);
+            parameters.Add("partial", partial);
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/quote/bucketed", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXBookTicker[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -347,15 +350,15 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Order Book
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXOrderBook>> GetOrderBookAsync(string symbol, int limit, CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXOrderBook>> GetOrderBookAsync(string symbol, int limit, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
             parameters.Add("depth", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/orderBook/L2", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/orderBook/L2", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             var result = await _baseClient.SendAsync<BitMEXOrderBookEntry[]>(request, parameters, ct).ConfigureAwait(false);
-            if (!result)
-                return result.As<BitMEXOrderBook>(default);
+            if (!result.Success)
+                return HttpResult.Fail<BitMEXOrderBook>(result);
 
             var data = new BitMEXOrderBook
             {
@@ -363,7 +366,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 Bids = result.Data.Where(x => x.Side == OrderSide.Buy).OrderByDescending(x => x.Price).ToArray()
             };
 
-            return result.As(data);
+            return HttpResult.Ok(result, data);
         }
 
         #endregion
@@ -371,7 +374,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Insurance
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXInsurance[]>> GetInsuranceAsync(
+        public async Task<HttpResult<BitMEXInsurance[]>> GetInsuranceAsync(
             string? asset = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -383,17 +386,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? offset = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (asset != null)
-                parameters.AddOptional("currency", asset + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddBoolString("reverse", reverse ?? true);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/insurance", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+                parameters.Add("currency", asset + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/insurance", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXInsurance[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -402,7 +405,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Funding History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXFundingRate[]>> GetFundingHistoryAsync(
+        public async Task<HttpResult<BitMEXFundingRate[]>> GetFundingHistoryAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -414,17 +417,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (symbol != null)
-                parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddBoolString("reverse", reverse ?? true);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/funding", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+                parameters.Add("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/funding", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -433,29 +436,28 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Announcements
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXAnnouncement[]>> GetAnnouncementsAsync(
+        public async Task<HttpResult<BitMEXAnnouncement[]>> GetAnnouncementsAsync(
             IEnumerable<string>? columns = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();            
-            parameters.AddOptional("columns", columns);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/announcement", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
+            parameters.AddArray("columns", columns);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/announcement", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXAnnouncement[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
 
-
         #region Get Urgent Announcements
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXAnnouncement[]>> GetUrgentAnnouncementsAsync(
+        public async Task<HttpResult<BitMEXAnnouncement[]>> GetUrgentAnnouncementsAsync(
             IEnumerable<string>? columns = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("columns", columns);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/announcement/urgent", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
+            parameters.AddArray("columns", columns);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/announcement/urgent", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXAnnouncement[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -464,9 +466,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Assets
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXAsset[]>> GetAssetsAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXAsset[]>> GetAssetsAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/wallet/assets", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/wallet/assets", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXAsset[]>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -475,9 +477,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Asset Networks
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXNetwork[]>> GetAssetNetworksAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMEXNetwork[]>> GetAssetNetworksAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/wallet/networks", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/wallet/networks", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXNetwork[]>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -486,7 +488,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #region Get Liquidations
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMEXLiquidation[]>> GetLiquidationsAsync(string? symbol = null,
+        public async Task<HttpResult<BitMEXLiquidation[]>> GetLiquidationsAsync(string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
             IEnumerable<string>? columns = null,
@@ -497,17 +499,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
             int? limit = null,
             CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMEXExchange._parameterSerializationSettings);
             if (symbol != null)
-                parameters.AddOptional("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
-            parameters.AddOptional("filter", filter);
-            parameters.AddOptional("columns", columns);
-            parameters.AddOptional("count", limit);
-            parameters.AddOptional("start", offset);
-            parameters.AddBoolString("reverse", reverse ?? true);
-            parameters.AddOptional("startTime", startTime?.ToRfc3339String());
-            parameters.AddOptional("endTime", endTime?.ToRfc3339String());
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/liquidation", BitMEXExchange.RateLimiter.BitMEX, 1, false);
+                parameters.Add("symbol", symbol + (symbolFilter == null ? "" : ":" + EnumConverter.GetString(symbolFilter)));
+            parameters.AddRaw("filter", filter);
+            parameters.AddArray("columns", columns);
+            parameters.Add("count", limit);
+            parameters.Add("start", offset);
+            parameters.Add("reverse", reverse ?? true);
+            parameters.Add("startTime", startTime?.ToRfc3339String());
+            parameters.Add("endTime", endTime?.ToRfc3339String());
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/liquidation", BitMEXExchange.RateLimiter.BitMEX, 1, false);
             return await _baseClient.SendAsync<BitMEXLiquidation[]>(request, parameters, ct).ConfigureAwait(false);
         }
 

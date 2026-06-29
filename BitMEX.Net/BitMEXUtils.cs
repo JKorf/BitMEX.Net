@@ -33,12 +33,12 @@ namespace BitMEX.Net
             try
             {
                 if (DateTime.UtcNow - _lastUpdateTime < TimeSpan.FromDays(1))
-                    return CallResult.SuccessResult;
+                    return CallResult.Ok();
 
                 var assets = await new BitMEXRestClient().ExchangeApi.ExchangeData.GetAssetsAsync(ct: ct).ConfigureAwait(false);
                 var symbols = await new BitMEXRestClient().ExchangeApi.ExchangeData.GetActiveSymbolsAsync(ct: ct).ConfigureAwait(false);
-                if (!assets || !symbols)
-                    return new CallResult(assets.Error ?? symbols.Error);
+                if (!assets.Success || !symbols.Success)
+                    return CallResult.Fail(assets.Error ?? symbols.Error!);
 
                 foreach (var asset in assets.Data)
                 {
@@ -54,7 +54,7 @@ namespace BitMEX.Net
                 }
 
                 _lastUpdateTime = DateTime.UtcNow;
-                return CallResult.SuccessResult;
+                return CallResult.Ok();
             }
             finally
             {

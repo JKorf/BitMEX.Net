@@ -20,7 +20,6 @@ namespace BitMEX.Net
             SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.ExchangeApi.SharedClient,
-                null,
                 restClient.ExchangeApi.SharedClient,
                 socketClient.ExchangeApi.SharedClient,
                 restClient.ExchangeApi.SharedClient,
@@ -48,7 +47,6 @@ namespace BitMEX.Net
             string? userIdentifier,
             FuturesUserDataTrackerConfig? config) : base(logger,
                 restClient.ExchangeApi.SharedClient,
-                null,
                 restClient.ExchangeApi.SharedClient,
                 socketClient.ExchangeApi.SharedClient,
                 restClient.ExchangeApi.SharedClient,

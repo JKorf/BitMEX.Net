@@ -73,7 +73,7 @@ namespace BitMEX.Net.UnitTests
             await tester.ValidateAsync(client => client.ExchangeApi.Trading.GetPositionsAsync(), "GetPositions");
         }
 
-        private bool IsAuthenticated(WebCallResult result)
+        private bool IsAuthenticated(IHttpResult result)
         {
             return result.RequestHeaders.Any(x => x.Key == "api-signature");
         }

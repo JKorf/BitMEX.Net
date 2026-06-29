@@ -18,7 +18,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get active symbols
@@ -31,7 +31,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXSymbol[]>> GetActiveSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXSymbol[]>> GetActiveSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get all symbols matching the filters
@@ -53,7 +53,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXSymbol[]>> GetSymbolsAsync(
+        Task<HttpResult<BitMEXSymbol[]>> GetSymbolsAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -76,7 +76,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXIntervals>> GetActiveIntervalsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXIntervals>> GetActiveIntervalsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get composite indexes
@@ -97,7 +97,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXCompositeIndex[]>> GetCompositeIndexesAsync(
+        Task<HttpResult<BitMEXCompositeIndex[]>> GetCompositeIndexesAsync(
             string symbol,
             Dictionary<string, object>? filter = null,
             IEnumerable<string>? columns = null,
@@ -119,7 +119,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXIndex[]>> GetIndicesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXIndex[]>> GetIndicesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get symbol USD volumes
@@ -132,7 +132,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXSymbolVolume[]>> GetSymbolVolumesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXSymbolVolume[]>> GetSymbolVolumesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get public trades
@@ -154,7 +154,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXTrade[]>> GetTradesAsync(
+        Task<HttpResult<BitMEXTrade[]>> GetTradesAsync(
             string symbol,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -188,7 +188,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXAggTrade[]>> GetKlinesAsync(
+        Task<HttpResult<BitMEXAggTrade[]>> GetKlinesAsync(
             string symbol,
             BinPeriod period,
             SymbolFilter? symbolFilter = null,
@@ -213,7 +213,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXExchangeStat[]>> GetExchangeStatsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXExchangeStat[]>> GetExchangeStatsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get exchange stat history
@@ -226,7 +226,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXExchangeStatHistory[]>> GetExchangeStatHistoryAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXExchangeStatHistory[]>> GetExchangeStatHistoryAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get exchange USD stats
@@ -239,7 +239,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXExchangeStatHistoryUsd[]>> GetExchangeStatHistoryUSDAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXExchangeStatHistoryUsd[]>> GetExchangeStatHistoryUSDAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get settlement history
@@ -261,7 +261,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXSettlementHistory[]>> GetSettlementHistoryAsync(
+        Task<HttpResult<BitMEXSettlementHistory[]>> GetSettlementHistoryAsync(
             string symbol,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -293,7 +293,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXBookTicker[]>> GetBookTickerHistoryAsync(
+        Task<HttpResult<BitMEXBookTicker[]>> GetBookTickerHistoryAsync(
             string symbol,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -327,7 +327,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXBookTicker[]>> GetAggregatedBookTickerHistoryAsync(
+        Task<HttpResult<BitMEXBookTicker[]>> GetAggregatedBookTickerHistoryAsync(
             string symbol,
             BinPeriod period,
             SymbolFilter? symbolFilter = null,
@@ -354,7 +354,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>depth</c>"] Number of rows</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXOrderBook>> GetOrderBookAsync(string symbol, int limit, CancellationToken ct = default);
+        Task<HttpResult<BitMEXOrderBook>> GetOrderBookAsync(string symbol, int limit, CancellationToken ct = default);
 
         /// <summary>
         /// Get insurance history
@@ -376,7 +376,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXInsurance[]>> GetInsuranceAsync(
+        Task<HttpResult<BitMEXInsurance[]>> GetInsuranceAsync(
             string asset,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -408,7 +408,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXFundingRate[]>> GetFundingHistoryAsync(
+        Task<HttpResult<BitMEXFundingRate[]>> GetFundingHistoryAsync(
             string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
@@ -432,7 +432,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="columns">["<c>columns</c>"]</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXAnnouncement[]>> GetAnnouncementsAsync(
+        Task<HttpResult<BitMEXAnnouncement[]>> GetAnnouncementsAsync(
             IEnumerable<string>? columns = null,
             CancellationToken ct = default);
 
@@ -448,7 +448,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="columns">["<c>columns</c>"]</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXAnnouncement[]>> GetUrgentAnnouncementsAsync(
+        Task<HttpResult<BitMEXAnnouncement[]>> GetUrgentAnnouncementsAsync(
             IEnumerable<string>? columns = null,
             CancellationToken ct = default);
 
@@ -463,7 +463,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXAsset[]>> GetAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXAsset[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get asset networks
@@ -476,7 +476,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXNetwork[]>> GetAssetNetworksAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMEXNetwork[]>> GetAssetNetworksAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get liquidations
@@ -492,7 +492,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         /// <param name="limit">["<c>count</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMEXLiquidation[]>> GetLiquidationsAsync(string? symbol = null,
+        Task<HttpResult<BitMEXLiquidation[]>> GetLiquidationsAsync(string? symbol = null,
             SymbolFilter? symbolFilter = null,
             Dictionary<string, object>? filter = null,
             IEnumerable<string>? columns = null,

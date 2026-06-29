@@ -28,7 +28,7 @@ namespace BitMEX.Net.UnitTests
                 OutputOriginalData = true
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<BitMEXSocketClient>(client, "Subscriptions/Exchange", "wss://ws.bitmex.com/");
+            var tester = new SocketSubscriptionValidator<BitMEXSocketClient>(client, "Subscriptions/Exchange", "wss://ws.bitmex.com/realtime");
             await tester.ValidateConcurrentAsync<BitMEXAggTrade[]>(
                 (client, handler) => client.ExchangeApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.BinPeriod.OneDay, handler),
                 (client, handler) => client.ExchangeApi.SubscribeToKlineUpdatesAsync("ETH_USDT", Enums.BinPeriod.OneHour, handler),

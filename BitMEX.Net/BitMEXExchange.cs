@@ -26,7 +26,8 @@ namespace BitMEX.Net
                 "https://www.bitmex.com",
                 ["https://www.bitmex.com/api/explorer/#/"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                BitMEXEnvironment.All
                 );
 
         /// <summary>
@@ -73,6 +74,12 @@ namespace BitMEX.Net
         };
 
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<BitMEXSourceGenerationContext>();
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.Number,
+            DateTimes = DateTimeSerialization.Rfc3339String,
+            Bool = BoolSerialization.String
+        };
 
         /// <summary>
         /// Format a base and quote asset to an BitMEX recognized symbol 
@@ -102,7 +109,7 @@ namespace BitMEX.Net
         /// <summary>
         /// Rate limiter configuration for the BitMEX API
         /// </summary>
-        public static BitMEXRateLimiters RateLimiter { get; } = new BitMEXRateLimiters();
+        public static BitMEXRateLimiters RateLimiter { get; set; } = new BitMEXRateLimiters();
     }
 
     /// <summary>
@@ -121,13 +128,19 @@ namespace BitMEX.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal BitMEXRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public BitMEXRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             BitMEX = new RateLimitGate("BitMEX")
                 .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [], 120, TimeSpan.FromSeconds(60), RateLimitWindowType.Sliding));

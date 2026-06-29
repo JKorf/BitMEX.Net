@@ -14,6 +14,7 @@ This map helps AI assistants route common user intents to the actual BitMEX.Net 
 | Websocket subscriptions | `socketClient.ExchangeApi` |
 | Shared REST abstraction | `restClient.ExchangeApi.SharedClient` |
 | Shared socket abstraction | `socketClient.ExchangeApi.SharedClient` |
+| Discover shared capabilities | `client.ExchangeApi.SharedClient.Discover()` |
 
 ## Market Data
 
@@ -90,6 +91,33 @@ This map helps AI assistants route common user intents to the actual BitMEX.Net 
 | Private orders | `SubscribeToOrderUpdatesAsync(...)` |
 | Private positions | `SubscribeToPositionUpdatesAsync(...)` |
 | Private executions | `SubscribeToUserTradeUpdatesAsync(...)` |
+
+## Shared APIs
+
+Use SharedApis for exchange-agnostic code across BitMEX.Net and other CryptoExchange.Net exchange libraries.
+
+| Intent | Pattern |
+| --- | --- |
+| Shared REST client | `new BitMEXRestClient().ExchangeApi.SharedClient` |
+| Shared socket client | `new BitMEXSocketClient().ExchangeApi.SharedClient` |
+| Discover shared capabilities | `client.ExchangeApi.SharedClient.Discover()` |
+| Shared assets | `IAssetsRestClient.GetAssetsAsync(new GetAssetsRequest())` |
+| Shared spot symbols | `ISpotSymbolRestClient.GetSpotSymbolsAsync(new GetSymbolsRequest())` |
+| Shared futures symbols | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(new GetSymbolsRequest())` |
+| Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+
+Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
+
+For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
+
+## Result Handling
+
+| Situation | Pattern |
+| --- | --- |
+| REST success check | `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
+| Socket subscription success check | `WebSocketResult<UpdateSubscription> sub = await ...; if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
+| Read REST data | Read `result.Data` only after `result.Success` |
+| Shared helper data | Read `ExchangeCallResult<T>.Data` only after `result.Success` |
 
 ## Symbol And Quantity Cheatsheet
 

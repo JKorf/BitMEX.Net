@@ -1,6 +1,6 @@
 // 05-error-handling.cs
 //
-// Demonstrates: reusable BitMEX.Net REST and socket result handling.
+// Demonstrates: reusable BitMEX.Net REST, socket, and shared helper result handling.
 //
 // Setup: dotnet add package JKorf.BitMEX.Net
 
@@ -11,6 +11,10 @@ using CryptoExchange.Net.Objects.Sockets;
 
 var restClient = new BitMEXRestClient();
 var socketClient = new BitMEXSocketClient();
+
+// REST methods return HttpResult<T> or HttpResult.
+// WebSocket subscriptions return WebSocketResult<UpdateSubscription>.
+// Shared non-I/O symbol/cache helpers return ExchangeCallResult<T>.
 
 var book = await restClient.ExchangeApi.ExchangeData.GetOrderBookAsync("XBTUSD", 25);
 if (!EnsureSuccess(book, "load order book"))
@@ -31,7 +35,7 @@ if (!EnsureSuccessSocket(subscription, "subscribe to incremental book"))
 
 await socketClient.UnsubscribeAsync(subscription.Data);
 
-static bool EnsureSuccess<T>(WebCallResult<T> result, string action)
+static bool EnsureSuccess<T>(HttpResult<T> result, string action)
 {
     if (result.Success)
         return true;
@@ -40,7 +44,7 @@ static bool EnsureSuccess<T>(WebCallResult<T> result, string action)
     return false;
 }
 
-static bool EnsureSuccessSocket<T>(CallResult<T> result, string action)
+static bool EnsureSuccessSocket<T>(WebSocketResult<T> result, string action)
 {
     if (result.Success)
         return true;
