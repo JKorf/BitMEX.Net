@@ -58,6 +58,11 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("settle")]
         public DateTime? SettleTime { get; set; }
         /// <summary>
+        /// ["<c>launchingTimestamp</c>"] Launch time
+        /// </summary>
+        [JsonPropertyName("launchingTimestamp")]
+        public DateTime? LaunchTime { get; set; }
+        /// <summary>
         /// ["<c>listedSettle</c>"] Listed settle
         /// </summary>
         [JsonPropertyName("listedSettle")]
