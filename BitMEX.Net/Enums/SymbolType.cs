@@ -79,6 +79,11 @@ namespace BitMEX.Net.Enums
         /// ["<c>FFSCSX</c>"] Perpetual equity swap
         /// </summary>
         [Map("FFSCSX")]
-        PerpetualEquitySwap
+        PerpetualEquitySwap,
+        /// <summary>
+        /// ["<c>FFMCSX</c>"] Unknown futures contract
+        /// </summary>
+        [Map("FFMCSX")]
+        UnknownFFMCSX
     }
 }
