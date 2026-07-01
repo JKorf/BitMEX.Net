@@ -19,6 +19,16 @@ namespace BitMEX.Net.Enums
         /// ["<c>Withdrawal</c>"] Withdrawal
         /// </summary>
         [Map("Withdrawal")]
-        Withdrawal
+        Withdrawal,
+        /// <summary>
+        /// ["<c>RealisedPNL</c>"] Realized PNL
+        /// </summary>
+        [Map("RealisedPNL")]
+        RealisedPnl,
+        /// <summary>
+        /// ["<c>SpotTrade</c>"] Spot trade
+        /// </summary>
+        [Map("SpotTrade")]
+        SpotTrade
     }
 }
