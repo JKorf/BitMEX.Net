@@ -36,6 +36,11 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("transactionType")]
         public TransactionType TransactionType { get; set; }
+        [JsonInclude, JsonPropertyName("transactType")]
+        internal TransactionType TransactType
+        {
+            set => TransactionType = value;
+        }
         /// <summary>
         /// ["<c>amount</c>"] Quantity
         /// </summary>
