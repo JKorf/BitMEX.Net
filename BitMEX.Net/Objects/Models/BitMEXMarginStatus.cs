@@ -15,6 +15,12 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("account")]
         public long AccountId { get; set; }
+        [JsonInclude, JsonPropertyName("accountId")]
+        internal long Account
+        {
+            set => AccountId = value;
+        }
+
         /// <summary>
         /// ["<c>currency</c>"] Asset
         /// </summary>
@@ -24,7 +30,7 @@ namespace BitMEX.Net.Objects.Models
         /// ["<c>riskLimit</c>"] Risk limit
         /// </summary>
         [JsonPropertyName("riskLimit")]
-        public decimal RiskLimit { get; set; }
+        public decimal? RiskLimit { get; set; }
         /// <summary>
         /// ["<c>state</c>"] Status
         /// </summary>
@@ -155,6 +161,11 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("foreignRequirement")]
         public long ForeignRequirement { get; set; }
+        /// <summary>
+        /// ["<c>systemWithdrawableMargin</c>"] System withdrawable margin
+        /// </summary>
+        [JsonPropertyName("systemWithdrawableMargin")]
+        public decimal? SystemWithdrawableMargin { get; set; }
     }
 
 
