@@ -516,5 +516,22 @@ namespace BitMEX.Net.Objects.Models
         [JsonPropertyName("tags")]
         [JsonConverter(typeof(CommaSplitStringConverter))]
         public string[] Tags { get; set; } = [];
+        /// <summary>
+        /// ["<c>farLegSymbol</c>"] Far leg symbol
+        /// </summary>
+        [JsonPropertyName("farLegSymbol")]
+        public string? FarLegSymbol { get; set; }
+        /// <summary>
+        /// ["<c>nearLegSymbol</c>"] Near leg symbol
+        /// </summary>
+        [JsonPropertyName("nearLegSymbol")]
+        public string? NearLegSymbol { get; set; }
+        /// <summary>
+        /// ["<c>referencePrice</c>"] Reference price
+        /// </summary>
+        [JsonPropertyName("referencePrice")]
+        public decimal? ReferencePrice { get; set; }
+
+
     }
 }
