@@ -18,7 +18,7 @@ namespace BitMEX.Net.Enums
         /// <summary>
         /// ["<c>filled</c>"] Filled
         /// </summary>
-        [Map("filled")]
+        [Map("filled", "Filled")]
         Filled,
         /// <summary>
         /// ["<c>PartiallyFilled</c>"] Partially filled
