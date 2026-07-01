@@ -154,7 +154,15 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("error")]
         public string? Error { get; set; }
+        /// <summary>
+        /// ["<c>strategy</c>"] Strategy
+        /// </summary>
+        [JsonPropertyName("strategy")]
+        public string? Strategy { get; set; }
+        /// <summary>
+        /// ["<c>pool</c>"] Pool
+        /// </summary>
+        [JsonPropertyName("pool")]
+        public string? Pool { get; set; }
     }
-
-
 }
