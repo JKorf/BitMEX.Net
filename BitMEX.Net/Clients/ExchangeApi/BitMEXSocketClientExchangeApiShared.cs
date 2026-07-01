@@ -165,7 +165,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         {
                             ClientOrderId = x.ClientOrderId,
                             Fee = x.Fee.ToSharedAssetQuantity(x.Currency),
-                            Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
+                            Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker,
+                            FeeAsset = x.FeeAsset
                         }
                     ).ToArray()));
                 },

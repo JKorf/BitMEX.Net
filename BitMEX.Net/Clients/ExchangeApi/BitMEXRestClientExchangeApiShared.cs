@@ -918,7 +918,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
             {
                 ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee.ToSharedAssetQuantity(x.Currency),
-                Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
+                Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker,
+                FeeAsset = x.FeeAsset
             }).ToArray());
         }
 
@@ -971,8 +972,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             {
                                 ClientOrderId = x.ClientOrderId,
                                 Fee = x.Fee.ToSharedAssetQuantity(x.Currency),
-                                Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
-                            })
+                                Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker,
+                                FeeAsset = x.FeeAsset
+                           })
                        .ToArray(), nextPageRequest);
         }
 
@@ -2033,14 +2035,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Tp/SL Client
-        SetFuturesTpSlOptions IFuturesTpSlRestClient.SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true)
-        {
-            RequiredOptionalParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.PositionMode), typeof(SharedPositionMode), "PositionMode the account is in", SharedPositionMode.OneWay)
-            }
-        };
-
+        SetFuturesTpSlOptions IFuturesTpSlRestClient.SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true);
         async Task<HttpResult<SharedId>> IFuturesTpSlRestClient.SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
         {
             var validationError = SharedClient.SetFuturesTpSlOptions.ValidateRequest(request, this);
