@@ -59,6 +59,11 @@ namespace BitMEX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("marginBalance")]
         public long MarginBalance { get; set; }
+        /// <summary>
+        /// ["<c>fee</c>"] Fee
+        /// </summary>
+        [JsonPropertyName("fee")]
+        public long Fee { get; set; }
     }
 
 
