@@ -229,6 +229,18 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 4.1.0 - 09 Jul 2026
+    * Updated CryptoExchange.Net to v12.1.0
+    * Added Pool, FeeAsset and Strategy properties to BitMEXExecution model
+    * Added FeeAsset mapping on Shared implementations
+    * Added mapping for OrderStatus enum
+    * Added values to TransactionType enum
+    * Added Fee property to BitMEXBalanceSummary model
+    * Added SystemWithdrawableMargin property to BitMEXMarginStatus model, fixed AccountId, RiskLimit mapping
+    * Added Strategy and Pool properties to BitMEXOrder model
+    * Added FarLegSymbol, NearLegSymbol and ReferencePrice properties to BitMEXSymbol model
+    * Fix for TransactionType mapping BitMEXTransaction model
+
 * Version 4.0.0 - 29 Jun 2026
     * Result types:
       * (Web)CallResult types are replaced by HttpResult, WebSocketResult and QueryResult with the same logic
