@@ -43,10 +43,10 @@ namespace BitMEX.Net
         public bool CanCreateTradeTracker(SharedSymbol symbol) => true;
 
         /// <inheritdoc />
-        public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null) => throw new NotImplementedException();
+        public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null, ExchangeParameters? exchangeParameters = null) => throw new NotImplementedException();
 
         /// <inheritdoc />
-        public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)
+        public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null, ExchangeParameters? exchangeParameters = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IBitMEXRestClient>() ?? new BitMEXRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBitMEXSocketClient>() ?? new BitMEXSocketClient();
@@ -61,7 +61,8 @@ namespace BitMEX.Net
                 sharedSocketClient,
                 symbol,
                 limit,
-                period
+                period,
+                exchangeParameters
                 );
         }
 
