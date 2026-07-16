@@ -27,9 +27,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BitMEXExchange.Metadata, this);
 
-        private static HashSet<string> _knownMetals = ["XAUT"];
-
-
         #region Asset client
         GetAssetsOptions IAssetsRestClient.GetAssetsOptions { get; } = new GetAssetsOptions(_exchangeName, true);
 
@@ -606,7 +603,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuoteAssetSubType = SharedAssetSubType.StableCoin
             };
 
-            if (_knownMetals.Contains(s.BaseAsset))
+            if (LibraryHelpers.IsCommodity(s.BaseAsset))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Commodity;
