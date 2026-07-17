@@ -1221,7 +1221,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             else if (s.Tags.Contains("eq"))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
-                result.BaseAssetSubType = SharedAssetSubType.Stock;
+                result.BaseAssetSubType = SharedAssetSubType.Equity;
             }
             else
             {
