@@ -29,6 +29,11 @@ namespace BitMEX.Net.Enums
         /// ["<c>Settled</c>"] Settled
         /// </summary>
         [Map("Settled")]
-        Settled
+        Settled,
+        /// <summary>
+        /// ["<c>Delisted</c>"] Delisted
+        /// </summary>
+        [Map("Delisted")]
+        Delisted,
     }
 }
