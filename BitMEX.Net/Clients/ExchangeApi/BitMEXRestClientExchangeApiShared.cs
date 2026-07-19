@@ -599,6 +599,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 MaxTradeQuantity = s.MaxOrderQuantity.ToSharedSymbolQuantity(s.Symbol),
                 QuantityStep = s.LotSize.ToSharedSymbolQuantity(s.Symbol),
                 PriceStep = s.PriceStep,
+                DisplayName = s.Symbol,
                 QuoteAssetType = SharedAssetType.Crypto,
                 QuoteAssetSubType = SharedAssetSubType.StableCoin
             };
