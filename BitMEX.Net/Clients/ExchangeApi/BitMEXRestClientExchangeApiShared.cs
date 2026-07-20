@@ -1,16 +1,17 @@
+using BitMEX.Net.Enums;
+using BitMEX.Net.ExtensionMethods;
+using BitMEX.Net.Interfaces.Clients.ExchangeApi;
+using BitMEX.Net.Objects.Models;
+using CryptoExchange.Net;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
-using BitMEX.Net.Interfaces.Clients.ExchangeApi;
-using System.Threading.Tasks;
-using System.Threading;
+using System.Diagnostics.Contracts;
 using System.Linq;
-using CryptoExchange.Net.Objects;
-using BitMEX.Net.ExtensionMethods;
-using BitMEX.Net.Enums;
-using CryptoExchange.Net;
-using BitMEX.Net.Objects.Models;
-using CryptoExchange.Net.Objects.Errors;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BitMEX.Net.Clients.ExchangeApi
 {
@@ -25,7 +26,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BitMEXExchange.Metadata, this);
-
 
         #region Asset client
         GetAssetsOptions IAssetsRestClient.GetAssetsOptions { get; } = new GetAssetsOptions(_exchangeName, true);
@@ -560,6 +560,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Spot Symbol client
+        SharedSymbolCatalog? ISpotSymbolRestClient.SpotSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_exchangeName, _topicSpotId, EnvironmentName, null);
+
         GetSpotSymbolsOptions ISpotSymbolRestClient.GetSpotSymbolsOptions { get; } = new GetSpotSymbolsOptions(_exchangeName, false);
 
         async Task<HttpResult<SharedSpotSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
@@ -576,17 +578,40 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotSymbol[]>(result);
 
-            var response = HttpResult.Ok(result, result.Data.Where(x => x.SymbolType == SymbolType.Spot).Select(s => 
-                new SharedSpotSymbol(BitMEXExchange.AssetAliases.ExchangeToCommonName(s.BaseAsset), BitMEXExchange.AssetAliases.ExchangeToCommonName(s.QuoteAsset), s.Symbol, s.Status == SymbolStatus.Open)
-                {
-                    MinTradeQuantity = s.LotSize.ToSharedSymbolQuantity(s.Symbol),
-                    MaxTradeQuantity = s.MaxOrderQuantity.ToSharedSymbolQuantity(s.Symbol),
-                    QuantityStep = s.LotSize.ToSharedSymbolQuantity(s.Symbol),
-                    PriceStep = s.PriceStep
-                }).ToArray());
+            var data = result.Data
+                .Where(x => x.SymbolType == SymbolType.Spot)
+                .Select(x => ParseSpotSymbol(x)!)
+                .Where(x => x != null)
+                .ToArray();
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, EnvironmentName, null, response.Data!);
-            return response;
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, EnvironmentName, null, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedSpotSymbol ParseSpotSymbol(BitMEXSymbol s)
+        {
+            var result = new SharedSpotSymbol(BitMEXExchange.AssetAliases.ExchangeToCommonName(s.BaseAsset), BitMEXExchange.AssetAliases.ExchangeToCommonName(s.QuoteAsset), s.Symbol, s.Status == SymbolStatus.Open)
+            {
+                MinTradeQuantity = s.LotSize.ToSharedSymbolQuantity(s.Symbol),
+                MaxTradeQuantity = s.MaxOrderQuantity.ToSharedSymbolQuantity(s.Symbol),
+                QuantityStep = s.LotSize.ToSharedSymbolQuantity(s.Symbol),
+                PriceStep = s.PriceStep,
+                DisplayName = s.Symbol,
+                QuoteAssetType = SharedAssetType.Crypto,
+                QuoteAssetSubType = SharedAssetSubType.StableCoin
+            };
+
+            if (LibraryHelpers.IsCommodity(s.BaseAsset))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+            }
+
+            return result;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
@@ -1133,6 +1158,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         #endregion
 
         #region Futures Symbol client
+        SharedSymbolCatalog? IFuturesSymbolRestClient.FuturesSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_exchangeName, _topicFuturesId, EnvironmentName, null);
 
         GetFuturesSymbolsOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new GetFuturesSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedFuturesSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
@@ -1151,15 +1177,19 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             // Quanto not supported as it doesn't currently fit in the response models
             var data = result.Data.Where(x => x.SymbolType != SymbolType.Spot && !x.IsQuanto);
-            if (request.TradingMode != null) 
-            {
-                data = data.Where(x => request.TradingMode.Value.IsPerpetual() ? x.SymbolType == SymbolType.PerpetualContract : x.SymbolType == SymbolType.Futures);
-                data = data.Where(x => request.TradingMode.Value.IsInverse() ? x.IsInverse : !x.IsInverse);
-            }
-            
-            var response = HttpResult.Ok(result, data.Select(s => new SharedFuturesSymbol(
-                    s.SymbolType == SymbolType.PerpetualContract ? 
-                            (s.IsInverse ? TradingMode.PerpetualInverse : TradingMode.PerpetualLinear): 
+            var symbols = data
+                .Select(x => ParseFuturesSymbol(x))
+                .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicFuturesId, EnvironmentName, null, symbols);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(symbols, request));
+        }
+
+        private SharedFuturesSymbol ParseFuturesSymbol(BitMEXSymbol s)
+        {
+            var result = new SharedFuturesSymbol(
+                    s.SymbolType == SymbolType.PerpetualContract ?
+                            (s.IsInverse ? TradingMode.PerpetualInverse : TradingMode.PerpetualLinear) :
                             (s.IsInverse ? TradingMode.DeliveryInverse : TradingMode.DeliveryLinear),
                     BitMEXExchange.AssetAliases.ExchangeToCommonName(s.BaseAsset),
                     BitMEXExchange.AssetAliases.ExchangeToCommonName(s.QuoteAsset),
@@ -1171,11 +1201,32 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 QuantityStep = s.LotSize,
                 PriceStep = s.PriceStep,
                 ContractSize = s.IsInverse ? (s.Multiplier / s.UnderlyingToSettleMultiplier) : (1 / s.UnderlyingToPositionMultiplier),
-                DeliveryTime = s.SettleTime
-            }).ToArray());
+                DeliveryTime = s.SettleTime,
+                QuoteAssetType = SharedAssetType.Crypto,
+                QuoteAssetSubType = SharedAssetSubType.StableCoin,
+                DisplayName = s.Symbol
+            };
+            
+            if (s.Tags.Contains("cm"))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else if (s.Tags.Contains("fx"))
+            {
+                result.BaseAssetType = SharedAssetType.Fiat;
+            }
+            else if (s.Tags.Contains("eq"))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Equity;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+            }
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicFuturesId, EnvironmentName, null, response.Data!);
-            return response;
+            return result;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
