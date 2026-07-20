@@ -584,9 +584,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 .Where(x => x != null)
                 .ToArray();
 
-            var response = HttpResult.Ok(result, result.Data.Where(x => x.SymbolType == SymbolType.Spot).Select(s => 
-                ParseSpotSymbol(s)).ToArray());
-
             ExchangeSymbolCache.UpdateSymbolInfo(_topicSpotId, EnvironmentName, null, data);
             return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
         }
