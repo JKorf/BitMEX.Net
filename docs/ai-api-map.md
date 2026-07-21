@@ -104,9 +104,13 @@ Use SharedApis for exchange-agnostic code across BitMEX.Net and other CryptoExch
 | Shared assets | `IAssetsRestClient.GetAssetsAsync(new GetAssetsRequest())` |
 | Shared spot symbols | `ISpotSymbolRestClient.GetSpotSymbolsAsync(new GetSymbolsRequest())` |
 | Shared futures symbols | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(new GetSymbolsRequest())` |
+| Cached shared spot catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` |
+| Cached shared futures catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` |
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
+
+Shared spot/futures symbol queries apply `GetSymbolsRequest` filters and include display names and base/quote asset type metadata. BitMEX commodity, fiat, and equity instruments are classified where instrument metadata identifies them; quote assets are classified as crypto stablecoins.
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 

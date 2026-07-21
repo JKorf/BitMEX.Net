@@ -6,8 +6,8 @@ This file is optimized for AI coding assistants. It maps the actual BitMEX.Net A
 
 - Repository: `JKorf/BitMEX.Net`
 - Package: `JKorf.BitMEX.Net`
-- Current project version: `3.9.3`
-- Base library: `CryptoExchange.Net`
+- Current project version: `4.2.0`
+- Base library: `CryptoExchange.Net` `12.2.0`
 - REST client: `BitMEXRestClient`
 - Socket client: `BitMEXSocketClient`
 - Credentials: `BitMEXCredentials(string key, string secret)`
@@ -273,6 +273,8 @@ BitMEX.Net implements CryptoExchange.Net shared APIs:
 - `socketClient.ExchangeApi.SharedClient`
 
 Supported trading modes include spot, linear/inverse perpetuals, and linear/inverse delivery contracts. Shared clients may call `BitMEXUtils.UpdateSymbolInfoAsync()` internally to map symbols and quantities.
+
+The shared spot and futures symbol clients expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. `GetSpotSymbolsAsync(...)` and `GetFuturesSymbolsAsync(...)` apply `GetSymbolsRequest` filters and populate `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. BitMEX commodity, fiat, and equity instruments are classified from instrument metadata; quote assets are classified as crypto stablecoins.
 
 Use `SharedClient.Discover()` before routing optional shared features across exchanges:
 

@@ -30,6 +30,7 @@ REST:
 - `restClient.ExchangeApi.Trading`
 - `restClient.ExchangeApi.SharedClient`
 - Call `restClient.ExchangeApi.SharedClient.Discover()` to inspect supported shared REST features
+- Shared spot/futures symbol clients expose symbol catalogs; symbol queries apply `GetSymbolsRequest` filters and include display names and shared asset classifications
 
 Sockets:
 

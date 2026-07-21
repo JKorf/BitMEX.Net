@@ -20,6 +20,7 @@ Use the real BitMEX.Net structure:
 - `BitMEXRestClient.ExchangeApi.Trading`
 - `BitMEXSocketClient.ExchangeApi`
 - `ExchangeApi.SharedClient` for CryptoExchange.Net shared abstractions
+- Shared spot/futures symbol clients expose symbol catalogs, apply `GetSymbolsRequest` filters, and return display names and shared asset classifications
 
 Do not generate Binance, Bitget, BitMart, or Bitfinex client roots. There is no `SpotApi`, `UsdFuturesApi`, `SpotApiV3`, `FuturesApiV2`, `PerpetualFuturesApi`, or `CoinFuturesApi`.
 

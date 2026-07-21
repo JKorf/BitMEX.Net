@@ -36,6 +36,7 @@ There is no passphrase.
 - Use `ExchangeApi.ExchangeData`, `ExchangeApi.Account`, and `ExchangeApi.Trading`.
 - Use `BinPeriod.OneMinute`, `BinPeriod.FiveMinutes`, `BinPeriod.OneHour`, or `BinPeriod.OneDay` for klines.
 - Use BitMEX-native symbols such as `XBTUSD`, `ETH_USDT`, and symbols returned by `GetActiveSymbolsAsync`.
+- Shared spot/futures symbol clients expose symbol catalogs; their symbol queries apply `GetSymbolsRequest` filters and return display names and shared asset classifications.
 - Use `BitMEXUtils.UpdateSymbolInfoAsync()` before quantity conversion helpers.
 - Use `ToBitMEXSymbolQuantity`, `ToBitMEXAssetQuantity`, `ToSharedSymbolQuantity`, and `ToSharedAssetQuantity` from `BitMEX.Net.ExtensionMethods`.
 - Check `result.Success` before reading `result.Data`.

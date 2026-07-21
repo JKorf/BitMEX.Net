@@ -9,6 +9,8 @@ BitMEX.Net is a CryptoExchange.Net-based client for the BitMEX REST and websocke
 
 For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on the `ExchangeApi` surfaces. Use `.SharedClient.Discover()` to inspect supported shared features at runtime.
 
+Shared spot and futures symbol clients expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Their `GetSpotSymbolsAsync(...)` and `GetFuturesSymbolsAsync(...)` methods apply `GetSymbolsRequest` filters and return display names plus shared base/quote asset classifications. Commodity, fiat, and equity instruments are classified where BitMEX metadata identifies them; quote assets are classified as crypto stablecoins.
+
 ## Package And Client Shape
 
 - NuGet package id: `JKorf.BitMEX.Net`
