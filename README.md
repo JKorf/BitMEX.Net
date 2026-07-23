@@ -5,6 +5,8 @@
 
 BitMEX.Net is a client library for accessing the [BitMEX REST and Websocket API](https://www.bitmex.com/app/apiOverview). 
 
+# BitMEX has announced that it will be shutting down. See https://www.bitmex.com/blog/bitmex-closure
+
 ## Features
 * Response data is mapped to descriptive models
 * Input parameters and response values are mapped to discriptive enum values where possible
