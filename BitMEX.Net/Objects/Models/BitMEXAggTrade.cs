@@ -64,7 +64,7 @@ namespace BitMEX.Net.Objects.Models
         /// ["<c>turnover</c>"] Turnover
         /// </summary>
         [JsonPropertyName("turnover")]
-        public decimal Turnover { get; set; }
+        public long Turnover { get; set; }
         /// <summary>
         /// ["<c>homeNotional</c>"] Home notional
         /// </summary>

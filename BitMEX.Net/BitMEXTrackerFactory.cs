@@ -62,6 +62,7 @@ namespace BitMEX.Net
                 symbol,
                 limit,
                 period,
+                TradeQuantityType.Contracts,
                 exchangeParameters
                 );
         }

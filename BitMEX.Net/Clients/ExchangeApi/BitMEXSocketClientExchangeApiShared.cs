@@ -268,11 +268,13 @@ namespace BitMEX.Net.Clients.ExchangeApi
                         update.Data.LastPrice,
                         update.Data.HighPrice,
                         update.Data.LowPrice,
-                        request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedSymbolQuantity(symbol) ?? 0,
+                        new SharedOrderQuantity(
+                            update.Data.HomeNotional24h,
+                            update.Data.ForeignNotional24h, 
+                            update.Data.Volume24h),
                         update.Data.LastChangePcnt * 100
                         )
                     {
-                        QuoteVolume = request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Turnover24h ?? 0 : (update.Data.Turnover24h ?? 0).ToSharedAssetQuantity(symbol.Split('_').Last())
                     };
                 }
                 else
@@ -280,9 +282,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     ticker.LastPrice = update.Data.LastPrice ?? ticker.LastPrice;
                     ticker.HighPrice = update.Data.HighPrice ?? ticker.HighPrice;
                     ticker.LowPrice = update.Data.LowPrice ?? ticker.LowPrice;
-                    ticker.Volume = update.Data.Volume24h == null ? ticker.Volume : request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Volume24h ?? 0 : (update.Data.Volume24h ?? 0).ToSharedSymbolQuantity(symbol) ?? 0;
+                    ticker.Volumes = new SharedOrderQuantity(
+                        (update.Data.HomeNotional24h ?? ticker.Volumes.QuantityInBaseAsset),
+                        update.Data.ForeignNotional24h ?? ticker.Volumes.QuantityInQuoteAsset,
+                        update.Data.Volume24h ?? ticker.Volumes.QuantityInContracts);
                     ticker.ChangePercentage = update.Data.LastChangePcnt == null ? ticker.ChangePercentage : update.Data.LastChangePcnt * 100;
-                    ticker.QuoteVolume = update.Data.Turnover24h == null ? ticker.QuoteVolume : request.Symbol.TradingMode != TradingMode.Spot ? update.Data.Turnover24h ?? 0 : (update.Data.Turnover24h ?? 0).ToSharedAssetQuantity(symbol.Split('_').Last());
                 }
 
                 handler(update.ToType(ticker));
@@ -319,7 +323,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     new SharedTrade(
                         ExchangeSymbolCache.ParseSymbol(request.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, EnvironmentName, null, x.Symbol),
                         x.Symbol,
-                        x.Quantity.ToSharedSymbolQuantity(x.Symbol) ?? 0,
+                        new SharedOrderQuantity(x.HomeNotional, x.ForeignNotional, x.Quantity),
                         x.Price,
                         x.Timestamp)
                     {

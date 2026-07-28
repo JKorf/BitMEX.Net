@@ -294,15 +294,18 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                    .Select(x =>
-                        new SharedKline(
-                            request.Symbol, 
-                            symbol, 
-                            x.Timestamp.AddSeconds(-(int)interval),
-                            x.ClosePrice,
-                            x.HighPrice,
-                            x.LowPrice,
-                            x.OpenPrice,
-                            x.Volume.ToSharedSymbolQuantity(symbol) ?? 0))
+                   {
+                       var volume = x.Volume.ToSharedSymbolQuantity(symbol) ?? 0;
+                       return new SharedKline(
+                           request.Symbol,
+                           symbol,
+                           x.Timestamp.AddSeconds(-(int)interval),
+                           x.ClosePrice,
+                           x.HighPrice,
+                           x.LowPrice,
+                           x.OpenPrice,
+                           new SharedOrderQuantity(x.HomeNotional, x.ForeignNotional, x.Volume));
+                   })
                    .ToArray(), nextPageRequest);
         }
 
@@ -365,7 +368,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             // Return
             return HttpResult.Ok(result, result.Data.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity.ToSharedSymbolQuantity(symbol) ?? 0, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.HomeNotional, x.ForeignNotional, x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Sell ? SharedOrderSide.Sell : SharedOrderSide.Buy,
             }).ToArray());
@@ -413,7 +416,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             // Return
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
                        .Select(x => 
-                            new SharedTrade(request.Symbol, symbol, x.Quantity.ToSharedSymbolQuantity(symbol) ?? 0, x.Price, x.Timestamp)
+                            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.HomeNotional, x.ForeignNotional, x.Quantity), x.Price, x.Timestamp)
                             {
                                 Side = x.Side == OrderSide.Sell ? SharedOrderSide.Sell : SharedOrderSide.Buy,
                             })
@@ -681,11 +684,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 symbol.LastPrice,
                 symbol.HighPrice,
                 symbol.LowPrice,
-                symbol.Volume24h.ToSharedSymbolQuantity(symbol.Symbol) ?? 0,
+                new SharedOrderQuantity(symbol.Volume24h.ToSharedSymbolQuantity(symbol.Symbol), symbol.Turnover24h.ToSharedAssetQuantity(symbol.Symbol!.Split('_').Last()), symbol.Volume24h),
                 Math.Round(symbol.PrevPrice24h == 0 ? 0 : symbol.LastPrice / symbol.PrevPrice24h * 100 - 100, 3)
                 )
             {
-                QuoteVolume = symbol.Turnover24h.ToSharedAssetQuantity(symbol.Symbol!.Split('_').Last())
             });
         }
 
@@ -711,10 +713,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.LastPrice,
                 x.HighPrice,
                 x.LowPrice,
-                x.Volume24h.ToSharedSymbolQuantity(x.Symbol) ?? 0,
+                new SharedOrderQuantity(x.HomeNotional24h, x.ForeignNotional24h, x.Volume24h),
                 Math.Round(x.PrevPrice24h == 0 ? 0 : x.LastPrice / x.PrevPrice24h * 100 - 100, 3))
             {
-                QuoteVolume = x.Turnover24h.ToSharedAssetQuantity(x.Symbol!.Split('_').Last())
             }).ToArray());
         }
 
@@ -1287,7 +1288,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return HttpResult.Fail<SharedFuturesTicker>(resultTicker, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return HttpResult.Ok(resultTicker, 
-                new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, symbol.Symbol), symbol.Symbol, symbol.LastPrice, symbol.HighPrice, symbol.LowPrice, symbol.Volume, symbol.LastChangePercentage)
+                new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, symbol.Symbol),
+                    symbol.Symbol,
+                    symbol.LastPrice,
+                    symbol.HighPrice, 
+                    symbol.LowPrice,
+                    new SharedOrderQuantity(symbol.HomeNotional24h, symbol.ForeignNotional24h, symbol.Volume24h),
+                    symbol.LastChangePercentage)
             {
                 MarkPrice = symbol.MarkPrice,
                 FundingRate = symbol.FundingRate,
@@ -1316,7 +1324,14 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return HttpResult.Ok(resultTickers, data.Select(x =>
             {
                 var markPrice = resultTickers.Data.Single(p => p.Symbol == x.Symbol);
-                return new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.LastChangePercentage)
+                return new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    x.LastPrice,
+                    x.HighPrice,
+                    x.LowPrice,
+                    new SharedOrderQuantity(null, x.Turnover24h, x.Volume24h),
+                    x.LastChangePercentage)
                 {
                     MarkPrice = markPrice.MarkPrice,
                     FundingRate = markPrice.FundingRate,
