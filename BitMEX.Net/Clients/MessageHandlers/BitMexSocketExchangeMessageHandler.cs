@@ -16,15 +16,15 @@ namespace BitMEX.Net.Clients.MessageHandlers
 
         public BitMexSocketExchangeMessageHandler()
         {   
-            AddTopicMapping<SocketUpdate<BitMEXTradeUpdate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
+            AddTopicMapping<SocketUpdate<BitMEXTradeUpdate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? symbol.ToString() : null));
             AddTopicMapping<SocketUpdate<BitMEXAggTrade[]>>(x => x.Data.First().Symbol);
             AddTopicMapping<SocketUpdate<BitMEXBookTicker[]>>(x => x.Data.First().Symbol);
-            AddTopicMapping<SocketUpdate<BitMEXSettlementHistory[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
+            AddTopicMapping<SocketUpdate<BitMEXSettlementHistory[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? symbol.ToString() : null));
             AddTopicMapping<SocketUpdate<BitMEXOrderBookUpdate[]>>(x => x.Data.First().Symbol);
             AddTopicMapping<SocketUpdate<BitMEXOrderBookEntry[]>>(x => x.Data.First().Symbol);
-            AddTopicMapping<SocketUpdate<BitMEXLiquidation[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
-            AddTopicMapping<SocketUpdate<BitMEXFundingRate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
-            AddTopicMapping<SocketUpdate<BitMEXSymbolUpdate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? (string)symbol : null));
+            AddTopicMapping<SocketUpdate<BitMEXLiquidation[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? symbol.ToString() : null));
+            AddTopicMapping<SocketUpdate<BitMEXFundingRate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? symbol.ToString() : null));
+            AddTopicMapping<SocketUpdate<BitMEXSymbolUpdate[]>>(x => x.Data.FirstOrDefault()?.Symbol ?? (x.Filter?.TryGetValue("symbol", out var symbol) == true ? symbol.ToString() : null));
         }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
