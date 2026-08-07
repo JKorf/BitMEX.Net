@@ -276,6 +276,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 4.3.1 - 07 Aug 2026
+    * Fixed error in websocket message handling
+
 * Version 4.3.0 - 29 Jul 2026
     * Updated CryptoExchange.Net to version 12.4.0
     * Added calculation of AveragePrice on Shared order models if data is available and AveragePrice is not set

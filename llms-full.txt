@@ -6,7 +6,7 @@ This file is optimized for AI coding assistants. It maps the actual BitMEX.Net A
 
 - Repository: `JKorf/BitMEX.Net`
 - Package: `JKorf.BitMEX.Net`
-- Current project version: `4.3.0`
+- Current project version: `4.3.1`
 - Base library: `CryptoExchange.Net` `12.2.0`
 - REST client: `BitMEXRestClient`
 - Socket client: `BitMEXSocketClient`
