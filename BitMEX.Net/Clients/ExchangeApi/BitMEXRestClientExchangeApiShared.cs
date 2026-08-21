@@ -330,8 +330,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            var book = new SharedOrderBook(result.Data.Asks, result.Data.Bids);
-            if (request.Symbol!.TradingMode == TradingMode.Spot)
+            var spot = request.Symbol!.TradingMode == TradingMode.Spot;
+            var book = new SharedOrderBook(spot ? SharedQuantityType.BaseAsset : SharedQuantityType.Contracts, result.Data.Asks, result.Data.Bids);
+            if (spot)
             {
                 foreach (var item in book.Asks)
                     item.Quantity = ((long)item.Quantity).ToSharedAssetQuantity(request.Symbol!.BaseAsset) ?? 0;
@@ -444,13 +445,16 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (!resultTicker.Data.Any())
                 return HttpResult.Fail<SharedBookTicker>(resultTicker, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
+            var spot = request.Symbol!.TradingMode == TradingMode.Spot;
             return HttpResult.Ok(resultTicker, new SharedBookTicker(
-                ExchangeSymbolCache.ParseSymbol(request.Symbol!.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, EnvironmentName, null, resultTicker.Data[0].Symbol),
+                ExchangeSymbolCache.ParseSymbol(spot ? _topicSpotId : _topicFuturesId, EnvironmentName, null, resultTicker.Data[0].Symbol),
                 resultTicker.Data[0].Symbol,
                 resultTicker.Data[0].BestAskPrice,
-                resultTicker.Data[0].BestAskQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol) ?? 0,
+                new SharedOrderQuantity(spot ? resultTicker.Data[0].BestAskQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol) : null, 
+                                        contractQuantity: spot ? null : resultTicker.Data[0].BestAskQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol)),
                 resultTicker.Data[0].BestBidPrice,
-                resultTicker.Data[0].BestBidQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol) ?? 0));
+                new SharedOrderQuantity(spot ? resultTicker.Data[0].BestBidQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol) : null, 
+                                        contractQuantity: spot ? null : resultTicker.Data[0].BestBidQuantity.ToSharedSymbolQuantity(resultTicker.Data[0].Symbol))));
         }
 
         #endregion
@@ -938,7 +942,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.OrderId,
                 x.TradeId,
                 x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0,
+                new SharedOrderQuantity(x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0),
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
@@ -992,7 +996,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                                 x.OrderId,
                                 x.TradeId,
                                 x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0,
+                                new SharedOrderQuantity(x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0),
                                 x.LastTradePrice!.Value,
                                 x.Timestamp)
                             {
@@ -1422,7 +1426,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (symbol == null)
                 return HttpResult.Fail<SharedOpenInterest>(result, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
-            return HttpResult.Ok(result, new SharedOpenInterest(symbol.OpenInterest ?? 0));
+            return HttpResult.Ok(result, new SharedOpenInterest(new SharedOrderQuantity(symbol.OpenInterest ?? 0)));
         }
 
         #endregion
@@ -1636,7 +1640,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 x.OrderId,
                 x.TradeId,
                 x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity ?? 0,
+                new SharedOrderQuantity(x.Quantity ?? 0),
                 x.LastTradePrice!.Value,
                 x.Timestamp)
             {
@@ -1689,7 +1693,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                                 x.OrderId,
                                 x.TradeId,
                                 x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                x.Quantity ?? 0,
+                                new SharedOrderQuantity(x.Quantity ?? 0),
                                 x.LastTradePrice!.Value,
                                 x.Timestamp)
                             {
@@ -1732,15 +1736,20 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 data = data.Where(x => request.TradingMode.Value.IsPerpetual() ? BitMEXUtils.GetSymbolType(x.Symbol) == SymbolType.PerpetualContract : BitMEXUtils.GetSymbolType(x.Symbol) == SymbolType.Futures);
             
             var resultTypes = request.Symbol == null && request.TradingMode == null ? SupportedTradingModes : request.Symbol != null ? new[] { request.Symbol!.TradingMode } : new[] { request.TradingMode!.Value };
-            return HttpResult.Ok(result, data.Where(x => x.Currency != null).Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
-            {
-                UnrealizedPnl = x.UnrealizedPnl.ToSharedAssetQuantity(x.Currency!),
-                LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
-                Leverage = x.Leverage,
-                AverageOpenPrice = x.AverageEntryPrice,
-                PositionMode = SharedPositionMode.OneWay,
-                PositionSide = x.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long
-            }).ToArray());
+            return HttpResult.Ok(result, data.Where(x => x.Currency != null).Select(x =>
+                new SharedPosition(
+                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    new SharedOrderQuantity(Math.Abs(x.CurrentQuantity ?? 0)),
+                    x.Timestamp)
+                {
+                    UnrealizedPnl = x.UnrealizedPnl.ToSharedAssetQuantity(x.Currency!),
+                    LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
+                    Leverage = x.Leverage,
+                    AverageOpenPrice = x.AverageEntryPrice,
+                    PositionMode = SharedPositionMode.OneWay,
+                    PositionSide = x.CurrentQuantity < 0 ? SharedPositionSide.Short : SharedPositionSide.Long
+                }).ToArray());
         }
 
         ClosePositionOptions IFuturesOrderRestClient.ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)

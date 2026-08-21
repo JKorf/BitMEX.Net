@@ -159,7 +159,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             x.OrderId,
                             x.TradeId,
                             x.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0,
+                            new SharedOrderQuantity(x.Quantity?.ToSharedSymbolQuantity(x.Symbol) ?? 0),
                             x.LastTradePrice!.Value,
                             x.Timestamp)
                         {
@@ -199,9 +199,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                     ExchangeSymbolCache.ParseSymbol(request.TradingMode == TradingMode.Spot ? _topicSpotId : _topicFuturesId, EnvironmentName, null, update.Data.Symbol),
                     update.Data.Symbol,
                     update.Data.BestAskPrice,
-                    request.TradingMode != TradingMode.Spot ? update.Data.BestAskQuantity : update.Data.BestAskQuantity.ToSharedSymbolQuantity(update.Data.Symbol) ?? 0,
+                    new SharedOrderQuantity(request.TradingMode != TradingMode.Spot ? update.Data.BestAskQuantity : update.Data.BestAskQuantity.ToSharedSymbolQuantity(update.Data.Symbol) ?? 0),
                     update.Data.BestBidPrice,
-                    request.TradingMode != TradingMode.Spot ? update.Data.BestBidQuantity : update.Data.BestBidQuantity.ToSharedSymbolQuantity(update.Data.Symbol) ?? 0
+                    new SharedOrderQuantity(request.TradingMode != TradingMode.Spot ? update.Data.BestBidQuantity : update.Data.BestBidQuantity.ToSharedSymbolQuantity(update.Data.Symbol) ?? 0)
                     ))), ct).ConfigureAwait(false);
 
             return result;
@@ -228,7 +228,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)) : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToOrderBookUpdatesAsync(symbols, update =>
             {
-                var book = new SharedOrderBook(update.Data.Asks, update.Data.Bids);
+                var book = new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids);
                 if (request.TradingMode == TradingMode.Spot)
                 {
                     foreach (var item in book.Asks)
@@ -402,7 +402,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, symbolInfoResult.Error!);
 
             var result = await SubscribeToPositionUpdatesAsync(
-                update => handler(update.ToType<SharedPosition[]>(update.Data.Where(x => x.Currency != null).Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), x.Symbol, Math.Abs(x.CurrentQuantity ?? 0), x.Timestamp)
+                update => handler(update.ToType<SharedPosition[]>(update.Data.Where(x => x.Currency != null).Select(x =>
+                new SharedPosition(
+                    ExchangeSymbolCache.ParseSymbol(_topicFuturesId, EnvironmentName, null, x.Symbol), 
+                    x.Symbol,
+                    new SharedOrderQuantity(Math.Abs(x.CurrentQuantity ?? 0)), 
+                    x.Timestamp)
                 {
                     AverageOpenPrice = x.AverageEntryPrice,
                     PositionMode = SharedPositionMode.OneWay,
