@@ -5,7 +5,7 @@ Generate code against the actual BitMEX.Net client shape.
 Before making API-shape decisions, also read:
 
 - `AGENTS.md` for the full repository-specific AI coding guide
-- `llms.txt` for concise Bitstamp.Net context
+- `llms.txt` for concise BitMEX.Net context
 - `llms-full.txt` for detailed endpoint routing, pitfalls and examples
 - `docs/ai-api-map.md` for intent-to-method mapping
 
@@ -37,6 +37,7 @@ There is no passphrase.
 - Use `BinPeriod.OneMinute`, `BinPeriod.FiveMinutes`, `BinPeriod.OneHour`, or `BinPeriod.OneDay` for klines.
 - Use BitMEX-native symbols such as `XBTUSD`, `ETH_USDT`, and symbols returned by `GetActiveSymbolsAsync`.
 - Shared spot/futures symbol clients expose symbol catalogs; their symbol queries apply `GetSymbolsRequest` filters and return display names and shared asset classifications.
+- Shared quantities use `SharedOrderQuantity`; check `SharedOrderBook.QuantityType` rather than assuming spot and derivative book entries use the same unit.
 - Use `BitMEXUtils.UpdateSymbolInfoAsync()` before quantity conversion helpers.
 - Use `ToBitMEXSymbolQuantity`, `ToBitMEXAssetQuantity`, `ToSharedSymbolQuantity`, and `ToSharedAssetQuantity` from `BitMEX.Net.ExtensionMethods`.
 - Check `result.Success` before reading `result.Data`.

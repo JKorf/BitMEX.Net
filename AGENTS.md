@@ -81,6 +81,8 @@ BitMEX quantities are not always human asset units.
 - Wallet balances and some spot quantities are in BitMEX base units such as `XBt` or `gwei`.
 - Perpetual and delivery contract quantities are contract counts.
 - Spot order quantities passed to `PlaceOrderAsync` use the BitMEX API base-unit quantity.
+- Shared API quantities use `SharedOrderQuantity` to keep base-asset, quote-asset, and contract values distinct; do not treat them as unitless decimals.
+- Check `SharedOrderBook.QuantityType` before interpreting book entry quantities. Shared REST spot books use base-asset quantities and shared REST derivative books use contract quantities.
 - Use `BitMEXUtils.UpdateSymbolInfoAsync()` before using conversion helpers.
 - Use extension methods from `BitMEX.Net.ExtensionMethods`:
   - `ToBitMEXAssetQuantity(asset)`

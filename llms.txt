@@ -78,5 +78,6 @@ var sub = await socketClient.ExchangeApi.SubscribeToTradeUpdatesAsync("XBTUSD", 
 - Use BitMEX-native symbols such as `XBTUSD` and `ETH_USDT`.
 - Use `BinPeriod.OneMinute`, `FiveMinutes`, `OneHour`, or `OneDay`.
 - BitMEX quantities are base units for assets/spot and contract counts for derivatives.
+- Shared API results use `SharedOrderQuantity` and order-book `QuantityType` to distinguish base, quote, and contract quantities.
 - Call `await BitMEXUtils.UpdateSymbolInfoAsync();` before using `ToBitMEXSymbolQuantity`, `ToBitMEXAssetQuantity`, `ToSharedSymbolQuantity`, or `ToSharedAssetQuantity`.
 - Always check `result.Success` before reading `result.Data`.

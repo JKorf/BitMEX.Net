@@ -112,6 +112,8 @@ Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscript
 
 Shared spot/futures symbol queries apply `GetSymbolsRequest` filters and include display names and base/quote asset type metadata. BitMEX commodity, fiat, and equity instruments are classified where instrument metadata identifies them; quote assets are classified as crypto stablecoins.
 
+Shared quantity-bearing results use `SharedOrderQuantity` to distinguish base-asset, quote-asset, and contract values. Check `SharedOrderBook.QuantityType` before interpreting order-book entry quantities; shared REST spot books use base-asset units and shared REST derivative books use contracts.
+
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 
 ## Result Handling
@@ -132,6 +134,7 @@ For shared socket subscriptions, keep the concrete socket client and unsubscribe
 | Discover symbols | `ExchangeData.GetActiveSymbolsAsync()` |
 | Kline enum | `BinPeriod` |
 | Spot/asset conversion | `BitMEXUtils.UpdateSymbolInfoAsync()` plus extension methods |
+| Shared quantity units | Read `SharedOrderQuantity`; check `SharedOrderBook.QuantityType` for book entries |
 | Credential shape | `new BitMEXCredentials(key, secret)` |
 
 ## Avoid / Replace

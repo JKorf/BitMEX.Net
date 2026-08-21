@@ -9,7 +9,7 @@ alwaysApply: true
 Before making API-shape decisions, also read:
 
 - `AGENTS.md` for the full repository-specific AI coding guide
-- `llms.txt` for concise Bitstamp.Net context
+- `llms.txt` for concise BitMEX.Net context
 - `llms-full.txt` for detailed endpoint routing, pitfalls and examples
 - `docs/ai-api-map.md` for intent-to-method mapping
 
@@ -38,6 +38,7 @@ Symbols and quantities:
 - Spot example: `ETH_USDT`
 - Query `ExchangeData.GetActiveSymbolsAsync()` for exact symbols.
 - BitMEX quantities can be base units or contract counts.
+- Shared results use `SharedOrderQuantity`; check `SharedOrderBook.QuantityType` before interpreting book quantities.
 - Call `await BitMEXUtils.UpdateSymbolInfoAsync();` before using conversion helpers from `BitMEX.Net.ExtensionMethods`.
 - Kline interval enum is `BinPeriod`.
 
