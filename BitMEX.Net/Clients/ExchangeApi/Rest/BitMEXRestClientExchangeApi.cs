@@ -23,6 +23,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
     internal partial class BitMEXRestClientExchangeApi : RestApiClient<BitMEXEnvironment, BitMEXAuthenticationProvider, BitMEXCredentials>, IBitMEXRestClientExchangeApi
     {
         #region fields 
+        private readonly BitMEXRestClientExchangeSharedApi _sharedApi;
+
         public new BitMEXRestOptions ClientOptions => (BitMEXRestOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => BitMEXErrors.RestErrors;
@@ -84,7 +86,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
             => BitMEXExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverDate);
 
         /// <inheritdoc />
-        public IBitMEXRestClientExchangeApiShared SharedClient => this;
+        public IBitMEXRestClientExchangeApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IBitMEXRestClientExchangeSharedApi SharedApi => _sharedApi;
 
     }
 }

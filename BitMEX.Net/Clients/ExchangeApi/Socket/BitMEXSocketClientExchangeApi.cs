@@ -36,6 +36,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
     internal partial class BitMEXSocketClientExchangeApi : SocketApiClient<BitMEXEnvironment, BitMEXAuthenticationProvider, BitMEXCredentials>, IBitMEXSocketClientExchangeApi
     {
         #region fields
+        private readonly BitMEXSocketClientExchangeSharedApi _sharedApi;
+
         protected override ErrorMapping ErrorMapping => BitMEXErrors.SocketErrors;
         #endregion
 
@@ -47,6 +49,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
         internal BitMEXSocketClientExchangeApi(ILoggerFactory? loggerFactory, BitMEXSocketOptions options) :
             base(loggerFactory, BitMEXExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.ExchangeOptions)
         {
+            _sharedApi = new BitMEXSocketClientExchangeSharedApi(this);
+
             AddSystemSubscription(new BitMEXInfoSubscription(_logger));
 
             RegisterPeriodicQuery("Ping", TimeSpan.FromSeconds(5), x => new PingQuery(), (connection, result) =>
@@ -557,7 +561,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         /// <inheritdoc />
-        public IBitMEXSocketClientExchangeApiShared SharedClient => this;
+        public IBitMEXSocketClientExchangeApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IBitMEXSocketClientExchangeSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null)
