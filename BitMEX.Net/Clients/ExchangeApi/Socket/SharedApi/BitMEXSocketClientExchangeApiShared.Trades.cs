@@ -14,7 +14,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXSocketClientExchangeSharedApi
     {
-        #region Trade client
+        #region Subscribe To Trade Updates
 
         public SubscribeTradeOptions SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false)
         {
@@ -54,5 +54,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         #endregion
+
     }
 }

@@ -14,7 +14,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXSocketClientExchangeSharedApi
     {
-        #region Spot Order client
+        #region Subscribe To Spot Order Updates
+
         async Task<WebSocketResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<DataEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
             => await SubscribeToSpotOrderUpdatesAsync(request, x => handler(x.ToType<SharedSpotOrder[]>(x.Data)), ct).ConfigureAwait(false);
 
@@ -67,6 +68,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return result;
         }
 
+        #endregion
+
         private SharedTimeInForce? ParseTimeInForce(TimeInForce timeInForce)
         {
             if (timeInForce == TimeInForce.GoodTillCancel) return SharedTimeInForce.GoodTillCanceled;
@@ -92,6 +95,5 @@ namespace BitMEX.Net.Clients.ExchangeApi
             if (orderType == OrderType.Limit || orderType == OrderType.LimitIfTouched || orderType == OrderType.StopLimit) return SharedOrderType.Limit;
             return SharedOrderType.Other;
         }
-        #endregion
     }
 }

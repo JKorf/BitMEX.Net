@@ -17,8 +17,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXRestClientExchangeSharedApi
     {
-        #region Funding Rate client
+        #region Get Funding Rate History
+
         public GetFundingRateHistoryOptions GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(_exchangeName, true, true, true, 500, false);
+
+        async Task<ICallResult<SharedFundingRate[]>> IGetFundingRateHistory.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetFundingRateHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedFundingRate[]>> GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -55,6 +59,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             new SharedFundingRate(x.FundingRate, x.Timestamp))
                        .ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }

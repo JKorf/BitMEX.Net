@@ -14,7 +14,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXSocketClientExchangeSharedApi
     {
-        #region Order Book client
+        #region Subscribe To Order Book Updates
+
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 10 })
         {
             MaxSymbolCount = 20,
@@ -47,6 +48,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             return result;
         }
+
         #endregion
     }
 }

@@ -14,7 +14,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXSocketClientExchangeSharedApi
     {
-        #region Futures Order client
+        #region Subscribe To Futures Order Updates
+
         async Task<WebSocketResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
             => await SubscribeToFuturesOrderUpdatesAsync(request, x => handler(x.ToType<SharedFuturesOrder[]>(x.Data)), ct).ConfigureAwait(false);
 
@@ -66,6 +67,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             return result;
         }
+
         #endregion
     }
 }

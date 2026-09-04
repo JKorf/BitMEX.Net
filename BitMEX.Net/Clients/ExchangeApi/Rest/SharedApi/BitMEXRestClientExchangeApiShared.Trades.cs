@@ -17,8 +17,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXRestClientExchangeSharedApi
     {
-        #region Recent Trades client
+        #region Get Recent Trades
+
         public GetRecentTradesOptions GetRecentTradesOptions { get; } = new GetRecentTradesOptions(_exchangeName, 1000, false);
+
+        async Task<ICallResult<SharedTrade[]>> IGetRecentTrades.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
+            => await GetRecentTradesAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedTrade[]>> GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
@@ -46,10 +50,15 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 Side = x.Side == OrderSide.Sell ? SharedOrderSide.Sell : SharedOrderSide.Buy,
             }).ToArray());
         }
+
         #endregion
 
-        #region Trade History client
+        #region Get Trade History
+
         public GetTradeHistoryOptions GetTradeHistoryOptions { get; } = new GetTradeHistoryOptions(_exchangeName, true, true, true, 1000, false);
+
+        async Task<ICallResult<SharedTrade[]>> IGetTradeHistory.GetTradeHistoryAsync(GetTradeHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetTradeHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedTrade[]>> GetTradeHistoryAsync(GetTradeHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -95,6 +104,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                             })
                        .ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }

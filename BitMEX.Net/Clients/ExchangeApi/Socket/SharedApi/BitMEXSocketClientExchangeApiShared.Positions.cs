@@ -14,7 +14,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXSocketClientExchangeSharedApi
     {
-        #region Position client
+        #region Subscribe To Position Updates
+
         public SubscribePositionOptions SubscribePositionOptions { get; } = new SubscribePositionOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<DataEvent<SharedPosition[]>> handler, CancellationToken ct)
         {
@@ -47,5 +48,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         #endregion
+
     }
 }

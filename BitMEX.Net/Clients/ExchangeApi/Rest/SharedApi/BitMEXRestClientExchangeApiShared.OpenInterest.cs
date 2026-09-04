@@ -17,9 +17,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXRestClientExchangeSharedApi
     {
-        #region Open Interest client
+        #region Get Open Interest
 
         public GetOpenInterestOptions GetOpenInterestOptions { get; } = new GetOpenInterestOptions(_exchangeName, true);
+        async Task<ICallResult<SharedOpenInterest>> IGetOpenInterest.GetOpenInterestAsync(GetOpenInterestRequest request, CancellationToken ct)
+            => await GetOpenInterestAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedOpenInterest>> GetOpenInterestAsync(GetOpenInterestRequest request, CancellationToken ct)
         {
             var validationError = GetOpenInterestOptions.ValidateRequest(request, this);
@@ -40,5 +43,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         #endregion
+
     }
 }

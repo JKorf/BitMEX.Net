@@ -119,6 +119,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<BitMEXRestOptions>>(),
                 x.GetRequiredService<IOptions<BitMEXSocketOptions>>()));
 
+            services.RegisterSharedApi(x => x.GetRequiredService<IBitMEXRestClient>().ExchangeApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IBitMEXSocketClient>().ExchangeApi.SharedApi);
+
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMEXRestClient>().ExchangeApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMEXSocketClient>().ExchangeApi.SharedClient);
 

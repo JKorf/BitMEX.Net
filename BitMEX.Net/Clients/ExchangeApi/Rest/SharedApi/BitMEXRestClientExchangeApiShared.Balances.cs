@@ -17,8 +17,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXRestClientExchangeSharedApi
     {
-        #region Balance Client
+        #region Get Balances
+
         public GetBalancesOptions GetBalancesOptions { get; } = new GetBalancesOptions(_exchangeName, AccountTypeFilter.Spot, AccountTypeFilter.Funding, AccountTypeFilter.Futures);
+
+        async Task<ICallResult<SharedBalance[]>> IGetBalances.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
+            => await GetBalancesAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedBalance[]>> GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
@@ -44,5 +48,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         #endregion
+
     }
 }

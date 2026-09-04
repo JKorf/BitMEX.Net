@@ -17,7 +17,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXRestClientExchangeSharedApi
     {
-        #region Deposit client
+        #region Get Deposit Addresses
 
         public GetDepositAddressesOptions GetDepositAddressesOptions { get; } = new GetDepositAddressesOptions(_exchangeName, true)
         {
@@ -26,6 +26,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 new ParameterDescription(nameof(GetDepositAddressesRequest.Network), typeof(string), "Network to use", "btc")
             }
         };
+        async Task<ICallResult<SharedDepositAddress[]>> IGetDepositAddresses.GetDepositAddressesAsync(GetDepositAddressesRequest request, CancellationToken ct)
+            => await GetDepositAddressesAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedDepositAddress[]>> GetDepositAddressesAsync(GetDepositAddressesRequest request, CancellationToken ct)
         {
             var validationError = GetDepositAddressesOptions.ValidateRequest(request, this);
@@ -39,6 +42,10 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return HttpResult.Ok(depositAddresses, new[] { new SharedDepositAddress(request.Asset, depositAddresses.Data) });
         }
 
+        #endregion
+
+        #region Get Deposit History
+
         Task<HttpResult<SharedDeposit[]>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, PageRequest? nextPageToken, CancellationToken ct)
             => GetDepositHistoryAsync(request, nextPageToken, ct);
         GetDepositHistoryOptions IDepositRestClient.GetDepositsOptions => GetDepositHistoryOptions;
@@ -47,6 +54,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             RequestNotes = "Due to the API not offering a filter on deposit type less results may be returned per page"
         };
+        async Task<ICallResult<SharedDeposit[]>> IGetDepositHistory.GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetDepositHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedDeposit[]>> GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = GetDepositHistoryOptions.ValidateRequest(request, this);
@@ -97,6 +107,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                        .ToArray(), nextPageRequest);
         }
 
+        #endregion
+
         private SharedTransferStatus ParseTransferStatus(TransactionStatus status)
         {
             if (status == TransactionStatus.Completed)
@@ -108,6 +120,5 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return SharedTransferStatus.Unknown;
         }
 
-        #endregion
     }
 }

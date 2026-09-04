@@ -14,7 +14,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXSocketClientExchangeSharedApi
     {
-        #region Book Ticker client
+        #region Subscribe To Book Ticker Updates
 
         public SubscribeBookTickerOptions SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false)
         {
@@ -46,5 +46,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         #endregion
+
     }
 }

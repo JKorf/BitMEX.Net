@@ -17,7 +17,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXRestClientExchangeSharedApi
     {
-        #region Withdrawal client
+        #region Get Withdrawal History
+
         Task<HttpResult<SharedWithdrawal[]>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, PageRequest? nextPageToken, CancellationToken ct)
             => GetWithdrawalHistoryAsync(request, nextPageToken, ct);
         GetWithdrawalHistoryOptions IWithdrawalRestClient.GetWithdrawalsOptions => GetWithdrawalHistoryOptions;
@@ -26,6 +27,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             RequestNotes = "Due to the API not offering a filter on withdrawal type less results may be returned per page"
         };
+        async Task<ICallResult<SharedWithdrawal[]>> IGetWithdrawalHistory.GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetWithdrawalHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedWithdrawal[]>> GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = GetWithdrawalHistoryOptions.ValidateRequest(request, this);
@@ -79,6 +83,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
                        .ToArray(), nextPageRequest);
         }
 
+        #endregion
+
         private SharedTransferStatus GetWithdrawalStatus(BitMEXTransaction x)
         {
             if (x.TransactionStatus == TransactionStatus.Canceled)
@@ -90,9 +96,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return SharedTransferStatus.Unknown;
         }
 
-        #endregion
-
-        #region Withdraw client
+        #region Withdraw
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
@@ -101,6 +105,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 new ParameterDescription(nameof(WithdrawRequest.Network), typeof(string), "Network to use", "btc")
             }
         };
+        async Task<ICallResult<SharedId>> IWithdraw.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
+            => await WithdrawAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedId>> WithdrawAsync(WithdrawRequest request, CancellationToken ct)
         {
             var validationError = WithdrawOptions.ValidateRequest(request, this);
@@ -126,5 +133,6 @@ namespace BitMEX.Net.Clients.ExchangeApi
         }
 
         #endregion
+
     }
 }

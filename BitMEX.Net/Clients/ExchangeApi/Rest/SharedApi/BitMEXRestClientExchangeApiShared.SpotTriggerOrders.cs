@@ -17,8 +17,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
 {
     internal partial class BitMEXRestClientExchangeSharedApi
     {
-        #region Spot Trigger Order Client
+        #region Place Spot Trigger Order
+
         public PlaceSpotTriggerOrderOptions PlaceSpotTriggerOrderOptions { get; } = new PlaceSpotTriggerOrderOptions(_exchangeName, false);
+
+        async Task<ICallResult<SharedId>> IPlaceSpotTriggerOrder.PlaceSpotTriggerOrderAsync(PlaceSpotTriggerOrderRequest request, CancellationToken ct)
+            => await PlaceSpotTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedId>> PlaceSpotTriggerOrderAsync(PlaceSpotTriggerOrderRequest request, CancellationToken ct)
         {
@@ -43,10 +47,17 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
         }
 
+        #endregion
+
+        #region Get Spot Trigger Order
+
         public GetSpotTriggerOrderOptions GetSpotTriggerOrderOptions { get; } = new GetSpotTriggerOrderOptions(_exchangeName, true)
         {
             RequestNotes = "Only pending trigger orders can be requested, executed trigger orders are not available in the API"
         };
+        async Task<ICallResult<SharedSpotTriggerOrder>> IGetSpotTriggerOrder.GetSpotTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetSpotTriggerOrderAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedSpotTriggerOrder>> GetSpotTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
             var validationError = GetSpotTriggerOrderOptions.ValidateRequest(request, this);
@@ -87,6 +98,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
             });
         }
 
+        #endregion
+
         private SharedTriggerOrderStatus ParseTriggerOrderStatus(OrderStatus status)
         {
             if (status == OrderStatus.Filled)
@@ -101,7 +114,12 @@ namespace BitMEX.Net.Clients.ExchangeApi
             return SharedTriggerOrderStatus.Unknown;
         }
 
+        #region Cancel Spot Trigger Order
+
         public CancelSpotTriggerOrderOptions CancelSpotTriggerOrderOptions { get; } = new CancelSpotTriggerOrderOptions(_exchangeName, true);
+        async Task<ICallResult<SharedId>> ICancelSpotTriggerOrder.CancelSpotTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelSpotTriggerOrderAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedId>> CancelSpotTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
             var validationError = CancelSpotTriggerOrderOptions.ValidateRequest(request, this);
@@ -116,6 +134,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
             return HttpResult.Ok(order, new SharedId(request.OrderId));
         }
+
         #endregion
     }
 }
