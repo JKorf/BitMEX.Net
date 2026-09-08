@@ -52,8 +52,8 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         IGetWithdrawalHistoryRest,
         IWithdrawRest,
         IGetSpotSymbolsRest,
-        IGetSpotTickerRest,
-        IGetAllSpotTickersRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
         IPlaceSpotOrderRest,
         IGetSpotOrderRest,
         IGetOpenSpotOrdersRest,
@@ -63,8 +63,6 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         ICancelSpotOrderRest,
         IGetFundingRateHistoryRest,
         IGetFuturesSymbolsRest,
-        IGetFuturesTickerRest,
-        IGetAllFuturesTickersRest,
         ISetLeverageRest,
         IGetLeverageRest,
         IGetOpenInterestRest,
@@ -73,7 +71,6 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         IGetOpenFuturesOrdersRest,
         IGetClosedFuturesOrdersRest,
         ICancelFuturesOrderRest,
-        IClosePositionRest,
         IGetFuturesOrderTradesRest,
         IGetFuturesUserTradeHistoryRest,
         ICancelFuturesOrderByClientOrderIdRest,
@@ -89,6 +86,7 @@ namespace BitMEX.Net.Interfaces.Clients.ExchangeApi
         IPlaceSpotTriggerOrderRest,
         IGetSpotTriggerOrderRest,
         ICancelSpotTriggerOrderRest,
-        ICancelSpotOrderByClientOrderIdRest
+        ICancelSpotOrderByClientOrderIdRest,
+        IGetSpotOrderByClientOrderIdRest
     { }
 }

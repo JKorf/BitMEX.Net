@@ -100,10 +100,9 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(WithdrawRequest.Network), typeof(string), "Network to use", "btc")
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<WithdrawRequest>.Required(x => x.Network)
+            ]
         };
         async Task<ICallResult<SharedId>> IWithdraw.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
             => await WithdrawAsync(request, ct).ConfigureAwait(false);
