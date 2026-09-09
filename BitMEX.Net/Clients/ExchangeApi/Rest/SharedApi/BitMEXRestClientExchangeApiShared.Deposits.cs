@@ -51,7 +51,11 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public GetDepositHistoryOptions GetDepositHistoryOptions { get; } = new GetDepositHistoryOptions(_exchangeName, true, true, false, 10000)
         {
-            RequestNotes = "Due to the API not offering a filter on deposit type less results may be returned per page"
+            RequestNotes = "Due to the API not offering a filter on deposit type less results may be returned per page",
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetDepositsRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetDepositsRequest>.NotSupported(x => x.EndTime)
+                ]
         };
         async Task<ICallResult<SharedDeposit[]>> IGetDepositHistory.GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
             => await GetDepositHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
