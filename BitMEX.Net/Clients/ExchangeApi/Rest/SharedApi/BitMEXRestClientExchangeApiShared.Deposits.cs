@@ -21,7 +21,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public GetDepositAddressesOptions GetDepositAddressesOptions { get; } = new GetDepositAddressesOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetDepositAddressesRequest>.Required(x => x.Network)
             ]
         };
@@ -52,7 +52,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         public GetDepositHistoryOptions GetDepositHistoryOptions { get; } = new GetDepositHistoryOptions(_exchangeName, true, true, false, 10000)
         {
             RequestNotes = "Due to the API not offering a filter on deposit type less results may be returned per page",
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetDepositsRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetDepositsRequest>.NotSupported(x => x.EndTime)
                 ]

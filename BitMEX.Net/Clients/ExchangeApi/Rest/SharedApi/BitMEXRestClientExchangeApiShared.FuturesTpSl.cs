@@ -50,7 +50,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<CancelTpSlRequest>.Required(x => x.OrderId)
             ]
         };

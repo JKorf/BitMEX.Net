@@ -120,7 +120,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public GetOpenSpotOrdersOptions GetOpenSpotOrdersOptions { get; } = new GetOpenSpotOrdersOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetOpenOrdersRequest>.NotSupported(x => x.Symbol)
                 ]
         };

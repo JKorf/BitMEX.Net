@@ -100,7 +100,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<WithdrawRequest>.Required(x => x.Network)
             ]
         };

@@ -52,6 +52,8 @@ namespace BitMEX.Net.Clients.ExchangeApi
             Account = new BitMEXRestClientExchangeApiAccount(this);
             ExchangeData = new BitMEXRestClientExchangeApiExchangeData(_logger, this);
             Trading = new BitMEXRestClientExchangeApiTrading(_logger, this);
+
+            _sharedApi = new BitMEXRestClientExchangeSharedApi(this);
         }
         #endregion
 
