@@ -27,7 +27,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
 
         public BitMEXSocketClientExchangeSharedApi(BitMEXSocketClientExchangeApi api)
             : base(
-                  SharedTransport.Rest,
+                  SharedTransport.Socket,
                   api.Exchange,
                   [TradingMode.Spot, TradingMode.PerpetualLinear, TradingMode.DeliveryLinear, TradingMode.PerpetualInverse, TradingMode.DeliveryInverse],
                   () => api.Authenticated,
