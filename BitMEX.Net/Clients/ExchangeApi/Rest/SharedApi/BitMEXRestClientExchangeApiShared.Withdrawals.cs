@@ -27,7 +27,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
         {
             RequestNotes = "Due to the API not offering a filter on withdrawal type less results may be returned per page"
         };
-        async Task<ICallResult<SharedWithdrawal[]>> IGetWithdrawalHistory.GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
+        async Task<IExchangeCallResult<SharedWithdrawal[]>> IGetWithdrawalHistory.GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
             => await GetWithdrawalHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedWithdrawal[]>> GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
@@ -104,7 +104,7 @@ namespace BitMEX.Net.Clients.ExchangeApi
                 RequestParameterRuleOverride<WithdrawRequest>.Required(x => x.Network)
             ]
         };
-        async Task<ICallResult<SharedId>> IWithdraw.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
+        async Task<IExchangeCallResult<SharedId>> IWithdraw.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
             => await WithdrawAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedId>> WithdrawAsync(WithdrawRequest request, CancellationToken ct)
